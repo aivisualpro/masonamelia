@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Button from "./Button";
 import { FiPhoneCall } from "react-icons/fi";
-import meetTheTeam from "/images/team.png"
+import meetTheTeam from "/images/team.jpg"
 
 const MeetTheTeam = () => {
   return (

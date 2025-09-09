@@ -23,7 +23,7 @@ const ContactPage = () => {
         }`}
         style={{
           backgroundImage: `linear-gradient(to right,rgb(21, 22, 28, ${
-            media ? ".9" : "1"
+            media ? ".8" : "1"
           }) ${
             media ? "100%" : "35%"
           }, rgba(0, 0, 0, 0.05)), url(${bgPlaneHeader})`,
@@ -45,7 +45,7 @@ const ContactPage = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-80 z-[0]"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-95 z-[0]"></div>
 
         <div className="container flex flex-col h-full justify-center xl:py-10">
           <Contact />

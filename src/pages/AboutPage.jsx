@@ -108,7 +108,7 @@ const AboutPage = () => {
       <section
         className="md:sticky top-0 relative w-screen h-screen bg-[#10121A]"
         style={{
-          backgroundImage: `linear-gradient(to right, rgb(21, 22, 28, ${media ? ".95" : "1"}) ${media? "100%" : "30%"}, rgba(0, 0, 0,0.3)), url(${bgPlane})`,
+          backgroundImage: `linear-gradient(to right, rgb(21, 22, 28, ${media ? ".8" : "1"}) ${media? "100%" : "30%"}, rgba(0, 0, 0,0.3)), url(${bgPlane})`,
           backgroundSize: "cover", 
           backgroundPosition: "30% 85%",
           backgroundRepeat: "no-repeat",

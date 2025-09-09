@@ -21,7 +21,7 @@ const SkynetPage = () => {
         className="md:sticky top-0 h-screen w-full bg-cover bg-center z-[0]"
         style={{
           backgroundImage: `linear-gradient(to right, rgb(21, 22, 28, ${
-            media ? ".9" : "1"
+            media ? ".8" : "1"
           }) ${media ? "100%" : "30%"}, rgba(21, 22, 28,0.3)), url(${banner})`,
           backgroundSize: "cover",
           backgroundPosition: "center right",
