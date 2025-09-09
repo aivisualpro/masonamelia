@@ -1,5 +1,5 @@
 import React from "react";
-import plane from "/images/aeroplane.png";
+import plane from "/images/aeroplane.jpg";
 import { motion } from "framer-motion";
 
 const ServiceHighlights = ({

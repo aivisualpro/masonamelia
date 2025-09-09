@@ -67,7 +67,7 @@ const SliderWrapper = () => {
 
   return (
     <>
-      <section className="md:h-screen relative z-[0] w-screen py-20 overflow-x-hidden">
+      <section className="md:h-screen lg:h-full xl:h-screen relative z-[0] w-screen py-20 overflow-x-hidden">
         <div className="absolute w-screen top-0 left-0 h-full">
           <div className="absolute w-screen h-full bg-black opacity-80 md:opacity-50 z-[10]"></div>
           <Swiper

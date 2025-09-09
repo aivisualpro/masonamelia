@@ -11,6 +11,21 @@ body {
   width: 100vw !important;
 }
 
+.logo {
+  filter: brightness(100);
+  transition: filter .1s ease-in-out;
+}
+.logo:hover {
+  filter: none !important;
+  transition: filter .1s ease-in-out;
+}
+.brand_img {
+  filter: brightness(0) invert(1);
+}
+/* .brand_img:hover {
+  filter: none !important;
+} */
+
 h1,
 h2,
 h3 {
@@ -244,20 +259,10 @@ h6 {
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  padding: 5rem 0;
-  height: 100%;
-
-  /* Center slide text vertically */
+  padding: 3rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .autoplay-progress {

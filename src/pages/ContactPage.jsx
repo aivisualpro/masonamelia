@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Contact from "../components/Contact";
-import bgPlane from "/images/contact.png";
+import bgPlane from "/images/contact.avif";
 import bgPlaneHeader from "/images/contact-header.jpg";
 import ScrollToTop from "../components/ScrollToTop";
 import { useLocation } from "react-router-dom";
@@ -18,7 +18,7 @@ const ContactPage = () => {
       <Navbar />
 
       <section
-        className={`md:sticky top-0 relative w-full bg-cover bg-center rounded-[20px] h-screen -mt-[5.7rem] ${
+        className={`md:sticky top-0 relative w-full bg-cover bg-center rounded-[20px] h-screen ${
           location.pathname !== "/contact" ? "lg:h-full xl:h-screen" : "h-full "
         }`}
         style={{

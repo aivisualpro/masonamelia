@@ -54,7 +54,7 @@ const Gallary = () => {
         className="fixed inset-0 flex items-center justify-center bg-black/90 z-[9999]"
         overlayClassName="z-[9999]"
       >
-        <div className="bg-black p-4 rounded-lg w-[95%] md:w-[80%] max-w-5xl">
+        <div className="bg-black px-4 py-16 rounded-lg w-[95%] md:w-[80%] max-w-5xl">
           <button
             onClick={closeModal}
             className="text-white text-3xl font-bold absolute top-5 right-8"
@@ -90,7 +90,7 @@ const Gallary = () => {
                 <img
                   src={video.src}
                   alt={video.title}
-                  className={`rounded w-full 2xl:min-h-[300px] lg:max-h-[90px] xl:max-h-[110px] 2xl:object-cover lg:object-contain border-2 ${
+                  className={`rounded w-[425px] h-[225px] border-4 ${
                     currentIndex === i
                       ? "border-blue-500"
                       : "border-transparent"

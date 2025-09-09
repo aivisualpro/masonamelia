@@ -190,7 +190,7 @@ const GlassNavbar = () => {
   }, []);
 
   return (
-    <div className="fixed w-full z-[9999] xl:block hidden left-1/2 -translate-x-1/2">
+    <div className="w-full z-[9999] xl:block hidden ">
       {/* SVG filter definitions */}
       <svg style={{ display: "none" }}>
         <filter id="lg-dist" x="0%" y="0%" width="100%" height="100%">
@@ -250,7 +250,7 @@ const GlassNavbar = () => {
                     to="/about"
                     className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color"
                   >
-                    About MA +
+                    About MA
                   </Link>
                 </li>
 

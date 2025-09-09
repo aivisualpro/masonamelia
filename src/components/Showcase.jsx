@@ -6,14 +6,14 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Showcase = () => {
   return (
-    <header className="w-screen z-[10]">
+    <header className="w-screen md:h-screen z-[10]">
       <div
         className="sm:absolute top-0 left-0 w-full h-full md:h-screen z-[-1]"
         style={{
           filter: "drop-shadow(20px 10px 15px rgba(255, 255, 255, 0.2))",
         }}
       >
-        <div className="w-screen h-[30vh] sm:h-[50vh] md:h-[75%] lg:h-full overflow-hidden">
+        <div className="w-screen h-[30vh] sm:h-[50vh] md:h-[75%] lg:h-[screen] overflow-hidden">
           <div
             className={`overlay absolute top-0 left-0 w-full h-full z-10 md:block hidden`}
             style={{

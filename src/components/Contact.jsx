@@ -8,7 +8,7 @@ import {
   FaInstagram,
   FaYoutube,
 } from "react-icons/fa";
-import contactBanner from "/images/contact.png";
+import contactBanner from "/images/contact.avif";
 import { useLocation } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
@@ -89,7 +89,7 @@ const Contact = () => {
         }}
       >
         {location.pathname !== "/contact" && (
-          <div className="absolute top-0 left-0 w-full h-full bg-black opacity-80 z-[0]" />
+          <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-95 z-[0]" />
         )}
 
         <div className="container mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -297,6 +297,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-
-

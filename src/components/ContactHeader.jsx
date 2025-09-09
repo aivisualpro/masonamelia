@@ -7,7 +7,7 @@ const ContactHeader = () => {
   const media = useMediaQuery("(max-width: 767px)");
 
   return (
-    <div className="flex items-center h-[100vh]">
+    <div className="flex items-center h-screen">
       {/* Overlay card */}
       <div className="md:p-8 py-8 px-2 text-whitetext-start">
         <motion.h2
