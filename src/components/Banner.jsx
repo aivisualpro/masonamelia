@@ -10,7 +10,7 @@ const Banner = ({ url }) => {
     <>
     <Navbar />
       <div
-        className="bg-img w-full md:sticky top-0 h-screen -mt-[5.7rem]"
+        className="bg-img w-full md:sticky top-0 h-screen"
         style={{
           backgroundImage: `linear-gradient(to right,rgb(21, 22, 28, ${
             media ? ".8" : "1"
@@ -18,7 +18,7 @@ const Banner = ({ url }) => {
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
+          backgroundPosition: "bottom right",
         }}
       >
         {/* <div className="overlay bg-black opacity-60 absolute top-0 left-0 w-full h-full z-[-1]"></div> */}
@@ -41,7 +41,7 @@ const Banner = ({ url }) => {
               disabled={false}
               isTextCenter={media ? true : false}
               speed={5}
-              className="custom-class text-[16px] md:text-xl mt-4 md:max-w-2xl"
+              className="custom-class text-[16px] md:text-xl mt-4 md:max-w-md lg:max-w-xl xl:max-w-2xl"
             />
           </div>
         </div>

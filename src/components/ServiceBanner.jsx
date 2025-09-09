@@ -14,15 +14,15 @@ const ServiceBanner = ({ banner }) => {
     <>
       <Navbar />
       <section
-        className="w-screen h-screen md:sticky top-0 -mt-[5.7rem]"
+        className="w-screen h-screen md:sticky top-0"
         style={{
-          backgroundImage: `linear-gradient(to right, rgb(21, 22, 28, ${media ? ".95" : "1"}) ${media? "100%" : "35%"}, rgba(21, 22, 28,0.3)), url(${
+          backgroundImage: `linear-gradient(to right, rgb(21, 22, 28, ${media ? ".8" : "1"}) ${media? "100%" : `${location.pathname === "/brokerage" ? "35%" : "32%"}`}, rgba(21, 22, 28,0.3)), url(${
             location.pathname === "/brokerage"
               ? banner
               : banner
           })`,
           backgroundSize: "cover",
-          backgroundPosition: "bottom",
+          backgroundPosition: `${location.pathname === "/brokerage" ? "70% 50%" : "bottom right"}`,
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
         }}

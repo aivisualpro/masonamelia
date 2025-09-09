@@ -67,11 +67,11 @@ const HeroSection = () => {
                 </div>
                 <div className="w-1/2 md:w-[33%] relative">
                   <GlassmorphismCircularCard
-                    title="Advisory"
-                    tagline="Legal • Sales Tax • Insurance"
+                    title="Valuation"
+                    tagline="Real-Time Insights By Skynet"
                     link="/skynet"
                     icon={
-                      <FaHandsHelping
+                      <FiTrendingUp
                         size={36}
                         color="#111218"
                         className="bg-tertiary_color p-2 rounded-[50%]"
@@ -83,11 +83,11 @@ const HeroSection = () => {
                 </div>
                 <div className="w-1/2 md:w-[33%] relative">
                   <GlassmorphismCircularCard
-                    title="Valuation"
-                    tagline="Real-Time Market Insights"
+                    title="Advisory"
+                    tagline="Legal • Sales Tax • Insurance"
                     link="/higher"
                     icon={
-                      <FiTrendingUp
+                      <FaHandsHelping
                         size={36}
                         color="#111218"
                         className="bg-tertiary_color p-2 rounded-[50%]"

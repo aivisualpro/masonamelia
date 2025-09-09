@@ -133,23 +133,15 @@ const MeetTheTeam = () => {
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="justify-center md:w-1/2 flex relative z-[0]">
+          <div className="justify-center md:w-1/2 flex relative 2xl:scale-[1.1] z-[0]">
             <motion.img
               initial={{ opacity: 0, x: 70 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
               src={meetTheTeam}
               alt="Team Banner"
-              className="rounded-3xl w-full z-[20] lg:mt-[25px] xl:mt-[100px] lg:ml-[50px]"
+              className="rounded-3xl scale-[1.2] w-full z-[20] lg:mt-[25px] xl:mt-[100px] lg:ml-[50px]"
             />
-
-            {/* Transparent Overlay */}
-            {/* <motion.div
-              initial={{ opacity: 0, x: 100 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="lg:block hidden absolute left-0 w-[470px] h-[550px] bg-[#bee0fe7c] rounded-3xl z-[-1]"
-            ></motion.div> */}
           </div>
         </div>
       </div>

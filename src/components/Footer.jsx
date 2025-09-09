@@ -16,9 +16,9 @@ const Footer = () => {
   return (
     <footer className="bg-[#15161c] py-4 relative px-4">
       <div className="container px-5">
-        <div className="flex lg:flex-row flex-col items-center justify-between gap-6">
+        <div className="flex md:flex-row flex-col md:items-center justify-between gap-6">
           {/* Logo Section */}
-          <div className="w-[33.3%] flex flex-col justify-center items-start gap-4">
+          <div className="md:order-first order-second md:w-[33.3%] flex flex-col md:justify-center items-start gap-4">
             <div className="social-icons flex items-center gap-4">
               <a
                 href="https://www.linkedin.com/company/masonamelia/"
@@ -62,7 +62,7 @@ const Footer = () => {
             </p>
           </div>
 
-          <div className="w-[33.3%] flex flex-col items-center justify-center">
+          <div className="md:order-second order-first md:w-[33.3%] flex flex-col md:items-center items-start justify-center">
             <Link to={"/"}>
               <img
                 src={logo}
@@ -78,7 +78,7 @@ const Footer = () => {
             </p> */}
           </div>
 
-          <div className="w-[33.3%] gap-4 flex flex-col items-end justify-center">
+          <div className="md:w-[33.3%] gap-4 flex flex-col md:items-end justify-center">
             {/* Principal Office */}
             <div>
               <img
