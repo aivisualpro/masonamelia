@@ -12,7 +12,7 @@ const MemberDetailPage = () => {
     <>
       <Navbar />
       <section
-        className="relative w-full bg-cover bg-center flex justify-center z-[10] -mt-[10vh] h-full"
+        className="relative w-full bg-cover bg-center flex justify-center z-[10] h-full"
         style={{ backgroundImage: `url(${bgPlane})` }}
       >
         <div className="absolute top-0 left-0 w-full bg-black h-full opacity-90 z-[-1]"></div>

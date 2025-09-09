@@ -61,7 +61,7 @@ const Reviews = () => {
 
   return (
     <>
-      <section id="testimonials" className={`py-10 ${location.pathname === "/testimonial" ? "xl:h-[90vh]" : "xl:h-[100vh]"}  flex flex-col justify-center`}>
+      <section id="testimonials" className={`py-10 ${location.pathname === "/testimonial" ? "xl:h-[100vh]" : "xl:h-[100vh]"}  flex flex-col justify-center`}>
         <div className="container px-5 mb-14 z-[20]">
           <div className="text-center">
             <motion.h5

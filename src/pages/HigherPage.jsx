@@ -15,7 +15,7 @@ const HigherPage = () => {
     <>
       <Navbar />
       <section
-        className="md:sticky top-0 relative w-full bg-cover h-screen bg-center z-[0] -mt-[5.7rem]"
+        className="md:sticky top-0 relative w-full bg-cover h-screen bg-center z-[0]"
         style={{
           backgroundImage: `linear-gradient(to right,rgb(21, 22, 28, ${
             media ? ".9" : "1"
