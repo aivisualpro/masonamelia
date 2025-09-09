@@ -1,6 +1,8 @@
 import React from "react";
 import plane from "/images/aeroplane.jpg";
+import plane2 from "/images/aeroplane.png";
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 const ServiceHighlights = ({
   topTitle = "Streamlined",
@@ -9,6 +11,9 @@ const ServiceHighlights = ({
   description = "Every acquisition tells a story. Discover how Mason Amelia’s proven strategies deliver precise, profitable outcomes—from first contact to final delivery.",
   data,
 }) => {
+
+  const location = useLocation();
+
   return (
     <>
       <section className="py-20 bg-[#fff] relative z-[10] parallax-bg">
@@ -53,12 +58,12 @@ const ServiceHighlights = ({
                   duration: 0.5,
                   delay: 0.2,
                 }}
-                src={plane}
+                src={location.pathname === "/brokerage" ? plane2 : plane}
                 alt="3D Reflected Airplane"
                 className="w-full object-contain"
               />
               <img
-                src={plane}
+                src={location.pathname === "/brokerage" ? plane2 : plane}
                 alt="Reflection"
                 className="
                w-full object-contain
