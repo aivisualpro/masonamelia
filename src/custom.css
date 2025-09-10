@@ -16,7 +16,7 @@
   justify-content: center !important;
   position: fixed !important;
   top: 90vh;
-  transform: translateX(-50%) !important;
+  transform: translateX(-2rem) !important;
   overflow: visible;
 }
 .swiper-button-next:after {
@@ -33,7 +33,7 @@
   justify-content: center !important;
   position: fixed !important;
   top: 90vh;
-  transform: translateX(50%) !important;
+  transform: translateX(1rem) !important;
   overflow: visible;
 }
 
