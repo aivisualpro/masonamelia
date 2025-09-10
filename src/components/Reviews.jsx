@@ -62,7 +62,7 @@ const Reviews = () => {
   return (
     <>
       <section id="testimonials" className={`py-10 ${location.pathname === "/testimonial" ? "xl:h-[100vh]" : "xl:h-[100vh]"}  flex flex-col justify-center`}>
-        <div className="container px-5 mb-14 z-[20]">
+        <div className={`${location.pathname === "/testimonial" ? "container px-5 mb-14 z-[20]" : ""}`}>
           <div className="text-center">
             <motion.h5
               initial={{ opacity: 0, y: 80 }}
@@ -85,7 +85,9 @@ const Reviews = () => {
           </div>
         </div>
 
-        <div className="testimonial_moving_card mt-8 md:[mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+        {/*  */}
+
+        <div className="testimonial_moving_card mt-8 md:[mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]"> 
           <InfiniteMovingCards
             bgColor=""
             pauseOnHover={true}

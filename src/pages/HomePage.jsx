@@ -33,9 +33,9 @@ const HomePage = () => {
           className="relative xl:h-screen bg-[#111218] w-full bg-cover bg-center z-[10]"
           // style={{ backgroundImage: `url(${bgPlane})` }}
         >
-          <div className="absolute top-0 left-0 w-full h-full bg-[#111218] z-[-1]"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-[#111218] z-[-9]"></div>
           {/* <Navbar /> */}
-          <div className="container">
+          <div className="z-[2]">
             <Reviews />
           </div>
         </section>
