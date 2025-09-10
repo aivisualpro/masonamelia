@@ -259,10 +259,10 @@ h6 {
 .swiper-slide {
   text-align: center;
   font-size: 18px;
-  padding: 3rem 0;
+  padding: 0 0 3rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-end;
+  align-content: flex-end;
 }
 
 .autoplay-progress {

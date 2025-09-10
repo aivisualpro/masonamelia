@@ -16,7 +16,7 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end start"],
+    offset: ["start start", "end end"],
   });
 
   const springConfig = { stiffness: 200, damping: 30, bounce: 100 };
@@ -26,7 +26,7 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
     springConfig
   );
   const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [-70, -1000]),
+    useTransform(scrollYProgress, [0, 1], [0, -1000]),
     springConfig
   );
   const rotateX = useSpring(
@@ -49,13 +49,13 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
   return (
     <div
       ref={ref}
-      className="h-[100rem] md:h-[115rem] 2xl:h-[140rem] overflow-hidden bg-[#111218] flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="z-[10] h-[100rem] md:h-[115rem] 2xl:h-[140rem] overflow-hidden bg-[#111218] flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
 
       <motion.div style={{ rotateX, rotateZ, translateY, opacity }}>
         {/* Row 1 */}
-        <motion.div className="flex flex-row-reverse">
+        <motion.div className="flex flex-row-reverse z-[999]">
           {firstRow.map((port, index) => (
             <ProductCard
               data={port}
@@ -96,7 +96,7 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
 
 export const Header = () => {
   return (
-    <div className="z-[999] h-screen absolute mx-auto px-4 w-full left-0 flex items-center justify-center flex-col text-center">
+    <div className="h-screen absolute z-[-1] mx-auto px-4 w-full left-0 flex items-center justify-center flex-col text-center">
       <h1 className="text-[2rem] md:text-[2.5rem] lg:text-[3.2rem] xl:text-7xl font-bold text-white">
         A Bespoke Approach to Brokerage
       </h1>
@@ -113,7 +113,7 @@ export const ProductCard = ({ data, translate, onClick }) => {
     <motion.div
       style={{ x: translate }}
       whileHover={{ y: -20 }}
-      className="group/product relative cursor-pointer  p-3"
+      className="group/product relative cursor-pointer p-3"
       onClick={onClick}
       role="button"
       tabIndex={0}
@@ -123,7 +123,7 @@ export const ProductCard = ({ data, translate, onClick }) => {
         src={data.src}
         alt={data.title}
         loading="lazy"
-        className={`min-h-[125px] min-w-[250px] md:min-h-[180px] md:min-w-[320px] 2xl:min-h-[225px] 2xl:min-w-[425px] h-full rounded-[5px] transition-opacity duration-300`}
+        className={`min-h-[125px] min-w-[250px] md:min-h-[180px] md:min-w-[320px] 2xl:min-h-[225px] 2xl:min-w-[425px] h-full rounded-[5px] duration-300`}
       />
       
     </motion.div>

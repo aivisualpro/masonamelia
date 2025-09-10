@@ -54,7 +54,7 @@ const Gallary = () => {
         className="fixed inset-0 flex items-center justify-center bg-black/90 z-[9999]"
         overlayClassName="z-[9999]"
       >
-        <div className="bg-black px-4 py-16 rounded-lg w-[95%] md:w-[80%] max-w-5xl">
+        <div className="bg-black h-screen rounded-lg w-[95%] md:w-[80%] max-w-5xl">
           <button
             onClick={closeModal}
             className="text-white text-3xl font-bold absolute top-5 right-8"
@@ -63,7 +63,7 @@ const Gallary = () => {
           </button>
 
           {/* Main Video */}
-          <div className="aspect-video">
+          <div className="h-[50vh]">
             <iframe
               src={products[currentIndex].videoUrl}
               title={products[currentIndex].src}
@@ -73,16 +73,17 @@ const Gallary = () => {
           </div>
 
           {/* Thumbnails */}
+          <div className="h-1/2">
           <Swiper
             onSwiper={setThumbsSwiper}
             spaceBetween={10}
-            slidesPerView={4}
+            slidesPerView={4.5}
             navigation={true}
             loop={true}
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Thumbs, Navigation, Keyboard]}
-            className="mySwiper w-full min-w-screen"
+            className="mySwiper w-full min-w-screen flex items-end"
             keyboard={true}
           >
             {products?.map((video, i) => (
@@ -90,7 +91,7 @@ const Gallary = () => {
                 <img
                   src={video.src}
                   alt={video.title}
-                  className={`rounded w-[425px] h-[225px] border-4 ${
+                  className={`rounded border-4 ${
                     currentIndex === i
                       ? "border-blue-500"
                       : "border-transparent"
@@ -100,6 +101,7 @@ const Gallary = () => {
               </SwiperSlide>
             ))}
           </Swiper>
+          </div>
         </div>
       </Modal>
     </>
