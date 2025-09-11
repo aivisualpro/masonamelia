@@ -1,6 +1,6 @@
 import React from "react";
-import plane from "/images/aeroplane.jpg";
-import plane2 from "/images/aeroplane.png";
+import plane from "/images/aeroplane(2).jpg";
+import plane2 from "/images/aeroplane.jpg";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 
@@ -46,7 +46,7 @@ const ServiceHighlights = ({
           </div>
 
           {/* Main Content Grid */}
-          <div className="md:flex items-center gap-10">
+          <div className="flex md:flex-row flex-col items-center gap-10">
             {/* 3D Plane Image */}
             <div className="md:w-[50%] mx-auto md:sticky top-0 self-start">
               <motion.img
@@ -61,20 +61,6 @@ const ServiceHighlights = ({
                 src={location.pathname === "/brokerage" ? plane2 : plane}
                 alt="3D Reflected Airplane"
                 className="w-full object-contain"
-              />
-              <img
-                src={location.pathname === "/brokerage" ? plane2 : plane}
-                alt="Reflection"
-                className="
-               w-full object-contain
-               transform scale-y-[-1]
-               opacity-50
-               mt-[-20px]
-               relative z-0
-               pointer-events-none
-               select-none
-               mask-gradient
-            "
               />
             </div>
 
