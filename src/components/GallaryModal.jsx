@@ -57,7 +57,7 @@ const GalleryModal = ({
           navigation={true}
           watchSlidesProgress={true}
           modules={[FreeMode, Thumbs, Keyboard, Navigation]}
-          className="mySwiper"
+          className="mySwiper mt-10 md:mt-4"
           breakpoints={{
             0: {
               slidesPerView: 2,

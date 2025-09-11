@@ -51,7 +51,7 @@ const Gallary = () => {
         isOpen={modalOpen}
         onRequestClose={closeModal}
         contentLabel="Video Gallery Modal"
-        className="fixed inset-0 flex items-center justify-center bg-black/90 z-[9999]"
+        className="gallary_thumbnail fixed inset-0 flex items-center justify-center bg-black/90 z-[9999]"
         overlayClassName="z-[9999]"
       >
         <div className="bg-black h-screen rounded-lg w-[95%] md:w-[80%] max-w-5xl">

@@ -1,8 +1,8 @@
-.swiper {
+.gallary_thumbnail .swiper {
   position: "static" !important;
 }
 
-.swiper-button-prev:after {
+.gallary_thumbnail .swiper-button-prev:after {
   color: white !important;
   background-color: #222 !important;
   width: 30px !important;
@@ -19,7 +19,7 @@
   transform: translateX(-2rem) !important;
   overflow: visible;
 }
-.swiper-button-next:after {
+.gallary_thumbnail .swiper-button-next:after {
   color: white !important;
   background-color: #222 !important;
   width: 30px !important;
@@ -38,48 +38,48 @@
 }
 
 @media (min-width: 1850px) {
-  .swiper-button-prev:after {
+  .gallary_thumbnail .swiper-button-prev:after {
     left: calc(100vw - 80%) !important;
   }
-  .swiper-button-next:after {
+  .gallary_thumbnail .swiper-button-next:after {
     right: calc(100vw - 81%) !important;
   }
 }
 @media (max-width: 1850px) {
-  .swiper-button-prev:after {
+  .gallary_thumbnail .swiper-button-prev:after {
     left: calc(100vw - 85%) !important;
   }
-  .swiper-button-next:after {
+  .gallary_thumbnail .swiper-button-next:after {
     right: calc(100vw - 86%) !important;
   }
 }
 @media (max-width: 1600px) {
-  .swiper-button-prev:after {
+  .gallary_thumbnail .swiper-button-prev:after {
     left: calc(100vw - 88%) !important;
   }
-  .swiper-button-next:after {
+  .gallary_thumbnail .swiper-button-next:after {
     right: calc(100vw - 89%) !important;
   }
 }
 @media (max-width: 1450px) {
-  .swiper-button-prev:after {
+  .gallary_thumbnail .swiper-button-prev:after {
     left: calc(100vw - 90%) !important;
   }
-  .swiper-button-next:after {
+  .gallary_thumbnail .swiper-button-next:after {
     right: calc(100vw - 91%) !important;
   }
 }
 @media (max-width: 1350px) {
-  .swiper-button-prev:after {
+  .gallary_thumbnail .swiper-button-prev:after {
     left: calc(100vw - 93%) !important;
   }
-  .swiper-button-next:after {
+  .gallary_thumbnail .swiper-button-next:after {
     right: calc(100vw - 94%) !important;
   }
 }
 @media (max-width: 767px) {
-  .swiper-button-prev, 
-  .swiper-button-next {
+  .gallary_thumbnail .swiper-button-prev, 
+  .gallary_thumbnail .swiper-button-next {
     display: none;
   }
 }

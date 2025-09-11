@@ -267,7 +267,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
   const renderTabContent = () => {
     const data = aircraft[activeTab.toLowerCase()];
     return (
-      <div className="md:flex justify-between mt-6 space-y-2 border-t-[1px] border-b-[1px] border-dashed border-gray-700 pt-2">
+      <div className="md:flex justify-between mt-6 space-y-2 border-t-[1px] border-b-[1px] border-dashed border-gray-700">
         <div className="md:w-[20%] tab-heading">
           <h2 className="pt-4 text-3xl font-semibold bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
             {activeTab
@@ -292,7 +292,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
   return (
     <>
-      <section id="showroom" className="pb-20 pt-[150px] md:py-20">
+      <section id="showroom" className="pb-20 pt-[150px] md:pb-20 md:pt-[calc(110px+5rem)]">
         <div className="container px-5">
           <div className="lg:flex items-center justify-between">
             <h1 className="text-3xl font-bold mb-4 lg:mb-8 text-white">
@@ -494,7 +494,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
           {renderTabContent()}
 
           {/* Relatedd Aircraft */}
-          <h4 className="mt-16 text-4xl text-white">Related Aircraft</h4>
+          <h4 className="mt-16 mb-8 text-4xl text-white">Related Aircraft</h4>
           <Swiper
             spaceBetween={30}
             navigation={{
