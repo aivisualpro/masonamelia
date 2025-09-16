@@ -61,7 +61,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       setLoading(true);
       try {
         setErrMsg("");
-        const res = await fetch(`${DETAIL_URL}${id}`, { signal: ac.signal });
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/aircrafts/lists/${id}`, { signal: ac.signal });
         if (!res.ok) throw new Error(`Detail ${res.status}`);
         const json = await res.json();
         setAircraft(json?.data || null);
@@ -81,7 +81,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
     const ac = new AbortController();
     (async () => {
       try {
-        const res = await fetch(LIST_URL, { signal: ac.signal });
+        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/aircrafts/lists/`, { signal: ac.signal });
         const json = await res.json();
         const rows = Array.isArray(json?.data) ? json.data : [];
         const mapped = rows
