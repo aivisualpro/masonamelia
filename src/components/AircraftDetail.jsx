@@ -219,13 +219,15 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                     <IoImageOutline size={media ? 18 : 22} />
                     <span>View More</span>
                   </button>
-                  <button
-                    onClick={openVideoModal}
-                    className="bg-[#22242e] w-full md:w-1/2 md:mb-0 mb-4 hover:bg-[#22242e]/80 transition-all duration-300 flex items-center justify-center gap-2 text-white py-3 px-4 rounded-[30px] text-sm md:text-lg font-semibold"
-                  >
-                    <FaRegCirclePlay size={media ? 18 : 22} />
-                    <span>Video</span>
-                  </button>
+                  {aircraft?.videoUrl && (
+                    <button
+                      onClick={openVideoModal}
+                      className="bg-[#22242e] w-full md:w-1/2 md:mb-0 mb-4 hover:bg-[#22242e]/80 transition-all duration-300 flex items-center justify-center gap-2 text-white py-3 px-4 rounded-[30px] text-sm md:text-lg font-semibold"
+                    >
+                      <FaRegCirclePlay size={media ? 18 : 22} />
+                      <span>Video</span>
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

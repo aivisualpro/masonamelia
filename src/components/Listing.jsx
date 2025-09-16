@@ -75,7 +75,12 @@ export default function Listing() {
   };
 
   // fetch
-  const { data: apiData, isPending, isFetching, error } = useAircraftsQuery({
+  const {
+    data: apiData,
+    isPending,
+    isFetching,
+    error,
+  } = useAircraftsQuery({
     status: activeTab,
     page: currentPage,
   });
@@ -93,11 +98,21 @@ export default function Listing() {
   useEffect(() => {
     if (activeTab !== "all") return;
     const next = currentPage + 1;
-    const url = buildUrl({ status: activeTab, page: next, pageSize: ITEMS_PER_PAGE });
+    const url = buildUrl({
+      status: activeTab,
+      page: next,
+      pageSize: ITEMS_PER_PAGE,
+    });
     queryClient.prefetchQuery({
-      queryKey: ["aircrafts", { status: activeTab, page: next, pageSize: ITEMS_PER_PAGE }],
+      queryKey: [
+        "aircrafts",
+        { status: activeTab, page: next, pageSize: ITEMS_PER_PAGE },
+      ],
       queryFn: async ({ signal }) => {
-        const { data } = await axios.get(url, { signal, withCredentials: false });
+        const { data } = await axios.get(url, {
+          signal,
+          withCredentials: false,
+        });
         return data;
       },
     });
@@ -118,7 +133,10 @@ export default function Listing() {
   );
 
   // price bounds from current page
-  const allPrices = useMemo(() => rows.map((a) => Number(a.price || 0)), [rows]);
+  const allPrices = useMemo(
+    () => rows.map((a) => Number(a.price || 0)),
+    [rows]
+  );
   const minPrice = allPrices.length ? Math.min(...allPrices) : 0;
   const maxPrice = allPrices.length ? Math.max(...allPrices) : 0;
 
@@ -159,7 +177,9 @@ export default function Listing() {
 
   // client-side filter within current server page (unchanged UI)
   const filteredRows = useMemo(() => {
-    const sel = new Set((deferredSelected || []).map((s) => String(s).toLowerCase().trim()));
+    const sel = new Set(
+      (deferredSelected || []).map((s) => String(s).toLowerCase().trim())
+    );
     const chosenBrands = aircraftOptions.filter((v) => sel.has(v));
 
     const [effMin, effMax] = [
@@ -172,13 +192,19 @@ export default function Listing() {
       const tabOk = activeTab === "all" || a.category === activeTab;
       const airframeOk =
         !airframeRange ||
-        (Number(a.airframe) >= airframeRange[0] && Number(a.airframe) <= airframeRange[1]);
+        (Number(a.airframe) >= airframeRange[0] &&
+          Number(a.airframe) <= airframeRange[1]);
       const engineOk =
         !engineRange ||
-        (Number(a.engine) >= engineRange[0] && Number(a.engine) <= engineRange[1]);
+        (Number(a.engine) >= engineRange[0] &&
+          Number(a.engine) <= engineRange[1]);
       const brandOk =
         chosenBrands.length === 0 ||
-        chosenBrands.includes(String(a.aircraft || "").toLowerCase().trim());
+        chosenBrands.includes(
+          String(a.aircraft || "")
+            .toLowerCase()
+            .trim()
+        );
 
       return priceOk && tabOk && airframeOk && engineOk && brandOk;
     });
@@ -203,17 +229,29 @@ export default function Listing() {
     const [d0, d1] = priceDefault;
     const priceActive =
       priceTouched &&
-      (Number(priceRange?.[0] ?? d0) > d0 || Number(priceRange?.[1] ?? d1) < d1);
+      (Number(priceRange?.[0] ?? d0) > d0 ||
+        Number(priceRange?.[1] ?? d1) < d1);
 
     return hasChips || airframeActive || engineActive || priceActive;
-  }, [selectedFilters, airframeRange, engineRange, priceTouched, priceRange, priceDefault]);
+  }, [
+    selectedFilters,
+    airframeRange,
+    engineRange,
+    priceTouched,
+    priceRange,
+    priceDefault,
+  ]);
 
-  const clientAwareTotalItems = hasAnyClientFilter ? filteredRows.length : serverTotalItems;
+  const clientAwareTotalItems = hasAnyClientFilter
+    ? filteredRows.length
+    : serverTotalItems;
 
   const totalPages = useMemo(() => {
-    const base = hasAnyClientFilter ? filteredRows.length : serverTotalItems;
-    return Math.max(1, Math.ceil(Number(base || 0) / ITEMS_PER_PAGE));
-  }, [hasAnyClientFilter, filteredRows.length, serverTotalItems]);
+    return Math.max(
+      1,
+      Math.ceil(Number(serverTotalItems || 0) / ITEMS_PER_PAGE)
+    );
+  }, [serverTotalItems]);
 
   // clamp if filters shrink total pages
   useEffect(() => {
@@ -243,12 +281,19 @@ export default function Listing() {
   }, [filteredRows.length]);
 
   return (
-    <section id="showroom" ref={sectionRef} className="bg-[#111218] relative z-[10] py-10">
+    <section
+      id="showroom"
+      ref={sectionRef}
+      className="bg-[#111218] relative z-[10] py-10"
+    >
       <div className="container px-6">
         <div className="text-center mb-20">
-          <h1 className="text-4xl font-bold text-white pt-10">Explore Our Aircraft Collection</h1>
+          <h1 className="text-4xl font-bold text-white pt-10">
+            Explore Our Aircraft Collection
+          </h1>
           <p className="text-white text-base max-w-3xl mx-auto mt-2">
-            Browse a curated inventory of premium aircraft tailored for diverse missions and budgets.
+            Browse a curated inventory of premium aircraft tailored for diverse
+            missions and budgets.
           </p>
         </div>
 
@@ -276,7 +321,10 @@ export default function Listing() {
         {/* Mobile filter toggle */}
         <div className="filter mb-4 lg:hidden flex justify-end">
           <IoFilterSharp />
-          <button onClick={() => setIsOpen(!isOpen)} className="text-white flex items-center gap-2">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-white flex items-center gap-2"
+          >
             Filter
           </button>
         </div>
@@ -345,7 +393,9 @@ export default function Listing() {
           <motion.div
             layout
             transition={{ duration: 0.2 }}
-            className={`w-full ${filterOpen ? "lg:w-[70%] lg:ms-[5%]" : "lg:w-full lg:ms-0"}`}
+            className={`w-full ${
+              filterOpen ? "lg:w-[70%] lg:ms-[5%]" : "lg:w-full lg:ms-0"
+            }`}
           >
             {loading ? (
               <div className="flex justify-center items-center py-24">
