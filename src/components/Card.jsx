@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import DOMPurify from "dompurify";
 
 const categoryGradients = {
@@ -14,6 +14,11 @@ const categoryGradients = {
 };
 
 const Card = ({ detail }) => {
+
+  console.log("detail", detail)
+
+  const location = useLocation();
+
   const categoryName =
     (typeof detail?.category === "string"
       ? detail?.category
@@ -25,7 +30,7 @@ const Card = ({ detail }) => {
 
   // Sanitize the incoming HTML (overview)
   const overviewHTML = useMemo(() => {
-    const dirty = detail?.raw?.overview || "";
+    const dirty = location.pathname !== "/showroom" ? detail?.overview || "" : detail?.raw?.overview || "";
     return DOMPurify.sanitize(dirty, { USE_PROFILES: { html: true } });
   }, [detail?.raw?.overview]);
 
@@ -87,7 +92,7 @@ const Card = ({ detail }) => {
         {/* Image */}
         <div className="card-img">
           <img
-            src={detail?.raw?.featuredImage || ""}
+            src={location.pathname !== "/showroom" ? detail?.featuredImage || "" : detail?.raw?.featuredImage || ""}
             alt={detail?.title || "aircraft"}
             className="w-full min-h-[225px] object-cover rounded-2xl"
             // width={640}
@@ -113,7 +118,7 @@ const Card = ({ detail }) => {
           {/* Overview snippet (first <p> only, 0..330 chars) */}
           <div>
             {overviewSnippet ? (
-              <p className="text-white/90 text-[0.95rem] leading-relaxed">
+              <p className="text-white/90 text-start text-[0.95rem] leading-relaxed">
                 {overviewSnippet}
               </p>
             ) : (

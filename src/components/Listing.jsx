@@ -17,10 +17,10 @@ import { IoFilterSharp } from "react-icons/io5";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useAircraftsQuery, buildUrl } from "../hooks/useAircraftsQuery";
+import { PuffLoader } from "react-spinners";
 
 const ITEMS_PER_PAGE = 16;
 
-// fixed tabs (slugs must match your backend status values)
 const STATUS_TABS = [
   { name: "For Sale", slug: "for-sale" },
   { name: "Wanted", slug: "wanted" },
@@ -31,7 +31,6 @@ const STATUS_TABS = [
   { name: "Sold", slug: "sold" },
 ];
 
-// helpers
 const uniq = (arr) => Array.from(new Set(arr));
 const uniqSortedNums = (arr) =>
   uniq(arr.filter((n) => Number.isFinite(n))).sort((a, b) => a - b);
@@ -51,8 +50,8 @@ export default function Listing() {
   // filters state
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 0]);
-  const [airframeRange, setAirframeRange] = useState(null); // [min,max] or null
-  const [engineRange, setEngineRange] = useState(null); // [min,max] or null
+  const [airframeRange, setAirframeRange] = useState(null);
+  const [engineRange, setEngineRange] = useState(null);
 
   // price filter control
   const [priceTouched, setPriceTouched] = useState(false);
@@ -62,7 +61,7 @@ export default function Listing() {
   const [activeTab, setActiveTab] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
 
-  // data + meta (UI-friendly local state)
+  // data + meta
   const [rows, setRows] = useState([]);
   const [serverTotalItems, setServerTotalItems] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -75,13 +74,12 @@ export default function Listing() {
     window.scrollTo({ top: y + 60, behavior: "smooth" });
   };
 
-  // ✅ Fetch via TanStack Query
+  // fetch
   const { data: apiData, isPending, isFetching, error } = useAircraftsQuery({
     status: activeTab,
     page: currentPage,
   });
 
-  // sync query state to local UI state
   useEffect(() => {
     setLoading(isPending || isFetching);
     setErrMsg(error?.message || "");
@@ -91,13 +89,13 @@ export default function Listing() {
     }
   }, [apiData, isPending, isFetching, error]);
 
-  // (optional) prefetch next page for smoother "All" pagination
+  // prefetch next page (all tab)
   useEffect(() => {
     if (activeTab !== "all") return;
     const next = currentPage + 1;
-    const url = buildUrl({ status: "all", page: next, pageSize: ITEMS_PER_PAGE });
+    const url = buildUrl({ status: activeTab, page: next, pageSize: ITEMS_PER_PAGE });
     queryClient.prefetchQuery({
-      queryKey: ["aircrafts", { status: "all", page: next, pageSize: ITEMS_PER_PAGE }],
+      queryKey: ["aircrafts", { status: activeTab, page: next, pageSize: ITEMS_PER_PAGE }],
       queryFn: async ({ signal }) => {
         const { data } = await axios.get(url, { signal, withCredentials: false });
         return data;
@@ -115,7 +113,7 @@ export default function Listing() {
     [rows]
   );
   const aircraftOptions = useMemo(
-    () => uniqSortedStrings(rows.map((a) => a.aircraft)),
+    () => uniqSortedStrings(rows.map((a) => a.aircraft?.toLowerCase().trim())),
     [rows]
   );
 
@@ -124,67 +122,63 @@ export default function Listing() {
   const minPrice = allPrices.length ? Math.min(...allPrices) : 0;
   const maxPrice = allPrices.length ? Math.max(...allPrices) : 0;
 
-  // keep price slider synced to data bounds (safe: only on first page)
+  // 🔧 keep price slider synced to data bounds,
+  // but DO NOT override if the user has touched the slider.
   useEffect(() => {
-    if (currentPage === 1) {
+    if (currentPage === 1 && !priceTouched) {
       setPriceRange([minPrice, maxPrice]);
     }
-  }, [minPrice, maxPrice, currentPage]);
+  }, [minPrice, maxPrice, currentPage, priceTouched]);
 
-  // capture "default" price range (tab start / page 1) and reset touched
+  // capture "default" price range (tab start / page 1)
   useEffect(() => {
     if (currentPage === 1 && allPrices.length) {
       setPriceDefault([minPrice, maxPrice]);
+      // only reset the "touched" flag when the domain changes
       setPriceTouched(false);
     }
   }, [activeTab, currentPage, allPrices.length, minPrice, maxPrice]);
 
-  // wrapper to mark price as touched when user moves slider
   const setPriceRangeTouched = useCallback((v) => {
     setPriceTouched(true);
     setPriceRange(v);
   }, []);
 
-  // if user expands range back to cover default, auto-untouch
+  // if user expands back to cover default => clear touched
   useEffect(() => {
     if (!priceTouched) return;
     const [d0, d1] = priceDefault;
-    const [r0, r1] = [
-      Number(priceRange?.[0] ?? d0),
-      Number(priceRange?.[1] ?? d1),
-    ];
+    const r0 = Number(priceRange?.[0] ?? d0);
+    const r1 = Number(priceRange?.[1] ?? d1);
     if (r0 <= d0 && r1 >= d1) setPriceTouched(false);
   }, [priceRange, priceDefault, priceTouched]);
 
-  // defer heavy filter state
+  // defer
   const deferredSelected = useDeferredValue(selectedFilters);
   const deferredPrice = useDeferredValue(priceRange);
 
-  // client-side filter ONLY within the current server page
+  // client-side filter within current server page (unchanged UI)
   const filteredRows = useMemo(() => {
-    const sel = new Set(deferredSelected);
+    const sel = new Set((deferredSelected || []).map((s) => String(s).toLowerCase().trim()));
     const chosenBrands = aircraftOptions.filter((v) => sel.has(v));
 
+    const [effMin, effMax] = [
+      Number(deferredPrice?.[0] ?? minPrice),
+      Number(deferredPrice?.[1] ?? maxPrice),
+    ];
+
     return rows.filter((a) => {
-      const priceOk =
-        Number(a.price) >= Number(deferredPrice[0] ?? minPrice) &&
-        Number(a.price) <= Number(deferredPrice[1] ?? maxPrice);
-
+      const priceOk = Number(a.price) >= effMin && Number(a.price) <= effMax;
       const tabOk = activeTab === "all" || a.category === activeTab;
-
       const airframeOk =
         !airframeRange ||
-        (Number(a.airframe) >= airframeRange[0] &&
-          Number(a.airframe) <= airframeRange[1]);
-
+        (Number(a.airframe) >= airframeRange[0] && Number(a.airframe) <= airframeRange[1]);
       const engineOk =
         !engineRange ||
-        (Number(a.engine) >= engineRange[0] &&
-          Number(a.engine) <= engineRange[1]);
-
+        (Number(a.engine) >= engineRange[0] && Number(a.engine) <= engineRange[1]);
       const brandOk =
         chosenBrands.length === 0 ||
-        chosenBrands.includes((a.aircraft || "").toLowerCase());
+        chosenBrands.includes(String(a.aircraft || "").toLowerCase().trim());
 
       return priceOk && tabOk && airframeOk && engineOk && brandOk;
     });
@@ -209,28 +203,21 @@ export default function Listing() {
     const [d0, d1] = priceDefault;
     const priceActive =
       priceTouched &&
-      (Number(priceRange?.[0] ?? d0) > d0 ||
-        Number(priceRange?.[1] ?? d1) < d1);
+      (Number(priceRange?.[0] ?? d0) > d0 || Number(priceRange?.[1] ?? d1) < d1);
 
     return hasChips || airframeActive || engineActive || priceActive;
   }, [selectedFilters, airframeRange, engineRange, priceTouched, priceRange, priceDefault]);
 
-  // UI total (for any "x results" text, if needed)
-  const clientAwareTotalItems = hasAnyClientFilter
-    ? filteredRows.length
-    : serverTotalItems;
+  const clientAwareTotalItems = hasAnyClientFilter ? filteredRows.length : serverTotalItems;
 
-  // ✅ Pagination count: filters ON => filteredRows.length, OFF => serverTotalItems
   const totalPages = useMemo(() => {
     const base = hasAnyClientFilter ? filteredRows.length : serverTotalItems;
     return Math.max(1, Math.ceil(Number(base || 0) / ITEMS_PER_PAGE));
   }, [hasAnyClientFilter, filteredRows.length, serverTotalItems]);
 
-  // clamp page if filters shrink total pages
+  // clamp if filters shrink total pages
   useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(1);
-    }
+    if (currentPage > totalPages) setCurrentPage(1);
   }, [totalPages, currentPage]);
 
   // reset page to 1 when tab or filters change
@@ -238,14 +225,17 @@ export default function Listing() {
     setCurrentPage(1);
   }, [activeTab, selectedFilters, priceRange, airframeRange, engineRange]);
 
-  // Smooth scroll AFTER page data loads (arrows + numbers both)
+  // Smooth scroll AFTER page data loads
   useEffect(() => {
     if (loading) return;
-    const id = requestAnimationFrame(() => scrollToSectionTop());
+    const id = requestAnimationFrame(() => {
+      const el = sectionRef.current;
+      if (!el) return;
+      scrollToSectionTop();
+    });
     return () => cancelAnimationFrame(id);
   }, [currentPage, loading]);
 
-  // optional: when results are very few, keep user near the top
   useEffect(() => {
     if (filteredRows.length > 0 && filteredRows.length < 4) {
       scrollToSectionTop();
@@ -253,19 +243,12 @@ export default function Listing() {
   }, [filteredRows.length]);
 
   return (
-    <section
-      id="showroom"
-      ref={sectionRef}
-      className="bg-[#111218] relative z-[10] py-10"
-    >
+    <section id="showroom" ref={sectionRef} className="bg-[#111218] relative z-[10] py-10">
       <div className="container px-6">
         <div className="text-center mb-20">
-          <h1 className="text-4xl font-bold text-white pt-10">
-            Explore Our Aircraft Collection
-          </h1>
+          <h1 className="text-4xl font-bold text-white pt-10">Explore Our Aircraft Collection</h1>
           <p className="text-white text-base max-w-3xl mx-auto mt-2">
-            Browse a curated inventory of premium aircraft tailored for diverse
-            missions and budgets.
+            Browse a curated inventory of premium aircraft tailored for diverse missions and budgets.
           </p>
         </div>
 
@@ -280,6 +263,7 @@ export default function Listing() {
                 setSelectedFilters([]); // optional
                 setAirframeRange(null);
                 setEngineRange(null);
+                setPriceTouched(false);
               }
             }}
             isAllTab={true}
@@ -292,10 +276,7 @@ export default function Listing() {
         {/* Mobile filter toggle */}
         <div className="filter mb-4 lg:hidden flex justify-end">
           <IoFilterSharp />
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-white flex items-center gap-2"
-          >
+          <button onClick={() => setIsOpen(!isOpen)} className="text-white flex items-center gap-2">
             Filter
           </button>
         </div>
@@ -323,7 +304,7 @@ export default function Listing() {
                   selected={selectedFilters}
                   setSelected={setSelectedFilters}
                   range={priceRange}
-                  setRange={setPriceRangeTouched}   // << important
+                  setRange={setPriceRangeTouched}
                   minPrice={minPrice}
                   maxPrice={maxPrice}
                   airframeOptions={airframeOptions}
@@ -364,13 +345,11 @@ export default function Listing() {
           <motion.div
             layout
             transition={{ duration: 0.2 }}
-            className={`w-full ${
-              filterOpen ? "lg:w-[70%] lg:ms-[5%]" : "lg:w-full lg:ms-0"
-            }`}
+            className={`w-full ${filterOpen ? "lg:w-[70%] lg:ms-[5%]" : "lg:w-full lg:ms-0"}`}
           >
             {loading ? (
               <div className="flex justify-center items-center py-24">
-                <p className="text-white/80">Loading aircraft…</p>
+                <PuffLoader color="#ffffff" size={50} />
               </div>
             ) : errMsg ? (
               <div className="flex justify-center items-center py-24">
@@ -389,7 +368,7 @@ export default function Listing() {
                     filterOpen ? "lg:grid-cols-3" : "lg:grid-cols-4"
                   } gap-8`}
                 >
-                  {[...filteredRows].map((airplane) => (
+                  {filteredRows.map((airplane) => (
                     <Card key={airplane._id} detail={airplane} />
                   ))}
                 </motion.div>
@@ -399,9 +378,7 @@ export default function Listing() {
                     count={totalPages}
                     page={currentPage}
                     onChange={(_, value) => {
-                      if (value !== currentPage) {
-                        setCurrentPage(value); // scroll happens after load
-                      }
+                      if (value !== currentPage) setCurrentPage(value);
                     }}
                     color="primary"
                   />

@@ -47,9 +47,6 @@ const HeroSection = () => {
                     }
                     customClasses="w-full"
                   />
-
-                  {/* <div className="md:block hidden z-[0] glassmorphism_effect_line w-[1px] h-[60%] bg-white/20 absolute right-[0px] top-1/2 -translate-y-1/2"></div> */}
-
                 </div>
                 <div className="w-1/2 md:w-[33%] relative">
                   <GlassmorphismCircularCard
@@ -65,9 +62,6 @@ const HeroSection = () => {
                     }
                     customClasses="w-full"
                   />
-
-                  {/* <div className="md:block hidden z-[-1] glassmorphism_effect_line w-0 md:w-[1px] h-[60%] bg-white/20 absolute right-[0px] top-1/2 -translate-y-1/2"></div> */}
-
                 </div>
                 <div className="w-1/2 md:w-[33%] relative">
                   <GlassmorphismCircularCard
@@ -83,9 +77,6 @@ const HeroSection = () => {
                     }
                     customClasses="w-full"
                   />
-
-                  {/* <div className="md:block hidden z-[-1] glassmorphism_effect_line w-[1px] h-[60%] bg-white/20 absolute right-[0px] top-1/2 -translate-y-1/2"></div> */}
-
                 </div>
                 <div className="w-1/2 md:w-[33%] relative">
                   <GlassmorphismCircularCard

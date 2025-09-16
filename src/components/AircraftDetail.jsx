@@ -17,6 +17,7 @@ import "swiper/css/navigation";
 import { motion } from "framer-motion";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import DOMPurify from "dompurify";
+import { PuffLoader } from "react-spinners";
 
 Modal.setAppElement("#root");
 
@@ -44,9 +45,9 @@ const extractItems = (html = "") => {
 
 const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
 
   const [aircraft, setAircraft] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [errMsg, setErrMsg] = useState("");
 
   const [related, setRelated] = useState([]);
@@ -57,13 +58,14 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
   useEffect(() => {
     const ac = new AbortController();
     (async () => {
+      setLoading(true);
       try {
-        setLoading(true);
         setErrMsg("");
         const res = await fetch(`${DETAIL_URL}${id}`, { signal: ac.signal });
         if (!res.ok) throw new Error(`Detail ${res.status}`);
         const json = await res.json();
         setAircraft(json?.data || null);
+        setLoading(false);
         setActiveImgIndex(0);
       } catch (e) {
         if (e.name !== "AbortError") setErrMsg(e.message || "Failed to load");
@@ -88,6 +90,8 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
             _id: r._id,
             title: r.title,
             price: Number(r.price || 0),
+            featuredImage: r.featuredImage,
+            overview: r.overview,
             images: Array.isArray(r.images) ? r.images : [],
             airframe: String(r.airframe ?? ""),
             engine: String(r.engine ?? ""),
@@ -143,26 +147,13 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
   if (loading) {
     return (
-<<<<<<< HEAD
-      <div className="md:flex justify-between mt-6 space-y-2 border-t-[1px] border-b-[1px] border-dashed border-gray-700">
-        <div className="md:w-[20%] tab-heading">
-          <h2 className="pt-4 text-3xl font-semibold bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-            {activeTab
-              ?.split("_")
-              .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-              .join(" ")}
-          </h2>
-=======
-      <section id="showroom" className="pb-20 pt-[150px] md:py-20">
-        <div className="container px-5">
-          <p className="text-white/80">Loading aircraft...</p>
->>>>>>> 07117bd (Showroom Pagination Fliters Problems and jets featured image issue resolve)
-        </div>
-      </section>
+      <div className="flex items-center justify-center h-screen w-full mx-auto">
+        <PuffLoader color="#fff" size={100} />
+      </div>
     );
   }
 
-  if (errMsg || !aircraft) {
+  if (errMsg) {
     return (
       <section id="showroom" className="pb-20 pt-[150px] md:py-20">
         <div className="container px-5">
@@ -174,14 +165,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
   return (
     <>
-<<<<<<< HEAD
-      <section id="showroom" className="pb-20 pt-[150px] md:pb-20 md:pt-[calc(110px+5rem)]">
-=======
       <section
         id="showroom"
         className="pb-20 pt-[150px] md:pb-20 md:pt-[calc(110px+5rem)]"
       >
->>>>>>> 07117bd (Showroom Pagination Fliters Problems and jets featured image issue resolve)
         <div className="container px-5">
           <div className="lg:flex items-center justify-between">
             <h1 className="text-3xl font-bold mb-4 lg:mb-8 text-white">
@@ -336,7 +323,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
             <div className="border-t-[1px] border-b-[1px] border-dashed border-[#46485D] py-6">
               {overviewHTML ? (
                 <div
-                className="
+                  className="
                 text-white/90 text-lg
                 [&>p:last-child]:border-b-0 
                 [&_strong]:text-white
@@ -345,7 +332,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 [&_li]:mb-1
                 [&_a]:underline [&_a]:text-[#7cc3ff]
               "
-              dangerouslySetInnerHTML={{ __html: overviewHTML }}
+                  dangerouslySetInnerHTML={{ __html: overviewHTML }}
                 />
               ) : (
                 <p className="text-white/70">No overview available.</p>
@@ -416,46 +403,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
             </>
           )}
 
-<<<<<<< HEAD
-          {/* Relatedd Aircraft */}
-          <h4 className="mt-16 mb-8 text-4xl text-white">Related Aircraft</h4>
-          <Swiper
-            spaceBetween={30}
-            navigation={{
-              clickable: true,
-            }}
-            keyboard={{
-              enabled: true,
-              onlyInViewport: true,
-            }}
-            loop={true}
-            modules={[Navigation, Keyboard]}
-            className="mySwiper"
-            breakpoints={{
-              0: {
-                slidesPerView: 1,
-              },
-              768: {
-                slidesPerView: 3,
-              },
-              1024: {
-                slidesPerView: 4,
-              },
-            }}
-          >
-            {airplanes?.map((airplane) => (
-              <SwiperSlide key={airplane._id}>
-                <Card detail={airplane} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-          {/* Modal For Gallary Images */}
-
-          {/* Modal For Video */}
-=======
           {/* Video Modal */}
->>>>>>> 07117bd (Showroom Pagination Fliters Problems and jets featured image issue resolve)
           <Modal
             isOpen={videoModalOpen}
             onRequestClose={closeVideoModal}

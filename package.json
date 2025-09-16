@@ -36,6 +36,7 @@
     "react-router-dom": "^7.6.3",
     "react-scroll-parallax": "^3.4.5",
     "react-slider": "^2.0.6",
+    "react-spinners": "^0.17.0",
     "simplebar-react": "^3.3.2",
     "swiper": "^11.2.10",
     "swr": "^2.3.6",
