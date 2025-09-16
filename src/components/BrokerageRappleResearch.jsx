@@ -15,13 +15,13 @@ const BrokerageRappleResearch = ({
   return (
     <>
       <section
-        style={{
-          backgroundImage: `url(${brokerageBanner})`,
-          backgroundSize: "contain !important",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
-        }}
+        // style={{
+        //   backgroundImage: `url(${brokerageBanner})`,
+        //   backgroundSize: "contain !important",
+        //   backgroundPosition: "center",
+        //   backgroundRepeat: "no-repeat",
+        //   backgroundAttachment: "fixed",
+        // }}
         className="relative py-20 z-[10] h-full 2xl:min-h-screen"
       >
         <div className="overlay bg-[#111218d8] opacity-[.97] absolute top-0 left-0 w-full h-full z-[-1]" />

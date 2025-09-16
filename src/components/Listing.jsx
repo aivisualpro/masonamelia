@@ -1,9 +1,11 @@
+// Listing.jsx
 import React, {
   useState,
   useEffect,
   useMemo,
   useDeferredValue,
   useRef,
+  useCallback,
 } from "react";
 import { motion } from "framer-motion";
 import FilterCheckboxList from "./FilterCheckboxList";
@@ -11,157 +13,15 @@ import Card from "./Card";
 import Tabs from "./Tabs";
 import Pagination from "./Pagination";
 import FilterSideBar from "./FilterSideBar";
-import planeOne from "/images/planes/plane (1).png";
-import planeTwo from "/images/planes/plane (2).png";
-import planeThree from "/images/planes/plane (1).avif";
-import planeFour from "/images/planes/plane (2).avif";
-import planeFive from "/images/planes/plane (3).avif";
-import planeSix from "/images/planes/plane (4).avif";
-import planeSeven from "/images/planes/plane (5).avif";
-import planeEight from "/images/planes/plane (6).avif";
-import planeNine from "/images/planes/plane (7).avif";
-import planeTen from "/images/planes/plane (8).avif";
 import { IoFilterSharp } from "react-icons/io5";
+import { useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { useAircraftsQuery, buildUrl } from "../hooks/useAircraftsQuery";
 
-// Must match FilterCheckboxList
-const AIRFRAME_OPTIONS = ["2500", "5000", "7500"];
-const ENGINE_OPTIONS = ["2665", "3517/3421", "220", "3710", "380/380"];
-const AIRCRAFT_OPTIONS = ["cirrus", "cessna", "piper", "tbm", "dassault"];
+const ITEMS_PER_PAGE = 16;
 
-const airplanes = [
-  {
-    _id: "94827342a",
-    aircraft: "cirrus",
-    title: "Gulfstream G600",
-    description:
-      "Long-range business jet with advanced avionics and luxury interior.",
-    image: planeOne,
-    price: 58000000,
-    airframe: "2500",
-    engine: "2665",
-    category: "acquired",
-    propeller: "2352",
-  },
-  {
-    _id: "dafda4353",
-    aircraft: "cessna",
-    title: "Pilatus PC-24",
-    description:
-      "Versatile light jet designed for short runways and global travel.",
-    image: planeTwo,
-    price: 11200000,
-    airframe: "2500",
-    engine: "2665",
-    category: "for-sale",
-    propeller: "2352",
-  },
-  {
-    _id: "948affad23",
-    aircraft: "dassault",
-    title: "Dassault Falcon 8X",
-    description:
-      "Ultra-long-range trijet offering unmatched comfort and range.",
-    image: planeThree,
-    price: 62000000,
-    airframe: "2500",
-    engine: "2665",
-    category: "for-sale",
-    propeller: "2352",
-  },
-  {
-    _id: "aasfa241",
-    aircraft: "piper",
-    title: "Cessna Citation Latitude",
-    description:
-      "Mid-size business jet combining performance with spacious comfort.",
-    image: planeFour,
-    price: 18500000,
-    airframe: "2500",
-    engine: "2665",
-    category: "off-market",
-    propeller: "2352",
-  },
-  {
-    _id: "fada2341",
-    aircraft: "tbm",
-    title: "Embraer Legacy 500",
-    description:
-      "Mid-size luxury jet offering fly-by-wire technology and range efficiency.",
-    image: planeFive,
-    price: 20500000,
-    airframe: "2500",
-    engine: "2665",
-    category: "wanted",
-    propeller: "2352",
-  },
-  {
-    _id: "342561",
-    aircraft: "tbm",
-    title: "Bombardier Global 7500",
-    description:
-      "Flagship ultra-long-range jet with exceptional speed and luxury.",
-    image: planeSix,
-    price: 75000000,
-    airframe: "5000",
-    engine: "2665",
-    category: "sold",
-    propeller: "2352",
-  },
-  {
-    _id: "252571",
-    aircraft: "piper",
-    title: "HondaJet Elite",
-    description:
-      "Compact business jet with innovative over-the-wing engine design.",
-    image: planeSeven,
-    price: 7000000,
-    airframe: "2500",
-    engine: "2665",
-    category: "sale-pending",
-    propeller: "2352",
-  },
-  {
-    _id: "adad24134",
-    aircraft: "cessna",
-    title: "Cessna Citation CJ4 Gen2",
-    description:
-      "Light jet with upgraded cabin comfort and strong runway performance.",
-    image: planeEight,
-    price: 10500000,
-    airframe: "2500",
-    engine: "2665",
-    category: "coming-soon",
-    propeller: "2352",
-  },
-  {
-    _id: "24342342",
-    aircraft: "cirrus",
-    title: "Beechcraft King Air 260",
-    description:
-      "Twin-turboprop aircraft with advanced cockpit and reliability.",
-    image: planeNine,
-    price: 7200000,
-    airframe: "5000",
-    engine: "2665",
-    category: "for-sale",
-    propeller: "2352",
-  },
-  {
-    _id: "25545426",
-    aircraft: "cirrus",
-    title: "Cirrus Vision Jet G2+",
-    description:
-      "Single-engine personal jet with modern design and versatility.",
-    image: planeTen,
-    price: 3450000,
-    airframe: "5000",
-    engine: "2665",
-    category: "for-sale",
-    propeller: "2352",
-  },
-];
-
-const categories = [
+// fixed tabs (slugs must match your backend status values)
+const STATUS_TABS = [
   { name: "For Sale", slug: "for-sale" },
   { name: "Wanted", slug: "wanted" },
   { name: "Coming Soon", slug: "coming-soon" },
@@ -171,12 +31,42 @@ const categories = [
   { name: "Sold", slug: "sold" },
 ];
 
+// helpers
+const uniq = (arr) => Array.from(new Set(arr));
+const uniqSortedNums = (arr) =>
+  uniq(arr.filter((n) => Number.isFinite(n))).sort((a, b) => a - b);
+const uniqSortedStrings = (arr) =>
+  uniq(arr.filter(Boolean).map((s) => String(s))).sort((a, b) =>
+    a.localeCompare(b)
+  );
+
 export default function Listing() {
   const sectionRef = useRef(null);
+  const queryClient = useQueryClient();
+
+  // ui state
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  // filters state
   const [selectedFilters, setSelectedFilters] = useState([]);
+  const [priceRange, setPriceRange] = useState([0, 0]);
+  const [airframeRange, setAirframeRange] = useState(null); // [min,max] or null
+  const [engineRange, setEngineRange] = useState(null); // [min,max] or null
+
+  // price filter control
+  const [priceTouched, setPriceTouched] = useState(false);
+  const [priceDefault, setPriceDefault] = useState([0, 0]);
+
+  // tabs + pagination
   const [activeTab, setActiveTab] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+
+  // data + meta (UI-friendly local state)
+  const [rows, setRows] = useState([]);
+  const [serverTotalItems, setServerTotalItems] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const [errMsg, setErrMsg] = useState("");
 
   const scrollToSectionTop = (offset = 80) => {
     const el = sectionRef.current;
@@ -185,57 +75,182 @@ export default function Listing() {
     window.scrollTo({ top: y + 60, behavior: "smooth" });
   };
 
-  const allPrices = useMemo(() => airplanes.map((a) => a.price), []);
-  const minPrice = Math.min(...allPrices);
-  const maxPrice = Math.max(...allPrices);
-  const [priceRange, setPriceRange] = useState([minPrice, maxPrice]);
+  // ✅ Fetch via TanStack Query
+  const { data: apiData, isPending, isFetching, error } = useAircraftsQuery({
+    status: activeTab,
+    page: currentPage,
+  });
 
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  // sync query state to local UI state
+  useEffect(() => {
+    setLoading(isPending || isFetching);
+    setErrMsg(error?.message || "");
+    if (apiData) {
+      setRows(apiData.rows);
+      setServerTotalItems(apiData.serverTotalItems);
+    }
+  }, [apiData, isPending, isFetching, error]);
 
+  // (optional) prefetch next page for smoother "All" pagination
+  useEffect(() => {
+    if (activeTab !== "all") return;
+    const next = currentPage + 1;
+    const url = buildUrl({ status: "all", page: next, pageSize: ITEMS_PER_PAGE });
+    queryClient.prefetchQuery({
+      queryKey: ["aircrafts", { status: "all", page: next, pageSize: ITEMS_PER_PAGE }],
+      queryFn: async ({ signal }) => {
+        const { data } = await axios.get(url, { signal, withCredentials: false });
+        return data;
+      },
+    });
+  }, [activeTab, currentPage, queryClient]);
+
+  // ===== derive options from current page =====
+  const airframeOptions = useMemo(
+    () => uniqSortedNums(rows.map((a) => a.airframe)),
+    [rows]
+  );
+  const engineOptions = useMemo(
+    () => uniqSortedNums(rows.map((a) => a.engine)),
+    [rows]
+  );
+  const aircraftOptions = useMemo(
+    () => uniqSortedStrings(rows.map((a) => a.aircraft)),
+    [rows]
+  );
+
+  // price bounds from current page
+  const allPrices = useMemo(() => rows.map((a) => Number(a.price || 0)), [rows]);
+  const minPrice = allPrices.length ? Math.min(...allPrices) : 0;
+  const maxPrice = allPrices.length ? Math.max(...allPrices) : 0;
+
+  // keep price slider synced to data bounds (safe: only on first page)
+  useEffect(() => {
+    if (currentPage === 1) {
+      setPriceRange([minPrice, maxPrice]);
+    }
+  }, [minPrice, maxPrice, currentPage]);
+
+  // capture "default" price range (tab start / page 1) and reset touched
+  useEffect(() => {
+    if (currentPage === 1 && allPrices.length) {
+      setPriceDefault([minPrice, maxPrice]);
+      setPriceTouched(false);
+    }
+  }, [activeTab, currentPage, allPrices.length, minPrice, maxPrice]);
+
+  // wrapper to mark price as touched when user moves slider
+  const setPriceRangeTouched = useCallback((v) => {
+    setPriceTouched(true);
+    setPriceRange(v);
+  }, []);
+
+  // if user expands range back to cover default, auto-untouch
+  useEffect(() => {
+    if (!priceTouched) return;
+    const [d0, d1] = priceDefault;
+    const [r0, r1] = [
+      Number(priceRange?.[0] ?? d0),
+      Number(priceRange?.[1] ?? d1),
+    ];
+    if (r0 <= d0 && r1 >= d1) setPriceTouched(false);
+  }, [priceRange, priceDefault, priceTouched]);
+
+  // defer heavy filter state
   const deferredSelected = useDeferredValue(selectedFilters);
   const deferredPrice = useDeferredValue(priceRange);
-  const deferredTab = useDeferredValue(activeTab);
 
-  const filteredAirplanes = useMemo(() => {
+  // client-side filter ONLY within the current server page
+  const filteredRows = useMemo(() => {
     const sel = new Set(deferredSelected);
-    const chosenAirframes = AIRFRAME_OPTIONS.filter((v) => sel.has(v));
-    const chosenEngines = ENGINE_OPTIONS.filter((v) => sel.has(v));
-    const chosenBrands = AIRCRAFT_OPTIONS.filter((v) => sel.has(v));
+    const chosenBrands = aircraftOptions.filter((v) => sel.has(v));
 
-    return airplanes.filter((a) => {
+    return rows.filter((a) => {
       const priceOk =
-        a.price >= deferredPrice[0] && a.price <= deferredPrice[1];
-      const tabOk = deferredTab === "all" || a.category === deferredTab;
+        Number(a.price) >= Number(deferredPrice[0] ?? minPrice) &&
+        Number(a.price) <= Number(deferredPrice[1] ?? maxPrice);
+
+      const tabOk = activeTab === "all" || a.category === activeTab;
 
       const airframeOk =
-        chosenAirframes.length === 0 || chosenAirframes.includes(a.airframe);
-      const engineOk =
-        chosenEngines.length === 0 || chosenEngines.includes(a.engine);
+        !airframeRange ||
+        (Number(a.airframe) >= airframeRange[0] &&
+          Number(a.airframe) <= airframeRange[1]);
 
-      const brand = (a.aircraft || "").toLowerCase();
-      const brandOk = chosenBrands.length === 0 || chosenBrands.includes(brand);
+      const engineOk =
+        !engineRange ||
+        (Number(a.engine) >= engineRange[0] &&
+          Number(a.engine) <= engineRange[1]);
+
+      const brandOk =
+        chosenBrands.length === 0 ||
+        chosenBrands.includes((a.aircraft || "").toLowerCase());
 
       return priceOk && tabOk && airframeOk && engineOk && brandOk;
     });
-  }, [deferredSelected, deferredPrice, deferredTab]);
+  }, [
+    rows,
+    deferredSelected,
+    deferredPrice,
+    aircraftOptions,
+    activeTab,
+    minPrice,
+    maxPrice,
+    airframeRange,
+    engineRange,
+  ]);
 
-  const totalPages = Math.ceil(filteredAirplanes.length / itemsPerPage);
+  // decide whether client-side filters are actually ON
+  const hasAnyClientFilter = useMemo(() => {
+    const hasChips = selectedFilters.length > 0;
+    const airframeActive = !!airframeRange;
+    const engineActive = !!engineRange;
 
-  const paginatedAirplanes = useMemo(() => {
-    const start = (currentPage - 1) * itemsPerPage;
-    return filteredAirplanes.slice(start, start + itemsPerPage);
-  }, [filteredAirplanes, currentPage]);
+    const [d0, d1] = priceDefault;
+    const priceActive =
+      priceTouched &&
+      (Number(priceRange?.[0] ?? d0) > d0 ||
+        Number(priceRange?.[1] ?? d1) < d1);
 
+    return hasChips || airframeActive || engineActive || priceActive;
+  }, [selectedFilters, airframeRange, engineRange, priceTouched, priceRange, priceDefault]);
+
+  // UI total (for any "x results" text, if needed)
+  const clientAwareTotalItems = hasAnyClientFilter
+    ? filteredRows.length
+    : serverTotalItems;
+
+  // ✅ Pagination count: filters ON => filteredRows.length, OFF => serverTotalItems
+  const totalPages = useMemo(() => {
+    const base = hasAnyClientFilter ? filteredRows.length : serverTotalItems;
+    return Math.max(1, Math.ceil(Number(base || 0) / ITEMS_PER_PAGE));
+  }, [hasAnyClientFilter, filteredRows.length, serverTotalItems]);
+
+  // clamp page if filters shrink total pages
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(1);
+    }
+  }, [totalPages, currentPage]);
+
+  // reset page to 1 when tab or filters change
   useEffect(() => {
     setCurrentPage(1);
-  }, [selectedFilters, priceRange, activeTab]);
+  }, [activeTab, selectedFilters, priceRange, airframeRange, engineRange]);
 
+  // Smooth scroll AFTER page data loads (arrows + numbers both)
   useEffect(() => {
-    if (filteredAirplanes.length > 0 && filteredAirplanes.length < 4) {
+    if (loading) return;
+    const id = requestAnimationFrame(() => scrollToSectionTop());
+    return () => cancelAnimationFrame(id);
+  }, [currentPage, loading]);
+
+  // optional: when results are very few, keep user near the top
+  useEffect(() => {
+    if (filteredRows.length > 0 && filteredRows.length < 4) {
       scrollToSectionTop();
     }
-  }, [filteredAirplanes.length]);
+  }, [filteredRows.length]);
 
   return (
     <section
@@ -254,11 +269,19 @@ export default function Listing() {
           </p>
         </div>
 
+        {/* Tabs */}
         <div className="lg:block hidden animated-tabs mb-12">
           <Tabs
-            categories={categories}
+            categories={STATUS_TABS}
             activeTab={activeTab}
-            setActiveTab={setActiveTab}
+            setActiveTab={(slug) => {
+              if (slug !== activeTab) {
+                setActiveTab(slug);
+                setSelectedFilters([]); // optional
+                setAirframeRange(null);
+                setEngineRange(null);
+              }
+            }}
             isAllTab={true}
             showFilterToggle
             isFilterOpen={filterOpen}
@@ -266,6 +289,7 @@ export default function Listing() {
           />
         </div>
 
+        {/* Mobile filter toggle */}
         <div className="filter mb-4 lg:hidden flex justify-end">
           <IoFilterSharp />
           <button
@@ -277,6 +301,7 @@ export default function Listing() {
         </div>
 
         <div className="flex">
+          {/* Desktop filters */}
           {filterOpen && (
             <motion.aside
               key="filter"
@@ -298,28 +323,44 @@ export default function Listing() {
                   selected={selectedFilters}
                   setSelected={setSelectedFilters}
                   range={priceRange}
-                  setRange={setPriceRange}
+                  setRange={setPriceRangeTouched}   // << important
                   minPrice={minPrice}
                   maxPrice={maxPrice}
+                  airframeOptions={airframeOptions}
+                  engineOptions={engineOptions}
+                  aircraftOptions={aircraftOptions}
+                  airframeRange={airframeRange}
+                  setAirframeRange={setAirframeRange}
+                  engineRange={engineRange}
+                  setEngineRange={setEngineRange}
                 />
               </motion.div>
             </motion.aside>
           )}
 
+          {/* Mobile drawer */}
           <div className="block">
             <FilterSideBar
               selectedFilters={selectedFilters}
               setSelectedFilters={setSelectedFilters}
               priceRange={priceRange}
-              setPriceRange={setPriceRange}
+              setPriceRange={setPriceRangeTouched}
               minPrice={minPrice}
               maxPrice={maxPrice}
-              categories={categories}
+              categories={STATUS_TABS}
               isOpen={isOpen}
               setIsOpen={setIsOpen}
+              airframeOptions={airframeOptions}
+              engineOptions={engineOptions}
+              aircraftOptions={aircraftOptions}
+              airframeRange={airframeRange}
+              setAirframeRange={setAirframeRange}
+              engineRange={engineRange}
+              setEngineRange={setEngineRange}
             />
           </div>
 
+          {/* Cards + pagination */}
           <motion.div
             layout
             transition={{ duration: 0.2 }}
@@ -327,7 +368,15 @@ export default function Listing() {
               filterOpen ? "lg:w-[70%] lg:ms-[5%]" : "lg:w-full lg:ms-0"
             }`}
           >
-            {paginatedAirplanes.length === 0 ? (
+            {loading ? (
+              <div className="flex justify-center items-center py-24">
+                <p className="text-white/80">Loading aircraft…</p>
+              </div>
+            ) : errMsg ? (
+              <div className="flex justify-center items-center py-24">
+                <p className="text-red-400">Error: {errMsg}</p>
+              </div>
+            ) : filteredRows.length === 0 ? (
               <div className="flex justify-center items-center">
                 <p className="text-white text-lg">No data found.</p>
               </div>
@@ -340,7 +389,7 @@ export default function Listing() {
                     filterOpen ? "lg:grid-cols-3" : "lg:grid-cols-4"
                   } gap-8`}
                 >
-                  {paginatedAirplanes.map((airplane) => (
+                  {[...filteredRows].map((airplane) => (
                     <Card key={airplane._id} detail={airplane} />
                   ))}
                 </motion.div>
@@ -350,8 +399,9 @@ export default function Listing() {
                     count={totalPages}
                     page={currentPage}
                     onChange={(_, value) => {
-                      setCurrentPage(value);
-                      scrollToSectionTop(); // always scroll on page change
+                      if (value !== currentPage) {
+                        setCurrentPage(value); // scroll happens after load
+                      }
                     }}
                     color="primary"
                   />

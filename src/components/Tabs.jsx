@@ -78,7 +78,7 @@ export default function Tabs({
                 className="w-full"
               />
             )}
-            <span style={{ position: "relative", zIndex: 1 }}>{tab.name}</span>
+            <span style={{ position: "relative", zIndex: 1 }}>{tab?.name}</span>
           </div>
         ))}
       </div>

@@ -514,26 +514,26 @@ h6 {
 .swiper-button-prev::after,
 .swiper-button-next::after {
   color: #ffffff;
-  font-size: 16px !important;
+  font-size: 12px !important;
 }
 .img-gallary .swiper-button-prev::after,
 .img-gallary .swiper-button-next::after {
   color: #fff !important;
-  background: #1777cb;
+  background: #111218;
   padding: .5rem; 
   border-radius: 50%;
-  width: 60px;
-  height: 30px;
+  width: 55px;
+  height: 27px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .swiper-button-prev::after {
-  transform: translateX(10px);
+  transform: translate(10px, -20px);
 }
 .swiper-button-next::after {
-  transform: translateX(-10px);
+  transform: translate(-10px, -20px);
 }
 .filter-sidebar::-webkit-scrollbar {
   width: 0px;

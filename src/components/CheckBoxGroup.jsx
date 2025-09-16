@@ -42,7 +42,7 @@ const CheckBoxGroup = ({ title, items, selected, onChange }) => {
                 </div>
                 {
                   title === "Categories" ? (
-                    <span className="text-white text-base ms-3">{item.name}</span>
+                    <span className="text-white text-base ms-3">{item?.name}</span>
                   ) : (
                     <span className="text-white text-base ms-3">{item}</span>
                   )

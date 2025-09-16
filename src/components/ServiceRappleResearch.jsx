@@ -12,13 +12,13 @@ const ServiceRappleResearch = ({
   return (
     <>
       <section
-        style={{
-          backgroundImage: `url(${banner})`,
-          backgroundSize: "contain !important",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed"
-        }}
+        // style={{
+        //   backgroundImage: `url(${banner})`,
+        //   backgroundSize: "contain !important",
+        //   backgroundPosition: "center",
+        //   backgroundRepeat: "no-repeat",
+        //   backgroundAttachment: "fixed"
+        // }}
         className="relative xl:h-screen py-20 z-[10]"
       >
         <div className="overlay bg-[#111218df] opacity-[.97] absolute top-0 left-0 w-full h-full z-[-1]" />

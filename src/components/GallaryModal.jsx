@@ -40,6 +40,7 @@ const GalleryModal = ({
         </button>
 
         {/* Main Swipeable & Zoomable Image Viewer */}
+        <div className="h-[70%]">
         <PhotoProvider>
           <PhotoView src={images[currentIndex]}>
             <img
@@ -48,7 +49,9 @@ const GalleryModal = ({
             />
           </PhotoView>
         </PhotoProvider>
+        </div>
 
+        <div className="h-[30%] mt-8 md:mt-4">
         {/* Thumbnail Navigation */}
         <Swiper
           spaceBetween={10}
@@ -56,6 +59,7 @@ const GalleryModal = ({
           keyboard={true}
           navigation={true}
           watchSlidesProgress={true}
+          loop={true}
           modules={[FreeMode, Thumbs, Keyboard, Navigation]}
           className="mySwiper mt-10 md:mt-4"
           breakpoints={{
@@ -67,7 +71,7 @@ const GalleryModal = ({
             },
           }}
         >
-          {images.map((image, i) => (
+          {images?.map((image, i) => (
             <SwiperSlide key={i} className="cursor-pointer">
               <img
                 src={image}
@@ -80,6 +84,8 @@ const GalleryModal = ({
             </SwiperSlide>
           ))}
         </Swiper>
+        </div>
+
       </div>
     </Modal>
   );
