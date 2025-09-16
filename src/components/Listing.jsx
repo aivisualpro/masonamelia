@@ -83,6 +83,10 @@ export default function Listing() {
   } = useAircraftsQuery({
     status: activeTab,
     page: currentPage,
+    categories: selectedFilters, // ["beechcraft","piper",...]
+    priceRange: priceTouched ? priceRange : undefined, // sirf jab user ne touch kiya ho
+    airframeRange,
+    engineRange,
   });
 
   useEffect(() => {
@@ -146,15 +150,11 @@ export default function Listing() {
     if (currentPage === 1 && !priceTouched) {
       setPriceRange([minPrice, maxPrice]);
     }
-  }, [minPrice, maxPrice, currentPage, priceTouched]);
+  }, [minPrice, maxPrice, priceTouched]);
 
   // capture "default" price range (tab start / page 1)
   useEffect(() => {
-    if (currentPage === 1 && allPrices.length) {
-      setPriceDefault([minPrice, maxPrice]);
-      // only reset the "touched" flag when the domain changes
-      setPriceTouched(false);
-    }
+    if (allPrices.length) setPriceDefault([minPrice, maxPrice]);
   }, [activeTab, currentPage, allPrices.length, minPrice, maxPrice]);
 
   const setPriceRangeTouched = useCallback((v) => {
@@ -349,6 +349,7 @@ export default function Listing() {
                 className="rounded-2xl border border-[#ffffff48] p-0 bg-transparent"
               >
                 <FilterCheckboxList
+                  key={`flt-${activeTab}-${currentPage}`} // ✅ force remount per tab/page
                   selected={selectedFilters}
                   setSelected={setSelectedFilters}
                   range={priceRange}
