@@ -1,98 +1,16 @@
-// import { useQuery, keepPreviousData } from "@tanstack/react-query";
-// import axios from "axios";
-
-// const ITEMS_PER_PAGE = 16;
-
-// export function buildUrl({ status, page, pageSize }) {
-//   const params = new URLSearchParams();
-//   if (page) params.set("page", String(page));
-//   if (pageSize) params.set("pageSize", String(pageSize));
-//   if (status && status !== "all") params.set("status", status);
-//   const base = import.meta.env.VITE_BASE_URL;
-//   return `${base}/api/aircrafts/lists?${params.toString()}`;
-// }
-
-// export async function fetchAircrafts({ status, page, pageSize, signal }) {
-//   const url = buildUrl({ status, page, pageSize });
-//   const { data } = await axios.get(url, { signal, withCredentials: false });
-//   return data; // raw server payload
-// }
-
-// export function useAircraftsQuery({ status, page }) {
-//   const isAll = status === "all";
-//   // const pageToAsk = isAll ? page : 1;
-//   // const pageSizeToAsk = isAll ? ITEMS_PER_PAGE : undefined;
-//   const pageToAsk = page ?? 1;
-//   const pageSizeToAsk = ITEMS_PER_PAGE;
-
-//   return useQuery({
-//     queryKey: [
-//       "aircrafts",
-//       { status, page: pageToAsk, pageSize: pageSizeToAsk },
-//     ],
-//     queryFn: ({ signal }) =>
-//       fetchAircrafts({
-//         status,
-//         page: pageToAsk,
-//         pageSize: pageSizeToAsk,
-//         signal,
-//       }),
-
-//     // shape the data for the UI so Listing.jsx stays simple
-//     select: (raw) => {
-//       const list = Array.isArray(raw?.data) ? raw.data : [];
-//       const cleaned = list.filter((r) => r && r._id);
-
-//       const mapped = cleaned.map((r) => ({
-//         _id: r._id,
-//         title: r.title,
-//         year: r.year,
-//         price: Number(r.price || 0),
-//         category: r.status,
-//         aircraft: (r?.category?.slug || "").toLowerCase(),
-//         airframe: Number(r.airframe),
-//         engine: Number(r.engine),
-//         propeller: Number(r.propeller),
-//         images: Array.isArray(r.images) ? r.images : [],
-//         location: r.location,
-//         raw: r,
-//       }));
-
-//       // const apiTotal =
-//       //   isAll ? Number(raw?.totalItems ?? raw?.total ?? mapped.length) : mapped.length;
-
-//       const totalFromServer = Number(
-//         raw?.totalItems ?? raw?.total ?? raw?.count ?? raw?.meta?.total
-//       );
-//       const apiTotal =
-//         Number.isFinite(totalFromServer) && totalFromServer > 0
-//           ? totalFromServer
-//           : mapped.length;
-
-//       return { rows: mapped, serverTotalItems: apiTotal };
-//     },
-
-//     // prevent list flicker during page changes
-//     placeholderData: keepPreviousData,
-//   });
-// }
-
-
-// hooks/useAircraftsQuery.js
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import axios from "axios";
 
-const ITEMS_PER_PAGE = 16;
+export const ITEMS_PER_PAGE = 16;
 
-// ---- Build server URL with filters ----
 export function buildUrl({
   status = "all",
   page = 1,
   pageSize = ITEMS_PER_PAGE,
-  categories = [],              // array of slugs: ["cirrus","piper",...]
-  priceRange,                   // [min,max] or undefined
-  airframeRange,                // [min,max] or undefined
-  engineRange,                  // [min,max] or undefined
+  categories = [],          // ["cirrus","piper"]
+  priceRange,               // [min,max] -> sends minPrice/maxPrice
+  airframeRange,            // [min,max] -> sends minAirframe/maxAirframe
+  engineRange,              // [min,max] -> sends minEngine/maxEngine
 }) {
   const base = import.meta.env.VITE_BASE_URL;
   const params = new URLSearchParams();
@@ -102,7 +20,7 @@ export function buildUrl({
   if (status && status !== "all") params.set("status", status);
 
   if (Array.isArray(categories) && categories.length) {
-    params.set("categories", categories.join(",")); // comma separated
+    params.set("categories", categories.join(","));
   }
 
   if (Array.isArray(priceRange) && priceRange.length === 2) {
@@ -112,15 +30,15 @@ export function buildUrl({
   }
 
   if (Array.isArray(airframeRange) && airframeRange.length === 2) {
-    const [min, max] = airframeRange.map(Number);
-    if (Number.isFinite(min)) params.set("minAirframe", String(min));
-    if (Number.isFinite(max)) params.set("maxAirframe", String(max));
+    const [minA, maxA] = airframeRange.map(Number);
+    if (Number.isFinite(minA)) params.set("minAirframe", String(minA));
+    if (Number.isFinite(maxA)) params.set("maxAirframe", String(maxA));
   }
 
   if (Array.isArray(engineRange) && engineRange.length === 2) {
-    const [min, max] = engineRange.map(Number);
-    if (Number.isFinite(min)) params.set("minEngine", String(min));
-    if (Number.isFinite(max)) params.set("maxEngine", String(max));
+    const [minE, maxE] = engineRange.map(Number);
+    if (Number.isFinite(minE)) params.set("minEngine", String(minE));
+    if (Number.isFinite(maxE)) params.set("maxEngine", String(maxE));
   }
 
   return `${base}/api/aircrafts/lists?${params.toString()}`;
@@ -133,17 +51,15 @@ async function fetchAircrafts(args) {
   return data;
 }
 
-// ---- React Query hook (keeps UI mapping same) ----
 export function useAircraftsQuery({
   status = "all",
   page = 1,
+  pageSize = ITEMS_PER_PAGE,
   categories = [],
-  priceRange,      // pass only when user touched slider
+  priceRange,
   airframeRange,
   engineRange,
 }) {
-  const pageSize = ITEMS_PER_PAGE;
-
   return useQuery({
     queryKey: [
       "aircrafts",
@@ -168,18 +84,14 @@ export function useAircraftsQuery({
         engineRange,
         signal,
       }),
-
-    // normalize data for UI
     select: (raw) => {
       const list = Array.isArray(raw?.data) ? raw.data : [];
-      const cleaned = list.filter((r) => r && r._id);
-
-      const mapped = cleaned.map((r) => ({
+      const rows = list.map((r) => ({
         _id: r._id,
         title: r.title,
         year: r.year,
         price: Number(r.price || 0),
-        category: r.status, // "for-sale" | ...
+        status: String(r.status || "").toLowerCase(), // ✅ for tab check
         aircraft: (r?.category?.slug || "").toLowerCase(),
         airframe: Number(r.airframe),
         engine: Number(r.engine),
@@ -189,17 +101,23 @@ export function useAircraftsQuery({
         raw: r,
       }));
 
-      const totalFromServer = Number(
-        raw?.totalItems ?? raw?.total ?? raw?.count ?? raw?.meta?.total
-      );
-      const serverTotalItems =
-        Number.isFinite(totalFromServer) && totalFromServer >= 0
-          ? totalFromServer
-          : mapped.length;
-
-      return { rows: mapped, serverTotalItems };
+      return {
+        rows,
+        meta: {
+          total: Number(raw?.total ?? rows.length),            // items on this page
+          totalItems: Number(raw?.totalItems ?? rows.length),  // all matching
+          page: Number(raw?.page ?? 1),                        // effective page (clamped)
+          pageRequested: Number(raw?.pageRequested ?? raw?.page ?? 1),
+          pageSize: Number(raw?.pageSize ?? ITEMS_PER_PAGE),
+          pageCount: Number(
+            raw?.pageCount ??
+              Math.max(1, Math.ceil((raw?.totalItems || rows.length) / ITEMS_PER_PAGE))
+          ),
+          hasPrev: !!raw?.hasPrev,
+          hasNext: !!raw?.hasNext,
+        },
+      };
     },
-
     placeholderData: keepPreviousData,
     staleTime: 15_000,
   });

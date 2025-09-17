@@ -15,14 +15,15 @@ const categoryGradients = {
 
 const Card = ({ detail }) => {
 
-  console.log("detail", detail)
-
+  
   const location = useLocation();
+  
+  console.log("detail", location.pathname, detail)
 
   const categoryName =
     (typeof detail?.category === "string"
       ? detail?.category
-      : detail?.category?.name) // fallback if object provided
+      : detail?.raw?.status) // fallback if object provided
       ?.toLowerCase() || "";
 
   const gradient =
@@ -81,7 +82,7 @@ const Card = ({ detail }) => {
           <h1 className="text-[.8rem]">
             {(typeof detail?.category === "string"
               ? detail?.category
-              : detail?.category?.name || ""
+              : detail?.raw?.status || ""
             )
               .split("-")
               .map((w) => String(w).toUpperCase())
