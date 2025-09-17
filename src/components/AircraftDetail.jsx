@@ -238,7 +238,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 <div className="flex flex-col items-center bg-[#171921] w-1/2 p-4 rounded-3xl">
                   <div className="featured_value">
                     <h4 className="text-xl md:text-2xl text-white">
-                      $ {Number(aircraft?.price || 0).toLocaleString()}
+                      {aircraft?.price ? `$${Number(aircraft?.price || 0).toLocaleString()}` : "Call for Price"}
                     </h4>
                   </div>
                   <div className="featured_text">
