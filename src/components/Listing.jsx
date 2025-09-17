@@ -15,7 +15,12 @@ import FilterSideBar from "./FilterSideBar";
 import { IoFilterSharp } from "react-icons/io5";
 import { useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import { useAircraftsQuery, buildUrl, ITEMS_PER_PAGE } from "../hooks/useAircraftsQuery";
+import {
+  useAircraftsQuery,
+  useRangesQuery,
+  buildUrl,
+  ITEMS_PER_PAGE,
+} from "../hooks/useAircraftsQuery";
 import { useCategoriesQuery } from "../hooks/useCategoriesQuery";
 import { PuffLoader } from "react-spinners";
 
@@ -29,10 +34,6 @@ const STATUS_TABS = [
   { name: "Sold", slug: "sold" },
 ];
 
-const uniq = (arr) => Array.from(new Set(arr));
-const uniqSortedNums = (arr) =>
-  uniq(arr.filter((n) => Number.isFinite(n))).sort((a, b) => a - b);
-
 export default function Listing() {
   const sectionRef = useRef(null);
   const queryClient = useQueryClient();
@@ -41,28 +42,52 @@ export default function Listing() {
   const [filterOpen, setFilterOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
-  // filters → server
-  const [selectedFilters, setSelectedFilters] = useState([]);  // category slugs
-  const [priceRange, setPriceRange] = useState(undefined);     // [min,max]
+  // filters (state to send to server)
+  const [selectedFilters, setSelectedFilters] = useState([]);
+  const [priceRange, setPriceRange] = useState(undefined);
   const [airframeRange, setAirframeRange] = useState(undefined);
   const [engineRange, setEngineRange] = useState(undefined);
+
+  // touched flags (VERY IMPORTANT)
+  const [priceTouched, setPriceTouched] = useState(false);
+  const [airframeTouched, setAirframeTouched] = useState(false);
+  const [engineTouched, setEngineTouched] = useState(false);
 
   // tabs + pagination
   const [activeTab, setActiveTab] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
 
   // categories for checkbox list
-  const { data: aircraftOptions = [], isLoading: catsLoading } = useCategoriesQuery();
+  const { data: aircraftOptions = [], isLoading: catsLoading } =
+    useCategoriesQuery();
 
-  // fetch aircrafts (server filters)
-  const { data: api, isPending, isFetching, error } = useAircraftsQuery({
+  /* ---------- NEW: fetch slider domains from /ranges ---------- */
+  const { data: ranges, isLoading: rangesLoading } = useRangesQuery({
+    status: activeTab,
+    categories: selectedFilters,
+  });
+
+  const minPrice = ranges?.minPrice ?? 0;
+  const maxPrice = ranges?.maxPrice ?? 0;
+  const minAirframe = ranges?.minAirframe ?? 0;
+  const maxAirframe = ranges?.maxAirframe ?? 0;
+  const minEngine = ranges?.minEngine ?? 0;
+  const maxEngine = ranges?.maxEngine ?? 0;
+
+  // fetch aircrafts (send filters only if touched)
+  const {
+    data: api,
+    isPending,
+    isFetching,
+    error,
+  } = useAircraftsQuery({
     status: activeTab,
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
     categories: selectedFilters,
-    priceRange,
-    airframeRange,
-    engineRange,
+    priceRange: priceTouched ? priceRange : undefined,
+    airframeRange: airframeTouched ? airframeRange : undefined,
+    engineRange: engineTouched ? engineRange : undefined,
   });
 
   // keep page in sync with backend clamped page (if any)
@@ -77,71 +102,41 @@ export default function Listing() {
   const totalPages = meta.pageCount || 1;
   const errMsg = error?.message || "";
 
-  // ---------- DOMAIN (STABLE) STATE ----------
-  // A key that changes when the *dataset* should change.
-  // We intentionally do NOT include price/airframe/engine ranges here.
+  // dataset key (status + categories)
   const domainKey = useMemo(
     () => `${activeTab}|${[...selectedFilters].sort().join(",")}`,
     [activeTab, selectedFilters]
   );
   const lastDomainKey = useRef(null);
 
-  const [stableMinPrice, setStableMinPrice] = useState(0);
-  const [stableMaxPrice, setStableMaxPrice] = useState(0);
-  const [stableAirframeOptions, setStableAirframeOptions] = useState([]);
-  const [stableEngineOptions, setStableEngineOptions] = useState([]);
-
-  // When dataset (status/categories) change, mark domain as uninitialized
+  // reset on dataset change
   useEffect(() => {
     if (lastDomainKey.current !== domainKey) {
       lastDomainKey.current = domainKey;
-      // wipe prior domain so we can re-derive from the next loaded rows
-      setStableMinPrice(0);
-      setStableMaxPrice(0);
-      setStableAirframeOptions([]);
-      setStableEngineOptions([]);
-      // also reset page to 1 to fetch the canonical first page for this dataset
       setCurrentPage(1);
+      setPriceRange(undefined);
+      setAirframeRange(undefined);
+      setEngineRange(undefined);
+      setPriceTouched(false);
+      setAirframeTouched(false);
+      setEngineTouched(false);
     }
   }, [domainKey]);
 
-  // Initialize stable domain once per dataset change (from whatever rows we have).
-  useEffect(() => {
-    // If already initialized for this dataset, do nothing.
-    if (stableAirframeOptions.length || stableEngineOptions.length || (stableMaxPrice > 0)) {
-      return;
-    }
-    const prices = rows.map((a) => Number(a.price || 0)).filter(Number.isFinite);
-    const airframes = uniqSortedNums(rows.map((a) => Number(a.airframe)));
-    const engines = uniqSortedNums(rows.map((a) => Number(a.engine)));
-
-    if (prices.length) {
-      setStableMinPrice(Math.min(...prices));
-      setStableMaxPrice(Math.max(...prices));
-    } else {
-      setStableMinPrice(0);
-      setStableMaxPrice(0);
-    }
-    setStableAirframeOptions(airframes);
-    setStableEngineOptions(engines);
-
-    // If user hasn't touched price yet, ensure visible range spans full domain
-    setPriceRange((prev) => prev ?? (prices.length ? [Math.min(...prices), Math.max(...prices)] : undefined));
-    // Similarly, if discrete ranges are unset, keep them undefined (parent just sends undefined)
-  }, [rows, stableAirframeOptions.length, stableEngineOptions.length, stableMaxPrice]);
-
-  // ---------- RESET PAGE ON FILTER CHANGES (but not while typing) ----------
+  // reset page when actual filter values change (only if touched)
   useEffect(() => {
     setCurrentPage(1);
   }, [
     activeTab,
     JSON.stringify(selectedFilters),
-    JSON.stringify(priceRange || []),
-    JSON.stringify(airframeRange || []),
-    JSON.stringify(engineRange || []),
+    priceTouched ? JSON.stringify(priceRange || []) : "untouched-price",
+    airframeTouched
+      ? JSON.stringify(airframeRange || [])
+      : "untouched-airframe",
+    engineTouched ? JSON.stringify(engineRange || []) : "untouched-engine",
   ]);
 
-  // scroll helpers
+  // scroll helper
   const scrollToTop = useCallback((offset = 80) => {
     const el = sectionRef.current;
     if (!el) return;
@@ -155,7 +150,7 @@ export default function Listing() {
     }
   }, [currentPage, loading, scrollToTop]);
 
-  // prefetch next page (nice-to-have)
+  // prefetch next page
   useEffect(() => {
     const next = currentPage + 1;
     if (next > totalPages) return;
@@ -164,9 +159,9 @@ export default function Listing() {
       page: next,
       pageSize: ITEMS_PER_PAGE,
       categories: selectedFilters,
-      priceRange,
-      airframeRange,
-      engineRange,
+      priceRange: priceTouched ? priceRange : undefined,
+      airframeRange: airframeTouched ? airframeRange : undefined,
+      engineRange: engineTouched ? engineRange : undefined,
     });
     queryClient.prefetchQuery({
       queryKey: [
@@ -176,30 +171,61 @@ export default function Listing() {
           page: next,
           pageSize: ITEMS_PER_PAGE,
           categories: selectedFilters,
-          priceRange: priceRange ?? null,
-          airframeRange: airframeRange ?? null,
-          engineRange: engineRange ?? null,
+          priceRange: priceTouched ? priceRange : null,
+          airframeRange: airframeTouched ? airframeRange : null,
+          engineRange: engineTouched ? engineRange : null,
         },
       ],
       queryFn: async ({ signal }) => {
-        const { data } = await axios.get(url, { signal, withCredentials: false });
+        const { data } = await axios.get(url, {
+          signal,
+          withCredentials: false,
+        });
         return data;
       },
     });
-  }, [activeTab, currentPage, totalPages, queryClient, selectedFilters, priceRange, airframeRange, engineRange]);
+  }, [
+    activeTab,
+    currentPage,
+    totalPages,
+    queryClient,
+    selectedFilters,
+    priceTouched,
+    airframeTouched,
+    engineTouched,
+    priceRange,
+    airframeRange,
+    engineRange,
+  ]);
 
-  // price slider handler (server-side filtering)
-  const setPriceRangeTouched = useCallback((range) => {
+  // handlers mark as touched
+  const onPriceChange = useCallback((range) => {
     setPriceRange([Number(range?.[0] || 0), Number(range?.[1] || 0)]);
+    setPriceTouched(true);
+  }, []);
+  const onAirframeChange = useCallback((range) => {
+    setAirframeRange([Number(range?.[0] || 0), Number(range?.[1] || 0)]);
+    setAirframeTouched(true);
+  }, []);
+  const onEngineChange = useCallback((range) => {
+    setEngineRange([Number(range?.[0] || 0), Number(range?.[1] || 0)]);
+    setEngineTouched(true);
   }, []);
 
   return (
-    <section id="showroom" ref={sectionRef} className="bg-[#111218] relative z-[10] py-10">
+    <section
+      id="showroom"
+      ref={sectionRef}
+      className="bg-[#111218] relative z-[10] py-10"
+    >
       <div className="container px-6">
         <div className="text-center mb-20">
-          <h1 className="text-4xl font-bold text-white pt-10">Explore Our Aircraft Collection</h1>
+          <h1 className="text-4xl font-bold text-white pt-10">
+            Explore Our Aircraft Collection
+          </h1>
           <p className="text-white text-base max-w-3xl mx-auto mt-2">
-            Browse a curated inventory of premium aircraft tailored for diverse missions and budgets.
+            Browse a curated inventory of premium aircraft tailored for diverse
+            missions and budgets.
           </p>
         </div>
 
@@ -208,12 +234,7 @@ export default function Listing() {
           <Tabs
             categories={STATUS_TABS}
             activeTab={activeTab}
-            setActiveTab={(slug) => {
-              if (slug !== activeTab) {
-                setActiveTab(slug);
-                // keep user-selected ranges; domains will re-init for the new dataset
-              }
-            }}
+            setActiveTab={(slug) => slug !== activeTab && setActiveTab(slug)}
             isAllTab={true}
             showFilterToggle
             isFilterOpen={filterOpen}
@@ -224,7 +245,10 @@ export default function Listing() {
         {/* Mobile filter toggle */}
         <div className="filter mb-4 lg:hidden flex justify-end">
           <IoFilterSharp />
-          <button onClick={() => setIsOpen(!isOpen)} className="text-white flex items-center gap-2">
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="text-white flex items-center gap-2"
+          >
             Filter
           </button>
         </div>
@@ -248,26 +272,29 @@ export default function Listing() {
                 transition={{ duration: 0.4 }}
                 className="rounded-2xl border border-[#ffffff48] p-0 bg-transparent"
               >
-                {catsLoading ? (
-                  <div className="p-6 text-white/70 text-sm">Loading categories…</div>
+                {catsLoading || rangesLoading ? (
+                  <div className="p-6 text-white/70 text-sm">
+                    Loading filters…
+                  </div>
                 ) : (
                   <FilterCheckboxList
-                    key={`flt-${activeTab}-${currentPage}-${domainKey}`}
                     selected={selectedFilters}
                     setSelected={setSelectedFilters}
-                    // ----- use STABLE price domain -----
-                    range={priceRange ?? (stableMaxPrice ? [stableMinPrice, stableMaxPrice] : [0, 0])}
-                    setRange={setPriceRangeTouched}
-                    minPrice={stableMinPrice}
-                    maxPrice={stableMaxPrice}
-                    // ----- use STABLE discrete domains -----
-                    airframeOptions={stableAirframeOptions}
-                    engineOptions={stableEngineOptions}
+                    // price slider domain from /ranges
+                    range={priceRange ?? [minPrice, maxPrice]}
+                    setRange={onPriceChange}
+                    minPrice={minPrice}
+                    maxPrice={maxPrice}
+                    // airframe slider domain from /ranges
+                    airframeRange={airframeRange ?? [minAirframe, maxAirframe]}
+                    setAirframeRange={onAirframeChange}
+                    minAirframe={minAirframe}
+                    maxAirframe={maxAirframe}
+                    engineRange={engineRange ?? [minEngine, maxEngine]}
+                    setEngineRange={onEngineChange}
+                    minEngine={minEngine}
+                    maxEngine={maxEngine}
                     aircraftOptions={aircraftOptions}
-                    airframeRange={airframeRange}
-                    setAirframeRange={setAirframeRange}
-                    engineRange={engineRange}
-                    setEngineRange={setEngineRange}
                   />
                 )}
               </motion.div>
@@ -279,20 +306,22 @@ export default function Listing() {
             <FilterSideBar
               selectedFilters={selectedFilters}
               setSelectedFilters={setSelectedFilters}
-              priceRange={priceRange ?? (stableMaxPrice ? [stableMinPrice, stableMaxPrice] : [0, 0])}
-              setPriceRange={setPriceRangeTouched}
-              minPrice={stableMinPrice}
-              maxPrice={stableMaxPrice}
+              priceRange={priceRange ?? [minPrice, maxPrice]}
+              setPriceRange={onPriceChange}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+              airframeRange={airframeRange ?? [minAirframe, maxAirframe]}
+              setAirframeRange={onAirframeChange}
+              minAirframe={minAirframe}
+              maxAirframe={maxAirframe}
+              engineRange={engineRange ?? [minEngine, maxEngine]}
+              setEngineRange={onEngineChange}
+              minEngine={minEngine}
+              maxEngine={maxEngine}
               categories={STATUS_TABS}
               isOpen={isOpen}
               setIsOpen={setIsOpen}
-              airframeOptions={stableAirframeOptions}
-              engineOptions={stableEngineOptions}
               aircraftOptions={aircraftOptions}
-              airframeRange={airframeRange}
-              setAirframeRange={setAirframeRange}
-              engineRange={engineRange}
-              setEngineRange={setEngineRange}
             />
           </div>
 
@@ -300,7 +329,9 @@ export default function Listing() {
           <motion.div
             layout
             transition={{ duration: 0.2 }}
-            className={`w-full ${filterOpen ? "lg:w-[70%] lg:ms-[5%]" : "lg:w-full lg:ms-0"}`}
+            className={`w-full ${
+              filterOpen ? "lg:w-[70%] lg:ms-[5%]" : "lg:w-full lg:ms-0"
+            }`}
           >
             {loading ? (
               <div className="flex justify-center items-center py-24">
@@ -319,7 +350,9 @@ export default function Listing() {
                 <motion.div
                   layout
                   transition={{ duration: 0.2 }}
-                  className={`grid grid-cols-1 sm:grid-cols-2 ${filterOpen ? "lg:grid-cols-3" : "lg:grid-cols-4"} gap-8`}
+                  className={`grid grid-cols-1 sm:grid-cols-2 ${
+                    filterOpen ? "lg:grid-cols-3" : "lg:grid-cols-4"
+                  } gap-8`}
                 >
                   {rows.map((airplane) => (
                     <Card key={airplane._id} detail={airplane} />
@@ -329,16 +362,17 @@ export default function Listing() {
                 <div className="flex justify-center mt-10">
                   <Pagination
                     count={totalPages}
-                    page={ currentPage}
-                    onChange={(_, value) => {
-                      if (value !== currentPage) setCurrentPage(value);
-                    }}
+                    page={currentPage}
+                    onChange={(_, value) =>
+                      value !== currentPage && setCurrentPage(value)
+                    }
                     color="primary"
                   />
                 </div>
 
                 <div className="mt-4 text-center text-white/60 text-sm">
-                  {meta.totalItems || 0} results • Page {currentPage} / {totalPages}
+                  {meta.totalItems || 0} results • Page {currentPage} /{" "}
+                  {totalPages}
                 </div>
               </>
             )}

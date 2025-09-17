@@ -7,10 +7,10 @@ export function buildUrl({
   status = "all",
   page = 1,
   pageSize = ITEMS_PER_PAGE,
-  categories = [],          // ["cirrus","piper"]
-  priceRange,               // [min,max] -> sends minPrice/maxPrice
-  airframeRange,            // [min,max] -> sends minAirframe/maxAirframe
-  engineRange,              // [min,max] -> sends minEngine/maxEngine
+  categories = [],
+  priceRange,
+  airframeRange,
+  engineRange,
 }) {
   const base = import.meta.env.VITE_BASE_URL;
   const params = new URLSearchParams();
@@ -87,32 +87,30 @@ export function useAircraftsQuery({
     select: (raw) => {
       const list = Array.isArray(raw?.data) ? raw.data : [];
       const rows = list.map((r) => ({
+        ...r,
         _id: r._id,
-        title: r.title,
-        year: r.year,
-        price: Number(r.price || 0),
-        status: String(r.status || "").toLowerCase(), // ✅ for tab check
-        aircraft: (r?.category?.slug || "").toLowerCase(),
-        airframe: Number(r.airframe),
-        engine: Number(r.engine),
-        propeller: Number(r.propeller),
-        images: Array.isArray(r.images) ? r.images : [],
-        location: r.location,
-        raw: r,
+        title: r.title ?? "",
+        price: Number(r.price ?? 0),
+        status: String(r.status ?? "").toLowerCase(),
+        category: String(r?.category?.slug ?? r.category ?? "").toLowerCase(),
+        featuredImage: r.featuredImage ?? r.images?.[0] ?? "",
+        overview: r.overview ?? "",
+        airframe: Number(r.airframe ?? 0),
+        engine: Number(r.engine ?? 0),
+        propeller: Number(r.propeller ?? 0),
       }));
 
       return {
         rows,
         meta: {
-          total: Number(raw?.total ?? rows.length),            // items on this page
-          totalItems: Number(raw?.totalItems ?? rows.length),  // all matching
-          page: Number(raw?.page ?? 1),                        // effective page (clamped)
+          total: Number(raw?.total ?? rows.length),
+          totalItems: Number(raw?.totalItems ?? rows.length),
+          page: Number(raw?.page ?? 1),
           pageRequested: Number(raw?.pageRequested ?? raw?.page ?? 1),
           pageSize: Number(raw?.pageSize ?? ITEMS_PER_PAGE),
-          pageCount: Number(
-            raw?.pageCount ??
-              Math.max(1, Math.ceil((raw?.totalItems || rows.length) / ITEMS_PER_PAGE))
-          ),
+          pageCount:
+            Number(raw?.pageCount) ||
+            Math.max(1, Math.ceil((raw?.totalItems || rows.length) / ITEMS_PER_PAGE)),
           hasPrev: !!raw?.hasPrev,
           hasNext: !!raw?.hasNext,
         },
@@ -120,5 +118,32 @@ export function useAircraftsQuery({
     },
     placeholderData: keepPreviousData,
     staleTime: 15_000,
+  });
+}
+
+/* ---------- NEW: Ranges ---------- */
+
+function buildRangesUrl({ status = "all", categories = [] } = {}) {
+  const base = import.meta.env.VITE_BASE_URL;
+  const params = new URLSearchParams();
+  if (status && status !== "all") params.set("status", status);
+  if (Array.isArray(categories) && categories.length) {
+    params.set("categories", categories.join(","));
+  }
+  return `${base}/api/aircrafts/lists/ranges?${params.toString()}`;
+}
+
+async function fetchRanges({ status = "all", categories = [], signal } = {}) {
+  const url = buildRangesUrl({ status, categories });
+  const { data } = await axios.get(url, { signal, withCredentials: false });
+  // expect { success, data: { minPrice, maxPrice, minAirframe, maxAirframe, minEngine, maxEngine } }
+  return data?.data || {};
+}
+
+export function useRangesQuery({ status = "all", categories = [] } = {}) {
+  return useQuery({
+    queryKey: ["ranges", { status, categories }],
+    queryFn: ({ signal }) => fetchRanges({ status, categories, signal }),
+    staleTime: 60_000,
   });
 }

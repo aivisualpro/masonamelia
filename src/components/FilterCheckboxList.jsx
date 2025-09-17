@@ -10,75 +10,43 @@ const useDebouncedCallback = (cb, delay = 150) => {
   };
 };
 
-const toNums = (arr) =>
-  arr
-    .map((x) => Number(String(x).replace(/,/g, "")))
-    .filter(Number.isFinite);
-
 export default function FilterCheckboxList({
   selected,
   setSelected,
-  range,              // current server range [min,max] (or undefined)
-  setRange,           // debounced → parent → server
-  minPrice,           // STABLE domain min for current dataset
-  maxPrice,           // STABLE domain max for current dataset
-  airframeOptions = [], // STABLE sorted numeric array
-  engineOptions = [],   // STABLE sorted numeric array
-  aircraftOptions = [],
-  airframeRange,
+
+  /* PRICE (continuous) */
+  range,
+  setRange,
+  minPrice,
+  maxPrice,
+
+  /* AIRFRAME/ENGINE — now also continuous, NOT options arrays */
+  airframeRange,                  // [min,max] or undefined
   setAirframeRange,
-  engineRange,
+  minAirframe,
+  maxAirframe,
+
+  engineRange,                    // [min,max] or undefined
   setEngineRange,
+  minEngine,
+  maxEngine,
+
+  /* Categories list for checkboxes */
+  aircraftOptions = [],
 }) {
   const debouncedSetRange = useDebouncedCallback(setRange, 150);
 
-  // ---------- PRICE (continuous) ----------
+  /* ---------- PRICE (continuous) ---------- */
   const fullPriceRange = useMemo(() => {
-    const lo = Number.isFinite(minPrice) ? minPrice : 0;
-    const hi = Number.isFinite(maxPrice) ? maxPrice : 0;
+    const lo = Number.isFinite(minPrice) ? Number(minPrice) : 0;
+    const hi = Number.isFinite(maxPrice) ? Number(maxPrice) : 0;
     return [lo, hi];
   }, [minPrice, maxPrice]);
 
   const [rangeDraft, setRangeDraft] = useState(range ?? fullPriceRange);
   useEffect(() => {
-    // When domain or controlled value changes from parent, sync local draft
     setRangeDraft(range ?? fullPriceRange);
   }, [range?.[0], range?.[1], fullPriceRange[0], fullPriceRange[1]]);
-
-  // ---------- AIRFRAME / ENGINE (discrete) ----------
-  const airframeDisabled = (airframeOptions?.length || 0) < 2;
-  const engineDisabled = (engineOptions?.length || 0) < 2;
-
-  const lastAirIdx = Math.max(0, airframeOptions.length - 1);
-  const lastEngIdx = Math.max(0, engineOptions.length - 1);
-
-  const datasetAirDefault = useMemo(() => [0, lastAirIdx], [lastAirIdx]);
-  const datasetEngDefault = useMemo(() => [0, lastEngIdx], [lastEngIdx]);
-
-  const [airframeIdx, setAirframeIdx] = useState(datasetAirDefault);
-  const [engineIdx, setEngineIdx] = useState(datasetEngDefault);
-
-  // Reset indices whenever dataset options change (status/categories)
-  useEffect(() => setAirframeIdx(datasetAirDefault), [datasetAirDefault]);
-  useEffect(() => setEngineIdx(datasetEngDefault), [datasetEngDefault]);
-
-  const onAirframeChange = (val) => {
-    if (airframeDisabled) return;
-    const next = Array.isArray(val) ? val : [val, val];
-    setAirframeIdx(next);
-    const slice = airframeOptions.slice(next[0], next[1] + 1);
-    const nums = toNums(slice);
-    setAirframeRange(nums.length ? [nums[0], nums[nums.length - 1]] : undefined);
-  };
-
-  const onEngineChange = (val) => {
-    if (engineDisabled) return;
-    const next = Array.isArray(val) ? val : [val, val];
-    setEngineIdx(next);
-    const slice = engineOptions.slice(next[0], next[1] + 1);
-    const nums = toNums(slice);
-    setEngineRange(nums.length ? [nums[0], nums[nums.length - 1]] : undefined);
-  };
 
   const toggleAircraft = (value) => {
     const slug = String(value).toLowerCase().trim();
@@ -89,22 +57,21 @@ export default function FilterCheckboxList({
 
   const clearAll = () => {
     setSelected([]);
-    setAirframeIdx(datasetAirDefault);
-    setEngineIdx(datasetEngDefault);
+    setRangeDraft(fullPriceRange);
+    setRange(fullPriceRange);
+    // reset numeric ranges back to domain
     setAirframeRange(undefined);
     setEngineRange(undefined);
-    setRangeDraft(fullPriceRange);
-    setRange(fullPriceRange); // fetch full price range for this dataset
   };
+
+  /* helpers to render labels safely (0 should show as 0, not “–”) */
+  const fmt = (n) => Number(n ?? 0).toLocaleString();
 
   return (
     <div className="p-6 rounded-2xl border border-[#ffffff48]">
       <div className="flex justify-between mb-4">
         <h3 className="text-white font-medium">Filter Options</h3>
-        <button
-          onClick={clearAll}
-          className="text-white font-medium text-xs hover:text-tertiary_color"
-        >
+        <button onClick={clearAll} className="text-white font-medium text-xs hover:text-tertiary_color">
           Clear All
         </button>
       </div>
@@ -116,51 +83,55 @@ export default function FilterCheckboxList({
         onChange={toggleAircraft}
       />
 
-      {/* Airframes */}
+      {/* Airframes (continuous) */}
       <div className="mb-8 mt-6">
         <h3 className="text-sm font-semibold text-white mb-3">Airframes</h3>
         <Slider
-          className={`slider ${airframeDisabled ? "opacity-50 pointer-events-none" : ""}`}
-          min={0}
-          max={Math.max(0, airframeOptions.length - 1)}
+          className="slider"
+          min={Number(minAirframe ?? 0)}
+          max={Number(maxAirframe ?? 0)}
           step={1}
-          value={airframeIdx}
-          onChange={onAirframeChange}
-          disabled={airframeDisabled}
+          value={airframeRange ?? [Number(minAirframe ?? 0), Number(maxAirframe ?? 0)]}
+          onChange={(v) => {
+            const [a, b] = Array.isArray(v) ? v : [v, v];
+            setAirframeRange([Number(a), Number(b)]);
+          }}
           renderTrack={(props, state) => (
             <div {...props} className={`slider-track ${state.index === 0 ? "track-0" : "track-1"}`} />
           )}
           renderThumb={(props) => <div {...props} className="slider-thumb relative" />}
         />
         <div className="flex justify-between mt-3 text-[.6rem] xl:text-xs text-gray-300 font-bold">
-          <span>Min: {airframeOptions[airframeIdx[0]] ?? "-"}</span>
-          <span>Max: {airframeOptions[airframeIdx[1]] ?? "-"}</span>
+          <span>Min: {fmt((airframeRange ?? [minAirframe])[0])}</span>
+          <span>Max: {fmt((airframeRange ?? [minAirframe, maxAirframe])[1])}</span>
         </div>
       </div>
 
-      {/* Engine */}
+      {/* Engine (continuous) */}
       <div className="mb-8">
         <h3 className="text-sm font-semibold text-white mb-3">Engine</h3>
         <Slider
-          className={`slider ${engineDisabled ? "opacity-50 pointer-events-none" : ""}`}
-          min={0}
-          max={Math.max(0, engineOptions.length - 1)}
+          className="slider"
+          min={Number(minEngine ?? 0)}
+          max={Number(maxEngine ?? 0)}
           step={1}
-          value={engineIdx}
-          onChange={onEngineChange}
-          disabled={engineDisabled}
+          value={engineRange ?? [Number(minEngine ?? 0), Number(maxEngine ?? 0)]}
+          onChange={(v) => {
+            const [a, b] = Array.isArray(v) ? v : [v, v];
+            setEngineRange([Number(a), Number(b)]);
+          }}
           renderTrack={(props, state) => (
             <div {...props} className={`slider-track ${state.index === 0 ? "track-0" : "track-1"}`} />
           )}
           renderThumb={(props) => <div {...props} className="slider-thumb relative" />}
         />
         <div className="flex justify-between mt-3 text-[.6rem] xl:text-xs text-gray-300 font-bold">
-          <span>Min: {engineOptions[engineIdx[0]] ?? "-"}</span>
-          <span>Max: {engineOptions[engineIdx[1]] ?? "-"}</span>
+          <span>Min: {fmt((engineRange ?? [minEngine])[0])}</span>
+          <span>Max: {fmt((engineRange ?? [minEngine, maxEngine])[1])}</span>
         </div>
       </div>
 
-      {/* Price Range */}
+      {/* Price Range (continuous) */}
       <div className="pt-2">
         <h3 className="text-sm font-semibold text-white mb-4">Price Range</h3>
         <Slider
@@ -168,9 +139,8 @@ export default function FilterCheckboxList({
           value={rangeDraft}
           onChange={(v) => {
             setRangeDraft(v);
-            debouncedSetRange(v); // 👉 backend call (debounced)
+            debouncedSetRange(v);
           }}
-          // IMPORTANT: keep domain fixed for the current dataset
           min={fullPriceRange[0]}
           max={fullPriceRange[1]}
           step={1000}
@@ -181,10 +151,10 @@ export default function FilterCheckboxList({
         />
         <div className="flex justify-between mt-3 text-gray-300">
           <span className="text-[.6rem] xl:text-xs font-bold">
-            Min: {Number(rangeDraft?.[0] ?? fullPriceRange[0]).toLocaleString()}
+            Min: {fmt(rangeDraft?.[0] ?? fullPriceRange[0])}
           </span>
           <span className="text-[.6rem] xl:text-xs font-bold">
-            Max: {Number(rangeDraft?.[1] ?? fullPriceRange[1]).toLocaleString()}
+            Max: {fmt(rangeDraft?.[1] ?? fullPriceRange[1])}
           </span>
         </div>
       </div>
