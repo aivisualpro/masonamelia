@@ -238,7 +238,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 <div className="flex flex-col items-center bg-[#171921] w-1/2 p-4 rounded-3xl">
                   <div className="featured_value">
                     <h4 className="text-xl md:text-2xl text-white">
-                      {aircraft?.price ? `$${Number(aircraft?.price || 0).toLocaleString()}` : "Call for Price"}
+                      {aircraft?.price ? `$${Number(aircraft?.price || 0).toLocaleString()}` : <a href="tel:210-882-9658">Call For Price</a>}
                     </h4>
                   </div>
                   <div className="featured_text">
@@ -286,7 +286,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                         className="mr-2 bg-tertiary_color p-[6px] rounded-full"
                         size={28}
                       />
-                      {aircraft?.contactAgent?.phone || "—"}
+                      <a href="tel:210-882-9658">{aircraft?.contactAgent?.phone || "—"}</a>
                     </p>
                   </div>
                 </div>

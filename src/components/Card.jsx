@@ -278,7 +278,7 @@ const Card = ({ detail }) => {
             <span className="text-tertiary_color text-[1.2rem]">
               {typeof detail?.price === "number"
                 ? detail.price === 0
-                  ? "$ Call"
+                  ? <a href="tel:210-882-9658">Call For Price</a>
                   : `$ ${detail.price.toLocaleString()}`
                 : ""}
             </span>
