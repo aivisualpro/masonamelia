@@ -87,7 +87,9 @@ const Navbar = () => {
         <GlassNavbar />
 
         <div className="flex items-center justify-end call-to-action z-[9999] pe-4">
-          <SearchBox />
+          <div className="hidden md:block">
+            <SearchBox />
+          </div>
           <div
             className="flex items-center xl:hidden cursor-pointer select-none"
             onClick={() => setIsOpen(true)}

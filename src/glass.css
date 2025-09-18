@@ -111,3 +111,9 @@
 .dropdown-animate-out {
   animation: dropdownFadeOut 0.3s ease-out forwards;
 }
+
+.search-box-effect .glass-filter,
+.search-box-effect .glass-overlay,
+.search-box-effect .glass-specular {
+  pointer-events: none !important;
+}
