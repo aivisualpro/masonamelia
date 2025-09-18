@@ -1,6 +1,6 @@
 import React from "react";
-import plane from "/images/aeroplane.jpg";
-import plane2 from "/images/aeroplane.png";
+import plane from "/images/aeroplane.webp";
+import plane2 from "/images/aeroplane (2).webp";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 
@@ -60,21 +60,7 @@ const ServiceHighlights = ({
                 }}
                 src={location.pathname === "/brokerage" ? plane2 : plane}
                 alt="3D Reflected Airplane"
-                className="w-full object-contain"
-              />
-              <img
-                src={location.pathname === "/brokerage" ? plane2 : plane}
-                alt="Reflection"
-                className="
-               w-full object-contain
-               transform scale-y-[-1]
-               opacity-50
-               mt-[-20px]
-               relative z-0
-               pointer-events-none
-               select-none
-               mask-gradient
-            "
+                className="w-full object-contain rounded-[25px]"
               />
             </div>
 
