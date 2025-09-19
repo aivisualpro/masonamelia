@@ -325,10 +325,39 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
               <div className="">
                 <iframe
                   // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49118.23391548527!2d-111.87382773125353!3d39.697185689909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x874c5648a65523d9%3A0xd7b6f9f8a451f49e!2sNephi%2C%20UT%2084648%2C%20USA!5e0!3m2!1sen!2s!4v1755939914578!5m2!1sen!2s"
-                  src="https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
+                  src={`${aircraft?.latitude && aircraft?.longitude ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed` : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"}`}
                   className="w-full h-[180px] mt-6 rounded"
                 />
               </div>
+            </div>
+          </div>
+
+          <div className="mt-12 flex sm:flex-row flex-col sm:items-center">
+            <div className="airframe">
+              <h2 className="mb-3 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                Airframe
+              </h2>
+              <span className="text-white/90 text-lg">
+                {aircraft?.airframe}
+              </span>
+            </div>
+            <div className="engine sm:mx-12 sm:my-0 my-6">
+              <h2 className="mb-3 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                Engine
+              </h2>
+              <span className="text-white/90 text-lg">
+                {aircraft?.engine}{" "}
+                {aircraft?.engineTwo ? `/ ${aircraft?.engineTwo}` : ""}
+              </span>
+            </div>
+            <div className="propeller">
+              <h2 className="mb-3 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                Propeller
+              </h2>
+              <span className="text-white/90 text-lg">
+                {aircraft?.propeller}{" "}
+                {aircraft?.propellerTwo ? `/ ${aircraft?.propellerTwo}` : ""}
+              </span>
             </div>
           </div>
 

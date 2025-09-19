@@ -15,9 +15,8 @@
 
 // const Card = ({ detail }) => {
 
-  
 //   const location = useLocation();
-  
+
 //   console.log("detail", location.pathname, detail)
 
 //   const categoryName =
@@ -171,8 +170,6 @@
 
 // export default React.memo(Card);
 
-
-
 import React, { useMemo } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -190,7 +187,10 @@ const categoryGradients = {
 
 const Card = ({ detail }) => {
   const status = (detail?.status || "").toLowerCase();
-  const gradient = categoryGradients[status] || ["from-[#ff8a41]", "to-[#fca168]"];
+  const gradient = categoryGradients[status] || [
+    "from-[#ff8a41]",
+    "to-[#fca168]",
+  ];
 
   // sanitize overview (HTML string from server)
   const overviewHTML = useMemo(() => {
@@ -206,11 +206,16 @@ const Card = ({ detail }) => {
       div.innerHTML = overviewHTML;
       const paras = Array.from(div.querySelectorAll("p"));
       let text =
-        paras.map(p => (p.textContent || "").replace(/\s+/g, " ").trim()).find(Boolean) ||
-        (div.textContent || "");
+        paras
+          .map((p) => (p.textContent || "").replace(/\s+/g, " ").trim())
+          .find(Boolean) ||
+        div.textContent ||
+        "";
       text = text.replace(/\s+/g, " ").trim();
       const MAX = 120; // a sane preview length
-      return text.length <= MAX ? text : text.slice(0, MAX).replace(/\s+$/, "") + "…";
+      return text.length <= MAX
+        ? text
+        : text.slice(0, MAX).replace(/\s+$/, "") + "…";
     } catch {
       return "";
     }
@@ -218,7 +223,7 @@ const Card = ({ detail }) => {
 
   const ribbonText = (status || "for-sale")
     .split("-")
-    .map(w => String(w).toUpperCase())
+    .map((w) => String(w).toUpperCase())
     .join(" ");
 
   const imgSrc = detail?.featuredImage || "";
@@ -234,7 +239,9 @@ const Card = ({ detail }) => {
       >
         {/* Ribbon */}
         <div
-          className={`absolute top-6 -right-14 w-48 text-center rotate-45 bg-gradient-to-r ${gradient[0]} ${gradient[1]} ${
+          className={`absolute top-6 -right-14 w-48 text-center rotate-45 bg-gradient-to-r ${
+            gradient[0]
+          } ${gradient[1]} ${
             status === "for-sale" ? "text-black" : "text-white"
           } font-medium py-1 shadow-lg`}
         >
@@ -262,12 +269,18 @@ const Card = ({ detail }) => {
             }}
           />
           <h3 className="text-white text-lg mb-2 text-start">
-            {detail?.title?.length > 20 ? detail.title.slice(0, 20) + "..." : (detail?.title || "")}
+            {detail?.title?.length > 20
+              ? detail.title.slice(0, 20) + "..."
+              : detail?.title || ""}
           </h3>
 
           <div>
             {overviewSnippet ? (
-              <p className="text-white/90 text-start text-[0.95rem] leading-relaxed">{overviewSnippet.length > 20 ? overviewSnippet.slice(0, 20) + "..." : overviewSnippet}</p>
+              <p className="text-white/90 text-start text-[0.95rem] leading-relaxed">
+                {overviewSnippet.length > 20
+                  ? overviewSnippet.slice(0, 20) + "..."
+                  : overviewSnippet}
+              </p>
             ) : (
               <p className="text-white/70">No overview available.</p>
             )}
@@ -276,27 +289,55 @@ const Card = ({ detail }) => {
           {/* Price */}
           <div className="price pt-3 text-start">
             <span className="text-tertiary_color text-[1.2rem]">
-              {typeof detail?.price === "number"
-                ? detail.price === 0
-                  ? <a href="tel:210-882-9658">Call For Price</a>
-                  : `$ ${detail.price.toLocaleString()}`
-                : ""}
+              {typeof detail?.price === "number" ? (
+                detail.price === 0 ? (
+                  <a href="tel:210-882-9658">Call For Price</a>
+                ) : (
+                  `$ ${detail.price.toLocaleString()}`
+                )
+              ) : (
+                ""
+              )}
             </span>
           </div>
 
           {/* Mini specs */}
           <div className="mt-4 flex items-center justify-between gap-4">
             <div className="w-[33%] flex flex-col items-center gap-2 bg-[#171921] py-2 rounded-lg">
-              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">Airframe</span>
-              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">{detail?.airframe ?? 0}</span>
+              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
+                Airframe
+              </span>
+              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
+                {detail?.airframe ?? 0}
+              </span>
             </div>
             <div className="w-[33%] flex flex-col items-center gap-2 bg-[#171921] py-2 rounded-lg">
-              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">Engine</span>
-              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">{detail?.engine ?? 0}</span>
+              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
+                Engine
+              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
+                  {detail?.engine ?? 0}
+                </span>
+                {detail?.engineTwo && (
+                  <>
+                    <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
+                      /
+                    </span>
+                    <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
+                      {detail?.engineTwo ?? 0}
+                    </span>
+                  </>
+                )}
+              </div>
             </div>
             <div className="w-[33%] flex flex-col items-center gap-2 bg-[#171921] py-2 rounded-lg">
-              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">Propeller</span>
-              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">{detail?.propeller ?? 0}</span>
+              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
+                Propeller
+              </span>
+              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
+                {detail?.propeller ?? 0}
+              </span>
             </div>
           </div>
         </div>
