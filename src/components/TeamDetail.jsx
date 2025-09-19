@@ -4,7 +4,7 @@ import { FaPhone } from "react-icons/fa6";
 import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
 import { useMemberDetail } from "../hooks/useMemberDetailQuery";
-import FullscreenSpinner from "./FullscreenSpinner";
+import FullscreenSpinner from "./FullScreenSpinner";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
 
 const TeamDetail = () => {

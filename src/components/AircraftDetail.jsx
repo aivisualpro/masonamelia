@@ -18,7 +18,7 @@ import { motion } from "framer-motion";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import DOMPurify from "dompurify";
 import { PuffLoader } from "react-spinners";
-import FullscreenSpinner from "./FullscreenSpinner";
+import FullscreenSpinner from "./FullScreenSpinner";
 
 Modal.setAppElement("#root");
 

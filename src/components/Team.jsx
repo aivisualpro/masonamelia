@@ -9,7 +9,7 @@ import {
   FaYoutube,
 } from "react-icons/fa";
 import { useTeam } from "../hooks/useTeamQuery";
-import FullscreenSpinner from "./FullscreenSpinner";
+import FullscreenSpinner from "./FullScreenSpinner";
 
 /* your existing static list */
 const staticTeam = [

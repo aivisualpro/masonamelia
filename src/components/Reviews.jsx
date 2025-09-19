@@ -3,7 +3,7 @@ import InfiniteMovingCards from "../components/ui/infinite-moving-cards";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 import { useReviews } from "../hooks/useReviewsQuery";
-import FullscreenSpinner from "./FullscreenSpinner";
+import FullscreenSpinner from "./FullScreenSpinner";
 
 const Reviews = () => {
   const location = useLocation();
