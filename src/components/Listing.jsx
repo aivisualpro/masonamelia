@@ -272,31 +272,25 @@ export default function Listing() {
                 transition={{ duration: 0.4 }}
                 className="rounded-2xl border border-[#ffffff48] p-0 bg-transparent"
               >
-                {catsLoading || rangesLoading ? (
-                  <div className="p-6 text-white/70 text-sm">
-                    Loading filters…
-                  </div>
-                ) : (
-                  <FilterCheckboxList
-                    selected={selectedFilters}
-                    setSelected={setSelectedFilters}
-                    // price slider domain from /ranges
-                    range={priceRange ?? [minPrice, maxPrice]}
-                    setRange={onPriceChange}
-                    minPrice={minPrice}
-                    maxPrice={maxPrice}
-                    // airframe slider domain from /ranges
-                    airframeRange={airframeRange ?? [minAirframe, maxAirframe]}
-                    setAirframeRange={onAirframeChange}
-                    minAirframe={minAirframe}
-                    maxAirframe={maxAirframe}
-                    engineRange={engineRange ?? [minEngine, maxEngine]}
-                    setEngineRange={onEngineChange}
-                    minEngine={minEngine}
-                    maxEngine={maxEngine}
-                    aircraftOptions={aircraftOptions}
-                  />
-                )}
+                <FilterCheckboxList
+                  selected={selectedFilters}
+                  setSelected={setSelectedFilters}
+                  // price slider domain from /ranges
+                  range={priceRange ?? [minPrice, maxPrice]}
+                  setRange={onPriceChange}
+                  minPrice={minPrice}
+                  maxPrice={maxPrice}
+                  // airframe slider domain from /ranges
+                  airframeRange={airframeRange ?? [minAirframe, maxAirframe]}
+                  setAirframeRange={onAirframeChange}
+                  minAirframe={minAirframe}
+                  maxAirframe={maxAirframe}
+                  engineRange={engineRange ?? [minEngine, maxEngine]}
+                  setEngineRange={onEngineChange}
+                  minEngine={minEngine}
+                  maxEngine={maxEngine}
+                  aircraftOptions={aircraftOptions}
+                />
               </motion.div>
             </motion.aside>
           )}
