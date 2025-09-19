@@ -47,7 +47,7 @@ const InfiniteMovingCards = ({
   const getSpeed = () => {
     if (containerRef.current) {
       const duration =
-        speed === "fast" ? "20s" : speed === "normal" ? "40s" : "140s";
+        speed === "fast" ? "20s" : speed === "normal" ? "40s" : "100s";
       containerRef.current.style.setProperty("--animation-duration", duration);
     }
   };
@@ -70,7 +70,7 @@ const InfiniteMovingCards = ({
           pauseOnHover && "hover:[animation-play-state:paused]"
         )}
       >
-        {items.map((item, idx) => (
+        {items?.map((item, idx) => (
           <div className="glass-container flex items-center justify-center glass-container--rounded md:px-4 md:py-3">
             <div className="glass-filter"></div>
             <div className="glass-overlay"></div>

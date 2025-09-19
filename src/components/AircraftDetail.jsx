@@ -18,6 +18,7 @@ import { motion } from "framer-motion";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import DOMPurify from "dompurify";
 import { PuffLoader } from "react-spinners";
+import FullscreenSpinner from "./FullscreenSpinner";
 
 Modal.setAppElement("#root");
 
@@ -61,7 +62,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       setLoading(true);
       try {
         setErrMsg("");
-        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/aircrafts/lists/${id}`, { signal: ac.signal });
+        const res = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/api/aircrafts/lists/${id}`,
+          { signal: ac.signal }
+        );
         if (!res.ok) throw new Error(`Detail ${res.status}`);
         const json = await res.json();
         setAircraft(json?.data || null);
@@ -81,7 +85,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
     const ac = new AbortController();
     (async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_BASE_URL}/api/aircrafts/lists/`, { signal: ac.signal });
+        const res = await fetch(
+          `${import.meta.env.VITE_BASE_URL}/api/aircrafts/lists/`,
+          { signal: ac.signal }
+        );
         const json = await res.json();
         const rows = Array.isArray(json?.data) ? json.data : [];
         const mapped = rows
@@ -145,14 +152,6 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
   const openVideoModal = () => setVideoModalOpen(true);
   const closeVideoModal = () => setVideoModalOpen(false);
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center h-screen w-full mx-auto">
-        <PuffLoader color="#fff" size={100} />
-      </div>
-    );
-  }
-
   if (errMsg) {
     return (
       <section id="showroom" className="pb-20 pt-[150px] md:py-20">
@@ -165,6 +164,16 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
   return (
     <>
+      {/* Spinner mounts into <body> via portal */}
+      <FullscreenSpinner show={loading} text="Loading aircraft..." />
+
+      {/* If API failed AND no fallback, you can show a soft message */}
+      {errMsg && (
+        <div className="py-10 text-center text-red-400">
+          Failed to load aircraft.
+        </div>
+      )}
+
       <section
         id="showroom"
         className="pb-20 pt-[150px] md:pb-20 md:pt-[calc(110px+5rem)]"
@@ -238,7 +247,11 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 <div className="flex flex-col items-center bg-[#171921] w-1/2 p-4 rounded-3xl">
                   <div className="featured_value">
                     <h4 className="text-xl md:text-2xl text-white">
-                      {aircraft?.price ? `$${Number(aircraft?.price || 0).toLocaleString()}` : <a href="tel:210-882-9658">Call For Price</a>}
+                      {aircraft?.price ? (
+                        `$${Number(aircraft?.price || 0).toLocaleString()}`
+                      ) : (
+                        <a href="tel:210-882-9658">Call For Price</a>
+                      )}
                     </h4>
                   </div>
                   <div className="featured_text">
@@ -286,7 +299,9 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                         className="mr-2 bg-tertiary_color p-[6px] rounded-full"
                         size={28}
                       />
-                      <a href="tel:210-882-9658">{aircraft?.contactAgent?.phone || "—"}</a>
+                      <a href="tel:210-882-9658">
+                        {aircraft?.contactAgent?.phone || "—"}
+                      </a>
                     </p>
                   </div>
                 </div>

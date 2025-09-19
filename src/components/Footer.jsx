@@ -57,9 +57,9 @@ const Footer = () => {
                 />
               </a>
             </div>
-            <p className="text-white lg:max-w-lg text-start md:text-justify">
+            <a href="mailto:info@masonamelia.com" className="text-white lg:max-w-lg text-start md:text-justify">
               info@masonamelia.com
-            </p>
+            </a>
           </div>
 
           <div className="md:order-second order-first md:w-[33.3%] flex flex-col md:items-center items-start justify-center">

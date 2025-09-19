@@ -1,23 +1,25 @@
 import React, { useRef, useState, useMemo } from "react";
 import { motion, useAnimationFrame } from "framer-motion";
-
-import brandOne from "/images/brands/one.png"
-import brandTwo from "/images/brands/two.avif"
-import brandThree from "/images/brands/three.png"
-import brandFour from "/images/brands/four.png"
-import brandFive from "/images/brands/five.avif"
-import brandSix from "/images/brands/six.svg"
+import { useBrands } from "../hooks/useBrandsQuery";
 
 const Brands = () => {
-  const brands = [brandOne, brandTwo, brandThree, brandFour, brandFive, brandSix];
-  const baseImages = useMemo(() => [...brands, ...brands], [brands]);
+  // 1) default to [] so it's always iterable
+  const { data: brands = [], isLoading, error } = useBrands();
+
+  // 2) only keep valid logo urls
+  const logos = useMemo(
+    () => brands.map(b => b?.logo).filter(Boolean),
+    [brands]
+  );
+
+  // 3) duplicate list for infinite scroll
+  const baseImages = useMemo(() => logos.concat(logos), [logos]);
 
   const xRef = useRef(0);
   const containerRef = useRef(null);
-
   const [isHovered, setIsHovered] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  
+
   useAnimationFrame((t, delta) => {
     if (containerRef.current && !isHovered) {
       xRef.current -= 0.05 * delta;
@@ -27,6 +29,10 @@ const Brands = () => {
     }
   });
 
+  if (isLoading) return <section className="py-8 text-white">Loading…</section>;
+  if (error) return <section className="py-8 text-red-400">Failed to load brands</section>;
+  if (!logos.length) return null;
+
   return (
     <section className="w-full overflow-x-hidden bg-[#111218] py-4">
       <div
@@ -35,12 +41,12 @@ const Brands = () => {
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {baseImages.map((img, index) => {
+        {baseImages.map((src, index) => {
           const scale = isHovered && hoveredIndex === index ? 1.3 : 1;
           return (
             <motion.img
-              key={index}
-              src={img}
+              key={`${src}-${index}`}
+              src={src}
               alt={`brand-${index}`}
               draggable={false}
               className="brand_img w-40 h-24 object-contain mx-12"
