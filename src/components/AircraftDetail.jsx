@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { IoImageOutline, IoCheckmarkDoneOutline } from "react-icons/io5";
 import { FaRegCirclePlay, FaPhone } from "react-icons/fa6";
 import { TfiEmail } from "react-icons/tfi";
@@ -182,12 +182,13 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
         id="showroom"
         className="pb-20 pt-[85px] md:pb-20 md:pt-[calc(110px+5rem)]"
       >
-
         <div className="md:hidden flex items-center justify-between bg-[#1777cb]">
-          <div className="showroom-redirect-icon flex items-center ms-3">
-            <IoIosArrowBack size={16} color="white" />
-            <span className="text-white text-sm ms-2">Showroom</span>
-          </div>
+          <Link to="/showroom">
+            <div className="showroom-redirect-icon flex items-center ms-3">
+              <IoIosArrowBack size={16} color="white" />
+              <span className="text-white text-sm ms-2">Showroom</span>
+            </div>
+          </Link>
           <h1 className="text-2xl md:text-3xl font-bold mt-2 mb-2 lg:mt-0 lg:mb-8 mx-auto text-white">
             {aircraft?.title?.slice(0, 6)}
           </h1>
