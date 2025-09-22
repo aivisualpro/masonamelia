@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { IoImageOutline, IoCheckmarkDoneOutline } from "react-icons/io5";
 import { FaRegCirclePlay, FaPhone } from "react-icons/fa6";
@@ -19,6 +19,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import DOMPurify from "dompurify";
 import { PuffLoader } from "react-spinners";
 import FullscreenSpinner from "./FullScreenSpinner";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 
 Modal.setAppElement("#root");
 
@@ -162,6 +163,9 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
     );
   }
 
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+
   return (
     <>
       {/* Spinner mounts into <body> via portal */}
@@ -176,10 +180,196 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
       <section
         id="showroom"
-        className="pb-20 pt-[150px] md:pb-20 md:pt-[calc(110px+5rem)]"
+        className="pb-20 pt-[85px] md:pb-20 md:pt-[calc(110px+5rem)]"
       >
+
+        <div className="md:hidden flex items-center justify-between bg-[#1777cb]">
+          <div className="showroom-redirect-icon flex items-center ms-3">
+            <IoIosArrowBack size={16} color="white" />
+            <span className="text-white text-sm ms-2">Showroom</span>
+          </div>
+          <h1 className="text-2xl md:text-3xl font-bold mt-2 mb-2 lg:mt-0 lg:mb-8 mx-auto text-white">
+            {aircraft?.title?.slice(0, 6)}
+          </h1>
+          <span className="text-[#1777cb]">helloafdad</span>
+        </div>
+
+        <div className="md:hidden flex flex-col gap-4">
+          {/* Left: gallery */}
+          <div className="lg:w-[60%]">
+            <img
+              src={gallery?.[activeImgIndex]}
+              alt="Main Aircraft"
+              className="w-full h-[400px] object-cover lg:rounded-2xl cursor-pointer"
+              onClick={() => onOpenModal(activeImgIndex, gallery)}
+            />
+            <div className="lg:mt-4">
+              <Swiper
+                key={gallery?.length || 0} // re-init if gallery changes
+                spaceBetween={12}
+                slidesPerView={5}
+                loop={Array.isArray(gallery) && gallery.length > 1} // guard
+                modules={[Navigation]}
+                onBeforeInit={(swiper) => {
+                  swiper.params.navigation.prevEl = prevRef.current;
+                  swiper.params.navigation.nextEl = nextRef.current;
+                }}
+                onInit={(swiper) => {
+                  swiper.navigation.init();
+                  swiper.navigation.update();
+                }}
+                className="relative"
+              >
+                {gallery?.map((src, i) => (
+                  <SwiperSlide key={i} className="">
+                    <img
+                      src={src}
+                      alt={`Thumb ${i}`}
+                      className={`${
+                        activeImgIndex === i
+                          ? "border-2 border-[#1777cb] opacity-70"
+                          : ""
+                      } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
+                      onClick={() => setActiveImgIndex(i)}
+                    />
+                  </SwiperSlide>
+                ))}
+
+                {/* Custom arrows (outside look) */}
+                <button
+                  ref={prevRef}
+                  className="thumb-prev absolute left-2 top-1/2 z-10 -translate-y-1/2 text-white p-2 rounded-full shadow-md"
+                  aria-label="Previous"
+                >
+                  <IoIosArrowBack />
+                </button>
+                <button
+                  ref={nextRef}
+                  className="thumb-next absolute right-2 top-1/2 z-10 -translate-y-1/2 text-white p-2 rounded-full shadow-md"
+                  aria-label="Next"
+                >
+                  <IoIosArrowForward />
+                </button>
+              </Swiper>
+              <div className="flex mt-4 px-5">
+                {/* <button
+                    onClick={() => onOpenModal(currentIndex, gallery)}
+                    className="bg-[#22242e] w-full md:w-1/2 md:mb-0 mb-4 hover:bg-[#22242e]/80 transition-all duration-300 flex items-center justify-center gap-2 text-white py-3 px-4 rounded-[30px] text-sm md:text-lg font-semibold"
+                  >
+                    <IoImageOutline size={media ? 18 : 22} />
+                    <span>View More</span>
+                  </button> */}
+                {aircraft?.videoUrl && (
+                  <button
+                    onClick={openVideoModal}
+                    className="bg-[#22242e] w-full md:mb-0 mb-4 hover:bg-[#22242e]/80 transition-all duration-300 flex items-center justify-center gap-2 text-white py-3 px-4 rounded-[30px] text-sm md:text-lg font-semibold"
+                  >
+                    <FaRegCirclePlay size={media ? 18 : 22} />
+                    <span>Video</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Right: specs & contact */}
+
+          <div className="lg:w-[40%] px-5">
+            <div className="jet_featured md:flex-row flex-col flex justify-between mt-4 gap-4">
+              <div className="flex flex-col items-center bg-[#171921] md:w-1/2 w-full p-4 rounded-3xl">
+                <div className="featured_value">
+                  <h4 className="text-xl md:text-2xl text-white">
+                    {aircraft?.price ? (
+                      `$${Number(aircraft?.price || 0).toLocaleString()}`
+                    ) : (
+                      <a href="tel:210-882-9658">Call For Price</a>
+                    )}
+                  </h4>
+                </div>
+                <div className="featured_text">
+                  <h4 className="text-[#7C7C88] text-base md:text-lg mt-2 text-center">
+                    Price
+                  </h4>
+                </div>
+              </div>
+              <div className="flex flex-col items-center bg-[#171921] md:w-1/2 w-full p-4 rounded-3xl">
+                <div className="featured_value">
+                  <h4 className="text-xl md:text-2xl text-white">
+                    {aircraft?.year}
+                  </h4>
+                </div>
+                <div className="featured_text">
+                  <h4 className="text-[#7C7C88] text-base md:text-lg text-center mt-2">
+                    Year
+                  </h4>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 md:flex items-start justify-between">
+              <div className="contact-info">
+                <h2 className="mb-4 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                  Agent Details
+                </h2>
+                <div className="gap-4">
+                  <p className="text-base mb-3 text-white flex items-center">
+                    <CiUser
+                      className="mr-2 bg-tertiary_color p-[6px] rounded-full"
+                      size={28}
+                    />
+                    {aircraft?.contactAgent?.name || "—"}
+                  </p>
+                  <p className="text-base mb-3 text-white flex items-center">
+                    <TfiEmail
+                      className="mr-2 bg-tertiary_color p-[6px] rounded-full"
+                      size={28}
+                    />
+                    {aircraft?.contactAgent?.email || "—"}
+                  </p>
+                  <p className="text-base mb-3 text-white flex items-center">
+                    <FaPhone
+                      className="mr-2 bg-tertiary_color p-[6px] rounded-full"
+                      size={28}
+                    />
+                    <a href="tel:210-882-9658">
+                      {aircraft?.contactAgent?.phone || "—"}
+                    </a>
+                  </p>
+                </div>
+              </div>
+
+              <div className="aircraft-location">
+                <h2 className="mb-4 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                  Aircraft Location
+                </h2>
+                <div className="gap-4">
+                  <p className="text-base mb-3 text-white flex items-center">
+                    <ImLocation2
+                      className="mr-2 bg-tertiary_color p-[6px] rounded-full"
+                      size={28}
+                    />
+                    {aircraft?.location || "—"}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="">
+              <iframe
+                // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49118.23391548527!2d-111.87382773125353!3d39.697185689909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x874c5648a65523d9%3A0xd7b6f9f8a451f49e!2sNephi%2C%20UT%2084648%2C%20USA!5e0!3m2!1sen!2s!4v1755939914578!5m2!1sen!2s"
+                src={`${
+                  aircraft?.latitude && aircraft?.longitude
+                    ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed`
+                    : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
+                }`}
+                className="w-full h-[180px] mt-6 rounded"
+              />
+            </div>
+          </div>
+        </div>
+
         <div className="container px-5">
-          <div className="lg:flex items-center justify-between">
+          <div className="hidden md:flex items-center justify-between">
             <h1 className="text-3xl font-bold mb-4 lg:mb-8 text-white">
               {aircraft?.title}
             </h1>
@@ -195,43 +385,75 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
             </div>
           </div>
 
-          <div className="lg:flex flex-col md:flex-row gap-4">
+          <div className="md:block lg:flex hidden gap-4">
             {/* Left: gallery */}
-            <div className="lg:w-[60%]">
+            <div className="lg:w-[60%] w-full">
               <img
                 src={gallery?.[activeImgIndex]}
                 alt="Main Aircraft"
-                className="w-full h-[400px] object-cover rounded-2xl cursor-pointer"
+                className="w-full h-[400px] object-cover lg:rounded-2xl cursor-pointer"
                 onClick={() => onOpenModal(activeImgIndex, gallery)}
               />
-              <div className="mt-4">
-                <div className="grid grid-cols-2 md:grid-cols-4 gallary_images gap-4">
-                  {gallery?.slice(0, 4)?.map((src, i) => (
-                    <img
-                      key={i}
-                      src={src}
-                      alt={`Thumb ${i}`}
-                      className={`${
-                        activeImgIndex === i
-                          ? "border-2 border-[#1777cb] opacity-70"
-                          : ""
-                      } cursor-pointer h-[120px] object-cover rounded-2xl`}
-                      onClick={() => setActiveImgIndex(i)}
-                    />
+              <div className="md:mt-4">
+                <Swiper
+                  key={gallery?.length || 0} // re-init if gallery changes
+                  spaceBetween={12}
+                  slidesPerView={5}
+                  loop={Array.isArray(gallery) && gallery.length > 1} // guard
+                  modules={[Navigation]}
+                  onBeforeInit={(swiper) => {
+                    swiper.params.navigation.prevEl = prevRef.current;
+                    swiper.params.navigation.nextEl = nextRef.current;
+                  }}
+                  onInit={(swiper) => {
+                    swiper.navigation.init();
+                    swiper.navigation.update();
+                  }}
+                  className="relative"
+                >
+                  {gallery?.map((src, i) => (
+                    <SwiperSlide key={i} className="">
+                      <img
+                        src={src}
+                        alt={`Thumb ${i}`}
+                        className={`${
+                          activeImgIndex === i
+                            ? "border-2 border-[#1777cb] opacity-70"
+                            : ""
+                        } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
+                        onClick={() => setActiveImgIndex(i)}
+                      />
+                    </SwiperSlide>
                   ))}
-                </div>
-                <div className="flex mt-4 gap-4">
+
+                  {/* Custom arrows (outside look) */}
                   <button
+                    ref={prevRef}
+                    className="thumb-prev absolute left-2 top-1/2 z-10 -translate-y-1/2 text-white p-2 rounded-full shadow-md"
+                    aria-label="Previous"
+                  >
+                    <IoIosArrowBack size={24} color="#fff" />
+                  </button>
+                  <button
+                    ref={nextRef}
+                    className="thumb-next absolute right-2 top-1/2 z-10 -translate-y-1/2 text-white p-2 rounded-full shadow-md"
+                    aria-label="Next"
+                  >
+                    <IoIosArrowForward size={24} color="#fff" />
+                  </button>
+                </Swiper>
+                <div className="flex mt-4">
+                  {/* <button
                     onClick={() => onOpenModal(currentIndex, gallery)}
                     className="bg-[#22242e] w-full md:w-1/2 md:mb-0 mb-4 hover:bg-[#22242e]/80 transition-all duration-300 flex items-center justify-center gap-2 text-white py-3 px-4 rounded-[30px] text-sm md:text-lg font-semibold"
                   >
                     <IoImageOutline size={media ? 18 : 22} />
                     <span>View More</span>
-                  </button>
+                  </button> */}
                   {aircraft?.videoUrl && (
                     <button
                       onClick={openVideoModal}
-                      className="bg-[#22242e] w-full md:w-1/2 md:mb-0 mb-4 hover:bg-[#22242e]/80 transition-all duration-300 flex items-center justify-center gap-2 text-white py-3 px-4 rounded-[30px] text-sm md:text-lg font-semibold"
+                      className="bg-[#22242e] w-full md:mb-0 mb-4 hover:bg-[#22242e]/80 transition-all duration-300 flex items-center justify-center gap-2 text-white py-3 px-4 rounded-[30px] text-sm md:text-lg font-semibold"
                     >
                       <FaRegCirclePlay size={media ? 18 : 22} />
                       <span>Video</span>
@@ -242,9 +464,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
             </div>
 
             {/* Right: specs & contact */}
-            <div className="lg:w-[40%]">
-              <div className="jet_featured flex justify-between mt-4 gap-4">
-                <div className="flex flex-col items-center bg-[#171921] w-1/2 p-4 rounded-3xl">
+
+            <div className="lg:w-[40%] w-full">
+              <div className="jet_featured flex md:flex-row flex-col justify-between mt-4 gap-4">
+                <div className="flex flex-col items-center bg-[#171921] md:w-1/2 w-full p-4 rounded-3xl">
                   <div className="featured_value">
                     <h4 className="text-xl md:text-2xl text-white">
                       {aircraft?.price ? (
@@ -260,7 +483,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                     </h4>
                   </div>
                 </div>
-                <div className="flex flex-col items-center bg-[#171921] w-1/2 p-4 rounded-3xl">
+                <div className="flex flex-col items-center bg-[#171921] md:w-1/2 w-full p-4 rounded-3xl">
                   <div className="featured_value">
                     <h4 className="text-xl md:text-2xl text-white">
                       {aircraft?.year}
@@ -325,7 +548,11 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
               <div className="">
                 <iframe
                   // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49118.23391548527!2d-111.87382773125353!3d39.697185689909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x874c5648a65523d9%3A0xd7b6f9f8a451f49e!2sNephi%2C%20UT%2084648%2C%20USA!5e0!3m2!1sen!2s!4v1755939914578!5m2!1sen!2s"
-                  src={`${aircraft?.latitude && aircraft?.longitude ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed` : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"}`}
+                  src={`${
+                    aircraft?.latitude && aircraft?.longitude
+                      ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed`
+                      : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
+                  }`}
                   className="w-full h-[180px] mt-6 rounded"
                 />
               </div>

@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const CheckBoxGroup = ({ title, items, selected, onChange }) => {
+
+  const [aircraftOpen, setAircraftOpen] = useState(false);
+
   return (
     <div className="pr-2 pt-4">
       <h4 className="text-white text-sm font-semibold mb-4">{title}</h4>

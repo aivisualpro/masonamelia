@@ -15,12 +15,27 @@ import "swiper/css/thumbs";
 import "swiper/css/keyboard";
 import "swiper/css/navigation";
 
-import GallaryOne from "/images/gallary/image 1.png";
-import GallaryTwo from "/images/gallary/image 2.png"
-import GallaryThree from "/images/gallary/image 3.png";
-import GallaryFour from "/images/gallary/image 4.png";
-import GallaryFive from "/images/gallary/image 5.png";
-import GallarySix from "/images/gallary/image 6.png";
+import GallaryOne from "/images/thumbnails/1.jpg";
+import GallaryTwo from "/images/thumbnails/2.webp"
+import GallaryThree from "/images/thumbnails/3.jpg";
+import GallaryFour from "/images/thumbnails/4.webp";
+import GallaryFive from "/images/thumbnails/5.jpg";
+import GallarySix from "/images/thumbnails/6.webp";
+import GallarySeven from "/images/thumbnails/7.jpg";
+import GallaryEight from "/images/thumbnails/8.webp";
+import GallaryNine from "/images/thumbnails/9.jpg";
+import GallaryTen from "/images/thumbnails/10.webp";
+import GallaryEleven from "/images/thumbnails/11.jpg";
+import GallaryTwelve from "/images/thumbnails/12.webp";
+import GallaryThirteen from "/images/thumbnails/13.jpg";
+import GallaryFourteen from "/images/thumbnails/14.webp";
+import GallaryFifteen from "/images/thumbnails/15.webp";
+import GallarySixteen from "/images/thumbnails/16.webp";
+import GallarySeventeen from "/images/thumbnails/17.webp";
+import GallaryEighteen from "/images/thumbnails/18.webp";
+import GallaryNineteen from "/images/thumbnails/19.webp";
+import GallaryTwenty from "/images/thumbnails/20.webp";
+import GallaryTwentyOne from "/images/thumbnails/21.webp";
 import { HeroParallax } from "./ui/hero-parallex";
 import "../custom.css"
 
@@ -158,63 +173,105 @@ export const products = [
     _id: 7,
     title: "Moonbeam",
     category: "",
-    src: GallaryOne,
+    src: GallarySeven,
     videoUrl: "https://www.youtube.com/embed/AHF7354Fr1w?si=i_KCQVf8MgJ10GZe",
   },
   {
     _id: 8,
     title: "Moonbeam",
     category: "",
-    src: GallaryTwo,
+    src: GallaryEight,
     videoUrl: "https://www.youtube.com/embed/Bux2lUoqEow?si=NqzvBBzWuRn8i2T8",
   },
   {
     _id: 9,
     title: "Moonbeam",
     category: "",
-    src: GallaryThree,
+    src: GallaryNine,
     videoUrl: "https://www.youtube.com/embed/2SUY8ULXEl0?si=sSvG5KRPgp_8fq_2",
   },
   {
     _id: 10,
     title: "Moonbeam",
     category: "",
-    src: GallaryFour,
+    src: GallaryTen,
     videoUrl: "https://www.youtube.com/embed/YOYnQA1hN6s?si=Jafjza6UqlIRIAUO",
   },
   {
     _id: 11,
     title: "Moonbeam",
     category: "",
-    src: GallaryFive,
+    src: GallaryEleven,
     videoUrl: "https://www.youtube.com/embed/pjHfNN-oKoA?si=jE3m0m-7rbRR0NIF",
   },
   {
     _id: 12,
     title: "Moonbeam",
     category: "",
-    src: GallarySix,
+    src: GallaryTwelve,
     videoUrl: "https://www.youtube.com/embed/86xFD4jn-MU?si=W_boDwDqvDYmHEen",
   },
   {
     _id: 13,
     title: "Moonbeam",
     category: "",
-    src: GallaryFour,
+    src: GallaryThirteen,
     videoUrl: "https://www.youtube.com/embed/YOYnQA1hN6s?si=Jafjza6UqlIRIAUO",
   },
   {
     _id: 14,
     title: "Moonbeam",
     category: "",
-    src: GallaryFive,
+    src: GallaryFourteen,
     videoUrl: "https://www.youtube.com/embed/pjHfNN-oKoA?si=jE3m0m-7rbRR0NIF",
   },
   {
     _id: 15,
     title: "Moonbeam",
     category: "",
-    src: GallarySix,
+    src: GallaryFifteen,
     videoUrl: "https://www.youtube.com/embed/86xFD4jn-MU?si=W_boDwDqvDYmHEen",
+  },
+  {
+    _id: 16,
+    title: "Moonbeam",
+    category: "",
+    src: GallarySixteen,
+    videoUrl: "https://www.youtube.com/embed/86xFD4jn-MU?si=W_boDwDqvDYmHEen",
+  },
+  {
+    _id: 17,
+    title: "Moonbeam",
+    category: "",
+    src: GallarySeventeen,
+    videoUrl: "https://www.youtube.com/embed/86xFD4jn-MU?si=W_boDwDqvDYmHEen",
+  },
+  {
+    _id: 18,
+    title: "Moonbeam",
+    category: "",
+    src: GallaryEighteen,
+    videoUrl: "https://www.youtube.com/embed/86xFD4jn-MU?si=W_boDwDqvDYmHEen",
+  },
+  {
+    _id: 19,
+    title: "Moonbeam",
+    category: "",
+    src: GallaryNineteen,
+    videoUrl: "https://www.youtube.com/embed/Bux2lUoqEow?si=NqzvBBzWuRn8i2T8",
+  },
+  {
+    _id: 20,
+    title: "Moonbeam",
+    category: "",
+    src: GallaryTwenty,
+    videoUrl: "https://www.youtube.com/embed/Bux2lUoqEow?si=NqzvBBzWuRn8i2T8",
+  },
+  {
+    _id: 21,
+    title: "Moonbeam",
+    category: "",
+    src: GallaryTwentyOne,
+    videoUrl: "https://www.youtube.com/embed/Bux2lUoqEow?si=NqzvBBzWuRn8i2T8",
   },
 ];

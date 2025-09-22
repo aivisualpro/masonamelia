@@ -19,7 +19,7 @@ export default function Tabs({
       <div
         style={styles.navContainer}
         className={`gap-[12px] md:gap-[24px] tabs-scroll w-full ${
-          location.pathname !== "/showroom" ? "flex flex-row flex-wrap" : ""
+          location.pathname !== "/showroom" ? "flex flex-row flex-wrap" : "flex flex-row flex-wrap"
         }`}
       >
         {/* FILTER pill at the very start */}
@@ -33,7 +33,7 @@ export default function Tabs({
               paddingLeft: 14,
               paddingRight: 14,
             }}
-            className="relative flex items-center gap-2"
+            className="relative hidden xl:flex items-center gap-2"
           >
             <motion.div
               layoutId="filterHighlight"
@@ -49,6 +49,7 @@ export default function Tabs({
           <div
             onClick={() => setActiveTab("all")}
             style={{ ...styles.tab, color: activeTab === "all" ? "white" : "#aaa" }}
+            className="w-[40%] mx-2 md:w-auto text-center text-xs xl:text-base"
           >
             {activeTab === "all" && (
               <motion.div
@@ -67,7 +68,7 @@ export default function Tabs({
             onClick={() => setActiveTab(tab.slug)}
             style={{ ...styles.tab, color: activeTab === tab.slug ? "white" : "#aaa" }}
             className={`md:w-auto text-center text-xs xl:text-base ${
-              location.pathname !== "/showroom" ? "w-[40%] mx-2" : ""
+              location.pathname !== "/showroom" ? "w-[40%] mx-2" : "w-[40%] mx-2"
             }`}
           >
             {activeTab === tab.slug && (

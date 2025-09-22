@@ -72,7 +72,7 @@ const Navbar = () => {
       ].join(" ")}
     >
       <div className="py-4 md:py-1 mx-auto text-white flex items-center justify-between">
-        <div className="ms-4 logo z-[999999] group relative">
+        <div className="ms-4 logo z-[9999] group relative">
           <Link to={"/"}>
             <img
               src={

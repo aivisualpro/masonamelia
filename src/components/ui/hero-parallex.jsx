@@ -4,9 +4,13 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 export const HeroParallax = ({ portfolio, onImageClick }) => {
   // 3 rows
-  const firstRow = portfolio.slice(0, 5);
-  const secondRow = portfolio.slice(5, 10);
-  const thirdRow = portfolio.slice(3, 8);
+  const firstRow = portfolio.slice(0, 4);
+  const secondRow = portfolio.slice(3, 7);
+  const thirdRow = portfolio.slice(6, 10);
+  const fourthRow = portfolio.slice(9, 13);
+  const fifthRow = portfolio.slice(12, 16);
+  const sixthRow = portfolio.slice(15, 19);
+  const seventhRow = portfolio.slice(18, 22);
 
   // (optional) media queries preserved
   useMediaQuery("(max-width: 768px) and (max-height: 800px)");
@@ -22,11 +26,11 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
   const springConfig = { stiffness: 200, damping: 30, bounce: 100 };
 
   const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, 1000]),
+    useTransform(scrollYProgress, [0, 1], [-30, 1000]),
     springConfig
   );
   const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -1000]),
+    useTransform(scrollYProgress, [0, 1], [-400, -1000]),
     springConfig
   );
   const rotateX = useSpring(
@@ -42,14 +46,14 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-500, 500]),
+    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
     springConfig
   );
 
   return (
     <div
       ref={ref}
-      className="z-[10] h-[100rem] md:h-[115rem] 2xl:h-[140rem] overflow-hidden bg-[#111218] flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="z-[10] h-[145rem] md:h-[190rem] lg:h-[225rem] xl:h-[245rem] overflow-hidden bg-[#000] flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
 
@@ -89,6 +93,55 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
             />
           ))}
         </motion.div>
+
+        {/* Row 4 */}
+        <motion.div className="flex flex-row">
+          {fourthRow.map((port, index) => (
+            <ProductCard
+              data={port}
+              translate={translateXReverse}
+              key={`fourth-${index}`}
+              onClick={() => onImageClick(index + 12)}
+            />
+          ))}
+        </motion.div>
+
+        {/* Row 5 */}
+        <motion.div className="flex flex-row-reverse">
+          {fifthRow.map((port, index) => (
+            <ProductCard
+              data={port}
+              translate={translateX}
+              key={`fifth-${index}`}
+              onClick={() => onImageClick(index + 16)}
+            />
+          ))}
+        </motion.div>
+
+        {/* Row 6 */}
+        <motion.div className="flex flex-row">
+          {sixthRow.map((port, index) => (
+            <ProductCard
+              data={port}
+              translate={translateXReverse}
+              key={`sixth-${index}`}
+              onClick={() => onImageClick(index + 16)}
+            />
+          ))}
+        </motion.div>
+
+        {/* Row 7 */}
+        <motion.div className="flex flex-row-reverse">
+          {seventhRow.map((port, index) => (
+            <ProductCard
+              data={port}
+              translate={translateX}
+              key={`seventh-${index}`}
+              onClick={() => onImageClick(index + 18)}
+            />
+          ))}
+        </motion.div>
+
       </motion.div>
     </div>
   );
@@ -123,9 +176,8 @@ export const ProductCard = ({ data, translate, onClick }) => {
         src={data.src}
         alt={data.title}
         loading="lazy"
-        className={`min-h-[125px] min-w-[250px] md:min-h-[180px] md:min-w-[320px] 2xl:min-h-[225px] 2xl:min-w-[425px] h-full rounded-[5px] duration-300`}
+        className={`min-h-[225px] min-w-[400px] md:min-h-[315px] md:min-w-[560px] lg:min-h-[405px] lg:min-w-[720px] 2xl:min-h-[450px] 2xl:min-w-[800px] h-full rounded-[5px] duration-300`}
       />
-      
     </motion.div>
   );
 };

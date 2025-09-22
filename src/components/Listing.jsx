@@ -23,6 +23,7 @@ import {
 } from "../hooks/useAircraftsQuery";
 import { useCategoriesQuery } from "../hooks/useCategoriesQuery";
 import { PuffLoader } from "react-spinners";
+import { MdMenu } from "react-icons/md";
 
 const STATUS_TABS = [
   { name: "For Sale", slug: "for-sale" },
@@ -230,7 +231,7 @@ export default function Listing() {
         </div>
 
         {/* Tabs */}
-        <div className="lg:block hidden animated-tabs mb-12">
+        <div className="block animated-tabs mb-12">
           <Tabs
             categories={STATUS_TABS}
             activeTab={activeTab}
@@ -243,11 +244,11 @@ export default function Listing() {
         </div>
 
         {/* Mobile filter toggle */}
-        <div className="filter mb-4 lg:hidden flex justify-end">
-          <IoFilterSharp />
+        <div className="filter mb-4 xl:hidden flex items-center justify-end">
+          <IoFilterSharp size={20} color="white" />
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="text-white flex items-center gap-2"
+            className="text-white flex items-center gap-2 ms-2"
           >
             Filter
           </button>
@@ -298,12 +299,16 @@ export default function Listing() {
           {/* Mobile drawer */}
           <div className="block">
             <FilterSideBar
-              selectedFilters={selectedFilters}
-              setSelectedFilters={setSelectedFilters}
-              priceRange={priceRange ?? [minPrice, maxPrice]}
-              setPriceRange={onPriceChange}
+              isOpen={isOpen}
+              setIsOpen={setIsOpen}
+              selected={selectedFilters}
+              setSelected={setSelectedFilters}
+              // price slider domain from /ranges
+              range={priceRange ?? [minPrice, maxPrice]}
+              setRange={onPriceChange}
               minPrice={minPrice}
               maxPrice={maxPrice}
+              // airframe slider domain from /ranges
               airframeRange={airframeRange ?? [minAirframe, maxAirframe]}
               setAirframeRange={onAirframeChange}
               minAirframe={minAirframe}
@@ -312,9 +317,6 @@ export default function Listing() {
               setEngineRange={onEngineChange}
               minEngine={minEngine}
               maxEngine={maxEngine}
-              categories={STATUS_TABS}
-              isOpen={isOpen}
-              setIsOpen={setIsOpen}
               aircraftOptions={aircraftOptions}
             />
           </div>

@@ -83,3 +83,12 @@
     display: none;
   }
 }
+
+#showroom .swiper-slide {
+  padding: 0 !important;
+}
+@media (max-width: 767px) {
+  #showroom .swiper-slide {
+    margin-right: 0 !important;
+  }
+}
