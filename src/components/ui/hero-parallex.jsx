@@ -1,16 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 export const HeroParallax = ({ portfolio, onImageClick }) => {
-  // 3 rows
-  const firstRow = portfolio.slice(0, 4);
-  const secondRow = portfolio.slice(3, 7);
-  const thirdRow = portfolio.slice(6, 10);
-  const fourthRow = portfolio.slice(9, 13);
-  const fifthRow = portfolio.slice(12, 16);
-  const sixthRow = portfolio.slice(15, 19);
-  const seventhRow = portfolio.slice(18, 22);
+  // Helper to build a row preserving the ORIGINAL global index
+  const makeRow = (start, end) =>
+    portfolio
+      .slice(start, Math.min(end, portfolio.length))
+      .map((item, i) => ({ item, idx: start + i }));
+
+  // Keep your overlapping windows, but now each card carries its global idx
+  const firstRow   = makeRow(0, 4);   // 0..3
+  const secondRow  = makeRow(3, 7);   // 3..6
+  const thirdRow   = makeRow(6, 10);  // 6..9
+  const fourthRow  = makeRow(9, 13);  // 9..12
+  const fifthRow   = makeRow(12, 16); // 12..15
+  const sixthRow   = makeRow(15, 19); // 15..18
+  const seventhRow = makeRow(18, 22); // 18..21
 
   // (optional) media queries preserved
   useMediaQuery("(max-width: 768px) and (max-height: 800px)");
@@ -60,88 +66,87 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
       <motion.div style={{ rotateX, rotateZ, translateY, opacity }}>
         {/* Row 1 */}
         <motion.div className="flex flex-row-reverse z-[999]">
-          {firstRow.map((port, index) => (
+          {firstRow.map(({ item, idx }) => (
             <ProductCard
-              data={port}
+              key={`first-${idx}`}
+              data={item}
               translate={translateX}
-              key={`first-${index}`}
-              onClick={() => onImageClick(index)}
+              onClick={() => onImageClick(idx)}
             />
           ))}
         </motion.div>
 
         {/* Row 2 */}
         <motion.div className="flex flex-row">
-          {secondRow.map((port, index) => (
+          {secondRow.map(({ item, idx }) => (
             <ProductCard
-              data={port}
+              key={`second-${idx}`}
+              data={item}
               translate={translateXReverse}
-              key={`second-${index}`}
-              onClick={() => onImageClick(index + 4)}
+              onClick={() => onImageClick(idx)}
             />
           ))}
         </motion.div>
 
         {/* Row 3 */}
         <motion.div className="flex flex-row-reverse">
-          {thirdRow.map((port, index) => (
+          {thirdRow.map(({ item, idx }) => (
             <ProductCard
-              data={port}
+              key={`third-${idx}`}
+              data={item}
               translate={translateX}
-              key={`third-${index}`}
-              onClick={() => onImageClick(index + 8)}
+              onClick={() => onImageClick(idx)}
             />
           ))}
         </motion.div>
 
         {/* Row 4 */}
         <motion.div className="flex flex-row">
-          {fourthRow.map((port, index) => (
+          {fourthRow.map(({ item, idx }) => (
             <ProductCard
-              data={port}
+              key={`fourth-${idx}`}
+              data={item}
               translate={translateXReverse}
-              key={`fourth-${index}`}
-              onClick={() => onImageClick(index + 12)}
+              onClick={() => onImageClick(idx)}
             />
           ))}
         </motion.div>
 
         {/* Row 5 */}
         <motion.div className="flex flex-row-reverse">
-          {fifthRow.map((port, index) => (
+          {fifthRow.map(({ item, idx }) => (
             <ProductCard
-              data={port}
+              key={`fifth-${idx}`}
+              data={item}
               translate={translateX}
-              key={`fifth-${index}`}
-              onClick={() => onImageClick(index + 16)}
+              onClick={() => onImageClick(idx)}
             />
           ))}
         </motion.div>
 
         {/* Row 6 */}
         <motion.div className="flex flex-row">
-          {sixthRow.map((port, index) => (
+          {sixthRow.map(({ item, idx }) => (
             <ProductCard
-              data={port}
+              key={`sixth-${idx}`}
+              data={item}
               translate={translateXReverse}
-              key={`sixth-${index}`}
-              onClick={() => onImageClick(index + 16)}
+              onClick={() => onImageClick(idx)}
             />
           ))}
         </motion.div>
 
         {/* Row 7 */}
         <motion.div className="flex flex-row-reverse">
-          {seventhRow.map((port, index) => (
+          {seventhRow.map(({ item, idx }) => (
             <ProductCard
-              data={port}
+              key={`seventh-${idx}`}
+              data={item}
               translate={translateX}
-              key={`seventh-${index}`}
-              onClick={() => onImageClick(index + 18)}
+              onClick={() => onImageClick(idx)}
             />
           ))}
         </motion.div>
-
       </motion.div>
     </div>
   );
@@ -160,7 +165,6 @@ export const Header = () => {
   );
 };
 
-// === ProductCard: hover par 5 sec preview ===
 export const ProductCard = ({ data, translate, onClick }) => {
   return (
     <motion.div
@@ -171,13 +175,13 @@ export const ProductCard = ({ data, translate, onClick }) => {
       role="button"
       tabIndex={0}
     >
-      {/* Thumbnail image */}
       <img
-        src={data.src}
-        alt={data.title}
+        src={data?.src}
+        alt={data?.title}
         loading="lazy"
-        className={`min-h-[225px] min-w-[400px] md:min-h-[315px] md:min-w-[560px] lg:min-h-[405px] lg:min-w-[720px] 2xl:min-h-[450px] 2xl:min-w-[800px] h-full rounded-[5px] duration-300`}
+        className="min-h-[225px] min-w-[400px] md:min-h-[315px] md:min-w-[560px] lg:min-h-[405px] lg:min-w-[720px] 2xl:min-h-[450px] 2xl:min-w-[800px] h-full rounded-[5px] duration-300"
       />
+      <h4 className="text-white">{data?.title}</h4>
     </motion.div>
   );
 };

@@ -78,7 +78,7 @@ const Gallary = () => {
           </button>
 
           {/* Main Video */}
-          <div className="h-[50vh]">
+          <div className="h-[70%] border-4 border-blue-500">
             <iframe
               src={products[currentIndex].videoUrl}
               title={products[currentIndex].src}
@@ -88,7 +88,7 @@ const Gallary = () => {
           </div>
 
           {/* Thumbnails */}
-          <div className="h-1/2">
+          <div className="h-[30%] border-4 border-red-500">
           <Swiper
             onSwiper={setThumbsSwiper}
             spaceBetween={10}
@@ -128,95 +128,95 @@ export default Gallary;
 export const products = [
   {
     _id: 1,
-    title: "Moonbeam",
+    title: "G7",
     category: "",
     src: GallaryOne,
-    videoUrl: "https://www.youtube.com/embed/AHF7354Fr1w?si=i_KCQVf8MgJ10GZe",
+    videoUrl: "https://www.youtube.com/embed/IuMFks3rKUs?si=W4TKvepROxV0VqS4",
   },
   {
     _id: 2,
-    title: "Moonbeam",
+    title: "SR22",
     category: "",
     src: GallaryTwo,
-    videoUrl: "https://www.youtube.com/embed/Bux2lUoqEow?si=NqzvBBzWuRn8i2T8",
+    videoUrl: "https://www.youtube.com/embed/bupjXqMZcZE?si=Xh4IFH2gbRbXo3m-",
 
   },
   {
     _id: 3,
-    title: "Moonbeam",
+    title: "Marco",
     category: "",
     src: GallaryThree,
-    videoUrl: "https://www.youtube.com/embed/2SUY8ULXEl0?si=sSvG5KRPgp_8fq_2",
+    videoUrl: "https://www.youtube.com/embed/0P8JNb42PvM?si=DlnQvcSO9LZONpA4",
   },
   {
     _id: 4,
-    title: "Moonbeam",
+    title: "4",
     category: "",
     src: GallaryFour,
-    videoUrl: "https://www.youtube.com/embed/YOYnQA1hN6s?si=Jafjza6UqlIRIAUO",
+    videoUrl: "https://www.youtube.com/embed/2_EVnUEyR3A?si=sJYJIC1XFUWA1Et5",
   },
   {
     _id: 5,
-    title: "Moonbeam",
+    title: "5",
     category: "",
     src: GallaryFive,
-    videoUrl: "https://www.youtube.com/embed/pjHfNN-oKoA?si=jE3m0m-7rbRR0NIF",
+    videoUrl: "https://www.youtube.com/embed/0qhS6U4xNQA?si=7ipy3FuPf1Jiu4Dj",
   },
   {
     _id: 6,
     title: "Moonbeam",
     category: "",
     src: GallarySix,
-    videoUrl: "https://www.youtube.com/embed/86xFD4jn-MU?si=W_boDwDqvDYmHEen",
+    videoUrl: "https://www.youtube.com/embed/rhDjyEPPhJw?si=RwyglvRrtqsGqGrt",
   },
   {
     _id: 7,
     title: "Moonbeam",
     category: "",
     src: GallarySeven,
-    videoUrl: "https://www.youtube.com/embed/AHF7354Fr1w?si=i_KCQVf8MgJ10GZe",
+    videoUrl: "https://www.youtube.com/embed/9Axd7C4ryMk?si=WISxdBwNl1Z880is",
   },
   {
     _id: 8,
     title: "Moonbeam",
     category: "",
     src: GallaryEight,
-    videoUrl: "https://www.youtube.com/embed/Bux2lUoqEow?si=NqzvBBzWuRn8i2T8",
+    videoUrl: "https://www.youtube.com/embed/sS4xXGDoGX4?si=SyL_JT9H94K3x92a",
   },
   {
     _id: 9,
     title: "Moonbeam",
     category: "",
     src: GallaryNine,
-    videoUrl: "https://www.youtube.com/embed/2SUY8ULXEl0?si=sSvG5KRPgp_8fq_2",
+    videoUrl: "https://www.youtube.com/embed/FpHaEl_8LFM?si=oI6eaHI9OTFNo4BI",
   },
   {
     _id: 10,
     title: "Moonbeam",
     category: "",
     src: GallaryTen,
-    videoUrl: "https://www.youtube.com/embed/YOYnQA1hN6s?si=Jafjza6UqlIRIAUO",
+    videoUrl: "https://www.youtube.com/embed/n738UsSZDiU?si=pz4hfbHOUfcIRmrp",
   },
   {
     _id: 11,
     title: "Moonbeam",
     category: "",
     src: GallaryEleven,
-    videoUrl: "https://www.youtube.com/embed/pjHfNN-oKoA?si=jE3m0m-7rbRR0NIF",
+    videoUrl: "https://www.youtube.com/embed/YOYnQA1hN6s?si=XAVo4dy9IU8G1FeO",
   },
   {
     _id: 12,
     title: "Moonbeam",
     category: "",
     src: GallaryTwelve,
-    videoUrl: "https://www.youtube.com/embed/86xFD4jn-MU?si=W_boDwDqvDYmHEen",
+    videoUrl: "https://www.youtube.com/embed/65aV6vIo0yY?si=XxruFjaLOlH9jltM",
   },
   {
     _id: 13,
     title: "Moonbeam",
     category: "",
     src: GallaryThirteen,
-    videoUrl: "https://www.youtube.com/embed/YOYnQA1hN6s?si=Jafjza6UqlIRIAUO",
+    videoUrl: "https://www.youtube.com/embed/cPiu6BqUXRY?si=yu1rJuYkxiDLXuNS",
   },
   {
     _id: 14,
