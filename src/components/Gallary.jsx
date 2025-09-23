@@ -78,7 +78,7 @@ const Gallary = () => {
           </button>
 
           {/* Main Video */}
-          <div className="h-[70%] border-4 border-blue-500">
+          <div className="h-[70%]">
             <iframe
               src={products[currentIndex].videoUrl}
               title={products[currentIndex].src}
@@ -88,7 +88,7 @@ const Gallary = () => {
           </div>
 
           {/* Thumbnails */}
-          <div className="h-[30%] border-4 border-red-500">
+          <div className="h-[30%]">
           <Swiper
             onSwiper={setThumbsSwiper}
             spaceBetween={10}

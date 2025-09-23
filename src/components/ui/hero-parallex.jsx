@@ -32,11 +32,11 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
   const springConfig = { stiffness: 200, damping: 30, bounce: 100 };
 
   const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 1], [-30, 1000]),
+    useTransform(scrollYProgress, [0, 1], [400, 1000]),
     springConfig
   );
   const translateXReverse = useSpring(
-    useTransform(scrollYProgress, [0, 1], [-400, -1000]),
+    useTransform(scrollYProgress, [0, 1], [-900, -1500]),
     springConfig
   );
   const rotateX = useSpring(
@@ -52,14 +52,14 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [-700, 500]),
+    useTransform(scrollYProgress, [0, 0.2], [-900, 500]),
     springConfig
   );
 
   return (
     <div
       ref={ref}
-      className="z-[10] h-[145rem] md:h-[190rem] lg:h-[225rem] xl:h-[245rem] overflow-hidden bg-[#000] flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
+      className="z-[10] h-[145rem] md:h-[190rem] lg:h-[225rem] xl:h-[225rem] 2xl:h-[245rem] overflow-hidden bg-[#000] flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
 
