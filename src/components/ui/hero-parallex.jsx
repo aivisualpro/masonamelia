@@ -181,7 +181,6 @@ export const ProductCard = ({ data, translate, onClick }) => {
         loading="lazy"
         className="min-h-[225px] min-w-[400px] md:min-h-[315px] md:min-w-[560px] lg:min-h-[405px] lg:min-w-[720px] 2xl:min-h-[450px] 2xl:min-w-[800px] h-full rounded-[5px] duration-300"
       />
-      <h4 className="text-white">{data?.title}</h4>
     </motion.div>
   );
 };
