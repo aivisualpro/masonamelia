@@ -245,11 +245,11 @@ export default function Listing() {
 
         {/* Mobile filter toggle */}
         <div className="filter mb-4 xl:hidden flex items-center justify-end">
-          <IoFilterSharp size={20} color="white" />
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="text-white flex items-center gap-2 ms-2"
           >
+            <IoFilterSharp size={20} color="white" />
             Filter
           </button>
         </div>

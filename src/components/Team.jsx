@@ -40,7 +40,7 @@ const Team = () => {
       {/* Your original UI (unchanged except using `team`) */}
       <section
         id="team"
-        className="text-white py-20 md:pb-20 md:pt-0 px-4 md:px-10"
+        className="text-white pt-32 pb-20 md:pb-20 md:pt-0 px-4 md:px-10"
       >
         <div className="container lg:h-[90vh] flex items-center">
           <div className="lg:flex flex-row justify-center mx-auto md:mb-20 gap-4">

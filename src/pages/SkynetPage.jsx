@@ -24,7 +24,7 @@ const SkynetPage = () => {
             media ? ".8" : "1"
           }) ${media ? "100%" : "30%"}, rgba(21, 22, 28,0.3)), url(${banner})`,
           backgroundSize: "cover",
-          backgroundPosition: "bottom right",
+          backgroundPosition: "60% 50%",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
         }}

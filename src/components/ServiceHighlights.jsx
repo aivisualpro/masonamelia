@@ -46,7 +46,7 @@ const ServiceHighlights = ({
           </div>
 
           {/* Main Content Grid */}
-          <div className="md:flex items-center gap-10">
+          <div className="flex md:flex-row flex-col items-center gap-10">
             {/* 3D Plane Image */}
             <div className="md:w-[50%] mx-auto md:sticky top-0 self-start">
               <motion.img
