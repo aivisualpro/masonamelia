@@ -77,6 +77,7 @@ export default function Tabs({
                 style={styles.highlight}
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 className="w-full"
+
               />
             )}
             <span style={{ position: "relative", zIndex: 1 }}>{tab?.name}</span>

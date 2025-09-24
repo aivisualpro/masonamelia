@@ -5,14 +5,23 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import DOMPurify from "dompurify";
 
+// const categoryGradients = {
+//   acquired: ["from-[#3b82f6]", "to-[#7eb0fc]"],
+//   "coming-soon": ["from-[#9333ea]", "to-[#c084fc]"],
+//   "for-sale": ["from-[#6bfc3f]", "to-[#a5fc8a]"],
+//   "off-market": ["from-[#4e54fc]", "to-[#8f93fc]"],
+//   "sale-pending": ["from-[#9a2c3a]", "to-[#ce93d8]"],
+//   sold: ["from-[#ff0000]", "to-[#fc6262]"],
+//   wanted: ["from-[#f97316]", "to-[#fb923c]"],
+// };
 const categoryGradients = {
-  acquired: ["from-[#3b82f6]", "to-[#7eb0fc]"],
-  "coming-soon": ["from-[#9333ea]", "to-[#c084fc]"],
-  "for-sale": ["from-[#6bfc3f]", "to-[#a5fc8a]"],
-  "off-market": ["from-[#4e54fc]", "to-[#8f93fc]"],
-  "sale-pending": ["from-[#9a2c3a]", "to-[#ce93d8]"],
+  acquired: ["from-[#ff0000]", "to-[#fc6262]"],
+  "coming-soon": ["from-[#3b82f6]", "to-[#7eb0fc]"],
+  "for-sale": ["from-[#3b82f6]", "to-[#7eb0fc]"],
+  "off-market": ["from-[#3b82f6]", "to-[#7eb0fc]"],
+  "sale-pending": ["from-[#3b82f6]", "to-[#7eb0fc]"],
   sold: ["from-[#ff0000]", "to-[#fc6262]"],
-  wanted: ["from-[#f97316]", "to-[#fb923c]"],
+  wanted: ["from-[#3b82f6]", "to-[#7eb0fc]"],
 };
 
 const Card = ({ detail }) => {
@@ -69,11 +78,7 @@ const Card = ({ detail }) => {
       >
         {/* Ribbon */}
         <div
-          className={`absolute top-6 -right-14 w-48 text-center rotate-45 bg-gradient-to-r ${
-            gradient[0]
-          } ${gradient[1]} ${
-            status === "for-sale" ? "text-black" : "text-white"
-          } font-medium py-1 shadow-lg`}
+          className={`absolute top-6 -right-14 w-48 text-center rotate-45 bg-gradient-to-r ${gradient[0]} ${gradient[1]} text-white font-medium py-1 shadow-lg`}
         >
           <h1 className="text-[.8rem]">{ribbonText}</h1>
         </div>

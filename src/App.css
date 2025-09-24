@@ -710,3 +710,15 @@ h6 {
     padding: 2rem 0;
   }
 }
+@media (max-height: 625px) {
+  .hero_section_header,
+  .hero_section_header_overlay,
+  .hero_section_header_overlay_dark,
+  .hero_section_content_container {
+    height: 140vh;
+  }
+  .testimonial_section {
+    height: 100%;
+    padding: 2rem 0;
+  }
+}
