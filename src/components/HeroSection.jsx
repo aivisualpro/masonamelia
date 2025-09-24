@@ -15,7 +15,7 @@ const HeroSection = () => {
           "
     >
       <div className="container z-10 px-4">
-        <div className="flex flex-col xl:gap-0 justify-end md:h-[100vh] relative text-white my-auto py-4">
+        <div className="hero_section_content_container flex flex-col xl:gap-0 justify-end md:h-[100vh] relative text-white my-auto py-4">
           <div className="md:order-1 order-2 md:mt-0 mt-4">
             <GlassCard />
           </div>

@@ -697,3 +697,12 @@ h6 {
 .search-results::-webkit-scrollbar-thumb:hover {
   background: #111218; 
 }
+
+@media (max-height: 750px) {
+  .hero_section_header,
+  .hero_section_header_overlay,
+  .hero_section_header_overlay_dark,
+  .hero_section_content_container {
+    height: 130vh;
+  }
+}
