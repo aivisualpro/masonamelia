@@ -705,4 +705,8 @@ h6 {
   .hero_section_content_container {
     height: 130vh;
   }
+  .testimonial_section {
+    height: 100%;
+    padding: 2rem 0;
+  }
 }
