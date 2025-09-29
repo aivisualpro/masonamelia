@@ -634,7 +634,7 @@ const SearchBox = () => {
       return;
     }
     // Otherwise go to search results page
-    navigate(`/search?q=${encodeURIComponent(q)}`);
+    navigate(`/showroom`);
     setOpen(false);
   };
 
@@ -749,7 +749,7 @@ const SearchBox = () => {
       {/* Desktop */}
       <div className="container py-4 md:flex hidden justify-center">
         <div ref={wrapRef} className="search-box-effect relative w-full max-w-2xl">
-          <div className="glass-container glass-container--rounded py-1 z-[10]" style={{ borderRadius: "5px" }}>
+          <div className="glass-container glass-container--rounded z-[10]" style={{ borderRadius: "5px" }}>
             <div className="glass-filter"></div>
             <div className="glass-overlay"></div>
             <div className="glass-specular"></div>

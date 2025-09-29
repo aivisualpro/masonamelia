@@ -31,8 +31,7 @@ const STATUS_TABS = [
   { name: "Coming Soon", slug: "coming-soon" },
   { name: "Sale Pending", slug: "sale-pending" },
   { name: "Off Market", slug: "off-market" },
-  { name: "Acquired", slug: "acquired" },
-  { name: "Sold", slug: "sold" },
+  { name: "Previous Transactions", slug: "previous" }, 
 ];
 
 export default function Listing() {
