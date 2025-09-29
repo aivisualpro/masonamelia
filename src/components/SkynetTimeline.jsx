@@ -188,7 +188,7 @@ const SkynetTimeline = () => {
                   <img
                     src={item.image}
                     alt={`SkyNet ${item.year}`}
-                    className="rounded-lg shadow-md"
+                    className="rounded-lg shadow-md w-full h-[479px] object-cover"
                   />
                 </div>
               </li>

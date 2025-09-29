@@ -42,7 +42,7 @@ const Team = () => {
         id="team"
         className="text-white pt-32 pb-20 md:pb-20 md:pt-0 px-4 md:px-10"
       >
-        <div className="container lg:h-[90vh] flex items-center">
+        <div className="container pt-[195px] flex items-center">
           <div className="lg:flex flex-row justify-center mx-auto md:mb-20 gap-4">
             {/* left glass card ... unchanged */}
             <div
@@ -104,7 +104,7 @@ const Team = () => {
                       <div className="transition-all duration-300 group-hover:h-[100%] absolute top-0 left-0 w-full h-0 bg-black opacity-0 lg:opacity-60 z-[0]"></div>
                     </div>
                   </Link>
-                  <div className="absolute bottom-0 left-0 right-0 rounded-[100px] h-[180px] lg:h-[120px] group-hover:h-[185px] transition-all duration-500">
+                  <div className="absolute -bottom-[5px] left-0 right-0 rounded-[100px] h-[180px] lg:h-[120px] group-hover:h-[175px] transition-all duration-500">
                     <div
                       className="glass-container rounded-xl flex items-center justify-center glass-container--rounded px-4 py-3"
                       style={{ borderRadius: "0" }}
@@ -178,7 +178,7 @@ const Team = () => {
                     <div className="transition-all duration-300 group-hover:h-[100%] absolute top-0 left-0 w-full h-0 bg-black opacity-0 lg:opacity-60 z-[0]"></div>
                   </div>
                 </Link>
-                <div className="absolute bottom-0 left-0 right-0 rounded-[100px] h-[190px] md:h-[130px] lg:group-hover:h-[190px] transition-all duration-500">
+                <div className="absolute -bottom-[5px] left-0 right-0 rounded-[100px] h-[190px] md:h-[130px] lg:group-hover:h-[175px] transition-all duration-500">
                   <div
                     className="glass-container flex items-center justify-center glass-container--rounded px-4 py-3"
                     style={{ borderRadius: "0" }}

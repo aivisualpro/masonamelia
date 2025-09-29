@@ -10,17 +10,25 @@ import CTABanner from "../components/CTABanner";
 const TeamPage = () => {
   return (
     <>
-      <section
-        className="relative w-full z-[10]"
-        style={{ backgroundImage: `url(${bgPlane})`, backgroundPosition: "center", backgroundSize: "contain !important" }}
-      >
-        <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-90 z-[-1]"></div>
-        <Navbar />
+      <div className="relative z-[10]">
+        <section
+          className="relative w-full z-[10]"
+          style={{
+            backgroundImage: `url(${bgPlane})`,
+            backgroundPosition: "center",
+            backgroundSize: "contain !important",
+          }}
+        >
+          <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-90 z-[-1]"></div>
+          <Navbar />
 
-        <Team />
-      </section>
-      <div className="container px-5 py-10">
-        <CTABanner />
+          <Team />
+        </section>
+        <div className="bg-[#111218]">
+          <div className="container px-5 py-10">
+            <CTABanner />
+          </div>
+        </div>
       </div>
       <Contact />
       <Footer />

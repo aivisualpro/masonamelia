@@ -17,9 +17,9 @@ const AboutHeader = () => {
           className="md:text-start text-center text-white text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl lg:max-w-lg xl:max-w-2xl mb-7"
           style={{ lineHeight: "1.1" }}
         >
-          Redefining Aviation with{" "}
+          Redefining Aviation {" "} With
           <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-            Trust and Legacy
+            {" "} Trust and Legacy
           </span>
           <br />
         </motion.h1>

@@ -217,10 +217,10 @@ export default function Listing() {
     <section
       id="showroom"
       ref={sectionRef}
-      className="bg-[#111218] relative z-[10] py-10"
+      className="bg-[#111218] relative z-[10] py-20"
     >
       <div className="container px-6">
-        <div className="text-center mb-20">
+        {/* <div className="text-center mb-20">
           <h1 className="text-4xl font-bold text-white pt-10">
             Explore Our Aircraft Collection
           </h1>
@@ -228,7 +228,7 @@ export default function Listing() {
             Browse a curated inventory of premium aircraft tailored for diverse
             missions and budgets.
           </p>
-        </div>
+        </div> */}
 
         {/* Tabs */}
         <div className="block animated-tabs mb-12">

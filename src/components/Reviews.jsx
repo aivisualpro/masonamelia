@@ -25,9 +25,9 @@ const Reviews = () => {
 
       <section
         id="testimonials"
-        className={`py-10 ${
-          location.pathname === "/testimonial" ? "xl:h-[100vh]" : "xl:h-[100vh]"
-        }  flex flex-col justify-center`}
+        className={`${
+          location.pathname === "/testimonial" ? "md:h-[100vh] lg:h-full xl:h-[100vh] justify-center 2xl:justify-around" : "xl:h-[100vh] justify-around"
+        }  flex flex-col`}
       >
         <div
           className={`${

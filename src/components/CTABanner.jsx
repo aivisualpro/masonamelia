@@ -10,7 +10,7 @@ const CTABanner = () => {
   return (
     <>
       <div
-        className={`text-white bg-[#111218] md:h-full text-center rounded-[30px] relative ${media ? "bg-[#171921] px-4" : ""}`}
+        className={`text-white bg-[#111218] md:h-full text-center rounded-[30px] ${media ? "bg-[#171921] px-4" : ""}`}
         style={{
           backgroundImage:
             !media ? `url(${banner})` : ``,
