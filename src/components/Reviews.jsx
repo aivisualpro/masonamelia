@@ -43,7 +43,7 @@ const Reviews = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl text-[#fff] font-bold max-w-3xl mx-auto"
             >
-              Clients Across World
+              Fast Foraward Feedbacks
             </motion.h5>
             <motion.p
               initial={{ opacity: 0, y: 80 }}

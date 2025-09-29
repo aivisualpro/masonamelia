@@ -34,33 +34,45 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     setToast({ type: "", msg: "" });
-  
+
     try {
       const phone = formData.phone?.trim();
       const normalizedPhone =
         phone?.startsWith("+") || !phone ? phone : `+${phone}`;
-  
+
       const payload = {
-        access_key: WEB3FORMS_ACCESS_KEY,   // 👉 recipient = sagheer@skynetsilicon.com (per access key)
+        access_key: WEB3FORMS_ACCESS_KEY, // 👉 recipient = sagheer@skynetsilicon.com (per access key)
         name: formData.name,
-        email: formData.email,              // visitor email (reply-to)
+        email: formData.email, // visitor email (reply-to)
         replyto: formData.email,
         subject: formData.subject || "Website Contact",
         phone: normalizedPhone || "",
         message: formData.message,
         // (Optional PRO): ccemail: "sales@skynetsilicon.com",
       };
-  
+
       const resp = await fetch(WEB3FORMS_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
         body: JSON.stringify(payload),
       });
       const json = await resp.json();
-  
+
       if (json?.success) {
-        setToast({ type: "success", msg: "Thanks! Your message has been sent." });
-        setFormData({ name: "", email: "", subject: "", phone: "", message: "" });
+        setToast({
+          type: "success",
+          msg: "Thanks! Your message has been sent.",
+        });
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          phone: "",
+          message: "",
+        });
       } else {
         setToast({ type: "error", msg: json?.message || "Failed to send." });
       }
@@ -75,7 +87,7 @@ const Contact = () => {
     <>
       <section
         id="contact"
-        className={`relative z-[1] ${
+        className={`sticky bottom-0 w-full z-[1] ${
           location.pathname !== "/contact"
             ? "lg:h/full 2xl:h-full"
             : "2xl:h-full"
@@ -109,7 +121,7 @@ const Contact = () => {
               <div className="relative rounded-xl flex flex-col md:justify-around lg:py-0 py-4 h-full w-full">
                 <div>
                   <h2 className="text-4xl font-bold mb-2 text-white">
-                    Contact us
+                    Contact Us
                   </h2>
                   <p className="mb-6 text-sm text-gray-200">
                     Say something to start a live chat!
@@ -124,8 +136,8 @@ const Contact = () => {
                   <div className="flex gap-3 mb-6 pt-1 text-white">
                     <FaMapMarkerAlt className="text-lg mt-1" />
                     <span className="max-w-sm">
-                      Birmingham, AL · Duluth, MN · San Antonio, TX ·
-                      Scottsdale, AZ · Upstate, NY
+                      Birmingham, AL Duluth, MN San Antonio, TX Scottsdale, AZ
+                      Upstate, NY
                     </span>
                   </div>
                 </div>
@@ -135,37 +147,37 @@ const Contact = () => {
                     href="https://www.linkedin.com/company/masonamelia/"
                     target="_blank"
                   >
-                    <FaLinkedinIn
+                    {/* <FaLinkedinIn
                       size={24}
                       className="text-white hover:text-blue-400 cursor-pointer transition"
-                    />
+                    /> */}
                   </a>
                   <a
                     href="https://www.facebook.com/masonamelia.aviation"
                     target="_blank"
                   >
-                    <FaFacebookF
+                    {/* <FaFacebookF
                       size={24}
                       className="text-white hover:text-blue-400 cursor-pointer transition"
-                    />
+                    /> */}
                   </a>
                   <a
                     href="https://www.instagram.com/masonamelia.aircraftsales/"
                     target="_blank"
                   >
-                    <FaInstagram
+                    {/* <FaInstagram
                       size={24}
                       className="text-white hover:text-pink-400 cursor-pointer transition"
-                    />
+                    /> */}
                   </a>
                   <a
                     href="https://www.youtube.com/c/lookingforhigher"
                     target="_blank"
                   >
-                    <FaYoutube
+                    {/* <FaYoutube
                       size={24}
                       className="text-white hover:text-red-500 cursor-pointer transition"
-                    />
+                    /> */}
                   </a>
                 </div>
               </div>

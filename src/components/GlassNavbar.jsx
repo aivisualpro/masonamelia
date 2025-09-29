@@ -224,7 +224,7 @@ const GlassNavbar = () => {
                   </Link>
                 </li>
 
-                <li onMouseEnter={startClose}>
+                {/* <li onMouseEnter={startClose}>
                   <Link to="/acquisition" className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color">
                     Acquisition
                   </Link>
@@ -233,6 +233,17 @@ const GlassNavbar = () => {
                 <li onMouseEnter={startClose}>
                   <Link to="/brokerage" className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color">
                     Brokerage
+                  </Link>
+                </li> */}
+
+                <li
+                  onMouseEnter={() => openDropdown("services")}
+                >
+                  <Link
+                    to="/about"
+                    className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color"
+                  >
+                    Services
                   </Link>
                 </li>
 
@@ -274,7 +285,7 @@ const GlassNavbar = () => {
 
         {/* DROPDOWN */}
         {activeDropdown && (
-          <div className="absolute top-[130%] mt-3 left-[62%] -translate-x-1/2">
+          <div className={`absolute ${activeDropdown === "about" ? "xl:left-[65%] 2xl:left-[62%] -translate-x-1/2 top-[135%]" : "left-[48%] -translate-x-1/2 top-[125%]"} mt-3 `}>
             <Dropdown
               items={
                 activeDropdown === "services"

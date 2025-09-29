@@ -1,69 +1,100 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FaHandshake } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { IoIosGlobe } from "react-icons/io";
 import { GiCommercialAirplane } from "react-icons/gi";
-import { GrSecure } from "react-icons/gr";
 import { SiTrustpilot } from "react-icons/si";
 import slideOne from "/images/showcase/one.png";
 import slideTwo from "/images/showcase/two.png";
 import slideThree from "/images/showcase/three.png";
+import { HiUserGroup } from "react-icons/hi2";
+import { GrTransaction } from "react-icons/gr";
 
-// Import Swiper styles
+// Swiper styles
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 
-// import required modules
+// modules
 import { EffectFade, Autoplay } from "swiper/modules";
+
+/* ---------------------- CountUp (no extra library) ---------------------- */
+const CountUp = ({ end = 0, duration = 3000, prefix = "", suffix = "" }) => {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "0px 0px -30% 0px" });
+  const [value, setValue] = useState(0);
+
+  useEffect(() => {
+    if (!inView) return;
+
+    const start = performance.now();
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    let raf;
+
+    const tick = (now) => {
+      const p = Math.min((now - start) / duration, 1);
+      const v = Math.round(easeOutCubic(p) * end);
+      setValue(v);
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, end, duration]);
+
+  return (
+    <span ref={ref}>
+      {prefix}
+      {value.toLocaleString()}
+      {suffix}
+    </span>
+  );
+};
+/* ----------------------------------------------------------------------- */
 
 const SliderWrapper = () => {
   const cards = [
     {
       icon: <GiCommercialAirplane size={32} className="text-tertiary_color" />,
-      title: "Aviation Expertise",
-      description:
-        "From takeoff to close, we simplify aircraft sales with sharp insights and end-to-end guidance.",
-      buttonLabel: "Let Us Help",
+      title: "", // no prefix/suffix
+      count: 75,
+      description: "Years of combined experience in aviation industry",
       onClick: "/contact",
     },
     {
-      icon: <GrSecure size={32} className="text-tertiary_color" />,
-      title: "Secure Transactions",
-      description:
-        "We reduce costly risks through full legal, financial, and compliance support every step of the way.",
-      buttonLabel: "Let Us Help",
+      icon: <GrTransaction size={32} className="text-tertiary_color" />,
+      title: "$", // prefix
+      count: 450,
+      description: "Million worth of completed aircraft transactions",
       onClick: "/contact",
     },
     {
       icon: <SiTrustpilot size={32} className="text-tertiary_color" />,
-      title: "Trusted Partners",
-      description:
-        "Rely on a team committed to trust, transparency, and long-term partnerships built to last.",
-      buttonLabel: "Let Us Help",
+      title: "+", // suffix
+      count: 200,
+      description: "Aircraft closings successfully managed worldwide",
+      onClick: "/contact",
+    },
+    {
+      icon: <HiUserGroup size={32} className="text-tertiary_color" />,
+      title: "",
+      count: 8,
+      description: "Dedicated professionals team serving our valued clients",
       onClick: "/contact",
     },
     {
       icon: <IoIosGlobe size={32} className="text-tertiary_color" />,
-      title: "Global Reach",
-      description:
-        "We operate worldwide—offering seamless aircraft deals, logistics, and expert global support.",
-      buttonLabel: "Let Us Help",
+      title: "",
+      count: 0,
+      description: "Excuses — delivering trusted results every single time",
       onClick: "/contact",
     },
   ];
 
-  const images = [
-    slideOne,
-    slideTwo,
-    slideThree
-    // agar rename nahi kiya to:
-    // encodeURI("/assets/images/showcase/slider (1).png")
-  ];
-  
+  const images = [slideOne, slideTwo, slideThree];
 
   return (
     <>
@@ -74,13 +105,10 @@ const SliderWrapper = () => {
             spaceBetween={30}
             effect={"fade"}
             modules={[EffectFade, Autoplay]}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-            }}
+            autoplay={{ delay: 3000, disableOnInteraction: false }}
             className="mySwiper z-[-10]"
           >
-            {images?.map((item, index) => (
+            {images.map((item, index) => (
               <SwiperSlide
                 key={index}
                 className="w-screen"
@@ -90,12 +118,12 @@ const SliderWrapper = () => {
                   backgroundPosition: "bottom",
                   backgroundRepeat: "no-repeat",
                 }}
-              ></SwiperSlide>
+              />
             ))}
           </Swiper>
         </div>
 
-        <div className="container px-5 h-full flex items-center z-[10]">
+        <div className="container px-5 h-full flex items-center z=[10]">
           <svg style={{ display: "none" }}>
             <filter id="lg-dist" x="0%" y="0%" width="100%" height="100%">
               <feTurbulence
@@ -124,9 +152,9 @@ const SliderWrapper = () => {
                 transition={{ duration: 0.5 }}
                 className="text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white text-center"
               >
-                Precision Aviation{" "}
+                Mason Amelia{" "}
                 <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                  Global Impact.
+                  By the Numbers.
                 </span>
               </motion.h1>
               <motion.p
@@ -142,33 +170,40 @@ const SliderWrapper = () => {
               </motion.p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {cards.map((card, index) => (
-                <motion.div
-                  key={index}
-                  className="px-4 py-3"
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 30,
-                    duration: 0.5,
-                    delay: 0.3,
-                  }}
-                >
-                  <div className="bg-[#15161cac] relative border-[1px] border-[#f1f1f192] rounded-[10px] flex flex-col items-center justify-center text-center p-4 h-full w-full">
-                    <div className="mb-4 absolute top-[-30px] bg-[#15161cac] border-[1px] border-[#f1f1f192] rounded-[50%] p-3">
-                      {card.icon}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+              {cards.map((card, index) => {
+                const prefix = card.title === "$" ? "$" : "";
+                const suffix = card.title === "+" ? "+" : "";
+
+                return (
+                  <motion.div
+                    key={index}
+                    className="px-4 py-3"
+                    initial={{ scale: 0 }}
+                    whileInView={{ scale: 1 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 30,
+                      duration: 0.5,
+                      delay: 0.3,
+                    }}
+                  >
+                    <div className="bg-[#15161cac] relative border-[1px] border-[#f1f1f192] rounded-[10px] flex flex-col items-center justify-center text-center p-4 h-full w-full">
+                      <div className="mb-4 absolute top-[-30px] bg-[#15161cac] border-[1px] border-[#f1f1f192] rounded-[50%] p-3">
+                        {card.icon}
+                      </div>
+
+                      <h4 className="text-lg lg:text-lg xl:text-xl text-white mb-4 mt-8">
+                        <CountUp end={card.count} duration={1200} prefix={prefix} suffix={suffix} />
+                      </h4>
+
+                      <p className="text-[#eee] text-base font-light mb-4 max-w-4xl">
+                        {card.description}
+                      </p>
                     </div>
-                    <h4 className="text-lg lg:text-lg xl:text-xl text-white mb-4 mt-8">
-                      {card.title}
-                    </h4>
-                    <p className="text-[#eee] text-base font-light mb-4 max-w-4xl">
-                      {card.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </div>

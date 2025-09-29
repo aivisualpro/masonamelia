@@ -10,7 +10,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import Intro from "../components/Intro";
 import LatestJets from "../components/LatestJets";
 import Navbar from "../components/Navbar";
-import bgPlane from "/images/brokerage/banner.avif"; 
+import bgPlane from "/images/brokerage/banner.avif";
 import Reviews from "../components/Reviews";
 
 const HomePage = () => {
@@ -24,22 +24,24 @@ const HomePage = () => {
 
       <Showcase />
       <main id="main">
-        <Brands />
-        {/* <Intro /> */}
-        <MeetTheTeam />
-        <SliderWrapper />
-        {/* <LatestJets /> */}
-        <section
-          className="testimonial_section relative xl:h-screen bg-[#111218] w-full bg-cover bg-center z-[10]"
-          // style={{ backgroundImage: `url(${bgPlane})` }}
-        >
-          <div className="absolute top-0 left-0 w-full h-full bg-[#111218] z-[-9]"></div>
-          {/* <Navbar /> */}
-          <div className="z-[2]">
-            <Reviews />
-          </div>
-        </section>
-        <Gallary />
+        <div className="relative z-[10]">
+          <Brands />
+          {/* <Intro /> */}
+          <MeetTheTeam />
+          <SliderWrapper />
+          {/* <LatestJets /> */}
+          <section
+            className="testimonial_section relative xl:h-screen bg-[#111218] w-full bg-cover bg-center z-[10]"
+            // style={{ backgroundImage: `url(${bgPlane})` }}
+          >
+            <div className="absolute top-0 left-0 w-full h-full bg-[#111218] z-[-9]"></div>
+            {/* <Navbar /> */}
+            <div className="z-[2]">
+              <Reviews />
+            </div>
+          </section>
+          <Gallary />
+        </div>
         <Contact />
       </main>
       <Footer />

@@ -21,18 +21,7 @@ const MeetTheTeam = () => {
         <div className="flex flex-col md:flex-row items-center  justify-between gap-8 md:gap-4 lg:gap-4 xl:gap-8">
           {/* LEFT CONTENT */}
           <div className="w-full md:w-1/2 rounded-3xl text-white">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="tag-container mb-4"
-            >
-              <div className="tag-left-arrow"></div>
-              <div className="flex items-center gap-2 px-4 py-[9px] bg-[#222] text-white text-sm font-semibold">
-                <span className="w-2 h-2 bg-[#fff] rounded-full"></span>
-                Get To Know Us
-              </div>
-            </motion.div>
+            
             {/* Heading */}
             <motion.h2
               initial={{ y: 50, opacity: 0 }}
@@ -95,8 +84,8 @@ const MeetTheTeam = () => {
             {/* CTA + Phone */}
             <div className="flex flex-col lg:flex-row lg:items-center mt-8 gap-4">
               <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 1.4 }}
               >
                 <Button
@@ -110,7 +99,7 @@ const MeetTheTeam = () => {
                 />
               </motion.div>
 
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 1.6 }}
@@ -128,7 +117,7 @@ const MeetTheTeam = () => {
                     info@masonamelia.com
                   </a>
                 </div>
-              </motion.div>
+              </motion.div> */}
             </div>
           </div>
 

@@ -50,7 +50,7 @@ const HeroSection = () => {
                 </div>
                 <div className="w-1/2 md:w-[33%] relative">
                   <GlassmorphismCircularCard
-                    title="Buy My Plane"
+                    title="Help Me Buy"
                     tagline="Acquisition Services"
                     link="/acquisition"
                     icon={
@@ -66,7 +66,7 @@ const HeroSection = () => {
                 <div className="w-1/2 md:w-[33%] relative">
                   <GlassmorphismCircularCard
                     title="Valuation"
-                    tagline="Real-Time Insights By Skynet"
+                    tagline="Real-Time Insights By SkyNet"
                     link="/skynet"
                     icon={
                       <FiTrendingUp
@@ -82,7 +82,7 @@ const HeroSection = () => {
                   <GlassmorphismCircularCard
                     title="Advisory"
                     tagline="Legal • Sales Tax • Insurance"
-                    link="/higher"
+                    link="/acquisition"
                     icon={
                       <FaHandsHelping
                         size={36}
