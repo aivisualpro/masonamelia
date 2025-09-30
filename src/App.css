@@ -722,6 +722,6 @@ h6 {
   }
 }
 
-iframe {
+#showroom iframe {
   filter: invert(90%) !important;
 }
