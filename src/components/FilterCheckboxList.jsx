@@ -35,6 +35,7 @@ export default function FilterCheckboxList({
 
   /* Categories list for checkboxes */
   aircraftOptions = [],
+  onClearAll
 }) {
   const debouncedSetRange = useDebouncedCallback(setRange, 150);
 
@@ -58,12 +59,13 @@ export default function FilterCheckboxList({
   };
 
   const clearAll = () => {
-    setSelected([]);
-    setRangeDraft(fullPriceRange);
-    setRange(fullPriceRange);
-    // reset numeric ranges back to domain
+    setCurrentPage(1);
+    setPriceRange(undefined);
     setAirframeRange(undefined);
     setEngineRange(undefined);
+    setPriceTouched(false);
+    setAirframeTouched(false);
+    setEngineTouched(false);
   };
 
   /* helpers to render labels safely (0 should show as 0, not “–”) */
@@ -77,7 +79,7 @@ export default function FilterCheckboxList({
       <div className="flex justify-between mb-4">
         <h3 className="text-white font-medium">Filter Options</h3>
         <button
-          onClick={clearAll}
+          onClick={onClearAll}
           className="text-white font-medium text-xs hover:text-tertiary_color"
         >
           Clear All
@@ -151,7 +153,10 @@ export default function FilterCheckboxList({
           max={Number(maxAirframe ?? 0)}
           step={1}
           value={
-            airframeRange ?? [Number(minAirframe ?? 0), Number(maxAirframe ?? 0)]
+            airframeRange ?? [
+              Number(minAirframe ?? 0),
+              Number(maxAirframe ?? 0),
+            ]
           }
           onChange={(v) => {
             const [a, b] = Array.isArray(v) ? v : [v, v];
@@ -206,9 +211,7 @@ export default function FilterCheckboxList({
         />
         <div className="flex justify-between mt-3 text-[.6rem] xl:text-xs text-gray-300 font-bold">
           <span>Min: {fmt((engineRange ?? [minEngine])[0])}</span>
-          <span>
-            Max: {fmt((engineRange ?? [minEngine, maxEngine])[1])}
-          </span>
+          <span>Max: {fmt((engineRange ?? [minEngine, maxEngine])[1])}</span>
         </div>
       </div>
 

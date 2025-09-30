@@ -211,6 +211,32 @@ export default function Listing({ autoScrollEnabled = true }) {
     setEngineTouched(true);
   }, []);
 
+  const handleClearAll = useCallback(() => {
+    // reset all filters + tabs + pagination to initial
+    setSelectedFilters([]);
+    setPriceRange(undefined);
+    setAirframeRange(undefined);
+    setEngineRange(undefined);
+
+    setPriceTouched(false);
+    setAirframeTouched(false);
+    setEngineTouched(false);
+
+    setActiveTab("all");
+    setCurrentPage(1);
+
+    // optional UX: close mobile drawer
+    setIsOpen(false);
+
+    // optional: scroll back to the top of the section
+    requestAnimationFrame(() => {
+      const el = sectionRef.current;
+      if (!el) return;
+      const y = el.getBoundingClientRect().top + window.pageYOffset - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    });
+  }, []);
+
   return (
     <section
       id="showroom"
@@ -289,6 +315,7 @@ export default function Listing({ autoScrollEnabled = true }) {
                   minEngine={minEngine}
                   maxEngine={maxEngine}
                   aircraftOptions={aircraftOptions}
+                  onClearAll={handleClearAll}
                 />
               </motion.div>
             </motion.aside>
@@ -316,6 +343,7 @@ export default function Listing({ autoScrollEnabled = true }) {
               minEngine={minEngine}
               maxEngine={maxEngine}
               aircraftOptions={aircraftOptions}
+              onClearAll={handleClearAll}
             />
           </div>
 

@@ -25,6 +25,7 @@ const FilterSideBar = ({
   maxEngine,
 
   aircraftOptions = [],
+  onClearAll
 }) => {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
@@ -83,6 +84,7 @@ const FilterSideBar = ({
             setEngineRange={setEngineRange}
             minEngine={minEngine}
             maxEngine={maxEngine}
+            onClearAll={onClearAll}
           />
         </div>
       </div>
