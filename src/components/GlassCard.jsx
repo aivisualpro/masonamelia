@@ -10,6 +10,7 @@ export default function GlassCard() {
         {/* Animated Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 60 }}
+          viewport={{ amount: 0.2, once: true }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
             type: "spring",
@@ -24,6 +25,7 @@ export default function GlassCard() {
         {/* Description */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
+          viewport={{ amount: 0.2, once: true }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
           // className="text-sm md:text-base lg:text-lg py-3 ps-1 text-white/70 opacity-100"
@@ -37,6 +39,7 @@ export default function GlassCard() {
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
+          viewport={{ amount: 0.2, once: true }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1.2 }}
           className="flex justify-center mt-4"

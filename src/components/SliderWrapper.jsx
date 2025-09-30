@@ -38,6 +38,7 @@ const CountUp = React.memo(function CountUp({
   end = 0,
   prefix = "",
   suffix = "",
+  index = 0,
 }) {
   const spanRef = useRef(null);
   const inView = useInView(spanRef, { once: true, margin: "0px 0px -30% 0px" });
@@ -105,7 +106,7 @@ const CountUp = React.memo(function CountUp({
   }, [inView, end, duration, prefersReducedMotion]);
 
   return (
-    <span ref={spanRef} className="text-3xl" aria-label={`${prefix}${value}${suffix}`}>
+    <span ref={spanRef} className={`${ index === 4 ? "text-red-600" : "text-white"} text-3xl`} aria-label={`${prefix}${value}${suffix}`}>
       {prefix}
       {value.toLocaleString()}
       {suffix}
@@ -264,7 +265,7 @@ const SliderWrapper = () => {
                       </div>
 
                       <h4 className="text-lg lg:text-lg xl:text-xl text-white mb-4 mt-8">
-                        <CountUp end={card.count} prefix={prefix} suffix={suffix} />
+                        <CountUp index={index} end={card.count} prefix={prefix} suffix={suffix} />
                       </h4>
 
                       <p className="text-[#eee] text-base font-light mb-4 max-w-4xl">

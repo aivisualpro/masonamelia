@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 import ServiceBanner from "../components/ServiceBanner";
 import banner from "/images/brokerage/banner.jpg";
-import ServiceBannerContent from "../components/ServiceBannerContent";
 import CTABanner from "../components/CTABanner";
 import BrokerageRappleResearch from "../components/BrokerageRappleResearch";
 import ServiceHighlights from "../components/ServiceHighlights";
@@ -12,9 +11,78 @@ import { FaHandshake, FaUsers, FaChartLine } from "react-icons/fa";
 import { FaJetFighterUp } from "react-icons/fa6";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import brokerageBanner from "/images/brokerage/timeline-banner.avif";
-import Navbar from "../components/Navbar";
+import BlinkingArrow from "../components/BlinkingArrow"; // <-- added
+// import Navbar from "../components/Navbar";
 
 const BrokeragePage = () => {
+  /** ---------- Smooth auto-scroll (same pattern as Acquisition) ---------- */
+  const bannerRef = useRef(null);
+  const [showArrow, setShowArrow] = useState(false);
+  const [cancelAuto, setCancelAuto] = useState(false);
+
+  // const AUTO_KEY = "brokerage_auto_scrolled_v1";
+  // useEffect(() => { sessionStorage.removeItem(AUTO_KEY); }, []);
+
+  function smoothScrollTo(to, duration = 2500) {
+    const start = window.scrollY || window.pageYOffset;
+    const change = to - start;
+    const startTime = performance.now();
+
+    function animate(now) {
+      const elapsed = now - startTime;
+      const t = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      window.scrollTo(0, start + change * ease);
+      if (t < 1) requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  }
+
+  const isNearTop = () => (window.scrollY || 0) <= 5;
+
+  useEffect(() => {
+    const onWheel = () => setCancelAuto(true);
+    const onTouch = () => setCancelAuto(true);
+    const onKey = () => setCancelAuto(true);
+    const onScroll = () => {
+      if ((window.scrollY || 0) > 80) setCancelAuto(true);
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("touchstart", onTouch, { passive: true });
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // const already = sessionStorage.getItem(AUTO_KEY) === "1";
+
+    const arrowTimer = setTimeout(() => {
+      if (isNearTop() && !cancelAuto /* && !already */) setShowArrow(true);
+    }, 3000);
+
+    const scrollTimer = setTimeout(() => {
+      if (isNearTop() && !cancelAuto /* && !already */) {
+        const next = document.getElementById("brokerage");
+        const targetY = next
+          ? next.getBoundingClientRect().top + window.scrollY
+          : (bannerRef.current?.offsetHeight || 0);
+
+        smoothScrollTo(targetY, 2500);
+        // sessionStorage.setItem(AUTO_KEY, "1");
+        setShowArrow(false);
+      }
+    }, 5000);
+
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouch);
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", onScroll);
+      clearTimeout(arrowTimer);
+      clearTimeout(scrollTimer);
+    };
+  }, [cancelAuto]);
+
+  /** ---------- Page content (unchanged) ---------- */
   const data = [
     {
       id: 1,
@@ -147,10 +215,15 @@ const BrokeragePage = () => {
     },
   ];
 
-
   return (
     <>
-      <ServiceBanner banner={banner} />
+      {/* HERO / FIRST SECTION with arrow & auto-scroll */}
+      <div ref={bannerRef} className="relative h-screen lg:h-auto overflow-hidden">
+        <ServiceBanner banner={banner} />
+        {showArrow && <BlinkingArrow />}
+      </div>
+
+      {/* TARGET SECTION */}
       <main id="brokerage" className="relative">
         <BrokerageRappleResearch
           data={data}
@@ -160,6 +233,7 @@ const BrokeragePage = () => {
             "Before your aircraft hits the market, our expert team designs a smart, strategic approach to attract premium buyers and maximize value."
           }
         />
+
         <ServiceHighlights
           topTitle={"Strategic"}
           highlightedTitle={"Aircraft Brokerage"}
@@ -167,6 +241,7 @@ const BrokeragePage = () => {
           description="Every listing tells a story. Discover how Mason Amelia’s trusted brokerage model delivers maximum value, optimal timing, and seamless execution—from initial listing to final handshake."
           data={brokerageData}
         />
+
         <section
           id="timeline"
           style={{
@@ -188,8 +263,8 @@ const BrokeragePage = () => {
           </div>
         </section>
       </main>
-      <Footer />
 
+      <Footer />
       <ScrollToTop />
     </>
   );

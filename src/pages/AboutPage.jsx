@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import About from "../components/About";
@@ -12,9 +12,79 @@ import WhatSetsUsApart from "../components/WhatSetsApart";
 import aboutBanner from "/images/about/banner.avif";
 import WhyChoosUs from "../components/WhyChoosUs";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import BlinkingArrow from "../components/BlinkingArrow"; // ← added
 
 const AboutPage = () => {
+  /** ---------- Smooth auto-scroll (same as other pages) ---------- */
+  const bannerRef = useRef(null);
+  const [showArrow, setShowArrow] = useState(false);
+  const [cancelAuto, setCancelAuto] = useState(false);
 
+  // const AUTO_KEY = "about_auto_scrolled_v1";
+  // useEffect(() => { sessionStorage.removeItem(AUTO_KEY); }, []);
+
+  function smoothScrollTo(to, duration = 2500) {
+    const start = window.scrollY || window.pageYOffset;
+    const change = to - start;
+    const startTime = performance.now();
+
+    function animate(now) {
+      const elapsed = now - startTime;
+      const t = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      window.scrollTo(0, start + change * ease);
+      if (t < 1) requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  }
+
+  const isNearTop = () => (window.scrollY || 0) <= 5;
+
+  useEffect(() => {
+    const onWheel = () => setCancelAuto(true);
+    const onTouch = () => setCancelAuto(true);
+    const onKey = () => setCancelAuto(true);
+    const onScroll = () => {
+      if ((window.scrollY || 0) > 80) setCancelAuto(true);
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("touchstart", onTouch, { passive: true });
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // const already = sessionStorage.getItem(AUTO_KEY) === "1";
+
+    // Show arrow after ~3s if still near top
+    const arrowTimer = setTimeout(() => {
+      if (isNearTop() && !cancelAuto /* && !already */) setShowArrow(true);
+    }, 3000);
+
+    // Auto-scroll after ~5s if not cancelled
+    const scrollTimer = setTimeout(() => {
+      if (isNearTop() && !cancelAuto /* && !already */) {
+        const next = document.getElementById("about-main");
+        const targetY = next
+          ? next.getBoundingClientRect().top + window.scrollY
+          : (bannerRef.current?.offsetHeight || 0);
+
+        smoothScrollTo(targetY, 2500);
+        // sessionStorage.setItem(AUTO_KEY, "1");
+        setShowArrow(false);
+      }
+    }, 5000);
+
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouch);
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", onScroll);
+      clearTimeout(arrowTimer);
+      clearTimeout(scrollTimer);
+    };
+  }, [cancelAuto]);
+
+  /** ---------- Page content (your existing data) ---------- */
   const data = [
     {
       title: "2015",
@@ -104,26 +174,32 @@ const AboutPage = () => {
 
   return (
     <>
-    <Navbar />
+      <Navbar />
+      {/* HERO / FIRST SECTION with arrow + auto-scroll */}
       <section
-        className="md:sticky top-0 relative w-screen h-screen bg-[#10121A]"
+        ref={bannerRef}
+        className="md:sticky top-0 relative w-screen h-screen bg-[#10121A] overflow-hidden"
         style={{
-          backgroundImage: `linear-gradient(to right, rgb(21, 22, 28, ${media ? ".8" : "1"}) ${media? "100%" : "40%"}, rgba(0, 0, 0,0.3)), url(${bgPlane})`,
-          backgroundSize: "cover", 
+          backgroundImage: `linear-gradient(to right, rgb(21, 22, 28, ${
+            media ? ".8" : "1"
+          }) ${media ? "100%" : "40%"}, rgba(0, 0, 0,0.3)), url(${bgPlane})`,
+          backgroundSize: "cover",
           backgroundPosition: "100% 25%",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
           backgroundColor: "#10121A",
         }}
       >
-        {/* <div className="absolute top-0 left-0 w-full h-full bg-black opacity-60 z-[0]"></div> */}
-
         <div className="container px-5">
           <About />
         </div>
+
+        {/* Arrow appears ~3s if user hasn't interacted */}
+        {showArrow && <BlinkingArrow />}
       </section>
 
-      <main>
+      {/* TARGET SECTION — auto-scroll lands here */}
+      <main id="about-main">
         <WhatSetsUsApart />
 
         <section
@@ -140,14 +216,15 @@ const AboutPage = () => {
           <div className="absolute top-0 left-0 w-full h-full bg-black opacity-80 z-[-1]"></div>
           <Timeline data={data} />
         </section>
+
         {/* <section className="py-20 relative bg-[#111218]">
           <div className="container px-5">
             <WhyChoosUs />
           </div>
         </section> */}
       </main>
-      <Footer />
 
+      <Footer />
       <ScrollToTop />
     </>
   );

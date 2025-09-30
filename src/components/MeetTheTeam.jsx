@@ -25,6 +25,7 @@ const MeetTheTeam = () => {
             {/* Heading */}
             <motion.h2
               initial={{ y: 50, opacity: 0 }}
+              viewport={{ amount: 0.2, once: true }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.4 }}
               className="text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-primary_theme"
@@ -39,6 +40,7 @@ const MeetTheTeam = () => {
             {/* Paragraph */}
             <motion.p
               initial={{ opacity: 0, y: 50 }}
+              viewport={{ amount: 0.2, once: true }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.6 }}
               className="text-[#222] mt-5 md:text-lg leading-relaxed text-justify"
@@ -54,6 +56,7 @@ const MeetTheTeam = () => {
             <ul className="mt-6 space-y-3 text-sm md:text-base">
               <motion.li
                 initial={{ opacity: 0, y: 50 }}
+                viewport={{ amount: 0.2, once: true }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.8 }}
                 className="flex items-start gap-2 text-primary_theme"
@@ -63,6 +66,7 @@ const MeetTheTeam = () => {
               </motion.li>
               <motion.li
                 initial={{ opacity: 0, y: 50 }}
+                viewport={{ amount: 0.2, once: true }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 1 }}
                 className="flex items-start gap-2 text-primary_theme"
@@ -72,6 +76,7 @@ const MeetTheTeam = () => {
               </motion.li>
               <motion.li
                 initial={{ opacity: 0, y: 50 }}
+                viewport={{ amount: 0.2, once: true }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 1.2 }}
                 className="flex items-start gap-2 text-primary_theme"
@@ -85,6 +90,7 @@ const MeetTheTeam = () => {
             <div className="flex flex-col lg:flex-row lg:items-center mt-8 gap-4">
               <motion.div
                 initial={{ opacity: 0, y: 50 }}
+                viewport={{ amount: 0.2, once: true }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 1.4 }}
               >
@@ -125,6 +131,7 @@ const MeetTheTeam = () => {
           <div className="justify-center md:w-1/2 flex relative z-[0]">
             <motion.img
               initial={{ opacity: 0, x: 70 }}
+              viewport={{ amount: 0.2, once: true }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
               src={meetTheTeam}

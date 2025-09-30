@@ -1,23 +1,96 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Higher from "../components/Higher";
-import bgPlane from "/images/higher/banner.jpg"; // Replace with your path
+import bgPlane from "/images/higher/banner.webp";
 import Gallary from "../components/Gallary";
 import ScrollToTop from "../components/ScrollToTop";
 import Vision from "../components/Vision";
 import CTABanner from "../components/CTABanner";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import BlinkingArrow from "../components/BlinkingArrow"; // ← added
 
 const HigherPage = () => {
   const media = useMediaQuery("(max-width: 767px)");
+
+  /** ---------- Smooth auto-scroll (same as other pages) ---------- */
+  const bannerRef = useRef(null);
+  const [showArrow, setShowArrow] = useState(false);
+  const [cancelAuto, setCancelAuto] = useState(false);
+
+  // const AUTO_KEY = "higher_auto_scrolled_v1";
+  // useEffect(() => { sessionStorage.removeItem(AUTO_KEY); }, []);
+
+  function smoothScrollTo(to, duration = 2500) {
+    const start = window.scrollY || window.pageYOffset;
+    const change = to - start;
+    const startTime = performance.now();
+
+    function animate(now) {
+      const elapsed = now - startTime;
+      const t = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - t, 3); // easeOutCubic
+      window.scrollTo(0, start + change * ease);
+      if (t < 1) requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+  }
+
+  const isNearTop = () => (window.scrollY || 0) <= 5;
+
+  useEffect(() => {
+    const onWheel = () => setCancelAuto(true);
+    const onTouch = () => setCancelAuto(true);
+    const onKey = () => setCancelAuto(true);
+    const onScroll = () => {
+      if ((window.scrollY || 0) > 80) setCancelAuto(true);
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("touchstart", onTouch, { passive: true });
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // const already = sessionStorage.getItem(AUTO_KEY) === "1";
+
+    // 3s: show arrow if still near top
+    const arrowTimer = setTimeout(() => {
+      if (isNearTop() && !cancelAuto /* && !already */) setShowArrow(true);
+    }, 3000);
+
+    // 5s: auto-scroll to main content if not cancelled
+    const scrollTimer = setTimeout(() => {
+      if (isNearTop() && !cancelAuto /* && !already */) {
+        const next = document.getElementById("higher-main");
+        const targetY = next
+          ? next.getBoundingClientRect().top + window.scrollY
+          : (bannerRef.current?.offsetHeight || 0);
+
+        smoothScrollTo(targetY, 2500);
+        // sessionStorage.setItem(AUTO_KEY, "1");
+        setShowArrow(false);
+      }
+    }, 5000);
+
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouch);
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", onScroll);
+      clearTimeout(arrowTimer);
+      clearTimeout(scrollTimer);
+    };
+  }, [cancelAuto]);
+
   return (
     <>
       <Navbar />
+      {/* HERO / FIRST SECTION */}
       <section
-        className="md:sticky top-0 relative w-full bg-cover h-screen bg-center z-[0]"
+        ref={bannerRef}
+        className="md:sticky top-0 relative w-full bg-cover h-screen bg-center z-[0] overflow-hidden"
         style={{
-          backgroundImage: `linear-gradient(to right,rgb(21, 22, 28, ${
+          backgroundImage: `linear-gradient(to right, rgb(21, 22, 28, ${
             media ? ".8" : "1"
           }) ${media ? "100%" : "20%"}, rgba(0, 0, 0, 0.05)), url(${bgPlane})`,
         }}
@@ -26,8 +99,13 @@ const HigherPage = () => {
         <div className="container">
           <Higher />
         </div>
+
+        {/* Arrow appears ~3s if user hasn't interacted */}
+        {showArrow && <BlinkingArrow />}
       </section>
-      <div className="relative">
+
+      {/* TARGET SECTION — auto-scroll lands here */}
+      <main id="higher-main" className="relative">
         <Gallary />
         <Vision />
         <section className="relative bg-[#111218] py-10">
@@ -35,9 +113,9 @@ const HigherPage = () => {
             <CTABanner />
           </div>
         </section>
-      </div>
-      <Footer />
+      </main>
 
+      <Footer />
       <ScrollToTop />
     </>
   );

@@ -12,6 +12,7 @@ export default function GlassmorphismCircularCard({
   return (
     <motion.div
       initial={{ scale: 0, opacity: 0 }}
+      viewport={{ amount: 0.2, once: true }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: .5, delay: 1 }}
       className={`${customClasses}`}
