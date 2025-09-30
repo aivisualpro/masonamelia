@@ -52,7 +52,7 @@ const ServiceRappleResearch = ({
                 initial={{ opacity: 0, scale: 0 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ type: "spring", stiffness: 30, duration: 0.8, delay: index * 0.2 }}
-                className="w-full p-8 rounded-2xl bg-[#11121889] overflow-hidden relative"
+                className="w-full p-8 rounded-2xl bg-[#111218de] overflow-hidden relative"
               >
                 <div className="flex flex-col items-center text-center space-y-4">
                   <div className="flex items-center justify-center">

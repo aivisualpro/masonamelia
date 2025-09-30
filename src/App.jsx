@@ -47,7 +47,7 @@ function App() {
         <Route path="/blog-detail/:id" element={<BlogDetailPage />} />
         {/* <Route path="/dashboard" element={<DashboardLayout />} /> */}
       </Routes>
-      <SubscribePopup />
+      {/* <SubscribePopup /> */}
     </>
   );
 }

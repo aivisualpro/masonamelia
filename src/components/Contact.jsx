@@ -87,7 +87,7 @@ const Contact = () => {
     <>
       <section
         id="contact"
-        className={`sticky bottom-0 w-full z-[1] ${
+        className={`relative w-full z-[1] ${
           location.pathname !== "/contact"
             ? "lg:h/full 2xl:h-full"
             : "2xl:h-full"
@@ -97,6 +97,7 @@ const Contact = () => {
             location.pathname !== "/contact" ? `url(${contactBanner})` : "none",
           backgroundSize: location.pathname !== "/contact" ? "cover" : "",
           backgroundPosition: location.pathname !== "/contact" ? "center" : "",
+          backgroundAttachment: "fixed",
           backgroundRepeat: location.pathname !== "/contact" ? "no-repeat" : "",
         }}
       >

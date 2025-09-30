@@ -31,10 +31,10 @@ const STATUS_TABS = [
   { name: "Coming Soon", slug: "coming-soon" },
   { name: "Sale Pending", slug: "sale-pending" },
   { name: "Off Market", slug: "off-market" },
-  { name: "Previous Transactions", slug: "previous" }, 
+  { name: "Previous Transactions", slug: "previous" },
 ];
 
-export default function Listing() {
+export default function Listing({ autoScrollEnabled = true }) {
   const sectionRef = useRef(null);
   const queryClient = useQueryClient();
 
@@ -144,11 +144,10 @@ export default function Listing() {
     window.scrollTo({ top: y + 60, behavior: "smooth" });
   }, []);
   useEffect(() => {
-    if (!loading) {
-      const id = requestAnimationFrame(() => scrollToTop());
-      return () => cancelAnimationFrame(id);
-    }
-  }, [currentPage, loading, scrollToTop]);
+    if (!autoScrollEnabled || loading) return;
+    const id = requestAnimationFrame(() => scrollToTop());
+    return () => cancelAnimationFrame(id);
+  }, [autoScrollEnabled, currentPage, loading, scrollToTop]);
 
   // prefetch next page
   useEffect(() => {

@@ -1,11 +1,7 @@
 import React, { useRef } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-} from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { IoPlayCircle } from "react-icons/io5";
 
 /** row ke andar hovered card ko fully visible karne ke liye helper */
 function ensureVisible(cardEl, rowEl, hoverMv) {
@@ -17,11 +13,11 @@ function ensureVisible(cardEl, rowEl, hoverMv) {
   let delta = 0;
   // Agar left se bahar ja raha hai -> right shift (+)
   if (cardRect.left < rowRect.left + margin) {
-    delta = (rowRect.left + margin) - cardRect.left;
+    delta = rowRect.left + margin - cardRect.left;
   }
   // Agar right se bahar ja raha hai -> left shift (-)
   else if (cardRect.right > rowRect.right - margin) {
-    delta = (rowRect.right - margin) - cardRect.right;
+    delta = rowRect.right - margin - cardRect.right;
   }
 
   if (delta !== 0) {
@@ -37,12 +33,12 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
       .slice(start, Math.min(end, portfolio.length))
       .map((item, i) => ({ item, idx: start + i }));
 
-  const firstRow   = makeRow(0, 4);
-  const secondRow  = makeRow(3, 7);
-  const thirdRow   = makeRow(6, 10);
-  const fourthRow  = makeRow(9, 13);
-  const fifthRow   = makeRow(12, 16);
-  const sixthRow   = makeRow(15, 19);
+  const firstRow = makeRow(0, 4);
+  const secondRow = makeRow(3, 7);
+  const thirdRow = makeRow(6, 10);
+  const fourthRow = makeRow(9, 13);
+  const fifthRow = makeRow(12, 16);
+  const sixthRow = makeRow(15, 19);
   const seventhRow = makeRow(18, 22);
 
   useMediaQuery("(max-width: 768px) and (max-height: 800px)");
@@ -57,12 +53,30 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
 
   const springConfig = { stiffness: 200, damping: 30, bounce: 0 };
 
-  const translateX        = useSpring(useTransform(scrollYProgress, [0, 1], [ 400, 1000]), springConfig);
-  const translateXReverse = useSpring(useTransform(scrollYProgress, [0, 1], [-900,-1500]), springConfig);
-  const rotateX  = useSpring(useTransform(scrollYProgress, [0, 0.2], [15, 0]), springConfig);
-  const opacity  = useSpring(useTransform(scrollYProgress, [0, 0.2], [0.2, 1]), springConfig);
-  const rotateZ  = useSpring(useTransform(scrollYProgress, [0, 0.2], [20, 0]), springConfig);
-  const translateY = useSpring(useTransform(scrollYProgress, [0, 0.2], [-900, 500]), springConfig);
+  const translateX = useSpring(
+    useTransform(scrollYProgress, [0, 1], [400, 1000]),
+    springConfig
+  );
+  const translateXReverse = useSpring(
+    useTransform(scrollYProgress, [0, 1], [-900, -1500]),
+    springConfig
+  );
+  const rotateX = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [15, 0]),
+    springConfig
+  );
+  const opacity = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
+    springConfig
+  );
+  const rotateZ = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [20, 0]),
+    springConfig
+  );
+  const translateY = useSpring(
+    useTransform(scrollYProgress, [0, 0.2], [-900, 500]),
+    springConfig
+  );
 
   // --- per-row hover offsets + refs ---
   const row1Ref = useRef(null);
@@ -82,13 +96,13 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
   const row7Hover = useSpring(0, springConfig);
 
   // base + hover offset combine
-  const row1X = useTransform([translateX,        row1Hover], ([b, h]) => b + h);
+  const row1X = useTransform([translateX, row1Hover], ([b, h]) => b + h);
   const row2X = useTransform([translateXReverse, row2Hover], ([b, h]) => b + h);
-  const row3X = useTransform([translateX,        row3Hover], ([b, h]) => b + h);
+  const row3X = useTransform([translateX, row3Hover], ([b, h]) => b + h);
   const row4X = useTransform([translateXReverse, row4Hover], ([b, h]) => b + h);
-  const row5X = useTransform([translateX,        row5Hover], ([b, h]) => b + h);
+  const row5X = useTransform([translateX, row5Hover], ([b, h]) => b + h);
   const row6X = useTransform([translateXReverse, row6Hover], ([b, h]) => b + h);
-  const row7X = useTransform([translateX,        row7Hover], ([b, h]) => b + h);
+  const row7X = useTransform([translateX, row7Hover], ([b, h]) => b + h);
 
   return (
     <div
@@ -230,7 +244,7 @@ export const ProductCard = ({ data, translate, onClick, onHover, onLeave }) => {
       {/* Fixed-size wrapper so layout jump na ho */}
       <div
         ref={cardRef}
-        className="relative min-h-[225px] min-w-[400px] md:min-h-[315px] md:min-w-[560px] lg:min-h-[405px] lg:min-w-[720px] 2xl:min-h-[450px] 2xl:min-w-[800px] rounded-[5px] overflow-hidden bg-black"
+        className="group relative min-h-[225px] min-w-[400px] md:min-h-[315px] md:min-w-[560px] lg:min-h-[405px] lg:min-w-[720px] 2xl:min-h-[450px] 2xl:min-w-[800px] rounded-[5px] overflow-hidden bg-black"
       >
         <img
           src={data?.src}
@@ -238,6 +252,11 @@ export const ProductCard = ({ data, translate, onClick, onHover, onLeave }) => {
           loading="lazy"
           className="absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:object-contain"
         />
+        <div className="group-hover:opacity-100 opacity-0 transition-all duration-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <button className="h-[100px] w-[100px] flex items-center justify-center text-white rounded-full">
+            <IoPlayCircle size={72} className="hover:text-blue-500" />
+          </button>
+        </div>
       </div>
     </motion.div>
   );

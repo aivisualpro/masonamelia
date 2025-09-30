@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Thumbs,
-  FreeMode,
-  Keyboard,
-  Navigation,
-} from "swiper/modules";
+import { Thumbs, FreeMode, Keyboard, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -16,7 +11,7 @@ import "swiper/css/keyboard";
 import "swiper/css/navigation";
 
 import GallaryOne from "/images/thumbnails/1.jpg";
-import GallaryTwo from "/images/thumbnails/2.webp"
+import GallaryTwo from "/images/thumbnails/2.webp";
 import GallaryThree from "/images/thumbnails/3.jpg";
 import GallaryFour from "/images/thumbnails/4.webp";
 import GallaryFive from "/images/thumbnails/5.jpg";
@@ -37,7 +32,8 @@ import GallaryNineteen from "/images/thumbnails/19.webp";
 import GallaryTwenty from "/images/thumbnails/20.webp";
 import GallaryTwentyOne from "/images/thumbnails/21.webp";
 import { HeroParallax } from "./ui/hero-parallex";
-import "../custom.css"
+import "../custom.css";
+import { IoPlayCircle } from "react-icons/io5";
 
 Modal.setAppElement("#root");
 
@@ -89,33 +85,42 @@ const Gallary = () => {
 
           {/* Thumbnails */}
           <div className="h-[30%]">
-          <Swiper
-            onSwiper={setThumbsSwiper}
-            spaceBetween={10}
-            slidesPerView={4.5}
-            navigation={true}
-            loop={true}
-            freeMode={true}
-            watchSlidesProgress={true}
-            modules={[FreeMode, Thumbs, Navigation, Keyboard]}
-            className="mySwiper w-full min-w-screen flex items-end"
-            keyboard={true}
-          >
-            {products?.map((video, i) => (
-              <SwiperSlide key={video.id} className="cursor-pointer">
-                <img
-                  src={video.src}
-                  alt={video.title}
-                  className={`rounded border-4 ${
-                    currentIndex === i
-                      ? "border-blue-500"
-                      : "border-transparent"
-                  }`}
-                  onClick={() => setCurrentIndex(i)}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+            <Swiper
+              onSwiper={setThumbsSwiper}
+              spaceBetween={10}
+              slidesPerView={4.5}
+              navigation={true}
+              loop={true}
+              freeMode={true}
+              watchSlidesProgress={true}
+              modules={[FreeMode, Thumbs, Navigation, Keyboard]}
+              className="mySwiper w-full min-w-screen flex items-end"
+              keyboard={true}
+            >
+              {products?.map((video, i) => (
+                <SwiperSlide key={video.id} className="cursor-pointer">
+                  <div className="group relative" onClick={() => setCurrentIndex(i)}>
+                    <img
+                      src={video.src}
+                      alt={video.title}
+                      className={`rounded border-4 ${
+                        currentIndex === i
+                          ? "border-blue-500"
+                          : "border-transparent"
+                      }`}
+                    />
+                    <div className="group-hover:opacity-100 opacity-0 transition-all duration-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                      <button className="h-[100px] w-[100px] flex items-center justify-center text-white rounded-full">
+                        <IoPlayCircle
+                          size={48}
+                          className="hover:text-blue-500"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
         </div>
       </Modal>
@@ -139,7 +144,6 @@ export const products = [
     category: "",
     src: GallaryTwo,
     videoUrl: "https://www.youtube.com/embed/bupjXqMZcZE?si=Xh4IFH2gbRbXo3m-",
-
   },
   {
     _id: 3,

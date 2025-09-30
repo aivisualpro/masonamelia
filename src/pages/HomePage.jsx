@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Showcase from "../components/Showcase";
 import Brands from "../components/Brands";
 import Contact from "../components/Contact";
@@ -12,9 +12,32 @@ import LatestJets from "../components/LatestJets";
 import Navbar from "../components/Navbar";
 import bgPlane from "/images/brokerage/banner.avif";
 import Reviews from "../components/Reviews";
+import testimonialBg from "/images/contact.avif";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   // useGsapScroll();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // support both state and hash
+    const targetId =
+      location.state?.scrollTo ||
+      (location.hash === "#testimonial" ? "testimonial" : null);
+
+    if (!targetId) return;
+
+    // small delay ensures DOM is painted
+    const t = setTimeout(() => {
+      const el = document.getElementById(targetId);
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      // clean up state/hash to avoid re-scrolling on back/forward
+      navigate("/#testimonial", { replace: true, state: null });
+    }, 0);
+
+    return () => clearTimeout(t);
+  }, [location.state, location.hash, navigate]);
 
   return (
     <>
@@ -26,20 +49,24 @@ const HomePage = () => {
       <main id="main">
         <div className="relative z-[10]">
           <Brands />
-          {/* <Intro /> */}
           <MeetTheTeam />
           <SliderWrapper />
-          {/* <LatestJets /> */}
-          <section
-            className="testimonial_section relative xl:h-screen bg-[#111218] w-full bg-cover bg-center z-[10]"
-            // style={{ backgroundImage: `url(${bgPlane})` }}
+
+          {/* 👇 make sure this id matches */}
+          <div
+            id="testimonial"
+            className="z-[2] relative scroll-mt-24" // helps if you have a fixed nav; adjust 24 as needed
+            style={{
+              backgroundImage: `url(${testimonialBg})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              backgroundAttachment: "fixed",
+            }}
           >
-            <div className="absolute top-0 left-0 w-full h-full bg-[#111218] z-[-9]"></div>
-            {/* <Navbar /> */}
-            <div className="z-[2]">
-              <Reviews />
-            </div>
-          </section>
+            <div className="absolute top-0 left-0 w-full h-full bg-[#071725] opacity-80 -z-[1]" />
+            <Reviews />
+          </div>
+
           <Gallary />
         </div>
         <Contact />
