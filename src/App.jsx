@@ -19,6 +19,7 @@ import {
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import SubscribePopup from "./components/SubscribePopup";
+import SearchResultsPage from "./pages/SearchResultsPage";
 // import "./locomotive-scroll.css";
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/blogs" element={<BlogPage />} />
         <Route path="/blog-detail/:id" element={<BlogDetailPage />} />
+        <Route path="/search" element={<SearchResultsPage />} />
         {/* <Route path="/dashboard" element={<DashboardLayout />} /> */}
       </Routes>
       {/* <SubscribePopup /> */}

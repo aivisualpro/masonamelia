@@ -104,7 +104,7 @@ const Team = () => {
                       <div className="transition-all duration-300 group-hover:h-[100%] absolute top-0 left-0 w-full h-0 bg-black opacity-0 lg:opacity-60 z-[0]"></div>
                     </div>
                   </Link>
-                  <div className="absolute -bottom-[5px] left-0 right-0 rounded-[100px] h-[180px] lg:h-[120px] group-hover:h-[175px] transition-all duration-500">
+                  <div className="absolute -bottom-[5px] left-0 right-0 rounded-[100px] h-[200px] lg:h-[160px] group-hover:h-[200px] transition-all duration-500">
                     <div
                       className="glass-container rounded-xl flex items-center justify-center glass-container--rounded px-4 py-3"
                       style={{ borderRadius: "0" }}
@@ -114,6 +114,9 @@ const Team = () => {
                       <div className="glass-specular"></div>
                       <div className="glass-content glass-content--inline justify-center px-4">
                         <div className="relative w-full py-5 px-2">
+                          <h3 className="text-base font-light text-gray-400 mb-4 px-3">
+                            {member?.address}
+                          </h3>
                           <h2 className="text-lg xl:text-xl font-semibold text-white px-3">
                             {member?.name}
                           </h2>
@@ -178,7 +181,7 @@ const Team = () => {
                     <div className="transition-all duration-300 group-hover:h-[100%] absolute top-0 left-0 w-full h-0 bg-black opacity-0 lg:opacity-60 z-[0]"></div>
                   </div>
                 </Link>
-                <div className="absolute -bottom-[5px] left-0 right-0 rounded-[100px] h-[190px] md:h-[130px] lg:group-hover:h-[175px] transition-all duration-500">
+                <div className="absolute -bottom-[5px] left-0 right-0 rounded-[100px] h-[200px] lg:h-[160px] group-hover:h-[210px] transition-all duration-500">
                   <div
                     className="glass-container flex items-center justify-center glass-container--rounded px-4 py-3"
                     style={{ borderRadius: "0" }}
@@ -188,6 +191,9 @@ const Team = () => {
                     <div className="glass-specular"></div>
                     <div className="glass-content glass-content--inline justify-center">
                       <div className="relative w-full py-5 px-2">
+                        <h3 className="text-base font-light text-gray-400 mb-4 px-3">
+                          {member?.address}
+                        </h3>
                         <h2 className="text-lg md:text-xl xl:text-2xl font-semibold text-white">
                           {member?.name}
                         </h2>

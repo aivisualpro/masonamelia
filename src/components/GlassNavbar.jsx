@@ -55,6 +55,28 @@ const GlassNavbar = () => {
     }
   };
 
+  const goToContact = (e) => {
+    e.preventDefault();
+    if (location.pathname === "/") {
+      const el = document.getElementById("contact");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      // pass intent to HomePage
+      navigate("/", { state: { scrollTo: "contact" } });
+    }
+  };
+
+  const goToServices = (e) => {
+    e.preventDefault();
+    if (location.pathname === "/") {
+      const el = document.getElementById("services");
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      // pass intent to HomePage
+      navigate("/", { state: { scrollTo: "services" } });
+    }
+  };
+
   return (
     <div className="w-full z-[9999] xl:block hidden ">
       {/* SVG filter definitions */}
@@ -118,12 +140,13 @@ const GlassNavbar = () => {
                 </li> */}
 
                 <li onMouseEnter={() => openDropdown("services")}>
-                  <Link
-                    to="/about"
+                  <a
+                    href="/#services"
+                    onClick={goToServices}
                     className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color"
                   >
                     Services
-                  </Link>
+                  </a>
                 </li>
 
                 <li onMouseEnter={startClose}>
@@ -157,12 +180,13 @@ const GlassNavbar = () => {
                 </li>
 
                 <li onMouseEnter={startClose}>
-                  <Link
-                    to="/contact"
+                  <a
+                    href="/#contact"
+                    onClick={goToContact}
                     className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color"
                   >
                     Contact
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </nav>

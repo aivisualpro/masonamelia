@@ -56,6 +56,9 @@ const TeamDetail = () => {
                     whileInView={{ x: 0, opacity: 1 }}
                     transition={{ type: "spring", duration: 1 }}
                   >
+                    <h3 className="text-xl font-light text-gray-400 mb-4">
+                      {m?.address}
+                    </h3>
                     <h2 className="text-5xl md:text-6xl text-tertiary_color font-bold">
                       {m?.name}
                     </h2>

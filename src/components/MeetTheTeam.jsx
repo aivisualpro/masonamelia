@@ -8,7 +8,7 @@ import meetTheTeam from "/images/team.jpg"
 const MeetTheTeam = () => {
   return (
     <section
-      className="md:h-screen lg:h-full xl:h-screen w-full bg-[#fff] py-20 px-4 overflow-x-hidden"
+      className="md:h-screen lg:h-full xl:h-screen w-full bg-[#fff] py-10 px-4 overflow-x-hidden"
       id="meetTheTeam"
       style={{
         backgroundImage: `url("https://bracketweb.com/jetlywp/wp-content/uploads/2023/01/about-1-bg-1.png")`,
@@ -122,14 +122,14 @@ const MeetTheTeam = () => {
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="justify-center md:w-1/2 flex relative 2xl:scale-[1.1] z-[0]">
+          <div className="justify-center md:w-1/2 flex relative z-[0]">
             <motion.img
               initial={{ opacity: 0, x: 70 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
               src={meetTheTeam}
               alt="Team Banner"
-              className="rounded-3xl scale-[1.2] w-full z-[20] lg:mt-[25px] xl:mt-[100px] lg:ml-[50px]"
+              className="rounded-3xl w-full z-[20] lg:ml-[50px]"
             />
           </div>
         </div>

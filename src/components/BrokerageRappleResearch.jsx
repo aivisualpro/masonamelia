@@ -22,10 +22,10 @@ const BrokerageRappleResearch = ({
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
         }}
-        className="relative py-20 z-[10] h-full 2xl:min-h-screen"
+        className="relative 2xl:py-0 py-20 z-[10] h-full 2xl:min-h-screen"
       >
         <div className="overlay bg-[#111218d8] opacity-[.97] absolute top-0 left-0 w-full h-full z-[-1]" />
-        <div className="container px-5 md:flex items-center h-full">
+        <div className="container px-5 flex md:flex-row flex-col items-center 2xl:h-screen">
           <div className="md:w-[50%] mb-20 px-4 flex flex-col items-center justify-center z-[4]">
             <motion.h2
               initial={{

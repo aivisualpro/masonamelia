@@ -460,12 +460,7 @@ h6 {
   background-color: #262626;
 }
 
-#showroom .MuiPaginationItem-circular {
-  border-color: rgba(255, 255, 255, 0.3) !important;
-  color: #ffffff !important;
-}
-#showroom .MuiPaginationItem-circular.Mui-selected {
-  background-color: rgba(255, 255, 255, 0.1) !important;
+.MuiPaginationItem-circular {
   border-color: rgba(255, 255, 255, 0.3) !important;
   color: #ffffff !important;
 }
@@ -723,3 +718,6 @@ h6 {
   }
 }
 
+iframe {
+  filter: invert(90%) !important;
+}

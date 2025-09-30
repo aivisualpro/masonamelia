@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 import { IoIosArrowDown } from "react-icons/io";
 import banner from "/images/showroom/banner.png";
+import BlinkingArrow from "../components/BlinkingArrow";
 
 /* ----------------- custom slow scroll helper ----------------- */
 const smoothScrollTo = (targetY, { duration = 2200 } = {}) => {
@@ -126,26 +127,7 @@ const ShowroomPage = () => {
       <ScrollToTop />
 
       {showArrow && (
-        <button
-          aria-label="Scroll to listings"
-          onClick={() => {
-            const top =
-              (listingRef.current?.getBoundingClientRect().top ?? 0) +
-              window.scrollY -
-              12;
-            smoothScrollTo(top, { duration: 2200 }); // 👈 slow manual scroll
-            setShowArrow(false);
-            setAutoScrollEnabled(true);
-          }}
-          className="
-            fixed left-1/2 -translate-x-1/2 bottom-8 z-[60]
-            rounded-full border border-white/40 bg-black/60 backdrop-blur
-            p-3 shadow-lg hover:bg-black/70 transition
-            animate-bounce
-          "
-        >
-          <IoIosArrowDown size={28} className="text-white" />
-        </button>
+        <BlinkingArrow />
       )}
     </>
   );

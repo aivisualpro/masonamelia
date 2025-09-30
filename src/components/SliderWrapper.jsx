@@ -244,7 +244,7 @@ const SliderWrapper = () => {
               </motion.p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
               {cards.map((card, index) => {
                 const prefix = card.title === "$" ? "$" : "";
                 const suffix = card.title === "+" ? "+" : card.suffix === "M" ? "M" : "";

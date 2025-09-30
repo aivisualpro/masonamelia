@@ -26,14 +26,28 @@ const HomePage = () => {
       location.state?.scrollTo ||
       (location.hash === "#testimonial" ? "testimonial" : null);
 
-    if (!targetId) return;
+    const targetId2 =
+      location.state?.scrollTo ||
+      (location.hash === "#contact" ? "contact" : null);
+
+    const targetId3 =
+      location.state?.scrollTo ||
+      (location.hash === "#contact" ? "contact" : null);
+
+    if (!targetId && !targetId2 && !targetId3) return;
 
     // small delay ensures DOM is painted
     const t = setTimeout(() => {
       const el = document.getElementById(targetId);
+      const el2 = document.getElementById(targetId2);
+      const el3 = document.getElementById(targetId3);
       if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (el2) el2.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (el3) el3.scrollIntoView({ behavior: "smooth", block: "start" });
       // clean up state/hash to avoid re-scrolling on back/forward
       navigate("/#testimonial", { replace: true, state: null });
+      navigate("/#contact", { replace: true, state: null });
+      navigate("/#services", { replace: true, state: null });
     }, 0);
 
     return () => clearTimeout(t);
@@ -51,24 +65,29 @@ const HomePage = () => {
           <Brands />
           <MeetTheTeam />
           <SliderWrapper />
+        </div>
 
-          {/* 👇 make sure this id matches */}
-          <div
-            id="testimonial"
-            className="z-[2] relative scroll-mt-24" // helps if you have a fixed nav; adjust 24 as needed
-            style={{
-              backgroundImage: `url(${testimonialBg})`,
-              backgroundPosition: "center",
-              backgroundSize: "cover",
-              backgroundAttachment: "fixed",
-            }}
-          >
-            <div className="absolute top-0 left-0 w-full h-full bg-[#071725] opacity-80 -z-[1]" />
-            <Reviews />
-          </div>
+        {/* 👇 make sure this id matches */}
+        <div
+          id="testimonial"
+          className="z-[2] relative scroll-mt-24" // helps if you have a fixed nav; adjust 24 as needed
+          style={{
+            backgroundImage: `url(${testimonialBg})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundAttachment: "fixed",
+          }}
+        >
+          <div className="absolute top-0 left-0 w-full h-full bg-[#071725] opacity-80 -z-[1]" />
+          <Reviews />
+        </div>
 
+        <div className="relative z-[10]">
           <Gallary />
         </div>
+
+        {/* 👇 make sure this id matches */}
+
         <Contact />
       </main>
       <Footer />

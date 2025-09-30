@@ -78,7 +78,7 @@ const Navbar = () => {
               src={
                 logo
               }
-              className="logo max-w-[250px] h-[50px] md:h-[70px] z-[10]"
+              className="logo max-w-[250px] h-[50px] md:h-[65px] z-[10]"
               alt="logo"
             />
           </Link>
