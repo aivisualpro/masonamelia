@@ -206,8 +206,8 @@ const GlassNavbar = () => {
           <div
             className={`absolute ${
               activeDropdown === "about"
-                ? "xl:left-[65%] 2xl:left-[55%] -translate-x-1/2 top-[130%]"
-                : "left-[42%] -translate-x-1/2 top-[130%]"
+                ? "xl:left-[65%] 2xl:left-[55%] -translate-x-1/2 top-[120%]"
+                : "left-[42%] -translate-x-1/2 top-[120%]"
             } mt-3 `}
           >
             <Dropdown

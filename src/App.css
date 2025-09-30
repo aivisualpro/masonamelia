@@ -12,13 +12,17 @@ body {
 }
 
 .logo {
+  -webkit-filter: brightness(100);
   filter: brightness(100);
-  transition: filter .1s ease-in-out;
+  transition: -webkit-filter .1s ease-in-out, filter .1s ease-in-out;
+
+  will-change: filter; /* Safari aur Chrome dono ke liye helpful */
 }
 .logo:hover {
+  -webkit-filter: none !important;
   filter: none !important;
-  transition: filter .1s ease-in-out;
 }
+
 .brand_img {
   filter: brightness(0) invert(1);
 }
