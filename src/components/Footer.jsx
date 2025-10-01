@@ -10,7 +10,7 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import logo from "../../public/logo.avif";
+import logo from "../../public/logo.png";
 
 const Footer = () => {
   return (
