@@ -186,7 +186,7 @@ const Contact = () => {
           </div>
 
           {/* Right - Form */}
-          <div className="bg-transparent bg-opacity-40 md:p-8 rounded-2xl z-[2]">
+          <div className="bg-transparent bg-opacity-40 rounded-2xl z-[2]">
             {/* status message */}
             {toast.msg && (
               <div
