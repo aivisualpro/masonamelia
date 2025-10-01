@@ -60,7 +60,7 @@ const Reviews = () => {
 
         {/*  */}
 
-        <div className="testimonial_moving_card mt-8 md:[mask-image:linear-gradient(to_right,transparent,white_20%,white_80%,transparent)]">
+        <div className="testimonial_moving_card mt-8 md:[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
           <InfiniteMovingCards
             bgColor=""
             pauseOnHover={true}
@@ -75,3 +75,5 @@ const Reviews = () => {
 };
 
 export default Reviews;
+
+// 
