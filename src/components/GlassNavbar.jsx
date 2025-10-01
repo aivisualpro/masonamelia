@@ -68,14 +68,21 @@ const GlassNavbar = () => {
 
   const goToServices = (e) => {
     e.preventDefault();
+    const OFFSET = 290;
+    sessionStorage.setItem("scrollTo", true);
+  
     if (location.pathname === "/") {
       const el = document.getElementById("services");
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      const y = el
+        ? el.getBoundingClientRect().top + window.scrollY - OFFSET
+        : OFFSET; // fallback: sirf 50px down
+      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
     } else {
-      // pass intent to HomePage
-      navigate("/", { state: { scrollTo: "services" } });
+      // Home pe jao aur state mein target + offset bhej do
+      navigate("/", { state: { scrollTo: "services", offset: OFFSET } });
     }
   };
+  
 
   return (
     <div className="w-full z-[9999] xl:block hidden ">
@@ -140,13 +147,13 @@ const GlassNavbar = () => {
                 </li> */}
 
                 <li onMouseEnter={() => openDropdown("services")}>
-                  <a
-                    href="/#services"
+                  <Link
+                    to="/#services"
                     onClick={goToServices}
                     className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color"
                   >
                     Services
-                  </a>
+                  </Link>
                 </li>
 
                 <li onMouseEnter={startClose}>

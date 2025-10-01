@@ -20,6 +20,31 @@ const HomePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const OFFSET = 150;
+
+  useEffect(() => {
+    // Are we on Home?
+    const onHome = location.pathname === "/";
+    console.log(location.pathname);
+    const isScrollTo = sessionStorage.getItem("scrollTo");
+  
+    // No explicit target requested (na state.scrollTo, na hash)
+    const noExplicitTarget = !location.state?.scrollTo && !location.hash;
+  
+    // Current path NOT '/services' (your condition)
+    const notServicesPath = !location.pathname.includes("/services");
+  
+    // Close to top?
+    const nearTop = window.scrollY <= 50;
+  
+    if (onHome && nearTop && isScrollTo) {
+      const id = requestAnimationFrame(() => {
+        window.scrollTo({ top: 290, behavior: "smooth" });
+      });
+      return () => cancelAnimationFrame(id);
+    }
+  }, [location.pathname, location.hash, location.state]);
+
   useEffect(() => {
     // support both state and hash
     const targetId =

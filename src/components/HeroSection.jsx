@@ -31,7 +31,7 @@ const HeroSection = () => {
               <div className="glass-overlay"></div>
               <div className="glass-specular"></div>
               <div
-                id="services"
+ 
                 className={`h-full glass-content w-full flex-wrap md:flex-nowrap md:py-4 py-0`}
               >
                 <div className="w-1/2 md:w-[33%] relative">

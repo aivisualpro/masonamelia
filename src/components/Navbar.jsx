@@ -27,14 +27,14 @@ const Navbar = () => {
           const delta = currentY - lastScrollY.current;
 
           // Add “scrolled” styling after slight offset
-          setScrolled(currentY > 30);
+          setScrolled(currentY > 300);
 
           // At very top: always show
           if (currentY <= 0) {
             setShowNav(true);
           } else {
             // If scrolling down enough and not near top → hide
-            if (delta > 3 && currentY > 80) {
+            if (delta > 3 && currentY > 380) {
               setShowNav(false);
             }
             // If scrolling up even slightly → show
