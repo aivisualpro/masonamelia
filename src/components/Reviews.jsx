@@ -27,7 +27,7 @@ const Reviews = () => {
         id="testimonials"
         className={`${
           location.pathname === "/testimonial" ? "md:h-[100vh] lg:h-full xl:h-[100vh] justify-center 2xl:justify-around" : "xl:h-[100vh] justify-around"
-        }  flex flex-col`}
+        }  flex flex-col py-20`}
       >
         <div
           className={`${

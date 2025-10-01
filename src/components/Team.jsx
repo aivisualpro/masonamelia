@@ -43,10 +43,10 @@ const Team = () => {
         className="text-white pt-32 pb-20 md:pb-20 md:pt-0 px-4 md:px-10"
       >
         <div className="container pt-[195px] flex items-center">
-          <div className="lg:flex flex-row justify-center mx-auto md:mb-20 gap-4">
+          <div className="w-full">
             {/* left glass card ... unchanged */}
             <div
-              className={`lg:w-[30%] xl:w-[50%] glass-container md:mb-0 mb-4 lg:minh-[375px] flex items-center`}
+              className={`w-full glass-container md:mb-0 mb-4 lg:minh-[375px] flex items-center justify-center`}
               style={{
                 borderRadius: "0px",
                 boxShadow:
@@ -85,88 +85,18 @@ const Team = () => {
                 </motion.p>
               </div>
             </div>
-
-            {/* top 2 cards */}
-            <div className="lg:w-[70%] xl:w-[50%] w-full partners grid md:grid-cols-2 gap-4 mt-4 lg:mt-0">
-              {team.slice(0, 2).map((member, idx) => (
-                <div
-                  key={`top-${idx}`}
-                  className="relative team-card rounded-xl overflow-hidden group mb-4"
-                >
-                  <Link to={`/team/${member?._id}`}>
-                    <div className="relative w-full">
-                      <img
-                        src={member?.profile_picture || member?.image}
-                        alt={member?.name}
-                        className="w-full h-[420px] object-cover"
-                        loading="lazy"
-                      />
-                      <div className="transition-all duration-300 group-hover:h-[100%] absolute top-0 left-0 w-full h-0 bg-black opacity-0 lg:opacity-60 z-[0]"></div>
-                    </div>
-                  </Link>
-                  <div className="absolute -bottom-[5px] left-0 right-0 rounded-[100px] h-[200px] lg:h-[160px] group-hover:h-[200px] transition-all duration-500">
-                    <div
-                      className="glass-container rounded-xl flex items-center justify-center glass-container--rounded px-4 py-3"
-                      style={{ borderRadius: "0" }}
-                    >
-                      <div className="glass-filter"></div>
-                      <div className="glass-overlay"></div>
-                      <div className="glass-specular"></div>
-                      <div className="glass-content glass-content--inline justify-center px-4">
-                        <div className="relative w-full py-5 px-2">
-                          <h3 className="text-base font-light text-gray-400 mb-4 px-3">
-                            {member?.address}
-                          </h3>
-                          <h2 className="text-lg xl:text-xl font-semibold text-white px-3">
-                            {member?.name}
-                          </h2>
-                          <a href={`mailto:${member?.email}`} className="text-xs xl:text-sm p-2 mt-2 font-light text-gray-400">
-                            {member?.email}
-                          </a>
-                          <p className="text-xs xl:text-sm font-light text-gray-400 mb-4 px-3">
-                            {member?.title}
-                          </p>
-                          <div className="social-icons flex items-center gap-4 justify-center px-3">
-                            {member?.facebook && (
-                              <a href={member?.facebook} target="_blank">
-                                <FaFacebook className="hover:text-[#0866ff] text-xl transition cursor-pointer" />
-                              </a>
-                            )}
-                            {member?.youtube && (
-                              <a href={member?.youtube} target="_blank">
-                                <FaYoutube className="hover:text-[#ff0000] text-xl transition cursor-pointer" />
-                              </a>
-                            )}
-                            {member?.instagram && (
-                              <a href={member?.instagram} target="_blank">
-                                <FaInstagram className="hover:text-[#c3407b] text-xl transition cursor-pointer" />
-                              </a>
-                            )}
-                            {member?.linkedin && (
-                              <a href={member?.linkedin} target="_blank">
-                                <FaLinkedin className="hover:text-[#0a66c2] text-xl transition cursor-pointer" />
-                              </a>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
 
         {/* rest of team */}
         <div className="container">
           <div className="mx-auto">
-            <h5 className="text-6xl font-semibold text-center mb-12 md:block hidden">
+            <h5 className="text-6xl font-semibold text-center my-20 md:block hidden">
               Our Team
             </h5>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {team.slice(2).map((member, idx) => (
+            {team.map((member, idx) => (
               <div
                 key={`rest-${idx}`}
                 className="relative team-card rounded-xl overflow-hidden group"
