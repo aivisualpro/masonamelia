@@ -4,7 +4,7 @@ import { MdMenu } from "react-icons/md";
 import GlassNavbar from "./GlassNavbar";
 import { Link, useLocation } from "react-router-dom";
 import MobileNavigation from "./MobileNavigation";
-import logo from "../../public/logo.avif"
+import logo from "../../public/logo.png"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
