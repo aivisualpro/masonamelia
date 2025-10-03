@@ -33,7 +33,7 @@ const CTABanner = ({ isButton = true }) => {
         {/* CTA Button */}
         {isButton && (
           <div className="mt-8 pb-10 flex justify-center">
-            <Button buttonLabel="Contact Us" onClick="/contact" />
+            <Button buttonLabel="Contact Us" onClick="/#contact" isContact={true} />
           </div>
         )}
       </div>

@@ -66,7 +66,7 @@ const AboutPage = () => {
         const next = document.getElementById("about-main");
         const targetY = next
           ? next.getBoundingClientRect().top + window.scrollY
-          : (bannerRef.current?.offsetHeight || 0);
+          : bannerRef.current?.offsetHeight || 0;
 
         smoothScrollTo(targetY, 2500);
         // sessionStorage.setItem(AUTO_KEY, "1");
@@ -184,7 +184,7 @@ const AboutPage = () => {
             media ? ".8" : "1"
           }) ${media ? "100%" : "40%"}, rgba(0, 0, 0,0.3)), url(${bgPlane})`,
           backgroundSize: "cover",
-          backgroundPosition: "100% 25%",
+          backgroundPosition: "100% 40%",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
           backgroundColor: "#10121A",
