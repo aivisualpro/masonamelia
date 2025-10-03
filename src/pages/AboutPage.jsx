@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import About from "../components/About";
-import bgPlane from "/images/banner.png";
+import bgPlane from "/images/team.jpg";
 import ScrollToTop from "../components/ScrollToTop";
 import { Timeline } from "../components/ui/timeline";
 import { FaHandshake, FaUsers, FaChartLine } from "react-icons/fa";
@@ -180,16 +180,15 @@ const AboutPage = () => {
         ref={bannerRef}
         className="md:sticky top-0 relative w-screen h-screen bg-[#10121A] overflow-hidden"
         style={{
-          backgroundImage: `linear-gradient(to right, rgb(21, 22, 28, ${
-            media ? ".8" : "1"
-          }) ${media ? "100%" : "40%"}, rgba(0, 0, 0,0.3)), url(${bgPlane})`,
+          backgroundImage: `url(${bgPlane})`,
           backgroundSize: "cover",
-          backgroundPosition: "100% 40%",
+          backgroundPosition: "100% 45%",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
           backgroundColor: "#10121A",
         }}
       >
+        <div className="absolute top-0 left-0 w-full h-full bg-[#10121A] opacity-70 z-[-1]"></div>
         <div className="container px-5">
           <About />
         </div>
