@@ -106,8 +106,8 @@ const HigherPage = () => {
 
       {/* TARGET SECTION — auto-scroll lands here */}
       <main id="higher-main" className="relative">
-        <Gallary />
         <Vision />
+        <Gallary />
         <section className="relative bg-[#111218] py-10">
           <div className="container px-5">
             <CTABanner />

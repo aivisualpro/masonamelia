@@ -26,7 +26,7 @@ const TeamPage = () => {
         </section>
         <div className="bg-[#111218]">
           <div className="container px-5 py-10">
-            <CTABanner />
+            <CTABanner isButton={false} />
           </div>
         </div>
       </div>

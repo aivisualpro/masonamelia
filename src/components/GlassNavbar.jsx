@@ -44,17 +44,6 @@ const GlassNavbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const goToTestimonials = (e) => {
-    e.preventDefault();
-    if (location.pathname === "/") {
-      const el = document.getElementById("testimonial");
-      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      // pass intent to HomePage
-      navigate("/", { state: { scrollTo: "testimonial" } });
-    }
-  };
-
   const goToContact = (e) => {
     e.preventDefault();
     if (location.pathname === "/") {
@@ -128,7 +117,7 @@ const GlassNavbar = () => {
                 <li onMouseEnter={startClose}>
                   <Link
                     to="/showroom"
-                    className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color"
+                    className={`${location.pathname === "/showroom" ? "text-tertiary_color" : ""} uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
                   >
                     Showroom
                   </Link>
@@ -150,7 +139,7 @@ const GlassNavbar = () => {
                   <Link
                     to="/#services"
                     onClick={goToServices}
-                    className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color"
+                    className={`uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
                   >
                     Services
                   </Link>
@@ -159,7 +148,7 @@ const GlassNavbar = () => {
                 <li onMouseEnter={startClose}>
                   <Link
                     to="/skynet"
-                    className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color"
+                    className={`${location.pathname === "/skynet" ? "text-tertiary_color" : ""} uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
                   >
                     Skynet
                   </Link>
@@ -169,28 +158,17 @@ const GlassNavbar = () => {
                 <li onMouseEnter={() => openDropdown("about")}>
                   <Link
                     to="/about"
-                    className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color"
+                    className={`${location.pathname === "/about" ? "text-tertiary_color" : ""} uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
                   >
                     About MA
                   </Link>
                 </li>
 
                 <li onMouseEnter={startClose}>
-                  {/* keep href for right-click/copy, but intercept with onClick */}
-                  <a
-                    href="/#testimonial"
-                    onClick={goToTestimonials}
-                    className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color"
-                  >
-                    Testimonials
-                  </a>
-                </li>
-
-                <li onMouseEnter={startClose}>
                   <a
                     href="/#contact"
                     onClick={goToContact}
-                    className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color"
+                    className={`${location.pathname === "/#contact" ? "text-tertiary_color" : ""} uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
                   >
                     Contact
                   </a>
@@ -213,8 +191,8 @@ const GlassNavbar = () => {
           <div
             className={`absolute ${
               activeDropdown === "about"
-                ? "xl:left-[65%] 2xl:left-[55%] -translate-x-1/2 top-[120%]"
-                : "left-[42%] -translate-x-1/2 top-[120%]"
+                ? "xl:left-[65%] 2xl:left-[60%] -translate-x-1/2 top-[135%]"
+                : "left-[47%] -translate-x-1/2 top-[135%]"
             } mt-3 `}
           >
             <Dropdown
@@ -223,15 +201,17 @@ const GlassNavbar = () => {
                   ? [
                       { text: "Acquisition", link: "/acquisition" },
                       { text: "Brokerage", link: "/brokerage" },
+                      { text: "Ancillary", link: "/ancillary" },
                     ]
                   : [
                       { text: "Meet The Team", link: "/team" },
                       { text: "Looking For Higher", link: "/higher" },
-                      // { text: "Testimonials", link: "/testimonial" },
+                      { text: "Testimonials", link: "/#testimonial" },
                     ]
               }
               className="" // center under navbar; adjust if you need left offset
               isClosing={isClosing}
+              location={location}
               // Ensures staying open while hovered
               onMouseEnter={cancelClose}
               onMouseLeave={startClose}

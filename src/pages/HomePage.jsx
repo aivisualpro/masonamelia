@@ -103,7 +103,7 @@ const HomePage = () => {
             backgroundAttachment: "fixed",
           }}
         >
-          <div className="absolute top-0 left-0 w-full h-full bg-[#071725] opacity-80 -z-[1]" />
+          <div className="absolute top-0 left-0 w-full h-full bg-tertiary_color opacity-90 -z-[1]" />
           <Reviews />
         </div>
 

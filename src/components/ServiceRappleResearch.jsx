@@ -21,7 +21,7 @@ const ServiceRappleResearch = ({
         }}
         className="relative xl:h-screen py-20 z-[10]"
       >
-        <div className="overlay bg-[#111218df] opacity-[.97] absolute top-0 left-0 w-full h-full z-[-1]" />
+        <div className="overlay bg-tertiary_color opacity-90 absolute top-0 left-0 w-full h-full z-[-1]" />
         <div className="container px-5 flex flex-col justify-center h-full">
           <div className="w-full px-4 flex flex-col justify-between items-center text-center z-[4]">
             <motion.h2
@@ -31,7 +31,7 @@ const ServiceRappleResearch = ({
               className="text-[1.6rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white max-w-4xl mx-auto"
               style={{ lineHeight: "1.1" }}
             >
-              <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r text-white bg-clip-text text-transparent">
                 {highlightedTitle}
               </span>{" "}
               {title}

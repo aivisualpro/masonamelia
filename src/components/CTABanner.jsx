@@ -1,19 +1,19 @@
 import React from "react";
 import Button from "./Button";
-import banner from "/images/cta-banner.png"
+import banner from "/images/cta-banner.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const CTABanner = () => {
-
+const CTABanner = ({ isButton = true }) => {
   const media = useMediaQuery("(max-width: 768px)");
 
   return (
     <>
       <div
-        className={`text-white bg-[#111218] md:h-full text-center rounded-[30px] ${media ? "bg-[#171921] px-4" : ""}`}
+        className={`text-white bg-[#111218] md:h-full ${isButton ? "" : "pb-10"} text-center rounded-[30px] ${
+          media ? "bg-[#171921] px-4" : ""
+        }`}
         style={{
-          backgroundImage:
-            !media ? `url(${banner})` : ``,
+          backgroundImage: !media ? `url(${banner})` : ``,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -31,9 +31,11 @@ const CTABanner = () => {
         </h1>
 
         {/* CTA Button */}
-        <div className="mt-8 pb-10 flex justify-center">
-          <Button buttonLabel="Contact Us" onClick="/contact" />
-        </div>
+        {isButton && (
+          <div className="mt-8 pb-10 flex justify-center">
+            <Button buttonLabel="Contact Us" onClick="/contact" />
+          </div>
+        )}
       </div>
     </>
   );
