@@ -30,7 +30,7 @@ const services = [
 const GlowingCardSection = () => {
   return (
     <section
-      className="py-20 z-[0] relative"
+      className="py-20 z-[0] relative h-screen"
       style={{
         backgroundImage: `url('https://t3.ftcdn.net/jpg/02/39/52/06/360_F_239520607_abB3AakIrZozIAPgdVAMiMArLwi0uJTL.jpg')`,
         backgroundSize: "cover",
@@ -39,7 +39,7 @@ const GlowingCardSection = () => {
       }}
     >
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-70 z-[-1]"></div>
-      <div className="container mx-auto px-4 gap-8">
+      <div className="container mx-auto px-4 gap-8 flex flex-col items-center justify-center h-full">
         <div className="w-full px-4 flex flex-col md:flex-row justify-between items-center z-[4]">
           <div className="flex flex-col items-center jsutify-center mx-auto">
             <motion.h2
