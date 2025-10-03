@@ -38,7 +38,7 @@ function App() {
         <Route path="/showroom/:id" element={<AircraftDetailPage />} />
         <Route path="/acquisition" element={<AcquisitionPage />} />
         <Route path="/brokerage" element={<BrokeragePage />} />
-        <Route path="/ancillary" element={<AncillaryPage />} />
+        <Route path="/" element={<AncillaryPage />} />
         <Route path="/skynet" element={<SkynetPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/testimonial" element={<TestimonialPage />} />

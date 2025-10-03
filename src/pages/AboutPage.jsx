@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import About from "../components/About";
-import bgPlane from "/images/team.jpg";
+import bgPlane from "/images/banner.png";
 import ScrollToTop from "../components/ScrollToTop";
 import { Timeline } from "../components/ui/timeline";
 import { FaHandshake, FaUsers, FaChartLine } from "react-icons/fa";
@@ -188,7 +188,7 @@ const AboutPage = () => {
           backgroundColor: "#10121A",
         }}
       >
-        <div className="absolute top-0 left-0 w-full h-full bg-[#10121A] opacity-70 z-[-1]"></div>
+        {/* <div className="absolute top-0 left-0 w-full h-full bg-[#10121A] opacity-70 z-[-1]"></div> */}
         <div className="container px-5">
           <About />
         </div>
