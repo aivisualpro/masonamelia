@@ -73,7 +73,7 @@ const Navbar = () => {
     >
       <div className="py-4 md:py-1 mx-auto text-white flex items-center justify-between">
         <div className="ms-4 logo z-[9999] group relative">
-          <Link to={"/"}>
+          <Link to={"/"} onClick={() => sessionStorage.clear()}>
             <img
               src={
                 logo
