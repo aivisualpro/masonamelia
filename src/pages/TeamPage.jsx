@@ -19,7 +19,7 @@ const TeamPage = () => {
             backgroundSize: "contain !important",
           }}
         >
-          <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-90 z-[-1]"></div>
+          <div className="overlay bg-tertiary_color opacity-90 absolute top-0 left-0 w-full h-full z-[-1]" />
           <Navbar />
 
           <Team />

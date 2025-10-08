@@ -69,7 +69,7 @@ const Team = () => {
                   style={{ lineHeight: "1.2" }}
                 >
                   A Team of Pilots and{" "}
-                  <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                  <span className="text-[#fff]">
                     Aviation Experts
                   </span>
                 </motion.h2>
