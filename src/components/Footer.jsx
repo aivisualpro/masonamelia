@@ -66,7 +66,7 @@ const Footer = () => {
             <Link to={"/"}>
               <img
                 src={logo}
-                className="logo object-contain h-20"
+                className="logo object-contain h-16"
                 alt=""
               />
             </Link>
