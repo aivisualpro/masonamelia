@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 import ServiceBanner from "../components/ServiceBanner";
@@ -7,20 +8,15 @@ import CTABanner from "../components/CTABanner";
 import ServiceRappleResearch from "../components/ServiceRappleResearch";
 import ServiceHighlights from "../components/ServiceHighlights";
 import BlinkingArrow from "../components/BlinkingArrow";
-// import Navbar from "../components/Navbar"; // (optional) not used here
+import Contact from "../components/Contact";
 
 const AcquisitionPage = () => {
   const bannerRef = useRef(null);
+  const location = useLocation();
 
   // State for arrow visibility and canceling auto-scroll if user interacts
   const [showArrow, setShowArrow] = useState(false);
   const [cancelAuto, setCancelAuto] = useState(false);
-
-  // Per-page session flag so auto-scroll runs only once per visit
-  // const AUTO_KEY = "acq_auto_scrolled_v2";
-
-  // DEV: uncomment once if your auto-scroll never fires due to stale session flag
-  // useEffect(() => { sessionStorage.removeItem(AUTO_KEY); }, []);
 
   // Slow, controllable smooth scroll (default 2.5s)
   function smoothScrollTo(to, duration = 2500) {
@@ -39,6 +35,27 @@ const AcquisitionPage = () => {
     requestAnimationFrame(animate);
   }
 
+  // If we arrive with intent or hash, scroll the section smoothly
+  useEffect(() => {
+    const want =
+      (location.state && location.state.scrollTo) ||
+      (location.hash === "#service_highlight" ? "service_highlight" : null);
+    if (!want) return;
+
+    // prevent the timed auto-scroll from kicking in
+    setCancelAuto(true);
+
+    // wait a tick so the section is in the DOM/layout
+    requestAnimationFrame(() => {
+      const el = document.getElementById(want);
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY;
+        smoothScrollTo(y, 1200); // faster for direct intent
+        setShowArrow(false);
+      }
+    });
+  }, [location.state, location.hash]);
+
   // Are we at (or near) the very top?
   const isNearTop = () => (window.scrollY || 0) <= 5;
 
@@ -56,8 +73,6 @@ const AcquisitionPage = () => {
     window.addEventListener("keydown", onKey, { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    // const already = sessionStorage.getItem(AUTO_KEY) === "1";
-
     // 3s → show arrow if still near top and not previously autoscrolled
     const arrowTimer = setTimeout(() => {
       if (isNearTop() && !cancelAuto) setShowArrow(true);
@@ -69,10 +84,9 @@ const AcquisitionPage = () => {
         const next = document.getElementById("acquisition");
         const targetY = next
           ? next.getBoundingClientRect().top + window.scrollY
-          : (bannerRef.current?.offsetHeight || 0);
+          : bannerRef.current?.offsetHeight || 0;
 
-        smoothScrollTo(targetY, 2500); // ← control speed here
-        // sessionStorage.setItem(AUTO_KEY, "1");
+        smoothScrollTo(targetY, 2500);
         setShowArrow(false);
       }
     }, 5000);
@@ -149,9 +163,7 @@ const AcquisitionPage = () => {
         <ServiceBanner banner={banner} />
 
         {/* Flashing/Bouncing Down Arrow after ~3s */}
-        {showArrow && (
-          <BlinkingArrow />
-        )}
+        {showArrow && <BlinkingArrow />}
       </div>
 
       {/* SECOND SECTION (TARGET) */}
@@ -163,11 +175,11 @@ const AcquisitionPage = () => {
           description={
             "Before any deal takes flight, our team conducts thorough groundwork to ensure your acquisition strategy is sharp, informed, and advantageously positioned — from outreach to opportunity identification."
           }
-          // Darker 01/02/03 cards for contrast
           boxVariant="dark"
         />
 
-        <ServiceHighlights data={acquisitionData} />
+        {/* 👇 this section is the scroll target */}
+        <ServiceHighlights id="service_highlight" data={acquisitionData} />
 
         <section className="bg-[#111218] relative z-[0] py-10">
           <div className="container px-5">
@@ -175,6 +187,8 @@ const AcquisitionPage = () => {
           </div>
         </section>
       </main>
+
+      <Contact />
 
       <Footer />
       <ScrollToTop />

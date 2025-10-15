@@ -13,6 +13,7 @@ import aboutBanner from "/images/about/banner.avif";
 import WhyChoosUs from "../components/WhyChoosUs";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import BlinkingArrow from "../components/BlinkingArrow"; // ← added
+import Contact from "../components/Contact";
 
 const AboutPage = () => {
   /** ---------- Smooth auto-scroll (same as other pages) ---------- */
@@ -222,6 +223,8 @@ const AboutPage = () => {
           </div>
         </section> */}
       </main>
+
+      <Contact />
 
       <Footer />
       <ScrollToTop />

@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import bgPlane from "/images/team/banner.avif"; // Replace with your path
 import TeamDetail from "../components/TeamDetail";
 import ScrollToTop from "../components/ScrollToTop";
+import Contact from "../components/Contact";
 
 const MemberDetailPage = () => {
   // useGsapScroll();
@@ -20,6 +21,8 @@ const MemberDetailPage = () => {
           <TeamDetail />
         </div>
       </section>
+
+      <Contact />
       <Footer />
 
       <ScrollToTop />

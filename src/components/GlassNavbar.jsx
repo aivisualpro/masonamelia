@@ -55,24 +55,6 @@ const GlassNavbar = () => {
     }
   };
 
-  const goToServices = (e) => {
-    e.preventDefault();
-    const OFFSET = 290;
-    sessionStorage.setItem("scrollTo", true);
-  
-    if (location.pathname === "/") {
-      const el = document.getElementById("services");
-      const y = el
-        ? el.getBoundingClientRect().top + window.scrollY - OFFSET
-        : OFFSET; // fallback: sirf 50px down
-      window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
-    } else {
-      // Home pe jao aur state mein target + offset bhej do
-      navigate("/", { state: { scrollTo: "services", offset: OFFSET } });
-    }
-  };
-  
-
   return (
     <div className="w-full z-[9999] xl:block hidden ">
       {/* SVG filter definitions */}
@@ -117,29 +99,21 @@ const GlassNavbar = () => {
                 <li onMouseEnter={startClose}>
                   <Link
                     to="/showroom"
-                    className={`${location.pathname === "/showroom" ? "text-tertiary_color" : ""} uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
+                    className={`${
+                      location.pathname === "/showroom" ? "text-tertiary_color" : ""
+                    } uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
                   >
                     Showroom
                   </Link>
                 </li>
 
-                {/* <li onMouseEnter={startClose}>
-                  <Link to="/acquisition" className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color">
-                    Acquisition
-                  </Link>
-                </li>
-
-                <li onMouseEnter={startClose}>
-                  <Link to="/brokerage" className="uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color">
-                    Brokerage
-                  </Link>
-                </li> */}
-
                 <li onMouseEnter={() => openDropdown("services")}>
                   <Link
-                    to="/#services"
-                    onClick={goToServices}
-                    className={`uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
+                    className={`${
+                      location.pathname === "/acquisition" || location.pathname === "/brokerage"
+                        ? "text-tertiary_color"
+                        : ""
+                    } uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
                   >
                     Services
                   </Link>
@@ -148,7 +122,9 @@ const GlassNavbar = () => {
                 <li onMouseEnter={startClose}>
                   <Link
                     to="/skynet"
-                    className={`${location.pathname === "/skynet" ? "text-tertiary_color" : ""} uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
+                    className={`${
+                      location.pathname === "/skynet" ? "text-tertiary_color" : ""
+                    } uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
                   >
                     Skynet
                   </Link>
@@ -158,7 +134,9 @@ const GlassNavbar = () => {
                 <li onMouseEnter={() => openDropdown("about")}>
                   <Link
                     to="/about"
-                    className={`${location.pathname === "/about" ? "text-tertiary_color" : ""} uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
+                    className={`${
+                      location.pathname === "/about" ? "text-tertiary_color" : ""
+                    } uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
                   >
                     About MA
                   </Link>
@@ -168,7 +146,9 @@ const GlassNavbar = () => {
                   <a
                     href="/#contact"
                     onClick={goToContact}
-                    className={`${location.pathname === "/#contact" ? "text-tertiary_color" : ""} uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
+                    className={`${
+                      location.pathname === "/#contact" ? "text-tertiary_color" : ""
+                    } uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
                   >
                     Contact
                   </a>
@@ -178,12 +158,9 @@ const GlassNavbar = () => {
           </div>
         </div>
 
-        {/* 🔒 HOVER-BRIDGE: fills small gap between nav and dropdown so mouseleave won't trigger early */}
+        {/* 🔒 HOVER-BRIDGE */}
         {activeDropdown && (
-          <div
-            className="absolute left-0 right-0 top-full h-3" // h-3 (~12px) bridge
-            // bridge sits right below nav; no handlers needed, it inherits wrapper's events
-          />
+          <div className="absolute left-0 right-0 top-full h-3" />
         )}
 
         {/* DROPDOWN */}
@@ -201,7 +178,8 @@ const GlassNavbar = () => {
                   ? [
                       { text: "Acquisition", link: "/acquisition" },
                       { text: "Brokerage", link: "/brokerage" },
-                      { text: "Ancillary", link: "/ancillary" },
+                      // ✅ navigate to Acquisition and scroll to #service_highlight
+                      { text: "Ancillary", link: "/acquisition#service_highlight" },
                     ]
                   : [
                       { text: "Meet The Team", link: "/team" },
@@ -209,10 +187,9 @@ const GlassNavbar = () => {
                       { text: "Testimonials", link: "/#testimonial" },
                     ]
               }
-              className="" // center under navbar; adjust if you need left offset
+              className=""
               isClosing={isClosing}
               location={location}
-              // Ensures staying open while hovered
               onMouseEnter={cancelClose}
               onMouseLeave={startClose}
             />

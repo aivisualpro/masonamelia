@@ -4,6 +4,7 @@ import AircraftDetail from "../components/AircraftDetail";
 import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 import GalleryModal from "../components/GallaryModal";
+import Contact from "../components/Contact";
 
 const AircraftDetailPage = () => {
 
@@ -30,6 +31,8 @@ const AircraftDetailPage = () => {
         currentIndex={currentIndex}
         setCurrentIndex={setCurrentIndex}
       />
+
+      <Contact />
       <Footer />
       <ScrollToTop />
 

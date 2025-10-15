@@ -7,6 +7,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import { IoIosArrowDown } from "react-icons/io";
 import banner from "/images/showroom/banner.png";
 import BlinkingArrow from "../components/BlinkingArrow";
+import Contact from "../components/Contact";
 
 /* ----------------- custom slow scroll helper ----------------- */
 const smoothScrollTo = (targetY, { duration = 2200 } = {}) => {
@@ -123,6 +124,8 @@ const ShowroomPage = () => {
         <Listing autoScrollEnabled={autoScrollEnabled} />
       </div>
       <CTA />
+
+      <Contact />
       <Footer />
       <ScrollToTop />
 

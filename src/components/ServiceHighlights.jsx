@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 
 const ServiceHighlights = ({
+  id = "",
   topTitle = "Streamlined",
   highlightedTitle = "Aircraft Acquisition",
   bottomTitle = "for Confident Ownership",
@@ -16,7 +17,7 @@ const ServiceHighlights = ({
 
   return (
     <>
-      <section className="py-20 bg-[#fff] relative z-[10] parallax-bg">
+      <section id={id} className="py-20 bg-[#fff] relative z-[10] parallax-bg">
         <div className="container px-5">
           {/* Section Title */}
           <div className="w-full md:mb-0 px-4 flex flex-col md:flex-row justify-between items-center z-[4]">

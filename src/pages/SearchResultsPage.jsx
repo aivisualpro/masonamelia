@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 import SearchResults from "../components/SearchResults";
+import Contact from "../components/Contact";
 
 const MemberDetailPage = () => {
   // useGsapScroll();
@@ -15,6 +16,8 @@ const MemberDetailPage = () => {
           <SearchResults />
         </div>
       </main>
+
+      <Contact />
       <Footer />
 
       <ScrollToTop />

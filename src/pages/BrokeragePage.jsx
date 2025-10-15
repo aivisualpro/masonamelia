@@ -12,6 +12,7 @@ import { FaJetFighterUp } from "react-icons/fa6";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import brokerageBanner from "/images/brokerage/timeline-banner.avif";
 import BlinkingArrow from "../components/BlinkingArrow"; // <-- added
+import Contact from "../components/Contact";
 // import Navbar from "../components/Navbar";
 
 const BrokeragePage = () => {
@@ -242,7 +243,7 @@ const BrokeragePage = () => {
           data={brokerageData}
         />
 
-        <section
+        {/* <section
           id="timeline"
           style={{
             backgroundImage: `url(${brokerageBanner})`,
@@ -255,13 +256,15 @@ const BrokeragePage = () => {
         >
           <div className="absolute top-0 left-0 w-full h-full bg-black opacity-80 z-[-1]"></div>
           <Timeline data={timeline} isHeading={true} />
-        </section>
+        </section> */}
 
         <section className="bg-[#111218] relative z-[10] py-10">
           <div className="container px-5">
             <CTABanner />
           </div>
         </section>
+
+        <Contact />
       </main>
 
       <Footer />
