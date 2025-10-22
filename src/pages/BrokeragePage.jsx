@@ -264,7 +264,7 @@ const BrokeragePage = () => {
           </div>
         </section>
 
-        <Contact />
+        {/* <Contact /> */}
       </main>
 
       <Footer />

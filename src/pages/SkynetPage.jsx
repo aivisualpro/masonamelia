@@ -10,6 +10,7 @@ import banner from "/images/skynet/banner.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import BlinkingArrow from "../components/BlinkingArrow"; // ← added
 import Contact from "../components/Contact";
+// import CTABanner from "../components/CTABanner";
 
 const SkynetPage = () => {
   const media = useMediaQuery("(max-width: 767px)");
@@ -117,7 +118,7 @@ const SkynetPage = () => {
           </div>
         </section>
 
-        <Contact />
+        {/* <Contact /> */}
       </main>
 
       <Footer />

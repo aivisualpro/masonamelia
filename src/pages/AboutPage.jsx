@@ -14,6 +14,7 @@ import WhyChoosUs from "../components/WhyChoosUs";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import BlinkingArrow from "../components/BlinkingArrow"; // ← added
 import Contact from "../components/Contact";
+import CTABanner from "../components/CTABanner";
 
 const AboutPage = () => {
   /** ---------- Smooth auto-scroll (same as other pages) ---------- */
@@ -222,9 +223,15 @@ const AboutPage = () => {
             <WhyChoosUs />
           </div>
         </section> */}
+
+        <section className="bg-[#111218] relative z-[10] py-10">
+          <div className="container px-5">
+            <CTABanner />
+          </div>
+        </section>
       </main>
 
-      <Contact />
+      {/* <Contact /> */}
 
       <Footer />
       <ScrollToTop />

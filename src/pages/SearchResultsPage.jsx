@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 import SearchResults from "../components/SearchResults";
 import Contact from "../components/Contact";
+import CTABanner from "../components/CTABanner";
 
 const MemberDetailPage = () => {
   // useGsapScroll();
@@ -17,7 +18,13 @@ const MemberDetailPage = () => {
         </div>
       </main>
 
-      <Contact />
+      <section className="bg-[#111218] relative z-[10] py-10">
+        <div className="container px-5">
+          <CTABanner />
+        </div>
+      </section>
+
+      {/* <Contact /> */}
       <Footer />
 
       <ScrollToTop />

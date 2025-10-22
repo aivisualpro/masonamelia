@@ -135,8 +135,10 @@ const GlassNavbar = () => {
                   <Link
                     to="/about"
                     className={`${
-                      location.pathname === "/about" ? "text-tertiary_color" : ""
-                    } uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
+                      location.pathname === "/team" || location.pathname === "/higher"
+                        ? "text-tertiary_color" 
+                        : ""
+                    }  uppercase text-[.7rem] xl:text-[.8rem] 2xl:text-[.9rem] font-semibold transition hover:text-tertiary_color`}
                   >
                     About MA
                   </Link>

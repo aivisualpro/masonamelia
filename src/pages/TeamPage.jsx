@@ -30,7 +30,7 @@ const TeamPage = () => {
           </div>
         </div>
       </div>
-      <Contact />
+      {/* <Contact /> */}
       <Footer />
       <ScrollToTop />
     </>

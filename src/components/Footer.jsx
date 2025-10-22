@@ -10,7 +10,7 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import logo from "../../public/logo.png";
+import logo from "../../public/logoIcon.png";
 
 const Footer = () => {
   return (
@@ -66,7 +66,7 @@ const Footer = () => {
             <Link to={"/"}>
               <img
                 src={logo}
-                className="logo object-contain h-16"
+                className=" object-contain h-16"
                 alt=""
               />
             </Link>

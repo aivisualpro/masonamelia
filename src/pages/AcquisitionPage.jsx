@@ -188,7 +188,7 @@ const AcquisitionPage = () => {
         </section>
       </main>
 
-      <Contact />
+      {/* <Contact /> */}
 
       <Footer />
       <ScrollToTop />

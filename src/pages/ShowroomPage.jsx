@@ -8,6 +8,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import banner from "/images/showroom/banner.png";
 import BlinkingArrow from "../components/BlinkingArrow";
 import Contact from "../components/Contact";
+import CTABanner from "../components/CTABanner";
 
 /* ----------------- custom slow scroll helper ----------------- */
 const smoothScrollTo = (targetY, { duration = 2200 } = {}) => {
@@ -125,7 +126,13 @@ const ShowroomPage = () => {
       </div>
       <CTA />
 
-      <Contact />
+      <section className="bg-[#111218] relative z-[10] py-10">
+        <div className="container px-5">
+          <CTABanner />
+        </div>
+      </section>
+
+      {/* <Contact /> */}
       <Footer />
       <ScrollToTop />
 

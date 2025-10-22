@@ -115,7 +115,7 @@ const HigherPage = () => {
           </div>
         </section>
 
-        <Contact />
+        {/* <Contact /> */}
       </main>
 
       <Footer />
