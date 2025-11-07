@@ -55,7 +55,12 @@ const Gallary = () => {
 
   return (
     <>
-      <HeroParallax portfolio={products} onImageClick={openHeroModal} />
+      <HeroParallax
+        headerTitle="A Tailored Approach to Brokerage"
+        headerTagline="Curated strategies for distinctive aircraft and discerning clients."
+        portfolio={products}
+        onImageClick={openHeroModal}
+      />
 
       {/* Modal */}
       <Modal
@@ -88,28 +93,37 @@ const Gallary = () => {
             <Swiper
               onSwiper={setThumbsSwiper}
               spaceBetween={10}
-              slidesPerView={4.5}
-              navigation={true}
-              loop={true}
-              freeMode={true}
-              watchSlidesProgress={true}
+              slidesPerView={4.5} // default (fallback)
+              navigation
+              loop
+              freeMode
+              watchSlidesProgress
+              keyboard
               modules={[FreeMode, Thumbs, Navigation, Keyboard]}
               className="mySwiper w-full min-w-screen flex items-end"
-              keyboard={true}
+              breakpoints={{
+                320: { slidesPerView: 1.5, spaceBetween: 3 }, // phones
+                768: { slidesPerView: 2.5, spaceBetween: 10 }, // md
+                1024: { slidesPerView: 2.5, spaceBetween: 12 }, // lg
+                1280: { slidesPerView: 3.5, spaceBetween: 12 }, // lg
+              }}
             >
               {products?.map((video, i) => (
                 <SwiperSlide key={video.id} className="cursor-pointer">
-                  <div className="group relative" onClick={() => setCurrentIndex(i)}>
+                  <div
+                    className="group relative"
+                    onClick={() => setCurrentIndex(i)}
+                  >
                     <img
                       src={video.src}
                       alt={video.title}
-                      className={`rounded border-4 ${
+                      className={`rounded min-h-[200px] p-4 md:min-w-[300px] w-full object-cover border-4 ${
                         currentIndex === i
                           ? "border-blue-500"
                           : "border-transparent"
                       }`}
                     />
-                    <div className="group-hover:opacity-100 opacity-0 transition-all duration-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="group-hover:opacity-100 opacity-0 transition-all duration-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                       <button className="h-[100px] w-[100px] flex items-center justify-center text-white rounded-full">
                         <IoPlayCircle
                           size={48}

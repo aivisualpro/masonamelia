@@ -38,12 +38,12 @@ const ServiceBanner = ({ banner }) => {
             <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
               {location.pathname === "/brokerage"
                 ? "Navigating Brokerage"
-                : "Simplifying Aviation"}
+                : "The right aircraft "}
             </span>{" "}
             <br />
             {location.pathname === "/brokerage"
               ? "One Deal at a Time"
-              : "One Deal at a Time"}
+              : "changes everything"}
           </motion.h1>
           <motion.div
             initial={{ opacity: 0, y: 100 }}
@@ -61,7 +61,7 @@ const ServiceBanner = ({ banner }) => {
               text={
                 location.pathname === "/brokerage"
                   ? "Mason Amelia makes aircraft deals seamless and strategic. We handle the process—so you can focus on results."
-                  : "Mason Amelia streamlines aircraft deals with clarity and confidence. Buy or sell, we make it seamless."
+                  : "We take a consultative approach, learning your mission, analyzing the market, and guiding your acquisition from the first call to final signature."
               }
               disabled={false}
               speed={5}

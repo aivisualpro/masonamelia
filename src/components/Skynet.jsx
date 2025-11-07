@@ -18,9 +18,9 @@ const Skynet = () => {
           className="text-white md:text-start text-center text-[2rem] md:text-[3rem] lg:text-[3rem] xl:text-6xl md:max-w-md lg:max-w-2xl"
           style={{ lineHeight: "1.1" }}
         >
-          Smarter Pricing{" "}
+          Mason Amelia Pricing Intelligence - {" "}
           <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-            with SkyNet
+            Powered by SkyNet
           </span>
         </motion.h1>
         <motion.div
@@ -39,7 +39,7 @@ const Skynet = () => {
             text={
               location.pathname === "/brokerage"
                 ? "Mason Amelia makes aircraft deals seamless and strategic. We handle the process—so you can focus on results."
-                : "Mason Amelia streamlines aircraft deals with clarity and confidence. Buy or sell, we make it seamless."
+                : "No guesswork. No lag. Real-time market intelligence that gives our clients the sharpest edge; Fast, factual, and unbeatable."
             }
             disabled={false}
             speed={5}

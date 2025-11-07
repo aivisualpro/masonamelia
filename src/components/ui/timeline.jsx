@@ -66,17 +66,14 @@ export const Timeline = ({
           className="text-white text-base md:text-xl max-w-4xl mx-auto pt-[40px] pb-[80px]"
         >
           Discover the pivotal moments that have defined Mason Amelia’s
-          evolution—from our entrepreneurial roots to becoming one of America’s
+          evolution. From our entrepreneurial roots to becoming one of the
           fastest-growing aircraft brokerages. Each milestone represents a step
           forward in our commitment to excellence, innovation, and client trust.
         </motion.p>
       </div>
       <div ref={ref} className="relative max-w-7xl mx-auto">
         {data.map((item, index) => (
-          <div
-            key={index}
-            className="flex justify-start md:gap-10 pb-28"
-          >
+          <div key={index} className="flex justify-start md:gap-10 pb-28">
             <div
               className={`sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs  md:w-full ${
                 isHeading ? "lg:max-w-xl" : "lg:max-w-sm"

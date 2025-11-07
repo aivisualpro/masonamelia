@@ -42,7 +42,7 @@ const AboutHeader = () => {
           className="max-w-xl flex justify-start"
         >
           {/* Slight chip behind paragraph for readability on mobile */}
-          <div className={`rounded-md ${media ? "bg-black/35 backdrop-blur-[1px] px-3 py-2" : ""}`}>
+          <div className={`rounded-md `}>
             <ShinyText
               isTextCenter={media}
               text="Mason Amelia delivers trusted aviation backed by legacy. Precision, clarity, and lasting confidence in every deal."

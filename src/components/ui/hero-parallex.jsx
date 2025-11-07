@@ -26,7 +26,7 @@ function ensureVisible(cardEl, rowEl, hoverMv) {
   }
 }
 
-export const HeroParallax = ({ portfolio, onImageClick }) => {
+export const HeroParallax = ({ headerTitle = 'A Bespoke Approach For Brokerage', headerTagline = 'Your Goals. Our Focus.', portfolio, onImageClick }) => {
   // Global index preserve
   const makeRow = (start, end) =>
     portfolio
@@ -109,7 +109,7 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
       ref={ref}
       className="z-[10] h-[145rem] md:h-[190rem] lg:h-[225rem] xl:h-[225rem] 2xl:h-[245rem] overflow-hidden bg-[#000] flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
-      <Header />
+      <Header headerTitle={headerTitle} headerTagline={headerTagline} />
 
       <motion.div style={{ rotateX, rotateZ, translateY, opacity }}>
         {/* Row 1 */}
@@ -214,14 +214,14 @@ export const HeroParallax = ({ portfolio, onImageClick }) => {
   );
 };
 
-export const Header = () => {
+export const Header = ({ headerTitle = '', headerTagline = '' }) => {
   return (
     <div className="h-screen absolute z-[-1] mx-auto px-4 w-full left-0 flex items-center justify-center flex-col text-center">
       <h1 className="text-[2rem] md:text-[2.5rem] lg:text-[3.2rem] xl:text-7xl font-bold text-white">
-        A Bespoke Approach to Brokerage
+        {headerTitle}
       </h1>
       <p className="max-w-[1000px] text-2xl md:text-4xl mx-auto mt-8 text-white">
-        Crafting the perfect deal for every flight.
+        {headerTagline}
       </p>
     </div>
   );

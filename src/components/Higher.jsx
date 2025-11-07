@@ -18,9 +18,9 @@ const Higher = () => {
           className="md:text-start text-center md:max-w-2xl lg:max-w-2xl xl:max-w-3xl text-[2rem] text-white md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold mb-2"
           style={{ lineHeight: "1.1" }}
         >
-          Elevating Aircraft Deals Through{" "}
+          We’re more than brokers - {" "}
           <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-            Visual Stories
+            We’re storytellers
           </span>
         </motion.h2>
         <motion.div
@@ -37,7 +37,7 @@ const Higher = () => {
           <ShinyText
             isTextCenter={media ? true :false}
             text={
-              "At Mason Amelia, we tell aviation stories beyond the specs. Through powerful videos, we connect aircraft with purpose and people."
+              "If your broker isn’t crafting a marketing plan as compelling as the plane itself, they’re not truly selling it."
             }
             disabled={false}
             speed={5}

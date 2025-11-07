@@ -645,18 +645,6 @@ h6 {
   scale: 1.1;
 }
 
-/* @keyframes autoFlip {
-  0%, 40% {
-    transform: rotateY(0deg);
-  }
-  50%, 90% {
-    transform: rotateY(180deg);
-  }
-  100% {
-    transform: rotateY(0deg);
-  }
-} */
-
 #smooth-wrapper {
   height: 100%;
   overflow: hidden;
@@ -665,8 +653,6 @@ h6 {
 #smooth-content {
   will-change: transform;
 }
-
-
 
 .dropdown-animate-in { animation: ddIn 300ms ease forwards; }
 .dropdown-animate-out { animation: ddOut 300ms ease forwards; }

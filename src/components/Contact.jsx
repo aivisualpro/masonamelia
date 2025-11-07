@@ -11,6 +11,7 @@ import {
 import contactBanner from "/images/contact.avif";
 import { useLocation } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { PiOfficeChair } from "react-icons/pi";
 
 const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
 const WEB3FORMS_ACCESS_KEY = "f51d25fc-3e7c-4679-a0e1-4b8bfd06136a";
@@ -108,7 +109,7 @@ const Contact = () => {
         <div className="container mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left */}
           <div
-            className={`relative rounded-2xl shadow-md lg:h-auto h-[350px] ${
+            className={`relative rounded-2xl shadow-md lg:h-auto h-[400px] ${
               location.pathname === "/contact" && isMobile ? "mt-[15vh]" : ""
             }`}
           >
@@ -129,6 +130,12 @@ const Contact = () => {
                   </p>
 
                   <div className="flex items-center gap-3 mb-4 text-white">
+                    <PiOfficeChair className="text-lg" />
+                    <address>
+                      322 Boerne Stage Airfield Boerne, Texas 78006
+                    </address>
+                  </div>
+                  <div className="flex items-center gap-3 mb-4 text-white">
                     <FaEnvelope className="text-lg" />
                     <a href="mailto:info@masonamelia.com">
                       info@masonamelia.com
@@ -137,8 +144,8 @@ const Contact = () => {
                   <div className="flex gap-3 mb-6 pt-1 text-white">
                     <FaMapMarkerAlt className="text-lg mt-1" />
                     <span className="max-w-sm">
-                      Birmingham, AL Duluth, MN San Antonio, TX Scottsdale, AZ
-                      Upstate, NY
+                      Birmingham, AL <br /> Duluth, MN <br /> San Antonio, TX{" "}
+                      <br /> Scottsdale, AZ <br /> Upstate, NY
                     </span>
                   </div>
                 </div>

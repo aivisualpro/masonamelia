@@ -27,95 +27,102 @@ const getDurationForValue = (val) => {
   if (val >= 200) return 4000;
   if (val >= 75) return 3000;
   if (val >= 8) return 2000;
-  if (val === 0)  return 5000;
- 
+  if (val === 0) return 5000;
+
   // fallback for other values: clamp between 0.8s and 4s by magnitude
-  const ms = Math.min(4000, Math.max(800, Math.log10(Math.max(1, val + 1)) * 1200));
+  const ms = Math.min(
+    4000,
+    Math.max(800, Math.log10(Math.max(1, val + 1)) * 1200)
+  );
   return Math.round(ms);
 };
 
-const CountUp = React.memo(function CountUp({
-  end = 0,
-  prefix = "",
-  suffix = "",
-  index = 0,
-}) {
-  const spanRef = useRef(null);
-  const inView = useInView(spanRef, { once: true, margin: "0px 0px -30% 0px" });
-  const [value, setValue] = useState(end === 0 ? 20 : 0); // start 10 if zero case
-  const prefersReducedMotion = useReducedMotion();
-  const duration = getDurationForValue(end);
+const CountUp = React.memo(
+  function CountUp({ end = 0, prefix = "", suffix = "", index = 0 }) {
+    const spanRef = useRef(null);
+    const inView = useInView(spanRef, {
+      once: true,
+      margin: "0px 0px -30% 0px",
+    });
+    const [value, setValue] = useState(end === 0 ? 20 : 0); // start 10 if zero case
+    const prefersReducedMotion = useReducedMotion();
+    const duration = getDurationForValue(end);
 
-  useEffect(() => {
-    if (!inView) return;
-  
-    if (prefersReducedMotion) {
-      setValue(end === 0 ? 0 : end);
-      return;
-    }
-  
-    const startVal = end === 0 ? 20 : 0;
-    const targetVal = end === 0 ? 0 : end;
-    const t0 = performance.now();
-    let raf;
-    let timer;
-  
-    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-    let lastInt = startVal;
-  
-    const tick = (now, offset = 0) => {
-      const p = Math.min((now - t0 - offset) / duration, 1);
-      if (p < 0) {
-        raf = requestAnimationFrame((n) => tick(n, offset));
+    useEffect(() => {
+      if (!inView) return;
+
+      if (prefersReducedMotion) {
+        setValue(end === 0 ? 0 : end);
         return;
       }
-  
-      const eased = easeOutCubic(p);
-      let next;
-      if (end === 0) {
-        next = Math.round(20 - 20 * eased);
-      } else {
-        next = Math.round(targetVal * eased);
-      }
-  
-      if (next !== lastInt) {
-        lastInt = next;
-        setValue(next);
-      }
-  
-      if (p < 1) {
-        raf = requestAnimationFrame((n) => tick(n, offset));
-      }
-    };
-  
-    setValue(startVal);
-  
-    if (end === 0) {
-      // 👇 1.5s delay before decrement begins
-      timer = setTimeout(() => {
-        raf = requestAnimationFrame((now) => tick(now, 1500));
-      }, 2000);
-    } else {
-      raf = requestAnimationFrame((now) => tick(now, 0));
-    }
-  
-    return () => {
-      cancelAnimationFrame(raf);
-      clearTimeout(timer);
-    };
-  }, [inView, end, duration, prefersReducedMotion]);
 
-  return (
-    <span ref={spanRef} className={`${ index === 4 ? "text-red-600" : "text-white"} text-3xl`} aria-label={`${prefix}${value}${suffix}`}>
-      {prefix}
-      {value.toLocaleString()}
-      {suffix}
-    </span>
-  );
-}, (prev, next) =>
-  prev.end === next.end &&
-  prev.prefix === next.prefix &&
-  prev.suffix === next.suffix
+      const startVal = end === 0 ? 20 : 0;
+      const targetVal = end === 0 ? 0 : end;
+      const t0 = performance.now();
+      let raf;
+      let timer;
+
+      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+      let lastInt = startVal;
+
+      const tick = (now, offset = 0) => {
+        const p = Math.min((now - t0 - offset) / duration, 1);
+        if (p < 0) {
+          raf = requestAnimationFrame((n) => tick(n, offset));
+          return;
+        }
+
+        const eased = easeOutCubic(p);
+        let next;
+        if (end === 0) {
+          next = Math.round(20 - 20 * eased);
+        } else {
+          next = Math.round(targetVal * eased);
+        }
+
+        if (next !== lastInt) {
+          lastInt = next;
+          setValue(next);
+        }
+
+        if (p < 1) {
+          raf = requestAnimationFrame((n) => tick(n, offset));
+        }
+      };
+
+      setValue(startVal);
+
+      if (end === 0) {
+        // 👇 1.5s delay before decrement begins
+        timer = setTimeout(() => {
+          raf = requestAnimationFrame((now) => tick(now, 1500));
+        }, 2000);
+      } else {
+        raf = requestAnimationFrame((now) => tick(now, 0));
+      }
+
+      return () => {
+        cancelAnimationFrame(raf);
+        clearTimeout(timer);
+      };
+    }, [inView, end, duration, prefersReducedMotion]);
+
+    return (
+      <span
+        ref={spanRef}
+        className={`${index === 4 ? "text-red-600" : "text-white"} text-3xl`}
+        aria-label={`${prefix}${value}${suffix}`}
+      >
+        {prefix}
+        {value.toLocaleString()}
+        {suffix}
+      </span>
+    );
+  },
+  (prev, next) =>
+    prev.end === next.end &&
+    prev.prefix === next.prefix &&
+    prev.suffix === next.suffix
 );
 /* ----------------------------------------------------------------------- */
 
@@ -139,7 +146,9 @@ const SliderWrapper = () => {
         onClick: "/contact",
       },
       {
-        icon: <GiCommercialAirplane size={32} className="text-tertiary_color" />,
+        icon: (
+          <GiCommercialAirplane size={32} className="text-tertiary_color" />
+        ),
         title: "",
         count: 75,
         description: "Years of combined experience in aviation industry",
@@ -238,37 +247,42 @@ const SliderWrapper = () => {
                 transition={{ duration: 0.5, delay: 0.15 }}
                 className="text-sm md:text-lg max-w-5xl text-white font-light mx-auto text-center py-[40px]"
               >
-                At Mason Amelia, we curate bespoke aviation experiences with
-                precision, trust, and performance at the core. From consultation
-                to delivery, our expert team ensures seamless transactions and
-                lasting partnerships worldwide.
+                The data doesn’t lie. Mason Amelia is your expert wingman with a
+                proven track record and reputation. We know what we’re doing and
+                we deliver results consistently.
               </motion.p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
               {cards.map((card, index) => {
                 const prefix = card.title === "$" ? "$" : "";
-                const suffix = card.title === "+" ? "+" : card.suffix === "M" ? "M" : "";
+                const suffix =
+                  card.title === "+" ? "+" : card.suffix === "M" ? "M" : "";
 
                 return (
                   <motion.div
                     key={index}
-                    className="px-4 py-3"
+                    className="px-4 py-3 md:mt-0 mt-8"
                     initial={{ scale: 0.9, opacity: 0 }}
                     whileInView={{ scale: 1, opacity: 1 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ type: "spring", stiffness: 120, damping: 18 }}
                   >
-                    <div className="bg-[#15161cac] relative border border-[#f1f1f192] rounded-[10px] flex flex-col items-center justify-center text-center p-4 h-full w-full will-change-transform">
+                    <div className="bg-[#15161cac] relative border border-[#f1f1f192] rounded-[10px] flex flex-col items-center justify-center text-center lg:p-2 2xl:p-4 h-full w-full will-change-transform">
                       <div className="mb-4 absolute -top-8 bg-[#15161cac] border border-[#f1f1f192] rounded-full p-3">
                         {card.icon}
                       </div>
 
                       <h4 className="text-lg lg:text-lg xl:text-xl text-white mb-4 mt-8">
-                        <CountUp index={index} end={card.count} prefix={prefix} suffix={suffix} />
+                        <CountUp
+                          index={index}
+                          end={card.count}
+                          prefix={prefix}
+                          suffix={suffix}
+                        />
                       </h4>
 
-                      <p className="text-[#eee] text-base font-light mb-4 max-w-4xl">
+                      <p className="text-[#eee] text-sm font-light mb-4">
                         {card.description}
                       </p>
                     </div>

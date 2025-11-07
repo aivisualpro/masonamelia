@@ -69,19 +69,17 @@ const Team = () => {
                   style={{ lineHeight: "1.2" }}
                 >
                   A Team of Pilots and{" "}
-                  <span className="text-[#fff]">
-                    Aviation Experts
-                  </span>
+                  <span className="text-[#fff]">Aviation Experts</span>
                 </motion.h2>
                 <motion.p
                   initial={{ opacity: 0, y: 100 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                  className="text-base xl:text-xl text-center max-w-2xl mt-[30px] font-light"
+                  className="text-base xl:text-xl text-center px-8 mt-[30px] font-light"
                 >
-                  Built by aviators with decades of insight, Mason Amelia
-                  delivers unmatched clarity, strategy, and confidence in every
-                  aircraft transaction.
+                  Our team combines over a century of flight experience with
+                  deep market expertise, offering clients the rare advantage of
+                  working with brokers who are true aviation professionals.
                 </motion.p>
               </div>
             </div>

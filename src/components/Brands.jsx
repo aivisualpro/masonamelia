@@ -2,7 +2,7 @@ import React, { useRef, useState, useMemo } from "react";
 import { motion, useAnimationFrame } from "framer-motion";
 import { useBrands } from "../hooks/useBrandsQuery";
 
-const Brands = () => {
+const  Brands = () => {
   // 1) default to [] so it's always iterable
   const { data: brands = [], isLoading, error } = useBrands();
 
@@ -49,7 +49,7 @@ const Brands = () => {
               src={src}
               alt={`brand-${index}`}
               draggable={false}
-              className="brand_img w-40 h-24 object-contain mx-12"
+              className="brand_img md:w-40 md:h-24 w-24 h-16 object-contain mx-6 md:mx-12"
               onMouseEnter={() => setHoveredIndex(index)}
               animate={{ scale }}
               transition={{ duration: 0.4 }}

@@ -8,21 +8,21 @@ const services = [
     icon: <FaRegHandshake className="text-2xl text-white" />,
     title: "Elevating Aircraft Brokerage Standards",
     description:
-      "At Mason Amelia, we aim to redefine how aircraft are marketed and sold. With storytelling at the core, we connect emotion to ownership—one deal at a time.",
+      "A lot of people pose as “aviation experts.” Very few actually fly the life. Our founder, Jesse Adams, does. His YouTube channel Looking for Higher captures the real side of ownership, from the rush of turbine transitions to cross-country family adventures, and now powers Mason Amelia’s video marketing platform.",
     color: "from-[#1777cb] to-[#1777cb]",
   },
   {
     icon: <FaRegPlayCircle className="text-2xl text-white" />,
     title: "Where Aviation Meets Storytelling",
     description:
-      "We envision a future where buyers connect with aircraft beyond specs. Every plane tells a story, and we help that story find its next chapter.",
+      "Each video we create is more than marketing; it’s storytelling with intent. We show what makes an aircraft desirable, capable, and worth owning. We turn data into desire and browsers into buyers.",
     color: "from-[#1777cb] to-[#1777cb]",
   },
   {
     icon: <FaRocket className="text-2xl text-white" />,
     title: "Marketing that Moves Jets",
     description:
-      "From cinematic visuals to insightful data, we use creative content and tech to move jets with precision—delivering unmatched results for our clients.",
+      "Partnering with Mason Amelia means you’re not waiting for buyers; you’re attracting them. Our full-service, marketing-driven strategy amplifies exposure, accelerates momentum, and delivers the right buyer.",
     color: "from-[#1777cb] to-[#1777cb]",
   },
 ];

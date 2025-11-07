@@ -29,11 +29,13 @@ const SkynetAdvantage = () => {
                 transition={{ duration: 0.5, dealy: 0.3 }}
                 className="text-center text-gray-400 py-[40px] md:text-lg"
               >
-                Discover how SkyNet delivers accurate aircraft valuations
-                through private market data, intelligent analysis, and proven
-                methodology. We turn complex data into confident
-                decisions—empowering both buyers and sellers. Built for aviation
-                professionals who demand precision.
+                Hold on, John Connor!” because Mason Amelia’s proprietary
+                aircraft pricing app, SkyNet, employs a proprietary means of
+                collecting, analyzing, and presenting transaction data. With no
+                MLS substitute, this private data is the lifeblood that empowers
+                our buyers and sellers. Simply put, SkyNet ensures every
+                decision is powered by data and backed by Mason Amelia’s
+                experience.
               </motion.p>
             </div>
 

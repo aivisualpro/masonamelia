@@ -13,67 +13,37 @@ import { motion } from "framer-motion";
 const features = [
   {
     icon: <FaUserAlt className="text-4xl mb-5 text-tertiary_color" />,
-    title: "Personal Commitment",
+    title: "Integrity",
     desc: (
       <>
-        Our name is our promise. Every client and aircraft receives the same
-        dedication, integrity, and personal care from start to finish, building
-        lasting trust. We are delivering exceptional results.
+        When you name a company after your children, you hold yourself to a
+        higher standard. Mason Amelia was built on the belief that every
+        transaction should be a win for both Buyer and Seller. Our greatest
+        sense of accomplishment comes from the repeat clients, referrals, and
+        reputation that follow doing business the right way.
       </>
     ),
   },
   {
     icon: <FaBriefcase className="text-4xl mb-5 text-tertiary_color" />,
-    title: "Unmatched Experience",
+    title: "Relationships",
     desc: (
       <>
-        With decades in aviation and hundreds of transactions, our expertise
-        ensures every client receives knowledgeable guidance and outstanding
-        results, every time.
+        We value relationships over transactions. Loyalty runs deep here—to our
+        clients, our partners, and our friends. Matching the right buyer with
+        the right seller is how we take care of our circle.
       </>
     ),
   },
   {
     icon: <FaPlayCircle className="text-4xl mb-5 text-tertiary_color" />,
-    title: "Modern Marketing",
+    title: "Expertise",
     desc: (
       <>
-        Our YouTube channel, “Looking for Higher,” transforms aircraft
-        sales—delivering innovative marketing, expert insights, and powerful
-        reach to connect with buyers nationwide today.
-      </>
-    ),
-  },
-  {
-    icon: <FaGlobeAmericas className="text-4xl mb-5 text-tertiary_color" />,
-    title: "Coast-to-Coast Presence",
-    desc: (
-      <>
-        With a nationwide team, Mason Amelia represents aircraft and clients
-        from coast to coast, delivering truly personalized service and expert
-        attention wherever you are.
-      </>
-    ),
-  },
-  {
-    icon: <FaShieldAlt className="text-4xl mb-5 text-tertiary_color" />,
-    title: "Transparent Process",
-    desc: (
-      <>
-        Honesty and transparency are at our core. We guide you with clear
-        communication and open-book integrity at every step of your aircraft
-        journey. We are committed to building trust.
-      </>
-    ),
-  },
-  {
-    icon: <FaLightbulb className="text-4xl mb-5 text-tertiary_color" />,
-    title: "Innovative Solutions",
-    desc: (
-      <>
-        We embrace the latest technology and creative strategies, making your
-        aircraft sale or purchase seamless, efficient, and rewarding, delivering
-        exceptional value every time.
+        Confidence isn’t a claim, it’s a credential. With experience spanning
+        flight instruction, airline, and corporate aviation, we’ve flown the
+        mission from every seat. That’s what makes our methodology an industry
+        benchmark.
       </>
     ),
   },
@@ -106,9 +76,9 @@ export default function WhatSetsUsApart() {
               className="text-[1.6rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white md:max-w-3xl"
               style={{ lineHeight: "1.2" }}
             >
-              Mason Amelia Leads with{" "}
+              Who is{" "}
               <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                Confidence and Clarity.
+                Mason Amelia?
               </span>
             </motion.h2>
 
@@ -120,11 +90,9 @@ export default function WhatSetsUsApart() {
               transition={{ duration: 0.5, delay: 0.6 }}
               className="text-sm md:text-lg text-neutral-300 py-[40px] max-w-4xl"
             >
-              As aviation specialists driven by trust and experience, we deliver
-              truly personalized service for every client and every mission.
-              From first inquiry to final handshake, our expert team listens to
-              your needs, tailors solutions, protects your interests, and makes
-              your transition to a new aircraft seamless and stress-free.
+              An aircraft brokerage named after our founder Jesse Adams’
+              children, focused on high-performance piston and owner-flown
+              turbine aircraft, built on:
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 100 }}

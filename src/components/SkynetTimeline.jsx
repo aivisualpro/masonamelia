@@ -7,41 +7,34 @@ import timelineThree from "/images/skynet/timeline-three.png";
 const SkynetTimeline = () => {
   const timelineData = [
     {
-      year: "2019",
+      year: "2023",
       title: "Data Access Revolutionized",
       description:
-        "We broke away from traditional data sources by building our own private aircraft transaction intelligence system. No MLS, no guesswork—just verified, high-value records.",
-      image:
-        "https://static.wixstatic.com/media/04f737_459be72ae9a346f4b1e06393b2ab85ba~mv2.png/v1/fill/w_376,h_376,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Skynet.png",
+        "Mason Amelia is launched, relying on traditional, manual methods of aircraft price gathering.",
+      image: timelineOne,
+        
     },
     {
-      year: "2020",
+      year: "2024",
       title: "Proprietary Tech Stack Deployed",
       description:
-        "Launched SkyNet with a custom-built analytics engine focused solely on aircraft pricing intelligence. Secure, fast, and built by aviation experts.",
-      image: timelineOne,
+        "We set out to break away from outdated and incomplete data sources by building our own trusted source of verified, high-value market data. We named it SkyNet. ",
+      image: "https://static.wixstatic.com/media/04f737_459be72ae9a346f4b1e06393b2ab85ba~mv2.png/v1/fill/w_376,h_376,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Skynet.png",
     },
     {
-      year: "2021",
+      year: "2025",
       title: "Real-Time Market Insight",
       description:
-        "Introduced real-time valuation logic that adjusts with market volatility. No static PDFs—just dynamic, evolving market intelligence at your fingertips.",
+        "SkyNet is deployed. Secure, fast, and built by aviation experts, it quickly became the backbone of our brokers’ decision-making.",
       image:
         "https://static.wixstatic.com/media/04f737_9ca4fc0aecf74814afc789140f3aea50~mv2.png/v1/fill/w_558,h_376,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/04f737_9ca4fc0aecf74814afc789140f3aea50~mv2.png",
     },
     {
-      year: "2022",
+      year: "2026",
       title: "Trusted by Brokers & Buyers",
       description:
-        "Our adoption skyrocketed as brokers, corporate buyers, and sellers relied on SkyNet for confident decision-making in high-stakes deals.",
+        "SkyNet continues to evolve, integrating predictive analytics and early AI-driven learning to deliver even more accurate forecasting, smarter pricing strategy, and enhanced deal preparation.",
       image: timelineTwo,
-    },
-    {
-      year: "2023",
-      title: "Evolving with AI & Predictive Models",
-      description:
-        "SkyNet now integrates predictive analytics and early AI learning layers—allowing even more accurate forecasts and deal preparation.",
-      image: timelineThree,
     },
   ];
 
@@ -88,9 +81,9 @@ const SkynetTimeline = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-3xl xl:text-6xl font-bold text-center mb-2"
         >
-          Mason Amelia{" "}
+          The Evolution of SkyNet:{" "}
           <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-            Journey of Innovation
+            A Timeline of Innovation
           </span>
         </motion.h2>
         <motion.p
@@ -100,8 +93,8 @@ const SkynetTimeline = () => {
           className="text-center text-[#222] md:text-lg py-[40px] max-w-6xl mx-auto"
         >
           From pioneering data access to deploying proprietary AI-powered
-          analytics, Mason Amelia has consistently led the aircraft pricing
-          revolution. Explore how SkyNet became the trusted name in aviation
+          analytics, Mason Amelia is leading a transformation in aircraft
+          valuation. SkyNet is redefining what’s possible in aviation pricing
           intelligence.
         </motion.p>
       </div>

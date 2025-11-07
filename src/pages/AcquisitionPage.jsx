@@ -170,10 +170,10 @@ const AcquisitionPage = () => {
       <main id="acquisition" className="relative z-[0]">
         <ServiceRappleResearch
           data={data}
-          highlightedTitle={"Pre Acquisition"}
-          title={"Insight Curated For Precision"}
+          highlightedTitle={"Preflight Planning :"}
+          title={"Strategy, not speculation. Your mission defines the search."}
           description={
-            "Before any deal takes flight, our team conducts thorough groundwork to ensure your acquisition strategy is sharp, informed, and advantageously positioned — from outreach to opportunity identification."
+            "Every successful acquisition begins with clarity. We define your mission profile from the start,  how you’ll fly, where you’ll go, and what ownership represents for you. Then we align the right aircraft to your mission, your lifestyle, and your financial strategy."
           }
           boxVariant="dark"
         />

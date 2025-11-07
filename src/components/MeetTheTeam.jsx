@@ -3,7 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Button from "./Button";
 import { FiPhoneCall } from "react-icons/fi";
-import meetTheTeam from "/images/team.jpg"
+import meetTheTeam from "/images/team.jpg";
 
 const MeetTheTeam = () => {
   return (
@@ -21,7 +21,6 @@ const MeetTheTeam = () => {
         <div className="flex flex-col md:flex-row items-center  justify-between gap-8 md:gap-4 lg:gap-4 xl:gap-8">
           {/* LEFT CONTENT */}
           <div className="w-full md:w-1/2 rounded-3xl text-white">
-            
             {/* Heading */}
             <motion.h2
               initial={{ y: 50, opacity: 0 }}
@@ -45,11 +44,12 @@ const MeetTheTeam = () => {
               transition={{ duration: 0.4, delay: 0.6 }}
               className="text-[#222] mt-5 md:text-lg leading-relaxed text-justify"
             >
-              Our team is the heart of Mason Amelia — passionate professionals
-              dedicated to delivering seamless experiences from takeoff to
-              landing. With years of aviation insight, customer-first mindset,
-              and sharp execution, we’re more than a team — we’re your partners
-              in the sky.
+              We are purveyors of high-end piston and owner-flown turbine
+              aircraft. Our nationwide team brings decades of experience across
+              every corner of aviation. From initial strategy to final delivery,
+              we handle each transaction with precision, efficiency, and a sharp
+              focus on your bottom line. Putting clients first and building
+              lasting relationships is the foundation of our success and yours.
             </motion.p>
 
             {/* Bullet Points */}
