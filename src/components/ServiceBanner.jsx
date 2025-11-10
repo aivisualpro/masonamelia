@@ -29,7 +29,7 @@ const ServiceBanner = ({ banner }) => {
         }}
       >
         <div className={`${media ? 'block' : 'hidden'} overlay absolute w-full h-[150px]  left-0 top-0 ${location.pathname === "/brokerage" ? "bg-[#0181d8]" : "bg-[#0671ba]"}`}>
-          <div className="overlay bg-black absolute w-full h-[150px]  left-0 top-0 bg-[#15161c]/60"></div>
+          <div className="overlay absolute w-full h-[150px]  left-0 top-0 bg-[#15161c]/60"></div>
         </div>
         <div className="px-5 container flex flex-col justify-center h-[100vh] md:items-start items-center">
           <motion.h1
