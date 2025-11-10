@@ -15,7 +15,7 @@ const Higher = () => {
           initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="md:text-start text-center md:max-w-2xl lg:max-w-2xl xl:max-w-3xl text-[2rem] text-white md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold mb-2"
+          className="md:text-start text-center md:max-w-2xl lg:max-w-2xl xl:max-w-3xl text-[1.8rem] text-white md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold mb-2"
           style={{ lineHeight: "1.1" }}
         >
           We’re more than brokers - {" "}

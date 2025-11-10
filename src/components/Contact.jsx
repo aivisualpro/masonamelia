@@ -130,7 +130,7 @@ const Contact = () => {
                   </p>
 
                   <div className="flex items-center gap-3 mb-4 text-white">
-                    <PiOfficeChair className="text-lg" />
+                    <PiOfficeChair className="text-3xl md:text-lg" />
                     <address>
                       322 Boerne Stage Airfield Boerne, Texas 78006
                     </address>

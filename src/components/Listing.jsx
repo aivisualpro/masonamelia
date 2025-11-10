@@ -244,15 +244,16 @@ export default function Listing({ autoScrollEnabled = true }) {
       className="bg-[#111218] relative z-[10] py-20"
     >
       <div className="container px-6">
-        {/* <div className="text-center mb-20">
+        <div className="text-center mb-20">
           <h1 className="text-4xl font-bold text-white pt-10">
-            Explore Our Aircraft Collection
+            Where Precision Meets Passion
           </h1>
-          <p className="text-white text-base max-w-3xl mx-auto mt-2">
-            Browse a curated inventory of premium aircraft tailored for diverse
-            missions and budgets.
+          <p className="text-white text-base max-w-3xl mx-auto pt-8">
+            We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators.
+            If your dream aircraft isn’t in our showroom, consider it already in motion. Our global network ensures we find exactly what you seek.
+
           </p>
-        </div> */}
+        </div>
 
         {/* Tabs */}
         <div className="block animated-tabs mb-12">
@@ -351,9 +352,8 @@ export default function Listing({ autoScrollEnabled = true }) {
           <motion.div
             layout
             transition={{ duration: 0.2 }}
-            className={`w-full ${
-              filterOpen ? "lg:w-[70%] lg:ms-[5%]" : "lg:w-full lg:ms-0"
-            }`}
+            className={`w-full ${filterOpen ? "lg:w-[70%] lg:ms-[5%]" : "lg:w-full lg:ms-0"
+              }`}
           >
             {loading ? (
               <div className="flex justify-center items-center py-24">
@@ -372,9 +372,8 @@ export default function Listing({ autoScrollEnabled = true }) {
                 <motion.div
                   layout
                   transition={{ duration: 0.2 }}
-                  className={`grid grid-cols-1 sm:grid-cols-2 ${
-                    filterOpen ? "lg:grid-cols-3" : "lg:grid-cols-4"
-                  } gap-8`}
+                  className={`grid grid-cols-1 sm:grid-cols-2 ${filterOpen ? "lg:grid-cols-3" : "lg:grid-cols-4"
+                    } gap-8`}
                 >
                   {rows.map((airplane) => (
                     <Card key={airplane._id} detail={airplane} />

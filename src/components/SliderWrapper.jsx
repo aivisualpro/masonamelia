@@ -110,7 +110,7 @@ const CountUp = React.memo(
     return (
       <span
         ref={spanRef}
-        className={`${index === 4 ? "text-red-600" : "text-white"} text-3xl`}
+        className={`${index === 4 ? "text-red-600" : "text-white"} text-3xl lg:text-[2.5rem] 2xl:text-[2.7rem]`}
         aria-label={`${prefix}${value}${suffix}`}
       >
         {prefix}
@@ -253,7 +253,7 @@ const SliderWrapper = () => {
               </motion.p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
               {cards.map((card, index) => {
                 const prefix = card.title === "$" ? "$" : "";
                 const suffix =
@@ -262,7 +262,7 @@ const SliderWrapper = () => {
                 return (
                   <motion.div
                     key={index}
-                    className="px-4 py-3 md:mt-0 mt-8"
+                    className="px-4 py-3"
                     initial={{ scale: 0.9, opacity: 0 }}
                     whileInView={{ scale: 1, opacity: 1 }}
                     viewport={{ once: true, amount: 0.3 }}
@@ -282,7 +282,7 @@ const SliderWrapper = () => {
                         />
                       </h4>
 
-                      <p className="text-[#eee] text-sm font-light mb-4">
+                      <p className="text-[#eee] text-base lg:text-[.7rem] 2xl:text-[.8rem] font-light mb-4">
                         {card.description}
                       </p>
                     </div>

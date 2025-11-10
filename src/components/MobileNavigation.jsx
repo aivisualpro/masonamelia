@@ -116,7 +116,7 @@ const MobileNavigation = ({ isOpen, setIsOpen }) => {
               <span className="w-2 h-[1px] bg-white absolute top-1/2 left-0"></span> Looking For Higher
             </Link>
             <Link
-              to="/testimonial"
+              to="/#testimonial"
               className="text-white text-base ps-4 hover:text-tertiary_color relative"
             >
               <span className="w-2 h-[1px] bg-white absolute top-1/2 left-0"></span> Testimonials
@@ -125,7 +125,7 @@ const MobileNavigation = ({ isOpen, setIsOpen }) => {
         </div>
 
         <Link
-          to="/contact"
+          to="/#contact"
           className="uppercase text-lg hover:text-tertiary_color transition duration-50"
         >
           Contact

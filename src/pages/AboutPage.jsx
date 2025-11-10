@@ -182,7 +182,7 @@ const AboutPage = () => {
         style={{
           backgroundImage: `url(${bgPlane})`,
           backgroundSize: "cover",
-          backgroundPosition: "100% 45%",
+          backgroundPosition: `${media ? "63% 45%" : "100% 45%"}`,
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
           backgroundColor: "#10121A",

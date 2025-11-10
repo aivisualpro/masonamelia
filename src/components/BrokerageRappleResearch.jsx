@@ -26,7 +26,7 @@ const BrokerageRappleResearch = ({
       >
         <div className="overlay bg-tertiary_color opacity-90 absolute top-0 left-0 w-full h-full z-[-1]" />
         <div className="container px-5 flex md:flex-row flex-col items-center 2xl:h-screen">
-          <div className="md:w-[50%] mb-20 px-4 flex flex-col items-center justify-center z-[4]">
+          <div className="md:w-[50%] mb-20 px-4 flex flex-col justify-center z-[4]">
             <motion.h2
               initial={{
                 opacity: 0,
@@ -40,9 +40,6 @@ const BrokerageRappleResearch = ({
               className="text-center md:text-start text-4xl xl:text-7xl font-bold text-white mb-4"
               style={{ lineHeight: "1.1" }}
             >
-              <span className="text-white">
-                {highlightedTitle}
-              </span>{" "}
               {title}
             </motion.h2>
             <motion.p

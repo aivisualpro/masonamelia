@@ -30,7 +30,7 @@ const services = [
 const GlowingCardSection = () => {
   return (
     <section
-      className="py-20 z-[0] relative h-screen"
+      className="py-20 z-[0] relative lg:h-screen"
       style={{
         backgroundImage: `url('https://t3.ftcdn.net/jpg/02/39/52/06/360_F_239520607_abB3AakIrZozIAPgdVAMiMArLwi0uJTL.jpg')`,
         backgroundSize: "cover",
@@ -68,7 +68,7 @@ const GlowingCardSection = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <motion.div
               initial={{ scale: 0 }}

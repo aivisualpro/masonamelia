@@ -40,10 +40,10 @@ const Team = () => {
       {/* Your original UI (unchanged except using `team`) */}
       <section
         id="team"
-        className="text-white pt-32 pb-20 md:pb-20 md:pt-0 px-4 md:px-10"
+        className="text-white pt-40 pb-20 md:pb-20 px-4 md:px-10"
       >
-        <div className="container pt-[195px] flex items-center">
-          <div className="w-full">
+        <div className="container flex items-center">
+          <div className="w-full mb-8 md:mb-0">
             {/* left glass card ... unchanged */}
             <div
               className={`w-full glass-container md:mb-0 mb-4 lg:minh-[375px] flex items-center justify-center`}
@@ -65,7 +65,7 @@ const Team = () => {
                   initial={{ opacity: 0, y: 100 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="text-[2rem] lg:text-[1.4rem] xl:text-[2rem] 2xl:text-6xl font-bold text-[#fff]"
+                  className="text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-[#fff]"
                   style={{ lineHeight: "1.2" }}
                 >
                   A Team of Pilots and{" "}

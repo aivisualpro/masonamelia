@@ -117,7 +117,7 @@ const Gallary = () => {
                     <img
                       src={video.src}
                       alt={video.title}
-                      className={`rounded min-h-[200px] p-4 md:min-w-[300px] w-full object-cover border-4 ${
+                      className={`rounded h-full p-4 md:min-w-[250px] lg:min-w-[300px] w-full object-cover border-4 ${
                         currentIndex === i
                           ? "border-blue-500"
                           : "border-transparent"

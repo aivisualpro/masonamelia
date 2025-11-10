@@ -13,6 +13,9 @@ import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import brokerageBanner from "/images/brokerage/timeline-banner.avif";
 import BlinkingArrow from "../components/BlinkingArrow"; // <-- added
 import Contact from "../components/Contact";
+import TaxiCardsDarkSection from "../components/TaxiAndSystemCheck";
+import { FaBullhorn, FaDollarSign, FaProjectDiagram, FaClipboardList } from "react-icons/fa";
+import ClearForTakeoff from "../components/ClearForTakeoff";
 // import Navbar from "../components/Navbar";
 
 const BrokeragePage = () => {
@@ -216,6 +219,52 @@ const BrokeragePage = () => {
     },
   ];
 
+  const cards = [
+    {
+      title: "Advertising",
+      icon: <FaBullhorn className="h-8 w-8" />,
+      gradient: "from-cyan-400 to-blue-500",
+      points: [
+        "This is where we go full throttle. From pro photography and high-impact video to disruptive social campaigns, we turn your aircraft into a must-see listing.",
+        // "ABSOLUTE SAVAGE… “Guerrilla Marketing”",
+        // "We find the true value of an aircraft by connecting the latent buyers:",
+        // "MA marketing ‘hits’ differently",
+        // "Active in all forums and aviation communities",
+        // "Social media aficionados",
+        // "Setting the aviation marketing and sales landscape",
+      ],
+      img: "/images/ads-aircraft.jpg",
+    },
+    {
+      title: "Pricing Accuracy",
+      icon: <FaDollarSign className="h-8 w-8" />,
+      gradient: "from-emerald-400 to-teal-500",
+      points: [
+        "Leveraging our decades of experience and backed by SkyNet, our proprietary market valuation platform, we analyze real-time data to set an accurate, competitive price from the very start.",
+      ],
+      img: "/images/pricing-aircraft.jpg",
+    },
+    {
+      title: "Sales Network",
+      icon: <FaProjectDiagram className="h-8 w-8" />,
+      gradient: "from-fuchsia-400 to-purple-500",
+      points: [
+        "Your aircraft joins an exclusive network of qualified buyers, elite brokers, and international partners — amplifying visibility and minimizing time on market.",
+      ],
+      img: "/images/network-aircraft.jpg",
+    },
+    {
+      title: "Project Management",
+      icon: <FaClipboardList className="h-8 w-8" />,
+      gradient: "from-amber-400 to-orange-500",
+      points: [
+        "We’re process-driven and relentless about execution. Every detail is tracked, every timeline met, every update delivered. It’s how we earn your business by keeping the train on the tracks from day one to done.",
+      ],
+      img: "/images/pm-aircraft.jpg",
+    },
+  ];
+
+
   return (
     <>
       {/* HERO / FIRST SECTION with arrow & auto-scroll */}
@@ -228,10 +277,9 @@ const BrokeragePage = () => {
       <main id="brokerage" className="relative">
         <BrokerageRappleResearch
           data={data}
-          highlightedTitle={"Pre Brokerage"}
-          title={"Strategy Tailored for Success"}
+          title={"Preflight Planning"}
           description={
-            "Before your aircraft hits the market, our expert team designs a smart, strategic approach to attract premium buyers and maximize value."
+            "Every brokerage is a unique opportunity with its own challenges. By understanding your goals, timing, and long-term vision, we design a clear path forward through brokerage, trade-in, or wholesale that helps you transition smoothly and maximize your results."
           }
         />
 
@@ -257,6 +305,26 @@ const BrokeragePage = () => {
           <div className="absolute top-0 left-0 w-full h-full bg-black opacity-80 z-[-1]"></div>
           <Timeline data={timeline} isHeading={true} />
         </section> */}
+
+        <TaxiCardsDarkSection tagline={<><span>Taxi &amp; Systems Check</span></>} title={"Bringing to Market"} description={"Four pillars to move your aircraft from runway‑ready to market‑ready — engineered for speed, visibility, and precision."} cards={cards} />
+
+        <ClearForTakeoff
+          eyebrow="FRAME 4"
+          title="Cleared for Takeoff"
+          subtitle="Active Marketing, Negotiation & Closing"
+          intro="With your mission set and systems in sync, we execute. Mason Amelia takes your aircraft to market with precision, discipline, and transparency, aggressively marketing, strategically negotiating, and closing efficiently to deliver maximum value in minimal time."
+          bullets={[
+            "Analyze market data and position your aircraft for maximum impact.",
+            "Launch targeted campaigns and direct outreach to qualified buyers.",
+            "Present offers and deliver real-time market feedback.",
+            "Negotiate terms and manage contract execution through closing.",
+            "Coordinate logistics and support a seamless handoff at delivery.",
+          ]}
+          outro="From first call to final handshake, we don’t just list aircraft. We own the process, executing with precision, creating demand, and closing with clean and solid results."
+          image="/images/cleared-for-takeoff.jpg"   // replace with your asset
+          imageAlt="Mason Amelia — Cleared for Takeoff"
+          imageOn="right"                            // set to "left" if you want image on left
+        />
 
         <section className="bg-[#111218] relative z-[10] py-10">
           <div className="container px-5">

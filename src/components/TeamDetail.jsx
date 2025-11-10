@@ -26,7 +26,7 @@ const TeamDetail = () => {
 
       {!m ? null : (
         <section className="text-white pt-[8.25rem] pb-[5rem] md:px-10">
-          <div className="glass-container flex items-center glass-container--rounded px-4 py-3">
+          <div className="glass-container flex items-center glass-container--rounded py-3">
             <div className="glass-filter"></div>
             <div className="glass-overlay"></div>
             <div className="glass-specular"></div>
