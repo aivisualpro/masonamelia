@@ -37,7 +37,7 @@ import { IoPlayCircle } from "react-icons/io5";
 
 Modal.setAppElement("#root");
 
-const Gallary = () => {
+const Gallary = ({ title = "A Tailored Approach to Brokerage", tagline = "Curated strategies for distinctive aircraft and discerning clients." }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -56,8 +56,8 @@ const Gallary = () => {
   return (
     <>
       <HeroParallax
-        headerTitle="A Tailored Approach to Brokerage"
-        headerTagline="Curated strategies for distinctive aircraft and discerning clients."
+        headerTitle={title}
+        headerTagline={tagline}
         portfolio={products}
         onImageClick={openHeroModal}
       />
@@ -117,11 +117,10 @@ const Gallary = () => {
                     <img
                       src={video.src}
                       alt={video.title}
-                      className={`rounded h-full p-4 md:min-w-[250px] lg:min-w-[300px] w-full object-cover border-4 ${
-                        currentIndex === i
+                      className={`rounded h-full p-4 md:min-w-[250px] lg:min-w-[300px] w-full object-cover border-4 ${currentIndex === i
                           ? "border-blue-500"
                           : "border-transparent"
-                      }`}
+                        }`}
                     />
                     <div className="group-hover:opacity-100 opacity-0 transition-all duration-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                       <button className="h-[100px] w-[100px] flex items-center justify-center text-white rounded-full">

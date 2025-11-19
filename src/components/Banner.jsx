@@ -28,8 +28,8 @@ const Banner = ({ url }) => {
           <div className="banner-content">
             {/* <h1 className="text-white text-6xl font-bold">Discover the Future of Flight</h1> */}
             <BlurText
-              text="Discover the"
-              highlightedText=" Future of Flight"
+              text="Where Precision "
+              highlightedText=" Meets Passion"
               highlightedClassName="text-blue-500" // ya sky-500, etc.
               delay={150}
               animateBy="words"
@@ -37,7 +37,14 @@ const Banner = ({ url }) => {
               className="max-w-xl text-[36px] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white"
             />
             <ShinyText
-              text="Experience the unmatched thrill of aviation like never before. Feel the power, precision, and freedom as you conquer the skies."
+              text="We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators."
+              disabled={false}
+              isTextCenter={media ? true : false}
+              speed={5}
+              className="custom-class text-[16px] md:text-xl mt-4 md:max-w-md lg:max-w-xl xl:max-w-2xl"
+            /> <br />
+            <ShinyText
+              text="If your dream aircraft isn’t in our showroom, consider it already in motion. Our global network ensures we find exactly what you seek."
               disabled={false}
               isTextCenter={media ? true : false}
               speed={5}

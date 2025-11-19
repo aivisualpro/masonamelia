@@ -18,7 +18,7 @@ const Footer = () => {
       <div className="container px-5">
         <div className="flex md:flex-row flex-col items-center justify-between gap-6">
           {/* Logo Section */}
-          <div className="md:order-first order-second md:w-[33.3%] flex flex-col justify-center items-start gap-4">
+          <div className="md:order-first order-second md:w-[33.3%] flex flex-col justify-center items-center gap-4">
             <div className="social-icons flex items-center gap-4">
               <a
                 href="https://www.linkedin.com/company/masonamelia/"

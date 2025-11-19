@@ -39,7 +39,7 @@ const SkynetAdvantage = () => {
               </motion.p>
             </div>
 
-            <div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
+            {/* <div className="grid lg:grid-cols-3 grid-cols-1 gap-4">
               <motion.div
                 initial={{ opacity: 0, scale: 0 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -70,8 +70,6 @@ const SkynetAdvantage = () => {
                   </p>
                 </div>
               </motion.div>
-
-              {/* Card 2 (Center) */}
               <motion.div
                 initial={{ opacity: 0, scale: 0 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -102,8 +100,6 @@ const SkynetAdvantage = () => {
                 </div>
               </motion.div>
 
-              {/* Card 3 */}
-
               <motion.div
                 initial={{ opacity: 0, scale: 0 }}
                 whileInView={{ opacity: 1, scale: 1 }}
@@ -133,7 +129,8 @@ const SkynetAdvantage = () => {
                   </p>
                 </div>
               </motion.div>
-            </div>
+            </div> */}
+
           </div>
         </div>
       </section>

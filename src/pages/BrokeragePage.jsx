@@ -16,6 +16,7 @@ import Contact from "../components/Contact";
 import TaxiCardsDarkSection from "../components/TaxiAndSystemCheck";
 import { FaBullhorn, FaDollarSign, FaProjectDiagram, FaClipboardList } from "react-icons/fa";
 import ClearForTakeoff from "../components/ClearForTakeoff";
+import Relationship from "../components/Relationship";
 // import Navbar from "../components/Navbar";
 
 const BrokeragePage = () => {
@@ -278,18 +279,19 @@ const BrokeragePage = () => {
         <BrokerageRappleResearch
           data={data}
           title={"Preflight Planning"}
+          isConsultation={true}
           description={
             "Every brokerage is a unique opportunity with its own challenges. By understanding your goals, timing, and long-term vision, we design a clear path forward through brokerage, trade-in, or wholesale that helps you transition smoothly and maximize your results."
           }
         />
 
-        <ServiceHighlights
+        {/* <ServiceHighlights
           topTitle={"Strategic"}
           highlightedTitle={"Aircraft Brokerage"}
           bottomTitle={"for Confident Closures"}
           description="Every listing tells a story. Discover how Mason Amelia’s trusted brokerage model delivers maximum value, optimal timing, and seamless execution—from initial listing to final handshake."
           data={brokerageData}
-        />
+        /> */}
 
         {/* <section
           id="timeline"
@@ -325,6 +327,8 @@ const BrokeragePage = () => {
           imageAlt="Mason Amelia — Cleared for Takeoff"
           imageOn="right"                            // set to "left" if you want image on left
         />
+
+        <Relationship />
 
         <section className="bg-[#111218] relative z-[10] py-10">
           <div className="container px-5">

@@ -57,7 +57,7 @@ export default function WhatSetsUsApart() {
           <div className="w-full mb-[60px] px-4 flex flex-col justify-center text-center items-center">
             {/* Left Side: Headline */}
 
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
@@ -68,7 +68,7 @@ export default function WhatSetsUsApart() {
                 <span className="w-2 h-2 bg-[#fff] rounded-full"></span>
                 Expert Guidance
               </div>
-            </motion.div>
+            </motion.div> */}
             <motion.h2
               initial={{ opacity: 0, y: 100 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -94,13 +94,13 @@ export default function WhatSetsUsApart() {
               children, focused on high-performance piston and owner-flown
               turbine aircraft, built on:
             </motion.p>
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 100 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.8 }}
             >
               <Button buttonLabel="Contact Us" onClick="/contact" />
-            </motion.div>
+            </motion.div> */}
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
             {features.map((card, idx) => (

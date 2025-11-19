@@ -88,11 +88,10 @@ const Contact = () => {
     <>
       <section
         id="contact"
-        className={`relative w-full z-[1] ${
-          location.pathname !== "/contact"
-            ? "lg:h/full 2xl:h-full"
-            : "2xl:h-full"
-        } flex items-center`}
+        className={`relative w-full z-[1] ${location.pathname !== "/contact"
+          ? "lg:h/full 2xl:h-full"
+          : "2xl:h-full"
+          } flex items-center`}
         style={{
           backgroundImage:
             location.pathname !== "/contact" ? `url(${contactBanner})` : "none",
@@ -109,9 +108,8 @@ const Contact = () => {
         <div className="container mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left */}
           <div
-            className={`relative rounded-2xl shadow-md lg:h-auto h-[400px] ${
-              location.pathname === "/contact" && isMobile ? "mt-[15vh]" : ""
-            }`}
+            className={`relative rounded-2xl shadow-md lg:h-auto h-[450px] ${location.pathname === "/contact" && isMobile ? "mt-[15vh]" : ""
+              }`}
           >
             <div
               className="liquid-glass flex flex-col justify-center"
@@ -129,24 +127,30 @@ const Contact = () => {
                     Say something to start a live chat!
                   </p>
 
-                  <div className="flex items-center gap-3 mb-4 text-white">
-                    <PiOfficeChair className="text-3xl md:text-lg" />
-                    <address>
-                      322 Boerne Stage Airfield Boerne, Texas 78006
-                    </address>
-                  </div>
-                  <div className="flex items-center gap-3 mb-4 text-white">
+                  <div className="flex items-center gap-3 text-white">
                     <FaEnvelope className="text-lg" />
                     <a href="mailto:info@masonamelia.com">
                       info@masonamelia.com
                     </a>
                   </div>
-                  <div className="flex gap-3 mb-6 pt-1 text-white">
+                  <div className="flex gap-3 my-6 text-white">
+                    <PiOfficeChair className="text-3xl md:text-lg mt-1" />
+                    <div className="principal-office">
+                      <h6 className="font-medium mb-1">PRINCIPAL OFFICE:</h6>
+                      <address className="text-[.9rem]">
+                        322 Boerne Stage Airfield Boerne, Texas 78006
+                      </address>
+                    </div>
+                  </div>
+                  <div className="flex gap-3 text-white">
                     <FaMapMarkerAlt className="text-lg mt-1" />
-                    <span className="max-w-sm">
-                      Birmingham, AL <br /> Duluth, MN <br /> San Antonio, TX{" "}
-                      <br /> Scottsdale, AZ <br /> Upstate, NY
-                    </span>
+                    <div className="locations">
+                      <h6 className="font-medium mb-1">LOCATIONS:</h6>
+                      <span className="max-w-sm text-[.9rem]">
+                        Birmingham, AL <br /> Duluth, MN <br /> San Antonio, TX{" "}
+                        <br /> Scottsdale, AZ <br /> Upstate, NY
+                      </span>
+                    </div>
                   </div>
                 </div>
 
@@ -197,11 +201,10 @@ const Contact = () => {
             {/* status message */}
             {toast.msg && (
               <div
-                className={`mb-4 rounded-lg px-4 py-3 text-sm ${
-                  toast.type === "success"
-                    ? "bg-green-600/20 text-green-200 border border-green-500/40"
-                    : "bg-red-600/20 text-red-200 border border-red-500/40"
-                }`}
+                className={`mb-4 rounded-lg px-4 py-3 text-sm ${toast.type === "success"
+                  ? "bg-green-600/20 text-green-200 border border-green-500/40"
+                  : "bg-red-600/20 text-red-200 border border-red-500/40"
+                  }`}
               >
                 {toast.msg}
               </div>

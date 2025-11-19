@@ -11,6 +11,7 @@ import BlinkingArrow from "../components/BlinkingArrow";
 import TaxiCardsDarkSection from "../components/TaxiAndSystemCheck";
 import { FaHandHoldingUsd, FaBalanceScale, FaShieldAlt, FaChalkboardTeacher, FaClipboardCheck } from "react-icons/fa";
 import ClearForTakeoff from "../components/ClearForTakeoff";
+import Relationship from "../components/Relationship";
 
 const AcquisitionPage = () => {
   const bannerRef = useRef(null);
@@ -230,7 +231,7 @@ const AcquisitionPage = () => {
         />
 
         {/* 👇 this section is the scroll target */}
-        <ServiceHighlights id="service_highlight" data={acquisitionData} />
+        {/* <ServiceHighlights id="service_highlight" data={acquisitionData} /> */}
 
         <TaxiCardsDarkSection tagline={<><span>Taxi &amp; Systems Check</span></>} title={"Expert guidance and trusted partners to clear the path before takeoff"} description={"Before we roll, we ensure every system is a go. Mason Amelia is aligned with top-tier aviation professionals. We ensure the right expertise is engaged early. This includes financing, tax, legal, insurance, training, maintenance, and operational advisors. This cohesive approach gives you clarity and confidence from the very first turn."} cards={cards} />
 
@@ -249,6 +250,8 @@ const AcquisitionPage = () => {
           imageAlt="Aircraft Identification & Acquisition"
           imageOn="right"                              // or "left" to flip layout
         />
+
+        <Relationship />
 
         <section className="bg-[#111218] relative z-[0] py-10">
           <div className="container px-5">

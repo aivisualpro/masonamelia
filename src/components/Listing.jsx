@@ -244,7 +244,7 @@ export default function Listing({ autoScrollEnabled = true }) {
       className="bg-[#111218] relative z-[10] py-20"
     >
       <div className="container px-6">
-        <div className="text-center mb-20">
+        {/* <div className="text-center mb-20">
           <h1 className="text-4xl font-bold text-white pt-10">
             Where Precision Meets Passion
           </h1>
@@ -253,7 +253,7 @@ export default function Listing({ autoScrollEnabled = true }) {
             If your dream aircraft isn’t in our showroom, consider it already in motion. Our global network ensures we find exactly what you seek.
 
           </p>
-        </div>
+        </div> */}
 
         {/* Tabs */}
         <div className="block animated-tabs mb-12">

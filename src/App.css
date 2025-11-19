@@ -11,17 +11,6 @@ body {
   width: 100vw !important;
 }
 
-.logo {
-  -webkit-filter: brightness(100);
-  filter: brightness(100);
-  transition: -webkit-filter .1s ease-in-out, filter .1s ease-in-out;
-
-  will-change: filter; /* Safari aur Chrome dono ke liye helpful */
-}
-.logo:hover {
-  -webkit-filter: none !important;
-  filter: none !important;
-}
 
 .brand_img {
   filter: brightness(0) invert(1);
@@ -710,4 +699,9 @@ h6 {
 
 #showroom iframe {
   filter: invert(90%) !important;
+}
+
+/* width */
+.testimonial-modal::-webkit-scrollbar {
+  width: 0px;
 }

@@ -235,8 +235,8 @@ const SliderWrapper = () => {
                 className="text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white text-center"
               >
                 Mason Amelia{" "}
-                <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                  By the Numbers.
+                <span className="text-white">
+                  By The Numbers.
                 </span>
               </motion.h1>
 

@@ -5,6 +5,7 @@ import GlassNavbar from "./GlassNavbar";
 import { Link, useLocation } from "react-router-dom";
 import MobileNavigation from "./MobileNavigation";
 import logo from "../../public/logo.png"
+import logoWhite from "../../public/logo-white.png"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -72,14 +73,38 @@ const Navbar = () => {
       ].join(" ")}
     >
       <div className="py-4 md:py-1 mx-auto text-white flex items-center justify-between">
-        <div className="ms-4 logo z-[9999] group relative">
-          <Link to={"/"} onClick={() => sessionStorage.clear()}>
+        <div className="ms-4 z-[9999] group">
+          <Link
+            to={"/"}
+            onClick={() => sessionStorage.clear()}
+            className="relative inline-block"
+          >
+            {/* Default: WHITE logo */}
             <img
-              src={
-                logo
-              }
-              className="logo max-w-[250px] h-[50px] md:h-[65px] z-[10]"
+              src={logoWhite}
               alt="logo"
+              className="
+        block
+        max-w-[250px]
+        h-[50px] md:h-[65px]
+        transition-opacity duration-150 ease-in-out
+        opacity-100
+        group-hover:opacity-0
+      "
+            />
+
+            {/* Hover: COLORED logo */}
+            <img
+              src={logo}
+              alt="logo colored"
+              className="
+        absolute inset-0 mt-[-1px]
+        max-w-[178px]
+        h-[50px] md:h-[67px]
+        transition-opacity duration-150 ease-in-out
+        opacity-0
+        group-hover:opacity-100
+      "
             />
           </Link>
         </div>

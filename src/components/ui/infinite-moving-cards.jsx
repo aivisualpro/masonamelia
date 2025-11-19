@@ -1,123 +1,9 @@
-// "use client";
-
-// import React, { useEffect, useState, useRef } from "react";
-// import { cn } from "../../lib/utils"; // assumes `clsx` + `tailwind-merge` utility
-
-// const InfiniteMovingCards = ({
-//   items,
-//   direction = "left",
-//   speed = "fast",
-//   pauseOnHover = true,
-//   className,
-// }) => {
-//   const containerRef = useRef(null);
-//   const scrollerRef = useRef(null);
-//   const [start, setStart] = useState(false);
-
-//   useEffect(() => {
-//     addAnimation();
-//   }, []);
-
-//   const addAnimation = () => {
-//     if (containerRef.current && scrollerRef.current) {
-//       const scrollerContent = Array.from(scrollerRef.current.children);
-
-//       scrollerContent.forEach((item) => {
-//         const duplicatedItem = item.cloneNode(true);
-//         if (scrollerRef.current) {
-//           scrollerRef.current.appendChild(duplicatedItem);
-//         }
-//       });
-
-//       getDirection();
-//       getSpeed();
-//       setStart(true);
-//     }
-//   };
-
-//   const getDirection = () => {
-//     if (containerRef.current) {
-//       containerRef.current.style.setProperty(
-//         "--animation-direction",
-//         direction === "left" ? "forwards" : "reverse"
-//       );
-//     }
-//   };
-
-//   const getSpeed = () => {
-//     if (containerRef.current) {
-//       const duration =
-//         speed === "fast" ? "20s" : speed === "normal" ? "40s" : "100s";
-//       containerRef.current.style.setProperty("--animation-duration", duration);
-//     }
-//   };
-
-//   // 
-
-//   return (
-//     <div
-//       ref={containerRef}
-//       className={cn(
-//         "scroller relative z-20 overflow-hidden",
-//         className
-//       )}
-//     >
-//       <ul
-//         ref={scrollerRef}
-//         className={cn(
-//           "flex w-max min-w-full shrink-0 flex-nowrap gap-4",
-//           start && "animate-scroll",
-//           pauseOnHover && "hover:[animation-play-state:paused]"
-//         )}
-//       >
-//         {items?.map((item, idx) => (
-//           <div className="glass-container flex items-center justify-center glass-container--rounded md:px-4 md:py-3">
-//             <div className="glass-filter"></div>
-//             <div className="glass-overlay"></div>
-//             <div className="glass-specular"></div>
-
-//             <div className="glass-content glass-content--inline justify-center" style={{
-//               padding: "1rem 0"
-//             }} >
-//               <li
-//                 key={idx}
-//                 className="relative w-[350px] max-w-full shrink-0 rounded-2xl px-4 md:px-8 py-0 md:py-6 md:w-[450px]"
-//               >
-//                 <blockquote>
-//                   <div
-//                     aria-hidden="true"
-//                     className="user-select-none pointer-events-none absolute -top-0.5 -left-0.5 -z-1 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
-//                   ></div>
-//                   <span className="relative z-20 text-[13px] md:text-[16px] leading-[1.6] font-normal text-[#ddd] dark:text-gray-100">
-//                     {item.review?.slice(0, 250) + "..."}
-//                   </span>
-//                   <div className="relative z-20 mt-6 flex flex-row items-center justify-center">
-//                     <span className="flex flex-col gap-1">
-//                       <span className="text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
-//                         {item.name}
-//                       </span>
-//                       <span className="text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
-//                         {item.location}
-//                       </span>
-//                     </span>
-//                   </div>
-//                 </blockquote>
-//               </li>
-//             </div>
-//           </div>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default InfiniteMovingCards;
-
-
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { motion, useSpring } from "framer-motion";
+import { motion, useSpring, AnimatePresence } from "framer-motion";
+import { FiBookOpen, FiX } from "react-icons/fi";
+import { createPortal } from "react-dom";
 import { cn } from "../../lib/utils";
 
 /** hovered card ko viewport (container) ke andar fully visible banaye */
@@ -128,12 +14,9 @@ function ensureVisible(cardEl, viewportEl, hoverMv) {
   const cardRect = cardEl.getBoundingClientRect();
 
   let delta = 0;
-  // left side se bahar → right shift (+)
   if (cardRect.left < viewRect.left + margin) {
     delta = viewRect.left + margin - cardRect.left;
-  }
-  // right side se bahar → left shift (-)
-  else if (cardRect.right > viewRect.right - margin) {
+  } else if (cardRect.right > viewRect.right - margin) {
     delta = viewRect.right - margin - cardRect.right;
   }
 
@@ -142,6 +25,68 @@ function ensureVisible(cardEl, viewportEl, hoverMv) {
   }
 }
 
+/** FULLSCREEN MODAL rendered in <body> */
+const TestimonialModal = ({ item, onClose }) => {
+  if (!item) return null;
+  if (typeof document === "undefined") return null;
+
+  // body scroll lock
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    // return () => {
+    //   document.body.style.overflow = prev;
+    // };
+  }, []);
+
+  return createPortal(
+    <AnimatePresence>
+      {item && (
+        <motion.div
+          className="fixed inset-0 z-[99999999] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <motion.div
+            className="testimonial-modal relative mx-4 max-h-[600px] overflow-y-scroll max-w-2xl w-full rounded-2xl bg-tertiary_color text-white p-6 md:p-8 shadow-2xl border border-white/10"
+            initial={{ opacity: 0, scale: 0.85, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 10 }}
+            transition={{ duration: 0.2 }}
+          >
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={onClose}
+              className="absolute right-4 top-4 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition"
+            >
+              <FiX />
+            </button>
+
+            <div className="mb-4 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
+                <FiBookOpen className="text-xl" />
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold">{item?.name}</h3>
+                <p className="text-sm text-blue-100/80">
+                  {item?.location}
+                </p>
+              </div>
+            </div>
+
+            <p className="text-sm md:text-base leading-relaxed text-blue-50/90 whitespace-pre-line">
+              {item?.review}
+            </p>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body
+  );
+};
+
 const InfiniteMovingCards = ({
   items = [],
   direction = "left",
@@ -149,18 +94,16 @@ const InfiniteMovingCards = ({
   pauseOnHover = true,
   className,
 }) => {
-  const containerRef = useRef(null);  // <- viewport
-  const rowRef = useRef(null);        // <- UL we animate with marquee
+  const containerRef = useRef(null); // viewport for marquee
+  const rowRef = useRef(null);
   const [start, setStart] = useState(false);
 
-  // hover nudge (same feel as your video tiles)
   const hoverX = useSpring(0, { stiffness: 200, damping: 30, bounce: 0 });
-
-  // har card ka ref store
   const cardRefs = useRef([]);
 
+  const [activeItem, setActiveItem] = useState(null);
+
   useEffect(() => {
-    // sirf CSS vars set; DOM cloning remove kar diya
     setDirectionVar();
     setSpeedVar();
     setStart(true);
@@ -182,74 +125,93 @@ const InfiniteMovingCards = ({
     containerRef.current.style.setProperty("--animation-duration", duration);
   };
 
-  // events like video tiles
   const handleEnter = (idx) => {
     const el = cardRefs.current[idx];
-    ensureVisible(el, containerRef.current, hoverX); // <- compare to viewport
+    ensureVisible(el, containerRef.current, hoverX);
   };
   const handleLeave = () => hoverX.set(0);
 
-  // marquee loop: items ko 2x render kar do taa ke handlers sab par hon
+  const openModal = (item) => setActiveItem(item);
+  const closeModal = () => {
+    document.body.style.overflow = "scroll";
+    setActiveItem(null)
+  };
+
   const loopItems = items.concat(items);
 
   return (
-    <div
-      ref={containerRef}
-      className={cn("scroller relative z-20 overflow-hidden", className)}
-    >
-      {/* hoverX poori row ko nudge karta hai */}
-      <motion.div style={{ x: hoverX }}>
-        <ul
-          ref={rowRef}
-          className={cn(
-            "flex w-max min-w-full shrink-0 flex-nowrap gap-4",
-            start && "animate-scroll",
-            pauseOnHover && "hover:[animation-play-state:paused]"
-          )}
-        >
-          {loopItems.map((item, idx) => (
-            <div
-              key={`card-${idx}`}
-              ref={(el) => (cardRefs.current[idx] = el)}
-              className="glass-container flex items-center justify-center glass-container--rounded md:px-4 md:py-3"
-              onMouseEnter={() => handleEnter(idx)}
-              onMouseLeave={handleLeave}
-            >
-              <div className="glass-filter" />
-              <div className="glass-overlay" />
-              <div className="glass-specular" />
-
+    <>
+      <div
+        ref={containerRef}
+        className={cn("scroller relative z-20 overflow-hidden", className)}
+      >
+        <motion.div style={{ x: hoverX }}>
+          <ul
+            ref={rowRef}
+            className={cn(
+              "flex w-max min-w-full shrink-0 flex-nowrap gap-4",
+              start && "animate-scroll",
+              pauseOnHover && "hover:[animation-play-state:paused]"
+            )}
+          >
+            {loopItems.map((item, idx) => (
               <div
-                className="glass-content glass-content--inline justify-center overflow-hidden"
-                style={{ padding: "1rem 0" }}
+                key={`card-${idx}`}
+                ref={(el) => (cardRefs.current[idx] = el)}
+                className="glass-container relative group flex items-center justify-center glass-container--rounded md:px-4 md:py-3"
+                onMouseEnter={() => handleEnter(idx)}
+                onMouseLeave={handleLeave}
               >
-                <li className="relative w-[350px] max-w-full shrink-0 rounded-2xl px-4 md:px-8 py-0 md:py-6 md:w-[450px]">
-                  <blockquote>
-                    <div
-                      aria-hidden="true"
-                      className="user-select-none pointer-events-none absolute -top-0.5 -left-0.5 -z-1 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
-                    />
-                    <span className="relative z-20 text-[13px] md:text-[16px] leading-[1.6] font-normal text-[#ddd] dark:text-gray-100">
-                      {(item.review ?? "").slice(0, 250) + "..."}
-                    </span>
-                    <div className="relative z-20 mt-6 flex flex-row items-center justify-center">
-                      <span className="flex flex-col gap-1">
-                        <span className="text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
-                          {item.name}
-                        </span>
-                        <span className="text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
-                          {item.location}
-                        </span>
+                <div className="glass-filter" />
+                <div className="glass-overlay" />
+                <div className="glass-specular" />
+
+                {/* READ ICON – slide down on hover */}
+                <button
+                  type="button"
+                  onClick={() => openModal(item)}
+                  className="absolute top-6 z-[999] hover:bg-tertiary_color hover:text-white right-6 flex items-center justify-center rounded-full bg-white/90 text-sky-600 shadow-md p-2 opacity-0 -translate-y-3
+                             transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
+                >
+                  <FiBookOpen className="text-[18px]" />
+                </button>
+
+                <div
+                  className="glass-content glass-content--inline justify-center overflow-hidden"
+                  style={{ padding: "1rem 0" }}
+                >
+                  <li className="relative w-[350px] max-w-full shrink-0 rounded-2xl px-4 md:px-8 py-0 md:py-6 md:w-[450px]">
+                    <blockquote>
+                      <div
+                        aria-hidden="true"
+                        className="user-select-none pointer-events-none absolute -top-0.5 -left-0.5 -z-1 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
+                      />
+                      <span className="relative z-20 text-[13px] md:text-[16px] leading-[1.6] font-normal text-[#ddd] dark:text-gray-100">
+                        {(item.review ?? "").slice(0, 250)}
+                        {item.review && item.review.length > 250 && "…"}
                       </span>
-                    </div>
-                  </blockquote>
-                </li>
+                      <div className="relative z-20 mt-6 flex flex-row items-center justify-center">
+                        <span className="flex flex-col gap-1">
+                          <span className="text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
+                            {item.name}
+                          </span>
+                          <span className="text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
+                            {item.location}
+                          </span>
+                        </span>
+                      </div>
+                    </blockquote>
+                  </li>
+                </div>
               </div>
-            </div>
-          ))}
-        </ul>
-      </motion.div>
-    </div>
+            ))}
+          </ul>
+        </motion.div>
+      </div>
+
+      {/* FULLSCREEN MODAL INSIDE BODY */}
+      <TestimonialModal item={activeItem} onClose={closeModal} />
+    </>
   );
 };
 

@@ -40,7 +40,7 @@ const GlowingCardSection = () => {
     >
       <div className="absolute top-0 left-0 w-full h-full bg-black opacity-70 z-[-1]"></div>
       <div className="container mx-auto px-4 gap-8 flex flex-col items-center justify-center h-full">
-        <div className="w-full px-4 flex flex-col md:flex-row justify-between items-center z-[4]">
+        {/* <div className="w-full px-4 flex flex-col md:flex-row justify-between items-center z-[4]">
           <div className="flex flex-col items-center jsutify-center mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 80 }}
@@ -66,7 +66,7 @@ const GlowingCardSection = () => {
               precision-led approach delivers trust—and results.
             </motion.p>
           </div>
-        </div>
+        </div> */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
@@ -79,7 +79,7 @@ const GlowingCardSection = () => {
               <div className="glass-filter"></div>
               <div className="glass-overlay"></div>
               <div className="glass-specular"></div>
-              <div className="glass-content h-full">
+              <div className="glass-content h-full" style={{ alignItems: "start" }}>
                 <div
                   key={index}
                   className="p-6 rounded-xl relative w-full text-center"
@@ -93,13 +93,13 @@ const GlowingCardSection = () => {
                     </div>
                   </div>
 
-                  <h3 className="text-white font-semibold text-lg mb-2">
+                  {/* <h3 className="text-white font-semibold text-lg mb-2">
                     {service.title}
-                  </h3>
+                  </h3> */}
                   <p className="text-gray-300 text-sm mb-4">
                     {service.description}
                   </p>
-                  <Button buttonLabel="Read More" onClick="/about" />
+                  {/* <Button buttonLabel="Read More" onClick="/about" /> */}
                 </div>
               </div>
             </motion.div>

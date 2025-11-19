@@ -104,7 +104,7 @@ const HomePage = () => {
         </div>
 
         <div className="relative z-[10]">
-          <Gallary />
+          <Gallary title={"A Bespoke Approach to Brokerage"} tagline={"Your Goals. Our Focus."} />
         </div>
 
         {/* 👇 make sure this id matches */}

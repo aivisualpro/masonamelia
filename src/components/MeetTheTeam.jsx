@@ -53,7 +53,7 @@ const MeetTheTeam = () => {
             </motion.p>
 
             {/* Bullet Points */}
-            <ul className="mt-6 space-y-3 text-sm md:text-base">
+            {/* <ul className="mt-6 space-y-3 text-sm md:text-base">
               <motion.li
                 initial={{ opacity: 0, y: 50 }}
                 viewport={{ amount: 0.2, once: true }}
@@ -84,7 +84,7 @@ const MeetTheTeam = () => {
                 <span className="text-tertiary_color">✔</span>
                 From San Antonio to Duluth — one united mission
               </motion.li>
-            </ul>
+            </ul> */}
 
             {/* CTA + Phone */}
             <div className="flex flex-col lg:flex-row lg:items-center mt-8 gap-4">
