@@ -3,6 +3,7 @@ import HeroSection from "./HeroSection";
 import Navbar from "./Navbar";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { motion } from "framer-motion";
+import Button from "./Button";
 // import LocomotiveScroll from "locomotive-scroll";
 
 const Showcase = () => {
@@ -43,9 +44,26 @@ const Showcase = () => {
               duration: 0.5,
               delay: 0.6,
             }}
-            className={`z-[3] p-4 absolute top-[85%] w-full text-center text-white text-[1.4rem] font-extrabold capitalize leading-[1.2]`}
+            className={`z-[3] p-4 absolute top-[75%] w-full text-center text-white text-[1.4rem] font-extrabold capitalize leading-[1.2]`}
           >
             Turbulence-Free Transactions
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              viewport={{ amount: 0.2, once: true }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1.2 }}
+              className="flex justify-center mt-4"
+            >
+              <Button
+                buttonLabel="Visit Showroom"
+                onClick="/showroom"
+                bgColor="fff"
+                arrowColor="#111218"
+                txtColor="text-[#111218]"
+                borderColor="border-gray-600"
+                fillColor="fill-gray-600"
+              />
+            </motion.div>
           </motion.h2>
         </div>
       </div>

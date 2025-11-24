@@ -33,7 +33,7 @@ export default function ClearForTakeoff({
                 {subtitle}
               </p>
             )}
-            {intro && <p className="mt-4 text-[#222] text-[#222]">{intro}</p>}
+            {intro && <p className="mt-4 text-[#222]">{intro}</p>}
 
             {bullets.length > 0 && (
               <ul className="mt-6 space-y-3 text-text-[#222]">

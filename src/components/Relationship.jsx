@@ -13,7 +13,7 @@ const Relationship = () => {
                         <span className="absolute top-0 left-12 w-12 h-12 md:w-16 md:h-16 bg-tertiary_color rounded-b-[40px]" />
 
                         <div className="rounded-3xl py-10 ">
-                            <h1 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-[#111827] leading-tight">
+                            <h1 className="text-3xl md:text-4xl font-semibold text-[#111827] leading-tight">
                                 Relationship for Life
                             </h1>
 

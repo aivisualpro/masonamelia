@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import logo from "../../public/logoIcon.png";
+import veterenLogo from "/images/veteren.png"
 
 const Footer = () => {
   return (
@@ -82,9 +83,9 @@ const Footer = () => {
             {/* Principal Office */}
             <div>
               <img
-                src="https://static.wixstatic.com/media/04f737_cf652212a66e4f93a1dc1bf4607bd7aa~mv2.png/v1/fill/w_137,h_39,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Veteran%20Owned.png"
+                src={veterenLogo}
                 alt="Veteran Owned"
-                className=""
+                className="max-w-[150px]"
               />
             </div>
             <p className="text-white md:order-1 order-2 text-sm md:text-base text-start">

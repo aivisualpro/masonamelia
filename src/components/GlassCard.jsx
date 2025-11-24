@@ -42,7 +42,7 @@ export default function GlassCard() {
           viewport={{ amount: 0.2, once: true }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1.2 }}
-          className="flex justify-center mt-4"
+          className="md:flex hidden justify-center mt-4"
         >
           <Button
             buttonLabel="Visit Showroom"
