@@ -124,7 +124,7 @@ const ShowroomPage = () => {
       <div ref={listingRef}>
         <Listing autoScrollEnabled={autoScrollEnabled} />
       </div>
-      <CTA />
+      {/* <CTA /> */}
 
       <section className="bg-[#111218] relative z-[10] py-10">
         <div className="container px-5">

@@ -32,8 +32,8 @@ const Reviews = () => {
         id="testimonials"
         className={`${
           location.pathname === "/testimonial"
-            ? "md:h-[100vh] lg:h-full xl:h-[100vh] justify-center 2xl:justify-around"
-            : "xl:h-[100vh] justify-around"
+            ? "h-full justify-center 2xl:justify-around"
+            : "h-full justify-around"
         }  flex flex-col py-20`}
       >
         <div
@@ -73,7 +73,17 @@ const Reviews = () => {
             bgColor=""
             pauseOnHover={true}
             speed={"slow"}
-            items={reviews}
+            items={reviews?.slice(0, 4)}
+            itemClass={"min-w-[600px]"}
+          />
+        </div>
+        <div className="testimonial_moving_card mt-8 md:[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+          <InfiniteMovingCards
+            bgColor=""
+            direction="right"
+            pauseOnHover={true}
+            speed={"slow"}
+            items={reviews?.slice(3, 7)}
             itemClass={"min-w-[600px]"}
           />
         </div>

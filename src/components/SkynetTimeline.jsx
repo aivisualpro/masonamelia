@@ -74,7 +74,7 @@ const SkynetTimeline = () => {
 
   return (
     <section className="pt-20 bg-white relative z-0">
-      {/* <div className="container px-5">
+      <div className="container px-5">
         <motion.h2
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -97,7 +97,7 @@ const SkynetTimeline = () => {
           valuation. SkyNet is redefining what’s possible in aviation pricing
           intelligence.
         </motion.p>
-      </div> */}
+      </div>
 
       <div className="container">
         <div
@@ -153,7 +153,7 @@ const SkynetTimeline = () => {
                     index % 2 === 0 ? "md:pe-20" : "md:ps-20"
                   }`}
                 >
-                  <motion.h4
+                  {/* <motion.h4
                     initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, amount: 0.2 }}
@@ -161,7 +161,7 @@ const SkynetTimeline = () => {
                     className="text-2xl font-semibold text-gray-800 mb-4 text-center md:text-left"
                   >
                     {item.title}
-                  </motion.h4>
+                  </motion.h4> */}
                   <motion.p
                     initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
                     whileInView={{ opacity: 1, x: 0 }}

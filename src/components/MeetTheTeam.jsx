@@ -30,9 +30,9 @@ const MeetTheTeam = () => {
               className="text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-primary_theme"
               style={{ lineHeight: "1.1" }}
             >
-              Meet the Experts From{" "}
+              From San Antonio to Duluth…{" "}
               <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                San Antonio to Duluth
+                Meet The Team
               </span>{" "}
             </motion.h2>
 

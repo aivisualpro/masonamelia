@@ -234,10 +234,7 @@ const SliderWrapper = () => {
                 transition={{ duration: 0.5 }}
                 className="text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white text-center"
               >
-                Mason Amelia{" "}
-                <span className="text-white">
-                  By The Numbers.
-                </span>
+                By The Numbers.
               </motion.h1>
 
               <motion.p

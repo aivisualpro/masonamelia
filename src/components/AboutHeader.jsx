@@ -45,7 +45,7 @@ const AboutHeader = () => {
           <div className={`rounded-md md:bg-transparent bg-black/50 p-2`}>
             <ShinyText
               isTextCenter={media}
-              text="Mason Amelia delivers trusted aviation backed by legacy. Precision, clarity, and lasting confidence in every deal."
+              text="We help distinguished clientele get where they want to go, but faster. Think TBM speed"
               disabled={false}
               speed={5}
               className="text-lg md:text-xl [text-shadow:_0_2px_8px_rgba(0,0,0,0.7)]"

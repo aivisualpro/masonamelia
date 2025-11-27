@@ -123,11 +123,11 @@ const Contact = () => {
                   <h2 className="text-4xl font-bold mb-2 text-white">
                     Contact Us
                   </h2>
-                  <p className="mb-6 text-sm text-gray-200">
+                  {/* <p className="mb-6 text-sm text-gray-200">
                     Say something to start a live chat!
-                  </p>
+                  </p> */}
 
-                  <div className="flex items-center gap-3 text-white">
+                  <div className="flex items-center gap-3 pt-4 text-white">
                     <FaEnvelope className="text-lg" />
                     <a href="mailto:info@masonamelia.com">
                       info@masonamelia.com
