@@ -5,12 +5,12 @@ import ShinyText from "./ui/ShinyText";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const AboutHeader = () => {
-  const media = useMediaQuery("(max-width: 767px)");
+  const media = useMediaQuery("(max-width: 1023px)");
 
   return (
     // Wrap hero in a relative section so overlay sit kare
     <section className="relative h-[100vh]">
-      <div className="relative z-10 px-5 pt-20 container flex flex-col justify-center h-full md:items-start items-center">
+      <div className={`relative z-10 px-5 pt-20 container flex flex-col justify-center md:justify-end lg:justify-center h-full md:items-start items-center`}>
         <motion.h1
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
@@ -42,13 +42,13 @@ const AboutHeader = () => {
           className="max-w-xl flex justify-start"
         >
           {/* Slight chip behind paragraph for readability on mobile */}
-          <div className={`rounded-md md:bg-transparent bg-black/50 p-2`}>
+          <div className={`rounded-md md:bg-transparent lg:pt-0 lg:pb-0 md:pt-2 md:pb-6`}>
             <ShinyText
               isTextCenter={media}
               text="We help distinguished clientele get where they want to go, but faster. Think TBM speed"
               disabled={false}
               speed={5}
-              className="text-lg md:text-xl [text-shadow:_0_2px_8px_rgba(0,0,0,0.7)]"
+              className="text-center md:text-start text-lg md:text-xl [text-shadow:_0_2px_8px_rgba(0,0,0,0.7)]"
               color="text-[#ddd] md:text-[#b5b5b5a4]"
             />
           </div>

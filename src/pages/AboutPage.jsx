@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import About from "../components/About";
 import bgPlane from "/images/banner.png";
-import bgPlaneTeam from "/images/team.jpg";
+import bgPlaneTeam from "/images/team.png";
 import ScrollToTop from "../components/ScrollToTop";
 import { Timeline } from "../components/ui/timeline";
 import { FaHandshake, FaUsers, FaChartLine } from "react-icons/fa";
@@ -171,7 +171,7 @@ const AboutPage = () => {
     },
   ];
 
-  const media = useMediaQuery("(max-width: 767px)");
+  const media = useMediaQuery("(max-width: 1023px)");
   const height = useMediaQuery("(max-height: 750px)");
 
   return (
@@ -180,18 +180,18 @@ const AboutPage = () => {
       {/* HERO / FIRST SECTION with arrow + auto-scroll */}
       <section
         ref={bannerRef}
-        className="md:sticky top-0  relative max-w-screen h-screen bg-[#10121A] overflow-hidden"
+        className="md:sticky top-0  relative lg:max-w-screen lg:h-screen bg-[#10121A] overflow-hidden"
         style={{
           backgroundImage: `url(${media ? bgPlaneTeam : bgPlane})`,
           backgroundSize: `${media ? "contain" : "cover"}`,
           backgroundPosition: `${media ? "top 0px right 0px" : "100% 45%"}`,
           backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
+          backgroundAttachment: `${media ? "static" : "fixed"}`,
           backgroundColor: "#10121A",
         }}
       >
         {/* <div className="absolute top-0 left-0 w-full h-full bg-[#10121A] opacity-70 z-[-1]"></div> */}
-        <div className={`container px-5 ${height ? "pt-[50px]" : ""}`}>
+        <div className={`container px-5 ${height ? "pt-[70px] md:pt-0" : "pt-[30px] md:pt-0"}`}>
           <About />
         </div>
 
