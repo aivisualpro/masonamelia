@@ -15,10 +15,10 @@ export default function TaxiCardsDarkSection({ tagline, title, description, card
 
       <div className="container px-5">
         <div className="mb-12 text-center">
-          <div className="mx-auto mb-3 inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900/60 px-4 py-1 text-xs font-semibold text-slate-300">
+          <div className="text-4xl xl:text-7xl mx-auto mb-3 inline-flex items-center gap-2 rounded-full bg-slate-900/60 px-4 py-1 font-bold text-white">
             {tagline}
           </div>
-          <h2 className="text-3xl mx-auto font-bold tracking-tight md:text-4xl max-w-3xl py-4">{title}</h2>
+          <h2 className="mx-auto font-light text-xl xl:text-2xl max-w-3xl py-3">{title}</h2>
           <p className="mx-auto mt-3 max-w-2xl text-slate-400">
             {description}
           </p>

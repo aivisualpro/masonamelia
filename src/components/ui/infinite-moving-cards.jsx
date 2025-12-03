@@ -158,13 +158,13 @@ const InfiniteMovingCards = ({
               <div
                 key={`card-${idx}`}
                 ref={(el) => (cardRefs.current[idx] = el)}
-                className="glass-container relative group flex items-center justify-center glass-container--rounded md:px-4 md:py-3"
+                className="relative group flex items-center justify-center glass-container--rounded md:px-2"
                 onMouseEnter={() => handleEnter(idx)}
                 onMouseLeave={handleLeave}
               >
-                <div className="glass-filter" />
+                {/* <div className="glass-filter" />
                 <div className="glass-overlay" />
-                <div className="glass-specular" />
+                <div className="glass-specular" /> */}
 
                 {/* READ ICON – slide down on hover */}
                 <button
@@ -176,26 +176,23 @@ const InfiniteMovingCards = ({
                   <FiBookOpen className="text-[18px]" />
                 </button>
 
-                <div
-                  className="glass-content glass-content--inline justify-center overflow-hidden"
-                  style={{ padding: "1rem 0" }}
-                >
-                  <li className="relative w-[350px] max-w-full shrink-0 rounded-2xl px-4 md:px-8 py-0 md:py-6 md:w-[450px]">
-                    <blockquote>
+                <div className="">
+                  <li className="relative w-[325px] max-w-full pt-8 rounded-[50px] px-4 md:px-8 py-0 md:py-6 md:w-[450px] h-[300px] bg-black/30">
+                    <blockquote className="pt-2">
                       <div
                         aria-hidden="true"
-                        className="user-select-none pointer-events-none absolute -top-0.5 -left-0.5 -z-1 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
+                        className="user-select-none pointer-events-none flex flex-col justify-center "
                       />
                       <span className="relative z-20 text-[13px] md:text-[16px] leading-[1.6] font-normal text-[#ddd] dark:text-gray-100">
                         {(item.review ?? "").slice(0, 250)}
                         {item.review && item.review.length > 250 && "…"}
                       </span>
-                      <div className="relative z-20 mt-6 flex flex-row items-center justify-center">
-                        <span className="flex flex-col gap-1">
-                          <span className="text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
+                      <div className="relative z-20 mt-6">
+                        <span className="flex flex-col">
+                          <span className="text-sm md:text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
                             {item.name}
                           </span>
-                          <span className="text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
+                          <span className="text-sm md:text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
                             {item.location}
                           </span>
                         </span>

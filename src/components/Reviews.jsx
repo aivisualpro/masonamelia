@@ -56,7 +56,7 @@ const Reviews = () => {
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="text-[#ddd] md:text-lg py-[40px] mx-auto max-w-4xl"
+              className="text-[#ddd] md:text-lg py-[40px] mx-auto max-w-4xl md:px-0 px-5"
             >
               Our scrupulous oversight and personalized service get the most out
               of your transaction. The words of our valued clients speak
@@ -68,7 +68,7 @@ const Reviews = () => {
 
         {/*  */}
 
-        <div className="testimonial_moving_card mt-8 md:[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+        <div className="testimonial_moving_card md:[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
           <InfiniteMovingCards
             bgColor=""
             pauseOnHover={true}

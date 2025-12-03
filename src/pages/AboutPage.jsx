@@ -172,7 +172,7 @@ const AboutPage = () => {
   ];
 
   const media = useMediaQuery("(max-width: 1023px)");
-  const height = useMediaQuery("(max-height: 750px)");
+  const height = useMediaQuery("(max-height: 700px)");
 
   return (
     <>
@@ -191,7 +191,7 @@ const AboutPage = () => {
         }}
       >
         {/* <div className="absolute top-0 left-0 w-full h-full bg-[#10121A] opacity-70 z-[-1]"></div> */}
-        <div className={`container px-5 ${height ? "pt-[70px] md:pt-0" : "pt-[30px] md:pt-0"}`}>
+        <div className={`container px-5`}>
           <About />
         </div>
 

@@ -28,7 +28,7 @@ const ServiceRappleResearch = ({
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-[1.6rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white max-w-7xl mx-auto"
+              className="text-4xl xl:text-7xl font-bold text-white max-w-7xl mx-auto"
               style={{ lineHeight: "1.1" }}
             >
               <span className="bg-gradient-to-r text-white bg-clip-text text-transparent">

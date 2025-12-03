@@ -15,11 +15,11 @@ const HeroSection = () => {
           "
     >
       <div className="container z-10 px-4">
-        <div className="hero_section_content_container flex flex-col xl:gap-0 justify-end md:h-[100vh] relative text-white my-auto py-4">
+        <div className="hero_section_content_container flex flex-col xl:gap-0 justify-end md:h-[100vh] relative text-white my-auto">
           <div className="md:order-1 order-1">
             <GlassCard />
           </div>
-          <div className="md:flex hidden sm:order-2 order-2 w-full justify-between md:mb-12 mt-8">
+          <div className="md:flex hidden sm:order-2 order-2 w-full justify-between md:mb-6 mt-6">
             <div
               className={`glass-container w-full`}
               style={{ borderRadius: "5px" }}

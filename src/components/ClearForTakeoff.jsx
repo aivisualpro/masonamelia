@@ -24,16 +24,16 @@ export default function ClearForTakeoff({
           {/* Text */}
           <div>
             {title && (
-              <h2 className="text-3xl font-bold tracking-tight text-[#111218] md:text-4xl">
+              <h2 className="text-4xl xl:text-7xl font-bold tracking-tight text-[#111218]">
                 {title}
               </h2>
             )}
             {subtitle && (
-              <p className="mt-2 text-lg font-semibold text-[#222] pt-4">
+              <p className="text-xl xl:text-2xl font-bold text-[#222] py-6">
                 {subtitle}
               </p>
             )}
-            {intro && <p className="mt-4 text-[#222]">{intro}</p>}
+            {intro && <p className="text-[#222]">{intro}</p>}
 
             {bullets.length > 0 && (
               <ul className="mt-6 space-y-3 text-text-[#222]">
