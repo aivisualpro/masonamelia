@@ -136,7 +136,7 @@ const MeetTheTeam = () => {
               transition={{ duration: 0.6, delay: 0.5 }}
               src={meetTheTeam}
               alt="Team Banner"
-              className="rounded-3xl w-full z-[20] lg:ml-[50px]"
+              className="rounded-3xl w-full z-[20]"
             />
           </div>
         </div>
