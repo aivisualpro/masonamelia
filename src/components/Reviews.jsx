@@ -9,7 +9,6 @@ const Reviews = () => {
   const location = useLocation();
 
   const { data: reviews, isLoading, isFetching, error } = useReviews();
-  console.log(reviews);
 
   return (
     <>
