@@ -9,8 +9,8 @@ export default function TaxiCardsDarkSection({ tagline, title, description, card
     <section className="relative overflow-hidden bg-[#111218] py-20 text-slate-100">
       {/* background accents */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 -right-28 h-[28rem] w-[28rem] rotate-12 rounded-full bg-gradient-to-br from-[#1777cb]/20 to-[#1777cb]/20 blur-3xl" />
-        <div className="absolute -bottom-40 -left-28 h-[28rem] w-[28rem] -rotate-12 rounded-full bg-gradient-to-tr from-[#1777cb]/20 to-[#1777cb]/20 blur-3xl" />
+        <div className="lg:block hidden absolute -top-40 -right-28 h-[28rem] w-[28rem] rotate-12 rounded-full bg-gradient-to-br from-[#1777cb]/20 to-[#1777cb]/20 blur-3xl" />
+        <div className="lg:block hidden absolute -bottom-40 -left-28 h-[28rem] w-[28rem] -rotate-12 rounded-full bg-gradient-to-tr from-[#1777cb]/20 to-[#1777cb]/20 blur-3xl" />
       </div>
 
       <div className="container px-5">
@@ -19,7 +19,7 @@ export default function TaxiCardsDarkSection({ tagline, title, description, card
             {tagline}
           </div>
           <h2 className="mx-auto font-light text-xl xl:text-2xl max-w-3xl py-3">{title}</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-slate-400">
+          <p className="mx-auto mt-3 max-w-[55rem] text-slate-400">
             {description}
           </p>
         </div>
