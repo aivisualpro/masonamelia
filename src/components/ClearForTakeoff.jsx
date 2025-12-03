@@ -17,14 +17,14 @@ export default function ClearForTakeoff({
     <section className="relative bg-[#fff] py-20">
       <div className="container px-5">
         <div
-          className={`flex gap-8 ${
+          className={`flex lg:flex-row flex-col gap-8 ${
             imageFirst ? "md:[&>div:first-child]:order-2" : ""
           }`}
         >
           {/* Text */}
-          <div className="md:w-1/2 w-full">
+          <div className="lg:w-1/2 w-full">
             {title && (
-              <h2 className="text-4xl xl:text-7xl font-bold tracking-tight text-[#111218]">
+              <h2 className="text-[2rem] md:text-[3rem] xl:text-7xl font-bold tracking-tight text-[#111218]">
                 {title}
               </h2>
             )}
@@ -33,7 +33,7 @@ export default function ClearForTakeoff({
                 {subtitle}
               </p>
             )}
-            {intro && <p className="text-[#222]">{intro}</p>}
+            {intro && <p className="text-[#222] md:text-lg">{intro}</p>}
 
             {bullets.length > 0 && (
               <ul className="mt-6 space-y-3 text-text-[#222]">
@@ -50,7 +50,7 @@ export default function ClearForTakeoff({
           </div>
 
           {/* Image */}
-          <div className="relative md:w-1/2 w-full">
+          <div className="relative lg:w-1/2 w-full">
             <div className="absolute -inset-6 -z-10 rounded-3xl bg-sky-500/10 blur-3xl" />
             <img
               src={image}

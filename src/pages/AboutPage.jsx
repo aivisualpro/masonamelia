@@ -180,7 +180,7 @@ const AboutPage = () => {
       {/* HERO / FIRST SECTION with arrow + auto-scroll */}
       <section
         ref={bannerRef}
-        className="md:sticky top-0  relative lg:max-w-screen lg:h-screen bg-[#10121A] overflow-hidden"
+        className="md:sticky top-0 relative lg:max-w-screen lg:h-screen bg-[#10121A] overflow-hidden"
         style={{
           backgroundImage: `url(${media ? bgPlaneTeam : bgPlane})`,
           backgroundSize: `${media ? "contain" : "cover"}`,

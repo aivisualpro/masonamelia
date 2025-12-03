@@ -34,21 +34,21 @@ const Banner = ({ url }) => {
               delay={150}
               animateBy="words"
               direction="top"
-              className="max-w-xl text-[36px] sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white"
+              className="max-w-xl text-[36px] text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl leading-none font-bold text-white"
             />
             <ShinyText
               text="We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators."
               disabled={false}
               isTextCenter={media ? true : false}
               speed={5}
-              className="custom-class text-[16px] md:text-xl mt-4 md:max-w-md lg:max-w-xl xl:max-w-2xl"
+              className="custom-class md:text-lg py-4 md:max-w-md lg:max-w-lg xl:max-w-xl"
             /> <br />
             <ShinyText
               text="If your dream aircraft isn’t in our showroom, consider it already in motion. Our global network ensures we find exactly what you seek."
               disabled={false}
               isTextCenter={media ? true : false}
               speed={5}
-              className="custom-class text-[16px] md:text-xl mt-4 md:max-w-md lg:max-w-xl xl:max-w-2xl"
+              className="custom-class md:text-lg md:max-w-md lg:max-w-lg xl:max-w-xl"
             />
           </div>
         </div>

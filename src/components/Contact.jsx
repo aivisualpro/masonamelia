@@ -108,7 +108,7 @@ const Contact = () => {
         <div className="container mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left */}
           <div
-            className={`relative rounded-2xl shadow-md lg:h-auto h-[450px] ${location.pathname === "/contact" && isMobile ? "mt-[15vh]" : ""
+            className={`relative rounded-2xl shadow-md lg:h-auto h-[425px] ${location.pathname === "/contact" && isMobile ? "mt-[15vh]" : ""
               }`}
           >
             <div

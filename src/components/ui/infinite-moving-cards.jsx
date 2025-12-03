@@ -89,23 +89,23 @@ const InfiniteMovingCards = ({
   speed = "fast",
   pauseOnHover = true,
   className,
+  bgColor,
+  itemClass,
 }) => {
-  const containerRef = useRef(null); // viewport for marquee
+  const containerRef = useRef(null); // viewport
   const rowRef = useRef(null);
+  const cardRefs = useRef([]); // har card ka ref
+
   const [start, setStart] = useState(false);
-
-  // hover offset (Framer spring)
-  const hoverX = useSpring(0, { stiffness: 200, damping: 30, bounce: 0 });
-  const cardRefs = useRef([]);
-
   const [activeItem, setActiveItem] = useState(null);
 
-  // poori row ke liye hover state
+  // x-offset for centering card
+  const hoverX = useSpring(0, { stiffness: 200, damping: 30, bounce: 0 });
+
+  // row hover state
   const [isRowHovered, setIsRowHovered] = useState(false);
-  // ek hover session mein sirf pehle card ko adjust karna
-  const [lockedIndex, setLockedIndex] = useState(null);
-  // row se bahar nikalne ke baad x reset karte waqt bhi animation pause rehni chahiye
   const [isResettingX, setIsResettingX] = useState(false);
+  const resetTimeoutRef = useRef(null);
 
   useEffect(() => {
     setDirectionVar();
@@ -129,35 +129,30 @@ const InfiniteMovingCards = ({
     containerRef.current.style.setProperty("--animation-duration", duration);
   };
 
-  // container level hover → marquee pause
+  // container enter → pause marquee
   const handleContainerEnter = () => {
     setIsRowHovered(true);
-    setLockedIndex(null); // naya hover session
   };
 
+  // container leave → x reset, phir marquee resume
   const handleContainerLeave = () => {
-    // yahan hum pehle hoverX ko 0 pe wapas laa rahe hain
-    // iss dauran marquee STILL paused rahegi
     setIsResettingX(true);
-    hoverX.set(0);
+    hoverX.set(0); // spring se 0 par lao
 
-    // thoda sa wait (spring ko settle hone do), phir marquee resume
-    const timeout = setTimeout(() => {
+    if (resetTimeoutRef.current) {
+      clearTimeout(resetTimeoutRef.current);
+    }
+    resetTimeoutRef.current = setTimeout(() => {
       setIsResettingX(false);
       setIsRowHovered(false);
-      setLockedIndex(null);
-    }, 220); // spring transition ~0.2s upar set hai
-
-    // cleanup
-    return () => clearTimeout(timeout);
+    }, 220); // spring duration ke approx
   };
 
-  // card per enter → sirf ek hi baar ensureVisible chale
+  // kisi bhi card par hover → us card ko full view
   const handleCardEnter = (idx) => {
-    if (lockedIndex !== null && lockedIndex !== idx) return;
-    const el = cardRefs.current[idx];
-    ensureVisible(el, containerRef.current, hoverX);
-    setLockedIndex(idx);
+    const cardEl = cardRefs.current[idx];
+    if (!cardEl || !containerRef.current) return;
+    ensureVisible(cardEl, containerRef.current, hoverX);
   };
 
   const openModal = (item) => setActiveItem(item);
@@ -179,7 +174,6 @@ const InfiniteMovingCards = ({
         onMouseEnter={handleContainerEnter}
         onMouseLeave={handleContainerLeave}
       >
-        {/* hoverX sirf viewport offset ke liye use ho raha */}
         <motion.div style={{ x: hoverX }}>
           <ul
             ref={rowRef}
@@ -193,9 +187,11 @@ const InfiniteMovingCards = ({
               <div
                 key={`card-${idx}`}
                 ref={(el) => {
-                  if (el) cardRefs.current[idx] = el;
+                  cardRefs.current[idx] = el;
                 }}
-                className="relative group flex items-center justify-center glass-container--rounded md:px-2"
+                className={cn(
+                  "relative group flex items-center justify-center md:px-2",
+                )}
                 onMouseEnter={() => handleCardEnter(idx)}
               >
                 {/* READ ICON – slide down on hover */}
@@ -209,7 +205,13 @@ const InfiniteMovingCards = ({
                 </button>
 
                 <div>
-                  <li className="relative w-[325px] max-w-full pt-8 rounded-[50px] px-4 md:px-8 py-0 md:py-6 md:w-[450px] h-[300px] bg-black/30">
+                  <li
+                    className={cn(
+                      "flex flex-col justify-center relative w-[325px] max-w-full pt-8 rounded-[50px] px-4 md:px-8 py-0 md:py-6 md:w-[450px] h-[300px]",
+                      bgColor ? "" : "bg-black/30"
+                    )}
+                    style={bgColor ? { backgroundColor: bgColor } : undefined}
+                  >
                     <blockquote className="pt-2">
                       <div
                         aria-hidden="true"

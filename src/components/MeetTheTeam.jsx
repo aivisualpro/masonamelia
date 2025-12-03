@@ -18,16 +18,16 @@ const MeetTheTeam = () => {
       }}
     >
       <div className="container h-full px-5 flex items-center">
-        <div className="flex flex-col md:flex-row items-center  justify-between gap-8 md:gap-4 lg:gap-4 xl:gap-8">
+        <div className="flex flex-col lg:flex-row items-center  justify-between gap-8 md:gap-4 lg:gap-4 xl:gap-8">
           {/* LEFT CONTENT */}
-          <div className="w-full md:w-1/2 rounded-3xl text-white">
+          <div className="w-full lg:w-1/2 rounded-3xl text-white">
             {/* Heading */}
             <motion.h2
               initial={{ y: 50, opacity: 0 }}
               viewport={{ amount: 0.2, once: true }}
               whileInView={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.4 }}
-              className="text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-primary_theme"
+              className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-primary_theme"
               style={{ lineHeight: "1.1" }}
             >
               From San Antonio to Duluth…{" "}
@@ -128,7 +128,7 @@ const MeetTheTeam = () => {
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="justify-center md:w-1/2 flex relative z-[0]">
+          <div className="justify-center lg:w-1/2 flex relative z-[0]">
             <motion.img
               initial={{ opacity: 0, x: 70 }}
               viewport={{ amount: 0.2, once: true }}

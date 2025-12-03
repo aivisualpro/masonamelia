@@ -16,7 +16,7 @@ const SkynetAdvantage = () => {
                 initial={{ opacity: 0, y: 100 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold text-center"
+                className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-center"
               >
                 Unlock{" "}
                 <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">

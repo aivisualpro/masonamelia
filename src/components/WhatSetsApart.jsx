@@ -73,7 +73,7 @@ export default function WhatSetsUsApart() {
               initial={{ opacity: 0, y: 100 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-[1.5rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white md:max-w-3xl"
+              className="text-[1.5rem] md:text-[3.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white md:max-w-3xl"
               style={{ lineHeight: "1.2" }}
             >
               Who is{" "}
@@ -113,25 +113,22 @@ export default function WhatSetsUsApart() {
                 <div className="glass-filter"></div>
                 <div className="glass-overlay"></div>
                 <div className="glass-specular"></div>
-                <SpotlightCard
-                  className="custom-spotlight-card"
-                  // spotlightColor="rgba(0, 229, 255, 0.2)"
-                >
-                  <div className="glass-content h-full">
-                    <div
-                      key={idx}
-                      className="rounded-xl p-2 flex flex-col items-center w-full relative"
-                    >
-                      {card.icon}
-                      <h3 className="text-xl 2xl:text-2xl font-bold text-white mb-2 text-center">
-                        {card.title}
-                      </h3>
-                      <p className="text-white text-center lg:text-sm 2xl:text-base font-light">
-                        {card.desc}
-                      </p>
-                    </div>
+
+                <div className="p-4 h-full">
+                  <div
+                    key={idx}
+                    className="rounded-xl p-2 flex flex-col items-center w-full relative"
+                  >
+                    {card.icon}
+                    <h3 className="text-xl 2xl:text-2xl font-bold text-white mb-2 text-center">
+                      {card.title}
+                    </h3>
+                    <p className="text-white text-center lg:text-sm 2xl:text-base font-light">
+                      {card.desc}
+                    </p>
                   </div>
-                </SpotlightCard>
+                </div>
+
               </motion.div>
             ))}
           </div>

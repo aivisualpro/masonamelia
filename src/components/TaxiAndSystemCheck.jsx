@@ -15,16 +15,16 @@ export default function TaxiCardsDarkSection({ tagline, title, description, card
 
       <div className="container px-5">
         <div className="mb-12 text-center">
-          <div className="text-4xl xl:text-7xl mx-auto mb-3 inline-flex items-center gap-2 rounded-full bg-slate-900/60 px-8 py-3 font-bold text-slate-400 border-[1px] border-slate-800">
+          <div className="text-[2rem] md:text-[3rem] xl:text-7xl inline-block  mx-autoinline-flex items-center gap-2 rounded-full bg-slate-900/60 px-8 py-3 font-bold text-slate-400 border-[1px] border-slate-800">
             {tagline}
           </div>
-          <h2 className="mx-auto font-light text-xl xl:text-2xl max-w-3xl py-3">{title}</h2>
-          <p className="mx-auto mt-3 max-w-[55rem] text-slate-400">
+          <h2 className="mx-auto font-light text-xl xl:text-2xl max-w-3xl py-8">{title}</h2>
+          <p className="mx-auto max-w-[55rem] md:text-lg text-slate-400">
             {description}
           </p>
         </div>
 
-        <div className={`grid grid-cols-1 gap-6 md:grid-cols-3 ${location.pathname === "/brokerage" ? "xl:grid-cols-4" : "xl:grid-cols-5"}`}>
+        <div className={`grid grid-cols-1 gap-6 md:grid-cols-2 ${location.pathname === "/brokerage" ? "xl:grid-cols-4" : "xl:grid-cols-5"}`}>
           {cards.map((card, idx) => (
             <article
               key={idx}

@@ -28,7 +28,7 @@ const ServiceRappleResearch = ({
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-4xl xl:text-7xl font-bold text-white max-w-7xl mx-auto"
+              className="text-[2rem] md:text-[3rem] xl:text-7xl font-bold text-white max-w-7xl mx-auto"
               style={{ lineHeight: "1.1" }}
             >
               <span className="bg-gradient-to-r text-white bg-clip-text text-transparent">
@@ -40,7 +40,7 @@ const ServiceRappleResearch = ({
               initial={{ opacity: 0, y: 70 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-[#fff] py-[40px] text-sm md:text-lg xl:text-xl font-light max-w-5xl mx-auto"
+              className="text-[#fff] py-[40px] md:text-lg font-light mx-auto"
             >
               {description}
             </motion.p>

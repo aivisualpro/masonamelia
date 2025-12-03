@@ -36,7 +36,7 @@ const ServiceBanner = ({ banner }) => {
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 50, duration: 0.5 }}
-            className="md:text-start text-center text-white text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl lg:max-w-lg xl:max-w-2xl mb-7"
+            className="md:text-start text-center text-white text-[2rem] md:text-[3rem] xl:text-7xl max-w-lg xl:max-w-2xl mb-7"
             style={{ lineHeight: "1.1" }}
           >
             {location.pathname === "/brokerage"
@@ -58,7 +58,7 @@ const ServiceBanner = ({ banner }) => {
               duration: 0.5,
               delay: 0.3,
             }}
-            className="max-w-xl flex justify-start"
+            className="max-w-lg xl:max-w-xl flex justify-start"
           >
             <ShinyText
               isTextCenter={media ? true : false}
@@ -69,7 +69,7 @@ const ServiceBanner = ({ banner }) => {
               }
               disabled={false}
               speed={5}
-              className="text-lg md:text-xl"
+              className="md:text-lg"
             />
           </motion.div>
         </div>

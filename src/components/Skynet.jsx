@@ -15,7 +15,7 @@ const Skynet = () => {
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 50, duration: 0.5 }}
-          className="text-white md:text-start text-center text-[2rem] md:text-[3rem] lg:text-[3rem] xl:text-6xl md:max-w-md lg:max-w-2xl"
+          className="text-white md:text-start text-center text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-6xl md:max-w-md lg:max-w-2xl"
           style={{ lineHeight: "1.1" }}
         >
           Mason Amelia Pricing Intelligence - {" "}
@@ -43,7 +43,7 @@ const Skynet = () => {
             }
             disabled={false}
             speed={5}
-            className="text-lg md:text-xl"
+            className="md:text-lg"
           />
         </motion.div>
       </div>

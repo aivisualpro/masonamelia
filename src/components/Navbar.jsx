@@ -73,7 +73,7 @@ const Navbar = () => {
       ].join(" ")}
     >
       <div className="py-4 md:py-1 mx-auto text-white flex items-center justify-between">
-        <div className="ms-4 z-[9999] group">
+        <div className="ms-5 mt-[.5rem] z-[9999] group">
           <Link
             to={"/"}
             onClick={() => sessionStorage.clear()}

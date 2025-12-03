@@ -36,18 +36,14 @@ const Reviews = () => {
         }  flex flex-col py-20`}
       >
         <div
-          className={`${
-            location.pathname === "/testimonial"
-              ? "container px-5 mb-14 z-[20]"
-              : ""
-          }`}
+          className={`container px-5 mb-14 z-[20]`}
         >
           <div className="text-center">
             <motion.h5
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl text-[#fff] font-bold max-w-3xl mx-auto"
+              className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] leading-none 2xl:text-7xl text-[#fff] font-bold mx-auto"
             >
               Read What Our Clients Have to Say
             </motion.h5>
@@ -55,7 +51,7 @@ const Reviews = () => {
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="text-[#ddd] md:text-lg py-[40px] mx-auto max-w-4xl md:px-0 px-5"
+              className="text-[#ddd] md:text-lg py-[40px] mx-auto"
             >
               Our scrupulous oversight and personalized service get the most out
               of your transaction. The words of our valued clients speak

@@ -1,34 +1,5 @@
+text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl
 
-<div className="md:block hidden z-[0] glassmorphism_effect_line w-[1px] h-[60%] bg-white/20 absolute right-[0px] top-1/2 -translate-y-1/2"></div>
+md:text-lg
 
-
-const handleContainerEnter = () => {
-    setIsHovered(true);
-    setLockedIndex(null);
-  };
-
-  const handleContainerLeave = () => {
-    setIsHovered(false);
-    setLockedIndex(null);
-  };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
+text-xl xl:text-2xl

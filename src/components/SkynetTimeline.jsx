@@ -79,7 +79,7 @@ const SkynetTimeline = () => {
           initial={{ opacity: 0, y: 100 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-3xl xl:text-6xl font-bold text-center mb-2"
+          className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-6xl font-bold text-center mb-2"
         >
           The Evolution of SkyNet:{" "}
           <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
@@ -181,7 +181,7 @@ const SkynetTimeline = () => {
                   <img
                     src={item.image}
                     alt={`SkyNet ${item.year}`}
-                    className="rounded-lg shadow-md w-full  object-cover"
+                    className={`${index == 1 && "max-h-[480px] object-cover"} rounded-lg shadow-md w-full  object-cover`}
                   />
                 </div>
               </li>

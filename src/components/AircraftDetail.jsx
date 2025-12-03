@@ -375,7 +375,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
         <div className="container px-5">
           <div className="hidden md:flex items-center justify-between">
-            <h1 className="text-3xl font-bold mb-4 lg:mb-8 text-white">
+            <h1 className="text-[2rem] md:text-[2.5rem] xl:text-[3.5rem] 2xl:text-5xl leading-none font-bold mb-4 lg:mb-8 text-white">
               {aircraft?.title}
             </h1>
             <div className="tag-container mb-4">

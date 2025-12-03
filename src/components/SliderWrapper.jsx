@@ -232,7 +232,7 @@ const SliderWrapper = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5 }}
-                className="text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white text-center"
+                className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-white text-center"
               >
                 By The Numbers.
               </motion.h1>
@@ -242,7 +242,7 @@ const SliderWrapper = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="text-sm md:text-lg max-w-5xl text-white font-light mx-auto text-center py-[40px]"
+                className="md:text-lg max-w-5xl text-white font-light mx-auto text-center py-[20px] 2xl:py-[40px]"
               >
                 The data doesn’t lie. Mason Amelia is your expert wingman with a
                 proven track record and reputation. We know what we’re doing and
@@ -279,7 +279,7 @@ const SliderWrapper = () => {
                         />
                       </h4>
 
-                      <p className="text-[#eee] text-base lg:text-[.7rem] 2xl:text-[.8rem] font-light mb-4">
+                      <p className="text-[#eee] text-base lg:text-[.7rem] 2xl:text-[.8rem] font-light mb-4 px-2">
                         {card.description}
                       </p>
                     </div>

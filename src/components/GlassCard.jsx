@@ -18,7 +18,7 @@ export default function GlassCard() {
             duration: 0.5,
             delay: 0.6,
           }}
-          className={`md:block hidden mx-auto text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-extrabold capitalize`}
+          className={`md:block hidden mx-auto text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-extrabold capitalize`}
         >
           Turbulence-Free Transactions
         </motion.h2>
