@@ -6,10 +6,9 @@ import { FiBookOpen, FiX } from "react-icons/fi";
 import { createPortal } from "react-dom";
 import { cn } from "../../lib/utils";
 
-/** hovered card ko viewport (container) ke andar fully visible banaye */
 function ensureVisible(cardEl, viewportEl, hoverMv) {
   if (!cardEl || !viewportEl) return;
-  const margin = 24; // thoda gutter
+  const margin = 24;
   const viewRect = viewportEl.getBoundingClientRect();
   const cardRect = cardEl.getBoundingClientRect();
 
@@ -25,18 +24,13 @@ function ensureVisible(cardEl, viewportEl, hoverMv) {
   }
 }
 
-/** FULLSCREEN MODAL rendered in <body> */
 const TestimonialModal = ({ item, onClose }) => {
   if (!item) return null;
   if (typeof document === "undefined") return null;
 
-  // body scroll lock
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    // return () => {
-    //   document.body.style.overflow = prev;
-    // };
   }, []);
 
   return createPortal(
@@ -55,7 +49,6 @@ const TestimonialModal = ({ item, onClose }) => {
             exit={{ opacity: 0, scale: 0.9, y: 10 }}
             transition={{ duration: 0.2 }}
           >
-            {/* Close button */}
             <button
               type="button"
               onClick={onClose}
@@ -70,9 +63,7 @@ const TestimonialModal = ({ item, onClose }) => {
               </div>
               <div>
                 <h3 className="text-lg font-semibold">{item?.name}</h3>
-                <p className="text-sm text-blue-100/80">
-                  {item?.location}
-                </p>
+                <p className="text-sm text-blue-100/80">{item?.location}</p>
               </div>
             </div>
 
@@ -94,7 +85,7 @@ const InfiniteMovingCards = ({
   pauseOnHover = true,
   className,
 }) => {
-  const containerRef = useRef(null); // viewport for marquee
+  const containerRef = useRef(null);
   const rowRef = useRef(null);
   const [start, setStart] = useState(false);
 
@@ -102,12 +93,13 @@ const InfiniteMovingCards = ({
   const cardRefs = useRef([]);
 
   const [activeItem, setActiveItem] = useState(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [lockedIndex, setLockedIndex] = useState(null);
 
   useEffect(() => {
     setDirectionVar();
     setSpeedVar();
     setStart(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setDirectionVar = () => {
@@ -125,16 +117,27 @@ const InfiniteMovingCards = ({
     containerRef.current.style.setProperty("--animation-duration", duration);
   };
 
-  const handleEnter = (idx) => {
+  const handleContainerEnter = () => {
+    setIsHovered(true);
+    setLockedIndex(null);
+  };
+
+  const handleContainerLeave = () => {
+    setIsHovered(false);
+    setLockedIndex(null);
+  };
+
+  const handleCardEnter = (idx) => {
+    if (lockedIndex !== null && lockedIndex !== idx) return;
     const el = cardRefs.current[idx];
     ensureVisible(el, containerRef.current, hoverX);
+    setLockedIndex(idx);
   };
-  const handleLeave = () => hoverX.set(0);
 
   const openModal = (item) => setActiveItem(item);
   const closeModal = () => {
     document.body.style.overflow = "scroll";
-    setActiveItem(null)
+    setActiveItem(null);
   };
 
   const loopItems = items.concat(items);
@@ -144,6 +147,8 @@ const InfiniteMovingCards = ({
       <div
         ref={containerRef}
         className={cn("scroller relative z-20 overflow-hidden", className)}
+        onMouseEnter={handleContainerEnter}
+        onMouseLeave={handleContainerLeave}
       >
         <motion.div style={{ x: hoverX }}>
           <ul
@@ -151,38 +156,30 @@ const InfiniteMovingCards = ({
             className={cn(
               "flex w-max min-w-full shrink-0 flex-nowrap gap-4",
               start && "animate-scroll",
-              pauseOnHover && "hover:[animation-play-state:paused]"
+              pauseOnHover && isHovered && "[animation-play-state:paused]"
             )}
           >
             {loopItems.map((item, idx) => (
               <div
                 key={`card-${idx}`}
-                ref={(el) => (cardRefs.current[idx] = el)}
+                ref={(el) => {
+                  if (el) cardRefs.current[idx] = el;
+                }}
                 className="relative group flex items-center justify-center glass-container--rounded md:px-2"
-                onMouseEnter={() => handleEnter(idx)}
-                onMouseLeave={handleLeave}
+                onMouseEnter={() => handleCardEnter(idx)}
               >
-                {/* <div className="glass-filter" />
-                <div className="glass-overlay" />
-                <div className="glass-specular" /> */}
-
-                {/* READ ICON – slide down on hover */}
                 <button
                   type="button"
                   onClick={() => openModal(item)}
-                  className="absolute top-6 z-[999] hover:bg-tertiary_color hover:text-white right-6 flex items-center justify-center rounded-full bg-white/90 text-sky-600 shadow-md p-2 opacity-0 -translate-y-3
-                             transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
+                  className="absolute top-6 z-[999] hover:bg-tertiary_color hover:text-white right-6 flex items-center justify-center rounded-full bg-white/90 text-sky-600 shadow-md p-2 opacity-0 -translate-y-3 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
                 >
                   <FiBookOpen className="text-[18px]" />
                 </button>
 
-                <div className="">
+                <div>
                   <li className="relative w-[325px] max-w-full pt-8 rounded-[50px] px-4 md:px-8 py-0 md:py-6 md:w-[450px] h-[300px] bg-black/30">
                     <blockquote className="pt-2">
-                      <div
-                        aria-hidden="true"
-                        className="user-select-none pointer-events-none flex flex-col justify-center "
-                      />
+                      <div aria-hidden="true" className="user-select-none pointer-events-none flex flex-col justify-center" />
                       <span className="relative z-20 text-[13px] md:text-[16px] leading-[1.6] font-normal text-[#ddd] dark:text-gray-100">
                         {(item.review ?? "").slice(0, 250)}
                         {item.review && item.review.length > 250 && "…"}
@@ -206,7 +203,6 @@ const InfiniteMovingCards = ({
         </motion.div>
       </div>
 
-      {/* FULLSCREEN MODAL INSIDE BODY */}
       <TestimonialModal item={activeItem} onClose={closeModal} />
     </>
   );
