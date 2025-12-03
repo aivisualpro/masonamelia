@@ -44,7 +44,7 @@ const Showcase = () => {
               duration: 0.5,
               delay: 0.6,
             }}
-            className={`z-[3] p-4 absolute top-[75%] w-full text-center text-white text-[1.4rem] font-extrabold capitalize leading-[1.2]`}
+            className={`z-[3] md:hidden block p-4 absolute top-[75%] w-full text-center text-white text-[1.4rem] font-extrabold capitalize leading-[1.2]`}
           >
             Turbulence-Free Transactions
             <motion.div
