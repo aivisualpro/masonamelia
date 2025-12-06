@@ -8,7 +8,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import Vision from "../components/Vision";
 import CTABanner from "../components/CTABanner";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import BlinkingArrow from "../components/BlinkingArrow"; // ← added
+import BlinkingArrow from "../components/BlinkingArrow";
 import Contact from "../components/Contact";
 
 const HigherPage = () => {
@@ -39,12 +39,19 @@ const HigherPage = () => {
 
   const isNearTop = () => (window.scrollY || 0) <= 5;
 
+  // 🔥 helper: kis bhi interaction pe auto scroll cancel + arrow hide
+  const cancelAutoScroll = () => {
+    setCancelAuto(true);
+    setShowArrow(false);
+  };
+
   useEffect(() => {
-    const onWheel = () => setCancelAuto(true);
-    const onTouch = () => setCancelAuto(true);
-    const onKey = () => setCancelAuto(true);
+    const onWheel = () => cancelAutoScroll();
+    const onTouch = () => cancelAutoScroll();
+    const onKey = () => cancelAutoScroll();
     const onScroll = () => {
-      if ((window.scrollY || 0) > 80) setCancelAuto(true);
+      // zara sa bhi scroll > 5px → cancel
+      if ((window.scrollY || 0) > 5) cancelAutoScroll();
     };
 
     window.addEventListener("wheel", onWheel, { passive: true });
@@ -65,7 +72,7 @@ const HigherPage = () => {
         const next = document.getElementById("higher-main");
         const targetY = next
           ? next.getBoundingClientRect().top + window.scrollY
-          : (bannerRef.current?.offsetHeight || 0);
+          : bannerRef.current?.offsetHeight || 0;
 
         smoothScrollTo(targetY, 2500);
         // sessionStorage.setItem(AUTO_KEY, "1");
@@ -82,6 +89,17 @@ const HigherPage = () => {
       clearTimeout(scrollTimer);
     };
   }, [cancelAuto]);
+
+  // 👇 arrow pe click kare to bhi scroll + cancel
+  const handleArrowClick = () => {
+    const next = document.getElementById("higher-main");
+    const targetY = next
+      ? next.getBoundingClientRect().top + window.scrollY
+      : bannerRef.current?.offsetHeight || 0;
+
+    smoothScrollTo(targetY, 2500);
+    cancelAutoScroll();
+  };
 
   return (
     <>
@@ -102,7 +120,7 @@ const HigherPage = () => {
         </div>
 
         {/* Arrow appears ~3s if user hasn't interacted */}
-        {showArrow && <BlinkingArrow />}
+        {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
       </section>
 
       {/* TARGET SECTION — auto-scroll lands here */}

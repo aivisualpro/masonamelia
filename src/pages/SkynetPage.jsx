@@ -8,9 +8,8 @@ import SkynetTimeline from "../components/SkynetTimeline";
 import CTABanner from "../components/CTABanner";
 import banner from "/images/skynet/banner.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import BlinkingArrow from "../components/BlinkingArrow"; // ← added
+import BlinkingArrow from "../components/BlinkingArrow";
 import Contact from "../components/Contact";
-// import CTABanner from "../components/CTABanner";
 
 const SkynetPage = () => {
   const media = useMediaQuery("(max-width: 767px)");
@@ -40,12 +39,19 @@ const SkynetPage = () => {
 
   const isNearTop = () => (window.scrollY || 0) <= 5;
 
+  // 🔥 helper: kisi bhi interaction pe auto-scroll cancel + arrow hide
+  const cancelAutoScroll = () => {
+    setCancelAuto(true);
+    setShowArrow(false);
+  };
+
   useEffect(() => {
-    const onWheel = () => setCancelAuto(true);
-    const onTouch = () => setCancelAuto(true);
-    const onKey = () => setCancelAuto(true);
+    const onWheel = () => cancelAutoScroll();
+    const onTouch = () => cancelAutoScroll();
+    const onKey = () => cancelAutoScroll();
     const onScroll = () => {
-      if ((window.scrollY || 0) > 80) setCancelAuto(true);
+      // thoda sa bhi scroll > 5px → cancel
+      if ((window.scrollY || 0) > 5) cancelAutoScroll();
     };
 
     window.addEventListener("wheel", onWheel, { passive: true });
@@ -64,7 +70,7 @@ const SkynetPage = () => {
         const next = document.getElementById("skynet-main");
         const targetY = next
           ? next.getBoundingClientRect().top + window.scrollY
-          : (bannerRef.current?.offsetHeight || 0);
+          : bannerRef.current?.offsetHeight || 0;
 
         smoothScrollTo(targetY, 2500);
         // sessionStorage.setItem(AUTO_KEY, "1");
@@ -82,6 +88,17 @@ const SkynetPage = () => {
     };
   }, [cancelAuto]);
 
+  // 👇 arrow pe click → scroll + auto cancel
+  const handleArrowClick = () => {
+    const next = document.getElementById("skynet-main");
+    const targetY = next
+      ? next.getBoundingClientRect().top + window.scrollY
+      : bannerRef.current?.offsetHeight || 0;
+
+    smoothScrollTo(targetY, 2500);
+    cancelAutoScroll();
+  };
+
   return (
     <>
       <Navbar />
@@ -90,21 +107,21 @@ const SkynetPage = () => {
         ref={bannerRef}
         className="md:sticky top-0 h-screen w-full bg-cover bg-center z-[0] relative overflow-hidden"
         style={{
-          backgroundImage: `linear-gradient(to right, rgb(21, 22, 28, ${
-            media ? ".8" : "1"
-          }) ${media ? "100%" : "30%"}, rgba(21, 22, 28,0.3)), url(${banner})`,
+          backgroundImage: `linear-gradient(
+            to right,
+            rgb(21, 22, 28, ${media ? ".8" : "1"}) ${media ? "100%" : "30%"},
+            rgba(21, 22, 28, 0.3)
+          ), url(${banner})`,
           backgroundSize: "cover",
           backgroundPosition: "60% 50%",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
         }}
       >
-        {/* You already render Navbar above; keeping this one commented avoids duplicate */}
-        {/* <Navbar /> */}
         <Skynet />
 
         {/* Arrow appears ~3s if user hasn't interacted */}
-        {showArrow && <BlinkingArrow />}
+        {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
       </section>
 
       {/* TARGET SECTION — auto-scroll lands here */}

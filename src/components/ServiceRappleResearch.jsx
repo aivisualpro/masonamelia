@@ -19,7 +19,7 @@ const ServiceRappleResearch = ({
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed"
         }}
-        className="relative xl:h-screen py-20 z-[10]"
+        className="relative h-screen py-20 z-[10]"
       >
         <div className="overlay bg-tertiary_color opacity-90 absolute top-0 left-0 w-full h-full z-[-1]" />
         <div className="container px-5 flex flex-col justify-center h-full">

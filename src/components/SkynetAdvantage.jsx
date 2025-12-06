@@ -7,7 +7,7 @@ const SkynetAdvantage = () => {
     <>
       <section
         id="skynet_advantage"
-        className="py-10 xl:py-20 relative 2xl:h-screen z-[0] bg-[#15161c]"
+        className="py-10 xl:py-20 relative h-screen z-[0] bg-[#15161c]"
       >
         <div className="container px-5 flex items-center h-full">
           <div className="py-16 px-4 md:px-20 text-white">
@@ -16,7 +16,7 @@ const SkynetAdvantage = () => {
                 initial={{ opacity: 0, y: 100 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-center"
+                className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] leading-none 2xl:text-7xl font-bold text-center"
               >
                 Unlock{" "}
                 <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
@@ -27,7 +27,7 @@ const SkynetAdvantage = () => {
                 initial={{ opacity: 0, y: 70 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, dealy: 0.3 }}
-                className="text-center text-gray-400 py-[40px] md:text-lg"
+                className="text-center text-gray-400 py-[20px] xl:py-[40px] md:text-lg"
               >
                 Hold on, John Connor!” because Mason Amelia’s proprietary
                 aircraft pricing app, SkyNet, employs a proprietary means of

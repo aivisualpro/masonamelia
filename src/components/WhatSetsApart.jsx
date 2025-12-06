@@ -51,7 +51,7 @@ const features = [
 
 export default function WhatSetsUsApart() {
   return (
-    <section className="w-full flex justify-center items-center py-20 relative bg-[#111218]">
+    <section className="md:h-screen w-full flex justify-center items-center py-20 relative bg-[#111218]">
       <div className="container px-5">
         <div className="rounded-2xl py-8 w-full">
           <div className="w-full px-4 flex flex-col justify-center text-center items-center">

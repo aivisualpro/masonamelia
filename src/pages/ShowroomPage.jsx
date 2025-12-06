@@ -4,7 +4,7 @@ import Banner from "../components/Banner";
 import CTA from "../components/CTA";
 import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
-import { IoIosArrowDown } from "react-icons/io";
+// import { IoIosArrowDown } from "react-icons/io"; // not needed now
 import banner from "/images/showroom/banner.png";
 import BlinkingArrow from "../components/BlinkingArrow";
 import Contact from "../components/Contact";
@@ -43,7 +43,27 @@ const smoothScrollTo = (targetY, { duration = 2200 } = {}) => {
 const ShowroomPage = () => {
   const [showArrow, setShowArrow] = useState(false);
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(false);
+  const [cancelAuto, setCancelAuto] = useState(false);
   const listingRef = useRef(null);
+
+  const isNearTop = () => (window.scrollY || 0) <= 5;
+
+  // helper: koi bhi interaction → auto scroll cancel + arrow hide
+  const cancelAutoScroll = () => {
+    setCancelAuto(true);
+    setShowArrow(false);
+  };
+
+  // scroll to Listing section (timer + arrow click dono ke liye)
+  const scrollToListing = () => {
+    const top =
+      (listingRef.current?.getBoundingClientRect().top ?? 0) +
+      window.scrollY -
+      12;
+    smoothScrollTo(top, { duration: 2200 });
+    setAutoScrollEnabled(true);
+    cancelAutoScroll();
+  };
 
   // force start at top, avoid unwanted browser jumps
   useEffect(() => {
@@ -72,50 +92,49 @@ const ShowroomPage = () => {
     };
   }, []);
 
-  // arrow at 3s, scroll at 5s
+  // arrow at 3s, auto-scroll at 5s (unless cancelled)
   useEffect(() => {
     let arrowTimer, scrollTimer;
-    let cancelled = false;
 
-    const cancelAll = () => {
-      if (cancelled) return;
-      cancelled = true;
-      setShowArrow(false);
-      clearTimeout(arrowTimer);
-      clearTimeout(scrollTimer);
-      window.removeEventListener("wheel", cancelAll);
-      window.removeEventListener("touchstart", cancelAll);
-      window.removeEventListener("keydown", cancelAll);
+    const onWheel = () => cancelAutoScroll();
+    const onTouch = () => cancelAutoScroll();
+    const onKey = () => cancelAutoScroll();
+    const onScroll = () => {
+      // thoda sa bhi scroll ho jaye to cancel
+      if ((window.scrollY || 0) > 5) cancelAutoScroll();
     };
 
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("touchstart", onTouch, { passive: true });
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    // 3s baad arrow show (agar top pe ho & cancel nahi hua)
     arrowTimer = setTimeout(() => {
-      if (!cancelled) setShowArrow(true);
+      if (isNearTop() && !cancelAuto) setShowArrow(true);
     }, 3000);
 
+    // 5s baad smooth scroll (agar ab tak cancel nahi hua)
     scrollTimer = setTimeout(() => {
-      if (cancelled) return;
-      const top =
-        (listingRef.current?.getBoundingClientRect().top ?? 0) +
-        window.scrollY -
-        12;
-      setShowArrow(false);
-      smoothScrollTo(top, { duration: 2200 }); // 👈 slow scroll (~2.2s)
-      setAutoScrollEnabled(true); // re-enable Listing scroll logic
-      cancelAll();
+      if (isNearTop() && !cancelAuto) {
+        scrollToListing();
+      }
     }, 5000);
-
-    window.addEventListener("wheel", cancelAll, { passive: true });
-    window.addEventListener("touchstart", cancelAll, { passive: true });
-    window.addEventListener("keydown", cancelAll);
 
     return () => {
       clearTimeout(arrowTimer);
       clearTimeout(scrollTimer);
-      window.removeEventListener("wheel", cancelAll);
-      window.removeEventListener("touchstart", cancelAll);
-      window.removeEventListener("keydown", cancelAll);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouch);
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("scroll", onScroll);
     };
-  }, []);
+  }, [cancelAuto]); // cancelAuto change → timers re-check
+
+  // arrow click → same behavior as timed auto-scroll
+  const handleArrowClick = () => {
+    scrollToListing();
+  };
 
   return (
     <>
@@ -136,9 +155,7 @@ const ShowroomPage = () => {
       <Footer />
       <ScrollToTop />
 
-      {showArrow && (
-        <BlinkingArrow />
-      )}
+      {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
     </>
   );
 };

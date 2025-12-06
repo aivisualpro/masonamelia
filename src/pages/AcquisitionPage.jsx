@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
@@ -9,7 +9,13 @@ import ServiceRappleResearch from "../components/ServiceRappleResearch";
 import ServiceHighlights from "../components/ServiceHighlights";
 import BlinkingArrow from "../components/BlinkingArrow";
 import TaxiCardsDarkSection from "../components/TaxiAndSystemCheck";
-import { FaHandHoldingUsd, FaBalanceScale, FaShieldAlt, FaChalkboardTeacher, FaClipboardCheck } from "react-icons/fa";
+import {
+  FaHandHoldingUsd,
+  FaBalanceScale,
+  FaShieldAlt,
+  FaChalkboardTeacher,
+  FaClipboardCheck,
+} from "react-icons/fa";
 import ClearForTakeoff from "../components/ClearForTakeoff";
 import Relationship from "../components/Relationship";
 
@@ -38,6 +44,12 @@ const AcquisitionPage = () => {
     requestAnimationFrame(animate);
   }
 
+  // helper: jahan bhi user interact kare, auto scroll cancel + arrow hide
+  const cancelAutoScroll = useCallback(() => {
+    setCancelAuto(true);
+    setShowArrow(false);
+  }, []);
+
   // If we arrive with intent or hash, scroll the section smoothly
   useEffect(() => {
     const want =
@@ -46,7 +58,7 @@ const AcquisitionPage = () => {
     if (!want) return;
 
     // prevent the timed auto-scroll from kicking in
-    setCancelAuto(true);
+    cancelAutoScroll();
 
     // wait a tick so the section is in the DOM/layout
     requestAnimationFrame(() => {
@@ -54,29 +66,29 @@ const AcquisitionPage = () => {
       if (el) {
         const y = el.getBoundingClientRect().top + window.scrollY;
         smoothScrollTo(y, 1200); // faster for direct intent
-        setShowArrow(false);
       }
     });
-  }, [location.state, location.hash]);
+  }, [location.state, location.hash, cancelAutoScroll]);
 
   // Are we at (or near) the very top?
   const isNearTop = () => (window.scrollY || 0) <= 5;
 
   useEffect(() => {
     // Any user intent cancels auto scroll
-    const onWheel = () => setCancelAuto(true);
-    const onTouch = () => setCancelAuto(true);
-    const onKey = () => setCancelAuto(true);
+    const onWheel = () => cancelAutoScroll();
+    const onTouch = () => cancelAutoScroll();
+    const onKey = () => cancelAutoScroll();
     const onScroll = () => {
-      if ((window.scrollY || 0) > 80) setCancelAuto(true);
+      // zara sa bhi scroll > 5px → cancel
+      if ((window.scrollY || 0) > 5) cancelAutoScroll();
     };
 
     window.addEventListener("wheel", onWheel, { passive: true });
     window.addEventListener("touchstart", onTouch, { passive: true });
-    window.addEventListener("keydown", onKey, { passive: true });
+    window.addEventListener("keydown", onKey); // keydown pe passive nahi dena
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    // 3s → show arrow if still near top and not previously autoscrolled
+    // 3s → show arrow if still near top and not cancelled
     const arrowTimer = setTimeout(() => {
       if (isNearTop() && !cancelAuto) setShowArrow(true);
     }, 3000);
@@ -102,7 +114,18 @@ const AcquisitionPage = () => {
       clearTimeout(arrowTimer);
       clearTimeout(scrollTimer);
     };
-  }, [cancelAuto]);
+  }, [cancelAuto, cancelAutoScroll]);
+
+  // arrow pe click kare to immediate scroll
+  const handleArrowClick = () => {
+    const next = document.getElementById("acquisition");
+    const targetY = next
+      ? next.getBoundingClientRect().top + window.scrollY
+      : bannerRef.current?.offsetHeight || 0;
+
+    smoothScrollTo(targetY, 2500);
+    cancelAutoScroll();
+  };
 
   // Content
   const data = [
@@ -165,7 +188,7 @@ const AcquisitionPage = () => {
       icon: <FaHandHoldingUsd className="h-8 w-8" />,
       gradient: "from-sky-400 to-blue-500",
       points: [
-        "Connect with trusted aviation lenders to secure competitive terms."
+        "Connect with trusted aviation lenders to secure competitive terms.",
       ],
       img: "/images/financing-aircraft.jpg",
     },
@@ -174,7 +197,7 @@ const AcquisitionPage = () => {
       icon: <FaBalanceScale className="h-8 w-8" />,
       gradient: "from-indigo-400 to-violet-500",
       points: [
-        "Collaborate with top aviation advisors to protect and optimize your position."
+        "Collaborate with top aviation advisors to protect and optimize your position.",
       ],
       img: "/images/tax-legal-aircraft.jpg",
     },
@@ -182,18 +205,14 @@ const AcquisitionPage = () => {
       title: "Insurance",
       icon: <FaShieldAlt className="h-8 w-8" />,
       gradient: "from-cyan-400 to-teal-500",
-      points: [
-        "Aviation-specific protection for what matters most."
-      ],
+      points: ["Aviation-specific protection for what matters most."],
       img: "/images/insurance-aircraft.jpg",
     },
     {
       title: "Training & Operations",
       icon: <FaChalkboardTeacher className="h-8 w-8" />,
       gradient: "from-amber-400 to-orange-500",
-      points: [
-        "Assess needs and link you with proven providers."
-      ],
+      points: ["Assess needs and link you with proven providers."],
       img: "/images/training-aircraft.jpg",
     },
     {
@@ -201,12 +220,11 @@ const AcquisitionPage = () => {
       icon: <FaClipboardCheck className="h-8 w-8" />,
       gradient: "from-fuchsia-400 to-pink-500",
       points: [
-        "Ensure every detail stays aligned and on schedule across all parties."
+        "Ensure every detail stays aligned and on schedule across all parties.",
       ],
       img: "/images/oversight-aircraft.jpg",
     },
   ];
-
 
   return (
     <>
@@ -215,7 +233,7 @@ const AcquisitionPage = () => {
         <ServiceBanner banner={banner} />
 
         {/* Flashing/Bouncing Down Arrow after ~3s */}
-        {showArrow && <BlinkingArrow />}
+        {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
       </div>
 
       {/* SECOND SECTION (TARGET) */}
@@ -230,10 +248,20 @@ const AcquisitionPage = () => {
           boxVariant="dark"
         />
 
-        {/* 👇 this section is the scroll target */}
         {/* <ServiceHighlights id="service_highlight" data={acquisitionData} /> */}
 
-        <TaxiCardsDarkSection tagline={<><span>Taxi &amp; Systems Check</span></>} title={"Expert guidance and trusted partners to clear the path before takeoff"} description={"Before we roll, we ensure every system is a go. Mason Amelia is aligned with top-tier aviation professionals. We ensure the right expertise is engaged early. This includes financing, tax, legal, insurance, training, maintenance, and operational advisors. This cohesive approach gives you clarity and confidence from the very first turn."} cards={cards} />
+        <TaxiCardsDarkSection
+          tagline={
+            <>
+              <span>Taxi &amp; Systems Check</span>
+            </>
+          }
+          title={"Expert guidance and trusted partners to clear the path before takeoff"}
+          description={
+            "Before we roll, we ensure every system is a go. Mason Amelia is aligned with top-tier aviation professionals. We ensure the right expertise is engaged early. This includes financing, tax, legal, insurance, training, maintenance, and operational advisors. This cohesive approach gives you clarity and confidence from the very first turn."
+          }
+          cards={cards}
+        />
 
         <ClearForTakeoff
           eyebrow="FRAME 4"
@@ -246,9 +274,9 @@ const AcquisitionPage = () => {
             "From LOIs to closing, we negotiate terms and manage due diligence every step of the way.",
           ]}
           outro="We don’t just find airplanes — we deliver outcomes. Every step is handled with precision and purpose so you can take off with confidence."
-          image="/images/aircraft-identification.jpg"   // ← replace with your image
+          image="/images/aircraft-identification.jpg"
           imageAlt="Aircraft Identification & Acquisition"
-          imageOn="right"                              // or "left" to flip layout
+          imageOn="right"
         />
 
         <Relationship />
@@ -259,8 +287,6 @@ const AcquisitionPage = () => {
           </div>
         </section>
       </main>
-
-      {/* <Contact /> */}
 
       <Footer />
       <ScrollToTop />
