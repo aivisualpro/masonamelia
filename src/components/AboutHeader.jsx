@@ -48,7 +48,7 @@ const AboutHeader = () => {
               text="We help distinguished clientele get where they want to go, but faster. Think TBM speed"
               disabled={false}
               speed={5}
-              className="text-center md:text-lg [text-shadow:_0_2px_8px_rgba(0,0,0,0.7)]"
+              className="text-center lg:text-start md:text-lg [text-shadow:_0_2px_8px_rgba(0,0,0,0.7)]"
               color="text-[#ddd] md:text-[#b5b5b5a4]"
             />
           </div>
