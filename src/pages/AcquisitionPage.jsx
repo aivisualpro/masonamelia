@@ -204,7 +204,7 @@ const AcquisitionPage = () => {
     {
       title: "Insurance",
       icon: <FaShieldAlt className="h-8 w-8" />,
-      gradient: "from-cyan-400 to-teal-500",
+      gradient: "from-emerald-400 to-teal-500",
       points: ["Aviation-specific protection for what matters most."],
       img: "/images/insurance-aircraft.jpg",
     },
@@ -240,10 +240,10 @@ const AcquisitionPage = () => {
       <main id="acquisition" className="relative z-[0]">
         <ServiceRappleResearch
           data={data}
-          highlightedTitle={"Preflight Planning :"}
-          title={"Strategy, not speculation. Your mission defines the search."}
+          highlightedTitle={"Preflight Planning"}
+          title={"Strategy, not speculation. Your mission defines the search. "}
           description={
-            "Every successful acquisition begins with clarity. We define your mission profile from the start,  how you’ll fly, where you’ll go, and what ownership represents for you. Then we align the right aircraft to your mission, your lifestyle, and your financial strategy."
+            "We define your mission profile: how you’ll fly, where you’ll go, and establish what ownership means for you. Then we align the right aircraft to your mission, your lifestyle, and your financial strategy."
           }
           boxVariant="dark"
         />

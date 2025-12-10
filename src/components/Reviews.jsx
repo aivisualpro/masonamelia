@@ -45,18 +45,16 @@ const Reviews = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] leading-none 2xl:text-7xl text-[#fff] font-bold mx-auto"
             >
-              Read What Our Clients Have to Say
+              What our Clients are Saying
             </motion.h5>
             <motion.p
               initial={{ opacity: 0, y: 80 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="text-[#ddd] md:text-lg py-[40px] mx-auto"
+              className="text-[#fff] md:text-xl py-[40px] mx-auto md:max-w-[55rem] 2xl:max-w-[70rem]"
             >
-              Our scrupulous oversight and personalized service get the most out
-              of your transaction. The words of our valued clients speak
-              volumes. Their experiences reflect the trust, results and
-              relationships that we work hard to earn every day.
+              The words of our valued clients speak volumes. Their experiences reflect the trust, results and relationships that we work hard
+              to earn every day.
             </motion.p>
           </div>
         </div>
@@ -67,12 +65,12 @@ const Reviews = () => {
           <InfiniteMovingCards
             bgColor=""
             pauseOnHover={true}
-            speed={"slow"}
-            items={reviews?.slice(0, 4)}
+            speed={"fast"}
+            items={reviews}
             itemClass={"min-w-[600px]"}
           />
         </div>
-        <div className="testimonial_moving_card mt-8 md:[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+        {/* <div className="testimonial_moving_card mt-8 md:[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
           <InfiniteMovingCards
             bgColor=""
             direction="right"
@@ -81,7 +79,7 @@ const Reviews = () => {
             items={reviews?.slice(3, 7)}
             itemClass={"min-w-[600px]"}
           />
-        </div>
+        </div> */}
       </section>
     </>
   );

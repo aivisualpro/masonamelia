@@ -111,7 +111,7 @@ const SkynetTimeline = () => {
           <div className="md:block hidden absolute left-1/2 top-0 w-[1px] -translate-x-1/2 z-10">
             <div
               ref={lineRef}
-              className="w-[3px] bg-gradient-to-t from-[#aa4aff] to-[#1777cb] transition-all duration-300 ease-in-out origin-top"
+              className="w-[3px] bg-gradient-to-t from-[#1777cb] to-[#1777cb] transition-all duration-300 ease-in-out origin-top"
               style={{ height: "0px" }}
             />
           </div>

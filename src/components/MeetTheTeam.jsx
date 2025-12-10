@@ -8,7 +8,7 @@ import meetTheTeam from "/images/team.jpg";
 const MeetTheTeam = () => {
   return (
     <section
-      className="md:h-screen lg:h-full xl:h-screen w-full bg-[#fff] py-10 px-4 overflow-x-hidden"
+      className="lg:h-screen lg:h-full xl:h-screen w-full bg-[#fff] py-10 px-4 overflow-x-hidden"
       id="meetTheTeam"
       style={{
         backgroundImage: `url("https://bracketweb.com/jetlywp/wp-content/uploads/2023/01/about-1-bg-1.png")`,
@@ -44,12 +44,10 @@ const MeetTheTeam = () => {
               transition={{ duration: 0.4, delay: 0.6 }}
               className="text-[#222] mt-5 md:text-lg leading-relaxed text-justify"
             >
-              We are purveyors of high-end piston and owner-flown turbine
-              aircraft. Our nationwide team brings decades of experience across
-              every corner of aviation. From initial strategy to final delivery,
-              we handle each transaction with precision, efficiency, and a sharp
-              focus on your bottom line. Putting clients first and building
-              lasting relationships is the foundation of our success and yours.
+              We are purveyors of high-end piston and owner-flown turbine aircraft. Our nationwide team brings decades of experience across
+              every corner of aviation. From initial consultation to final aircraft delivery, we handle every transaction with efficiency and
+              an unwavering focus on your satisfaction’s bottom line. Putting clients first and building lasting relationships is the
+              foundation of our success and yours.
             </motion.p>
 
             {/* Bullet Points */}

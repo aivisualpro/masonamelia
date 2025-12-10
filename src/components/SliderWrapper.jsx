@@ -24,7 +24,7 @@ const getDurationForValue = (val) => {
   // your mapping:
   // 450 -> 4s, 200 -> 3s, 75 -> 2s, 8 -> 1s, 0 -> 2s (but special logic)
   if (val >= 450) return 5000;
-  if (val >= 200) return 4000;
+  if (val >= 300) return 4000;
   if (val >= 75) return 3000;
   if (val >= 8) return 2000;
   if (val === 0) return 5000;
@@ -141,7 +141,7 @@ const SliderWrapper = () => {
       {
         icon: <SiTrustpilot size={32} className="text-tertiary_color" />,
         title: "+", // suffix
-        count: 200,
+        count: 300,
         description: "Aircraft closings successfully managed worldwide",
         onClick: "/contact",
       },
@@ -176,7 +176,7 @@ const SliderWrapper = () => {
 
   return (
     <>
-      <section className="md:h-screen lg:h-full xl:h-screen relative z-[0] w-screen py-20 overflow-x-hidden">
+      <section className="lg:h-screen lg:h-full xl:h-screen relative z-[0] w-screen py-20 overflow-x-hidden">
         <div className="absolute w-screen top-0 left-0 h-full">
           <div className="absolute w-screen h-full bg-black opacity-80 md:opacity-50 z-[10]"></div>
 
@@ -194,7 +194,7 @@ const SliderWrapper = () => {
                 style={{
                   backgroundImage: `url(${item})`,
                   backgroundSize: "cover",
-                  backgroundPosition: "bottom",
+                  backgroundPosition: index === 0 ? "center" : "center bottom",  // Adjust positioning for the snowy image
                   backgroundRepeat: "no-repeat",
                 }}
               />
@@ -242,11 +242,9 @@ const SliderWrapper = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="md:text-lg max-w-5xl text-white font-light mx-auto text-center py-[20px] 2xl:py-[40px]"
+                className="text-[#fff] md:text-xl py-[40px] mx-auto md:max-w-[55rem] 2xl:max-w-[70rem] text-center"
               >
-                The data doesn’t lie. Mason Amelia is your expert wingman with a
-                proven track record and reputation. We know what we’re doing and
-                we deliver results consistently.
+                The data doesn’t lie. Mason Amelia is your expert wingman with a proven track record and reputation.
               </motion.p>
             </div>
 

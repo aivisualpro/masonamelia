@@ -19,7 +19,7 @@ export default function TaxiCardsDarkSection({ tagline, title, description, card
             {tagline}
           </div>
           <h2 className="mx-auto font-light text-xl xl:text-2xl max-w-3xl py-8">{title}</h2>
-          <p className="mx-auto max-w-[55rem] md:text-lg text-slate-400">
+          <p className="mx-auto max-w-[55rem] 2xl:max-w-[60rem] md:text-lg text-slate-300">
             {description}
           </p>
         </div>

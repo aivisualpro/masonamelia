@@ -5,7 +5,7 @@ const CheckBoxGroup = ({ title, items, selected, onChange }) => {
   const [aircraftOpen, setAircraftOpen] = useState(false);
 
   return (
-    <div className="pr-2 pt-4">
+    <div className="pr-2">
       <h4 className="text-white text-sm font-semibold mb-4">{title}</h4>
       <ul className="space-y-2">
         {items.map((item) => {
@@ -60,11 +60,11 @@ const CheckBoxGroup = ({ title, items, selected, onChange }) => {
                       .join(" ")}
                   </span>
                 ) : (
-                  <span className="text-white text-base ms-3">{item?.split("-")
+                  <span className="text-white text-base ms-3">{item !== 'tbm' ? item?.split("-")
                     ?.map(
                       (word) => word.charAt(0).toUpperCase() + word.slice(1)
                     )
-                    .join(" ")}</span>
+                    .join(" ") : "TBM"}</span>
                 )}
               </label>
             </li>

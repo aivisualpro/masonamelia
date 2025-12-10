@@ -28,7 +28,7 @@ const BrokerageRappleResearch = ({
         <div className="overlay bg-tertiary_color opacity-90 absolute top-0 left-0 w-full h-full z-[-1]" />
         <div className="container px-5 flex justify-center items-center h-full">
           <div className=" px-4 flex flex-col justify-center z-[4]">
-            <motion.h2
+            {/* <motion.h2
               initial={{
                 opacity: 0,
                 y: 100,
@@ -38,10 +38,20 @@ const BrokerageRappleResearch = ({
                 y: 0,
               }}
               transition={{ duration: 0.8 }}
-              className="text-center text-[2rem] md:text-[3rem] xl:text-7xl font-bold text-white mb-4"
+              className="text-center text-[2rem] md:text-[3rem] xl:text-7xl font-bold text-white"
               style={{ lineHeight: "1.1" }}
             >
               {title}
+            </motion.h2> */}
+            <motion.h2
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-[2rem] md:text-[3rem] xl:text-7xl font-bold text-white max-w-7xl mx-auto"
+            >
+              <span className="bg-gradient-to-r text-white bg-clip-text text-transparent">
+                {title}
+              </span>{" "}
             </motion.h2>
 
             {
@@ -55,8 +65,7 @@ const BrokerageRappleResearch = ({
                   y: 0,
                 }}
                 transition={{ duration: 0.8 }}
-                className="text-center text-xl xl:text-2xl font-bold text-white my-6"
-                style={{ lineHeight: "1.1" }}
+                className="text-xl xl:text-2xl py-[40px] font-bold text-white max-w-7xl mx-auto"
               >
                 Consultation:
               </motion.h2>
@@ -73,7 +82,7 @@ const BrokerageRappleResearch = ({
                 y: 0,
               }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-center pt-[10px] text-[#eee] md:text-lg font-light"
+              className="text-[#fff] md:text-xl max-w-[55rem] 2xl:max-w-[60rem] font-light mx-auto text-center"
             >
               {description}
             </motion.p>

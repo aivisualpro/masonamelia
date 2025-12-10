@@ -65,7 +65,7 @@ const ServiceBanner = ({ banner }) => {
               text={
                 location.pathname === "/brokerage"
                   ? "Your aircraft deserves to stand out. We highlight its strengths and handle every phase with intent, precision, and the relentless pursuit of perfection."
-                  : "We take a consultative approach, learning your mission, analyzing the market, and guiding your acquisition from the first call to final signature."
+                  : "We take a consultative approach, learning your mission, analyzing the market, and guiding your acquisition from your first call to first flight."
               }
               disabled={false}
               speed={5}

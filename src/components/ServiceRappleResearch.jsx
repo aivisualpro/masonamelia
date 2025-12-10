@@ -34,13 +34,21 @@ const ServiceRappleResearch = ({
               <span className="bg-gradient-to-r text-white bg-clip-text text-transparent">
                 {highlightedTitle}
               </span>{" "}
+            </motion.h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-xl xl:text-2xl py-[40px] font-bold text-white max-w-7xl mx-auto"
+              style={{ lineHeight: "1.1" }}
+            >
               {title}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 70 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-[#fff] py-[40px] md:text-lg font-light mx-auto"
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-[#fff] md:text-xl max-w-[55rem] 2xl:max-w-[60rem] font-light mx-auto"
             >
               {description}
             </motion.p>

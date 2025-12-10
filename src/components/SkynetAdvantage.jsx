@@ -29,7 +29,7 @@ const SkynetAdvantage = () => {
                 transition={{ duration: 0.5, dealy: 0.3 }}
                 className="text-center text-gray-400 py-[20px] xl:py-[40px] md:text-lg"
               >
-                Hold on, John Connor!” because Mason Amelia’s proprietary
+                “Hold on, John Connor!” because Mason Amelia’s proprietary
                 aircraft pricing app, SkyNet, employs a proprietary means of
                 collecting, analyzing, and presenting transaction data. With no
                 MLS substitute, this private data is the lifeblood that empowers

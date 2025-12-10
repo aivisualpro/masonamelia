@@ -13,6 +13,9 @@ const useDebouncedCallback = (cb, delay = 150) => {
 };
 
 export default function FilterCheckboxList({
+  searchJets,
+  setSearchJets,
+
   selected,
   setSelected,
 
@@ -76,7 +79,17 @@ export default function FilterCheckboxList({
 
   return (
     <div className="p-6 rounded-2xl border border-[#ffffff48]">
-      <div className="flex justify-between mb-4">
+
+      {/* Search Box */}
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchJets}
+        onChange={(e) => setSearchJets(e.target.value)}
+        className="focus:outline-none text-white bg-transparent border-2 w-full px-4 py-2 rounded-[25px] border-slate-700"
+      />
+
+      <div className="flex justify-between py-6">
         <h3 className="text-white font-medium">Filter Options</h3>
         <button
           onClick={onClearAll}
@@ -97,9 +110,8 @@ export default function FilterCheckboxList({
         >
           <span className="font-semibold">Aircraft</span>
           <svg
-            className={`h-5 w-5 transition-transform ${
-              aircraftOpen ? "rotate-180" : ""
-            }`}
+            className={`h-5 w-5 transition-transform ${aircraftOpen ? "rotate-180" : ""
+              }`}
             viewBox="0 0 20 20"
             fill="currentColor"
             aria-hidden="true"
@@ -165,9 +177,8 @@ export default function FilterCheckboxList({
           renderTrack={(props, state) => (
             <div
               {...props}
-              className={`slider-track ${
-                state.index === 0 ? "track-0" : "track-1"
-              }`}
+              className={`slider-track ${state.index === 0 ? "track-0" : "track-1"
+                }`}
             />
           )}
           renderThumb={(props) => (
@@ -200,9 +211,8 @@ export default function FilterCheckboxList({
           renderTrack={(props, state) => (
             <div
               {...props}
-              className={`slider-track ${
-                state.index === 0 ? "track-0" : "track-1"
-              }`}
+              className={`slider-track ${state.index === 0 ? "track-0" : "track-1"
+                }`}
             />
           )}
           renderThumb={(props) => (
@@ -231,9 +241,8 @@ export default function FilterCheckboxList({
           renderTrack={(props, state) => (
             <div
               {...props}
-              className={`slider-track ${
-                state.index === 0 ? "track-0" : "track-1"
-              }`}
+              className={`slider-track ${state.index === 0 ? "track-0" : "track-1"
+                }`}
             />
           )}
           renderThumb={(props) => <div {...props} className="slider-thumb" />}

@@ -34,13 +34,18 @@ const STATUS_TABS = [
   { name: "Previous Transactions", slug: "previous" },
 ];
 
-export default function Listing({ autoScrollEnabled = true }) {
+export default function Listing({ autoScrollEnabled = true, q = "" }) {
   const sectionRef = useRef(null);
   const queryClient = useQueryClient();
 
   // ui
   const [filterOpen, setFilterOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  // search
+  const [searchJets, setSearchJets] = useState("");
+
+  console.log("searchJets", searchJets)
 
   // filters (state to send to server)
   const [selectedFilters, setSelectedFilters] = useState([]);
@@ -81,6 +86,7 @@ export default function Listing({ autoScrollEnabled = true }) {
     isFetching,
     error,
   } = useAircraftsQuery({
+    searchKeyword: q,
     status: activeTab,
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
@@ -89,6 +95,14 @@ export default function Listing({ autoScrollEnabled = true }) {
     airframeRange: airframeTouched ? airframeRange : undefined,
     engineRange: engineTouched ? engineRange : undefined,
   });
+
+  useEffect(() => {
+    const filterAircrafts = () => {
+      console.log(api?.rows)
+    };
+
+    filterAircrafts();
+  }, [searchJets, setSearchJets])
 
   // keep page in sync with backend clamped page (if any)
   useEffect(() => {
@@ -299,6 +313,8 @@ export default function Listing({ autoScrollEnabled = true }) {
                 className="rounded-2xl border border-[#ffffff48] p-0 bg-transparent"
               >
                 <FilterCheckboxList
+                  searchJets={searchJets}
+                  setSearchJets={setSearchJets}
                   selected={selectedFilters}
                   setSelected={setSelectedFilters}
                   // price slider domain from /ranges
