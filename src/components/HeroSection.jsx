@@ -14,7 +14,7 @@ const HeroSection = () => {
             relative p-0
           "
     >
-      <div className="container z-10 px-6">
+      <div className="container z-10 px-6 md:py-0 py-10">
         <div className="hero_section_content_container flex flex-col xl:gap-0 justify-end md:h-[100vh] relative text-white my-auto">
           <div className="md:order-1 order-1">
             <GlassCard />

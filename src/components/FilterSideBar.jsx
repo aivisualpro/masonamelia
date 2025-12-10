@@ -4,6 +4,9 @@ import { IoMdClose } from "react-icons/io";
 import FilterCheckboxList from "./FilterCheckboxList";
 
 const FilterSideBar = ({
+  searchJets,
+  setSearchJets,
+
   isOpen,
   setIsOpen,
   selected,
@@ -51,9 +54,8 @@ const FilterSideBar = ({
       )}
 
       <div
-        className={`filter-sidebar overflow-y-auto fixed top-0 left-0 w-[80%] max-w-[300px] h-[100vh] bg-black z-[9999] transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`filter-sidebar overflow-y-auto fixed top-0 left-0 w-[80%] max-w-[300px] h-[100vh] bg-black z-[9999] transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
         role="dialog"
         aria-modal="true"
       >
@@ -69,6 +71,8 @@ const FilterSideBar = ({
 
         <div className="px-4 relative overflow-y-auto h-[calc(100vh-64px)] pb-6">
           <FilterCheckboxList
+            searchJets={searchJets}
+            setSearchJets={setSearchJets}
             selected={selected}
             setSelected={setSelected}
             range={range}

@@ -44,6 +44,7 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
 
   // search
   const [searchJets, setSearchJets] = useState("");
+  const [filteredAircrafts, setFilteredAircrafts] = useState([]);
 
   console.log("searchJets", searchJets)
 
@@ -98,10 +99,14 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
 
   useEffect(() => {
     const filterAircrafts = () => {
-      console.log(api?.rows)
+      const filteredRows = api?.rows?.filter((aircraft) => {
+        return aircraft.title.toLowerCase().includes(searchJets.toLowerCase());
+      })
+      setFilteredAircrafts(filteredRows);
     };
 
     filterAircrafts();
+    console.log(filteredAircrafts, "Filtered")
   }, [searchJets, setSearchJets])
 
   // keep page in sync with backend clamped page (if any)
@@ -111,7 +116,7 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
   }, [api?.meta?.page]);
 
   const loading = isPending || isFetching;
-  const rows = api?.rows || [];
+  const rows = filteredAircrafts?.length > 0 ? filteredAircrafts : api?.rows || [];
   const meta = api?.meta || {};
   const totalPages = meta.pageCount || 1;
   const errMsg = error?.message || "";
@@ -341,6 +346,8 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
           {/* Mobile drawer */}
           <div className="block">
             <FilterSideBar
+              searchJets={searchJets}
+              setSearchJets={setSearchJets}
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               selected={selectedFilters}

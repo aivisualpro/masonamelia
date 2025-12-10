@@ -105,7 +105,7 @@ const Contact = () => {
           <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-95 z-[0]" />
         )}
 
-        <div className="container mx-auto px-4 py-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="container mx-auto px-4 py-20 grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left */}
           <div
             className={`relative rounded-2xl shadow-md lg:h-auto h-[425px] ${location.pathname === "/contact" && isMobile ? "mt-[15vh]" : ""

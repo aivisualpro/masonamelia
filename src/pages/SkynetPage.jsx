@@ -105,7 +105,7 @@ const SkynetPage = () => {
       {/* HERO / FIRST SECTION (sticky) */}
       <section
         ref={bannerRef}
-        className="md:sticky top-0 h-screen w-full bg-cover bg-center z-[0] relative overflow-hidden"
+        className="h-screen w-full bg-cover bg-center z-[0] relative overflow-hidden"
         style={{
           backgroundImage: `linear-gradient(
             to right,
@@ -125,7 +125,7 @@ const SkynetPage = () => {
       </section>
 
       {/* TARGET SECTION — auto-scroll lands here */}
-      <main id="skynet-main" className="relative z-[0]">
+      <main id="skynet-main" className="z-[0]">
         <SkynetAdvantage />
         <SkynetTimeline />
 

@@ -705,3 +705,6 @@ h6 {
 .testimonial-modal::-webkit-scrollbar {
   width: 0px;
 }
+.swiper-slide {
+  padding-bottom: 0 !important;
+}

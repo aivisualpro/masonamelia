@@ -226,11 +226,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                     <img
                       src={src}
                       alt={`Thumb ${i}`}
-                      className={`${
-                        activeImgIndex === i
-                          ? "border-2 border-[#1777cb] opacity-70"
-                          : ""
-                      } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
+                      className={`${activeImgIndex === i
+                        ? "border-2 border-[#1777cb] opacity-70"
+                        : ""
+                        } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
                       onClick={() => setActiveImgIndex(i)}
                     />
                   </SwiperSlide>
@@ -357,11 +356,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
             <div className="">
               <iframe
-                src={`${
-                  aircraft?.latitude && aircraft?.longitude
-                    ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed`
-                    : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
-                } &zoom=12
+                src={`${aircraft?.latitude && aircraft?.longitude
+                  ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed`
+                  : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
+                  } &zoom=12
                   &maptype=roadmap
                   &style=feature:all|element:geometry|color:0x212121
                   &style=feature:all|element:labels.text.fill|color:0xffffff
@@ -374,8 +372,15 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
         </div>
 
         <div className="container px-5">
+
+          <Link to="/showroom">
+            <div className="showroom-redirect-icon flex items-center">
+              <IoIosArrowBack size={28} className="hover:text-[#ddd] text-white" />
+            </div>
+          </Link>
+
           <div className="hidden md:flex items-center justify-between">
-            <h1 className="text-[2rem] md:text-[2.5rem] xl:text-[3.5rem] 2xl:text-5xl leading-none font-bold mb-4 lg:mb-8 text-white">
+            <h1 className="text-[2rem] md:text-[2.5rem] xl:text-[3.5rem] 2xl:text-5xl leading-none font-bold my-4 lg:mb-8 text-white">
               {aircraft?.title}
             </h1>
             <div className="tag-container mb-4">
@@ -421,11 +426,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                       <img
                         src={src}
                         alt={`Thumb ${i}`}
-                        className={`${
-                          activeImgIndex === i
-                            ? "border-2 border-[#1777cb] opacity-70"
-                            : ""
-                        } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
+                        className={`${activeImgIndex === i
+                          ? "border-2 border-[#1777cb] opacity-70"
+                          : ""
+                          } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
                         onClick={() => setActiveImgIndex(i)}
                       />
                     </SwiperSlide>
@@ -553,11 +557,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
               <div className="">
                 <iframe
                   // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49118.23391548527!2d-111.87382773125353!3d39.697185689909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x874c5648a65523d9%3A0xd7b6f9f8a451f49e!2sNephi%2C%20UT%2084648%2C%20USA!5e0!3m2!1sen!2s!4v1755939914578!5m2!1sen!2s"
-                  src={`${
-                    aircraft?.latitude && aircraft?.longitude
-                      ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed`
-                      : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
-                  }`}
+                  src={`${aircraft?.latitude && aircraft?.longitude
+                    ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed`
+                    : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
+                    }`}
                   className="w-full h-[180px] mt-6 rounded"
                 />
               </div>

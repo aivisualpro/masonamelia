@@ -8,7 +8,7 @@ import meetTheTeam from "/images/team.jpg";
 const MeetTheTeam = () => {
   return (
     <section
-      className="lg:h-screen lg:h-full xl:h-screen w-full bg-[#fff] py-10 px-4 overflow-x-hidden"
+      className="h-full w-full bg-[#fff] py-20 px-4 overflow-x-hidden"
       id="meetTheTeam"
       style={{
         backgroundImage: `url("https://bracketweb.com/jetlywp/wp-content/uploads/2023/01/about-1-bg-1.png")`,

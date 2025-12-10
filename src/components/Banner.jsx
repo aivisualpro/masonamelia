@@ -24,7 +24,7 @@ const Banner = ({ url }) => {
         {/* <div className="overlay bg-black opacity-60 absolute top-0 left-0 w-full h-full z-[-1]"></div> */}
 
 
-        <div className="container flex flex-col justify-center h-full md:items-start items-center px-5">
+        <div className="container flex flex-col justify-center h-full pt-[100px] md:items-start items-center px-5">
           <div className="banner-content">
             {/* <h1 className="text-white text-6xl font-bold">Discover the Future of Flight</h1> */}
             <BlurText

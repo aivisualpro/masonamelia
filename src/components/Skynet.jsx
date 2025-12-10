@@ -10,7 +10,7 @@ const Skynet = () => {
   return (
     <section className="h-[100vh]">
       {/* Background Image Right Side */}
-      <div className="px-5 container flex flex-col justify-center h-full ">
+      <div className="px-5 container pt-[50px] flex flex-col justify-center h-full ">
         <motion.h1
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}

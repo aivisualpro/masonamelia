@@ -176,9 +176,27 @@ const SliderWrapper = () => {
 
   return (
     <>
-      <section className="lg:h-screen lg:h-full xl:h-screen relative z-[0] w-screen py-20 overflow-x-hidden">
+      <div className="xl:hidden block">
+        <Swiper
+          spaceBetween={30}
+          effect={"fade"}
+          modules={[EffectFade, Autoplay]}
+          autoplay={{ delay: 3000, disableOnInteraction: false }}
+          className="mySwiper mb-0"
+        >
+          {images.map((item, index) => (
+            <SwiperSlide
+              key={index}
+            >
+              <img src={item} alt="" className="w-full h-[300px] lg:h-[500px] object-cover mb-0" />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      <section className="xl:h-screen lg:h-full xl:h-screen relative z-[0] w-screen py-20 overflow-x-hidden">
         <div className="absolute w-screen top-0 left-0 h-full">
-          <div className="absolute w-screen h-full bg-black opacity-80 md:opacity-50 z-[10]"></div>
+          <div className="absolute w-screen h-full bg-[#111218] opacity-100 xl:opacity-50 z-[10]"></div>
 
           <Swiper
             spaceBetween={30}

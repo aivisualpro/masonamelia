@@ -86,7 +86,7 @@ export default function FilterCheckboxList({
         placeholder="Search..."
         value={searchJets}
         onChange={(e) => setSearchJets(e.target.value)}
-        className="focus:outline-none text-white bg-transparent border-2 w-full px-4 py-2 rounded-[25px] border-slate-700"
+        className="focus:outline-none text-white bg-transparent border-2 w-full px-4 py-2 rounded-[25px] border-[#ddd]/20"
       />
 
       <div className="flex justify-between py-6">

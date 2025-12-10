@@ -189,7 +189,7 @@ const AboutPage = () => {
       {/* HERO / FIRST SECTION */}
       <section
         ref={bannerRef}
-        className="md:sticky top-0 relative lg:max-w-screen lg:h-screen bg-[#10121A] overflow-hidden"
+        className="relative lg:max-w-screen lg:h-screen bg-[#10121A] overflow-hidden"
         style={{
           backgroundImage: `url(${media ? bgPlaneTeam : bgPlane})`,
           backgroundSize: media ? "contain" : "cover",
@@ -226,7 +226,7 @@ const AboutPage = () => {
           <Timeline data={data} />
         </section>
 
-        <section className="bg-[#111218] relative z-[10] py-10">
+        <section className="bg-[#111218] relative z-[10] py-20">
           <div className="container px-5">
             <CTABanner />
           </div>

@@ -24,7 +24,7 @@ export default function ClearForTakeoff({
           {/* Text */}
           <div className="lg:w-1/2 w-full">
             {title && (
-              <h2 className="text-[2rem] md:text-[3rem] xl:text-7xl font-bold tracking-tight text-[#111218]">
+              <h2 className="text-[1.8rem] md:text-[3rem] xl:text-7xl font-bold tracking-tight text-[#111218]">
                 {title}
               </h2>
             )}

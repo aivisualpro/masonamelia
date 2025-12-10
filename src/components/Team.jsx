@@ -89,7 +89,7 @@ const Team = () => {
         {/* rest of team */}
         <div className="container">
           <div className="mx-auto">
-            <h5 className="text-6xl font-semibold text-center my-20 md:block hidden">
+            <h5 className="text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-center py-14">
               Our Team
             </h5>
           </div>

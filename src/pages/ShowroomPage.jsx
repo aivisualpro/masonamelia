@@ -145,7 +145,7 @@ const ShowroomPage = () => {
       </div>
       {/* <CTA /> */}
 
-      <section className="bg-[#111218] relative z-[10] py-10">
+      <section className="bg-[#111218] relative z-[10] pb-20">
         <div className="container px-5">
           <CTABanner />
         </div>

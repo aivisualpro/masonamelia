@@ -115,7 +115,7 @@ const HigherPage = () => {
         }}
       >
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-[-1]"></div>
-        <div className="container">
+        <div className="container pt-[50px]">
           <Higher />
         </div>
 
@@ -127,7 +127,7 @@ const HigherPage = () => {
       <main id="higher-main" className="relative">
         <Vision />
         <Gallary />
-        <section className="relative bg-[#111218] py-10">
+        <section className="relative bg-[#111218] py-20">
           <div className="container px-5">
             <CTABanner />
           </div>
