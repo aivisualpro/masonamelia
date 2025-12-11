@@ -180,7 +180,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
       <section
         id="showroom"
-        className="pb-20 pt-[98px] md:pb-20 md:pt-[calc(110px+5rem)]"
+        className="pb-20 pt-[98px] md:pb-20 md:pt-[calc(110px+76px)]"
       >
         <div className="md:hidden flex items-center bg-[#1777cb] px-2">
           <Link to="/showroom">
