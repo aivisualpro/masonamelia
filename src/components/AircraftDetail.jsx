@@ -375,7 +375,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
           </Link>
 
           <div className="hidden md:flex items-center justify-between">
-            <h1 className="text-[2rem] md:text-[2.5rem] xl:text-[3.5rem] 2xl:text-5xl leading-none font-bold my-4 lg:mb-8 text-white">
+            <h1 className="text-[1.5rem] md:text-[2rem] xl:text-[2.5rem] 2xl:text-[3rem] leading-none font-bold my-4 lg:mb-8 text-white">
               {aircraft?.title}
             </h1>
             <div className="tag-container mb-4">
@@ -501,9 +501,9 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 </div>
               </div>
 
-              <div className="mt-8 md:flex items-start justify-between">
+              <div className="py-8 xl:flex items-start justify-between gap-4">
                 <div className="contact-info">
-                  <h2 className="mb-4 text-[1.5rem] md:text-[2.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                  <h2 className="mb-4 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                     Agent Details
                   </h2>
                   <div className="gap-4">
@@ -533,8 +533,8 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   </div>
                 </div>
 
-                <div className="aircraft-location">
-                  <h2 className="mb-4 text-[1.5rem] md:text-[2.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                <div className="aircraft-location xl:pt-0 pt-8">
+                  <h2 className="mb-4 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                     Aircraft Location
                   </h2>
                   <div className="gap-4">
@@ -556,15 +556,15 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                     ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed`
                     : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
                     }`}
-                  className="w-full h-[180px] mt-6 rounded"
+                  className="w-full h-[180px] rounded"
                 />
               </div>
             </div>
           </div>
 
-          <div className="py-8 flex flex-row items-center md:justify-start justify-between">
+          <div className="py-8 flex flex-row items-center justify-between lg:w-[30%] w-full">
             <div className="airframe md:text-start text-center">
-              <h2 className="mb-3 text-[1.3rem] md:text-[2.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+              <h2 className="mb-3 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                 Airframe
               </h2>
               <span className="text-white/90 text-lg">
@@ -572,7 +572,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
               </span>
             </div>
             <div className="engine md:text-start text-center">
-              <h2 className="mb-3 text-[1.3rem] md:text-[2.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+              <h2 className="mb-3 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                 Engine
               </h2>
               <span className="text-white/90 text-lg">
@@ -581,7 +581,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
               </span>
             </div>
             <div className="propeller md:text-start text-center">
-              <h2 className="mb-3 text-[1.3rem] md:text-[2.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+              <h2 className="mb-3 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                 Propeller
               </h2>
               <span className="text-white/90 text-lg">
@@ -593,7 +593,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
           {/* Overview (rich HTML from backend) */}
           <div className="overview">
-            <h2 className="mb-8 text-[1.5rem] md:text-[2.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+            <h2 className="mb-8 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
               Overview
             </h2>
 
@@ -612,7 +612,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   dangerouslySetInnerHTML={{ __html: overviewHTML }}
                 />
               ) : (
-                <p className="text-white/70">No overview available.</p>
+                <p className="text-[1.2rem] xl:text-[1.5rem] text-white/70">No overview available.</p>
               )}
             </div>
           </div>
@@ -632,13 +632,13 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
           {/* Tab Content (checkmark list) */}
           <div className="md:flex justify-between mt-8 space-y-2 border-t-[1px] border-b-[1px] border-dashed border-gray-700 pt-2">
             <div className="md:w-[20%] tab-heading">
-              <h2 className="pt-4 text-[1.5rem] md:text-[2.5rem] font-semibold bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+              <h2 className="pt-4 text-[1.2rem] xl:text-[1.5rem] font-semibold bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                 {titleCase(activeTab)}
               </h2>
             </div>
             <div className="md:w-[80%]">
               {activeItems.length === 0 ? (
-                <p className="text-white/70 py-4">No data available.</p>
+                <p className="text-[1.2rem] xl:text-[1.5rem] text-white/70 py-4">No data available.</p>
               ) : (
                 activeItems.map((item, index) => (
                   <div key={index} className="text-sm py-4">
@@ -655,7 +655,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
           {/* Related Aircraft */}
           {related.length > 0 && (
             <>
-              <h4 className="py-8 text-[1.5rem] md:text-[2.5rem] text-white">
+              <h4 className="py-8 text-[1.2rem] xl:text-[1.5rem] text-white">
                 Related Aircraft
               </h4>
               <Swiper
