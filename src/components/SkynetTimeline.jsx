@@ -2,7 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import timelineOne from "/images/skynet/timeline-one.png";
 import timelineTwo from "/images/skynet/timeline-two.png";
-import timelineThree from "/images/skynet/timeline-three.png";
+import timelineFour from "/images/skynet/timeline-four.jpg";
+import timelineFive from "/images/skynet/timeline-five.avif";
 
 const SkynetTimeline = () => {
   const timelineData = [
@@ -19,7 +20,7 @@ const SkynetTimeline = () => {
       title: "Proprietary Tech Stack Deployed",
       description:
         "We set out to break away from outdated and incomplete data sources by building our own trusted source of verified, high-value market data. We named it SkyNet. ",
-      image: "https://static.wixstatic.com/media/04f737_459be72ae9a346f4b1e06393b2ab85ba~mv2.png/v1/fill/w_376,h_376,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Skynet.png",
+      image: timelineFive,
     },
     {
       year: "2025",
@@ -27,7 +28,7 @@ const SkynetTimeline = () => {
       description:
         "SkyNet is deployed. Secure, fast, and built by aviation experts, it quickly became the backbone of our brokers’ decision-making.",
       image:
-        "https://static.wixstatic.com/media/04f737_9ca4fc0aecf74814afc789140f3aea50~mv2.png/v1/fill/w_558,h_376,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/04f737_9ca4fc0aecf74814afc789140f3aea50~mv2.png",
+        timelineFour,
     },
     {
       year: "2026",

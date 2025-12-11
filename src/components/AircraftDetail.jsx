@@ -87,9 +87,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
     (async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/api/aircrafts/lists/`,
+          `${import.meta.env.VITE_BASE_URL}/api/aircrafts/relatedAircrafts?category=${aircraft?.category?.name}&status=${aircraft?.status}`,
           { signal: ac.signal }
         );
+        console.log("res recieved =========>", res)
         const json = await res.json();
         const rows = Array.isArray(json?.data) ? json.data : [];
         const mapped = rows
@@ -99,12 +100,13 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
             title: r.title,
             price: Number(r.price || 0),
             featuredImage: r.featuredImage,
+            status: r?.status,
             overview: r.overview,
             images: Array.isArray(r.images) ? r.images : [],
             airframe: String(r.airframe ?? ""),
             engine: String(r.engine ?? ""),
             propeller: String(r.propeller ?? ""),
-            category: r.status || "for-sale", // Card expects string
+            category: r.category?.name, // Card expects string
           }));
         setRelated(mapped);
       } catch {
@@ -112,7 +114,9 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       }
     })();
     return () => ac.abort();
-  }, [id]);
+  }, [id, aircraft]);
+
+  console.log("aircrafts", aircraft)
 
   const overviewHTML = useMemo(() => {
     const dirty = aircraft?.overview || "";
@@ -166,12 +170,13 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
+  console.log("related ======== >", related)
+
   return (
     <>
       {/* Spinner mounts into <body> via portal */}
       <FullscreenSpinner show={loading} text="Loading aircraft..." />
 
-      {/* If API failed AND no fallback, you can show a soft message */}
       {errMsg && (
         <div className="py-10 text-center text-red-400">
           Failed to load aircraft.
