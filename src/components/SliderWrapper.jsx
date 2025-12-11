@@ -252,7 +252,7 @@ const SliderWrapper = () => {
                 transition={{ duration: 0.5 }}
                 className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-white text-center"
               >
-                By The Numbers.
+                By The Numbers
               </motion.h1>
 
               <motion.p
