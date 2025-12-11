@@ -307,7 +307,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
             <div className="md:flex items-start justify-between">
               <div className="contact-info py-8">
-                <h2 className="mb-4 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                <h2 className="mb-4 text-[1.2rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                   Agent Details
                 </h2>
                 <div className="gap-4">
@@ -338,7 +338,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
               </div>
 
               <div className="aircraft-location pb-8">
-                <h2 className="mb-4 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                <h2 className="mb-4 text-[1.2rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                   Aircraft Location
                 </h2>
                 <div className="gap-4">
@@ -501,7 +501,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 </div>
               </div>
 
-              <div className="py-8 xl:flex items-start justify-between gap-4">
+              <div className="py-8 flex xl:flex-row lg:flex-col md:flex-row flex-col items-start justify-between">
                 <div className="contact-info">
                   <h2 className="mb-4 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                     Agent Details
@@ -533,7 +533,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   </div>
                 </div>
 
-                <div className="aircraft-location xl:pt-0 pt-8">
+                <div className="aircraft-location xl:pt-0 lg:pt-8 md:pt-0 pt-8">
                   <h2 className="mb-4 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                     Aircraft Location
                   </h2>
