@@ -28,7 +28,7 @@ const Navbar = () => {
           const delta = currentY - lastScrollY.current;
 
           // Add “scrolled” styling after slight offset
-          setScrolled(currentY > 300);
+          setScrolled(currentY > 50);
 
           // At very top: always show
           if (currentY <= 0) {
@@ -58,6 +58,7 @@ const Navbar = () => {
   const bgShouldBeBlack =
     scrolled ||
     location.pathname === "/blogs" ||
+    location.pathname.includes("showroom/") ||
     location.pathname.startsWith("/blog-detail/");
 
   return (
@@ -68,7 +69,7 @@ const Navbar = () => {
         "border-b border-white/10",
         showNav ? "translate-y-0" : "-translate-y-full",
         bgShouldBeBlack
-          ? "bg-black/70 backdrop-blur-md shadow-lg"
+          ? "bg-[#111218]/70 backdrop-blur-md shadow-lg"
           : "bg-transparent backdrop-blur-0 shadow-none",
       ].join(" ")}
     >
