@@ -67,6 +67,8 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
   const { data: aircraftOptions = [], isLoading: catsLoading } =
     useCategoriesQuery();
 
+  console.log("aircraft Options inside frontend = >", aircraftOptions)
+
   /* ---------- NEW: fetch slider domains from /ranges ---------- */
   const { data: ranges, isLoading: rangesLoading } = useRangesQuery({
     status: activeTab,
