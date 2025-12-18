@@ -51,7 +51,7 @@ const Showcase = () => {
               initial={{ opacity: 0, y: 40 }}
               viewport={{ amount: 0.2, once: true }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.2 }}
+              transition={{ duration: 0.5, delay: 0.9 }}
               className="flex justify-center mt-4"
             >
               <Button

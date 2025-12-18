@@ -11,7 +11,6 @@ body {
   width: 100vw !important;
 }
 
-
 .brand_img {
   filter: brightness(0) invert(1);
 }
@@ -508,7 +507,7 @@ h6 {
 .img-gallary .swiper-button-next::after {
   color: #fff !important;
   background: #111218cb;
-  padding: .3rem; 
+  padding: 0.3rem;
   border-radius: 50%;
   width: 20px;
   height: 20px;
@@ -568,6 +567,12 @@ h6 {
   border-radius: 5px;
 }
 
+@media (max-width: 768px) {
+  .glassmorphism_effect_hover {
+    width: 100%;
+    left: 0;
+  }
+}
 .glassmorphism_card:hover .glassmorphism_effect_hover {
   transform: scale(1);
 }
@@ -643,33 +648,49 @@ h6 {
   will-change: transform;
 }
 
-.dropdown-animate-in { animation: ddIn 300ms ease forwards; }
-.dropdown-animate-out { animation: ddOut 300ms ease forwards; }
+.dropdown-animate-in {
+  animation: ddIn 300ms ease forwards;
+}
+.dropdown-animate-out {
+  animation: ddOut 300ms ease forwards;
+}
 
 @keyframes ddIn {
-  from { opacity:0; transform: scaleY(0.9) translateY(-6px); }
-  to   { opacity:1; transform: scaleY(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scaleY(0.9) translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
 }
 @keyframes ddOut {
-  from { opacity:1; transform: scaleY(1) translateY(0); }
-  to   { opacity:0; transform: scaleY(0.95) translateY(-6px); }
+  from {
+    opacity: 1;
+    transform: scaleY(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scaleY(0.95) translateY(-6px);
+  }
 }
 
 .search-results::-webkit-scrollbar {
   width: 3px;
 }
 .search-results ::-webkit-scrollbar-track {
-  background: #111218; 
+  background: #111218;
 }
- 
+
 /* Handle */
 .search-results::-webkit-scrollbar-thumb {
-  background: #111218; 
+  background: #111218;
 }
 
 /* Handle on hover */
 .search-results::-webkit-scrollbar-thumb:hover {
-  background: #111218; 
+  background: #111218;
 }
 
 @media (min-width: 768px) and (max-height: 699px) {
@@ -698,13 +719,22 @@ h6 {
 }
 
 #showroom iframe {
-  filter: invert(90%) !important;
+  filter: invert(100%) !important;
 }
-
 /* width */
 .testimonial-modal::-webkit-scrollbar {
   width: 0px;
 }
 .swiper-slide {
   padding-bottom: 0 !important;
+}
+
+@media (max-width: 768px) {
+  label {
+    text-align: center !important;
+    width: 100%;
+  }
+  ::placeholder {
+    text-align: center !important;
+  }
 }

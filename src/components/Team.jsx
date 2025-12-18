@@ -99,6 +99,9 @@ const Team = () => {
                 key={`rest-${idx}`}
                 className="relative team-card rounded-xl overflow-hidden group"
               >
+                <h2 className="md:hidden block text-2xl mb-4 font-semibold text-white">
+                  {member?.name}
+                </h2>
                 <Link to={`/team/${member?._id}`}>
                   <div className="relative w-full">
                     <img
@@ -109,7 +112,7 @@ const Team = () => {
                     <div className="transition-all duration-300 group-hover:h-[100%] absolute top-0 left-0 w-full h-0 bg-black opacity-0 lg:opacity-60 z-[0]"></div>
                   </div>
                 </Link>
-                <div className="absolute -bottom-[5px] left-0 right-0 rounded-[100px] h-[200px] lg:h-[160px] group-hover:h-[210px] transition-all duration-500">
+                <div className="absolute -bottom-[30px] md:-bottom-[5px] left-0 right-0 rounded-[100px] h-[160px] lg:h-[160px] group-hover:h-[210px] transition-all duration-500">
                   <div
                     className="glass-container flex items-center justify-center glass-container--rounded px-4 py-3"
                     style={{ borderRadius: "0" }}
@@ -118,14 +121,14 @@ const Team = () => {
                     <div className="glass-overlay"></div>
                     <div className="glass-specular"></div>
                     <div className="glass-content glass-content--inline justify-center">
-                      <div className="relative w-full py-5 px-2">
+                      <div className="relative w-full md:py-5 px-2">
                         <h3 className="text-base font-light text-gray-400 mb-4 px-3">
                           {member?.address}
                         </h3>
-                        <h2 className="text-lg md:text-xl xl:text-2xl font-semibold text-white">
+                        <h2 className="md:block hidden text-lg md:text-xl xl:text-2xl font-semibold text-white">
                           {member?.name}
                         </h2>
-                        <p className="text-sm py-2 text-gray-400">
+                        <p className="text-sm text-gray-400">
                           {member?.email}
                         </p>
                         <p className="text-sm text-gray-400 mb-4">

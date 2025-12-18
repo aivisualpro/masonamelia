@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 import ServiceBanner from "../components/ServiceBanner";
 import banner from "/images/acquisition/banner.png";
+import bannerTwo from "/images/acquisition/banner.jpg";
 import CTABanner from "../components/CTABanner";
 import ServiceRappleResearch from "../components/ServiceRappleResearch";
 import ServiceHighlights from "../components/ServiceHighlights";
@@ -229,8 +230,8 @@ const AcquisitionPage = () => {
   return (
     <>
       {/* HERO / FIRST SECTION */}
-      <div ref={bannerRef} className="relative h-screen lg:h-auto overflow-hidden">
-        <ServiceBanner banner={banner} />
+      <div ref={bannerRef} className="relative lg:h-auto overflow-hidden">
+        <ServiceBanner banner={banner} bannerTwo={bannerTwo} />
 
         {/* Flashing/Bouncing Down Arrow after ~3s */}
         {showArrow && <BlinkingArrow onClick={handleArrowClick} />}

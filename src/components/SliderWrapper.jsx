@@ -110,7 +110,9 @@ const CountUp = React.memo(
     return (
       <span
         ref={spanRef}
-        className={`${index === 4 ? "text-red-600" : "text-white"} text-3xl lg:text-[2.5rem] 2xl:text-[2.7rem]`}
+        className={`${
+          index === 4 ? "text-red-600" : "text-white"
+        } text-3xl lg:text-[2.5rem] 2xl:text-[2.7rem]`}
         aria-label={`${prefix}${value}${suffix}`}
       >
         {prefix}
@@ -176,7 +178,7 @@ const SliderWrapper = () => {
 
   return (
     <>
-      <div className="xl:hidden block">
+      {/* <div className="xl:hidden block">
         <Swiper
           spaceBetween={30}
           effect={"fade"}
@@ -192,11 +194,11 @@ const SliderWrapper = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-      </div>
+      </div> */}
 
-      <section className="xl:h-screen lg:h-full xl:h-screen relative z-[0] w-screen py-20 overflow-x-hidden">
-        <div className="absolute w-screen top-0 left-0 h-full">
-          <div className="absolute w-screen h-full bg-[#111218] opacity-100 xl:opacity-50 z-[10]"></div>
+      <section className="xl:h-screen h-full relative z-[0] w-screen py-20 overflow-x-hidden">
+        <div className="absolute w-full top-0 left-0 h-full">
+          <div className="absolute h-full w-full bg-[#111218] opacity-100 xl:opacity-50 z-[10]"></div>
 
           <Swiper
             spaceBetween={30}
@@ -212,8 +214,9 @@ const SliderWrapper = () => {
                 style={{
                   backgroundImage: `url(${item})`,
                   backgroundSize: "cover",
-                  backgroundPosition: index === 0 ? "center" : "center bottom",  // Adjust positioning for the snowy image
+                  backgroundPosition: index === 0 ? "center" : "center bottom", // Adjust positioning for the snowy image
                   backgroundRepeat: "no-repeat",
+                  // maxHeight: "700px",
                 }}
               />
             ))}
@@ -221,7 +224,7 @@ const SliderWrapper = () => {
         </div>
 
         {/* fix: z-[10] (was z=[10]) */}
-        <div className="container px-5 h-full flex items-center z-[10]">
+        <div className="container h-full flex items-center z-[10]">
           {/* optional: keep this filter if you really need it; it has minor GPU cost */}
           <svg style={{ display: "none" }}>
             <filter id="lg-dist" x="0%" y="0%" width="100%" height="100%">
@@ -244,13 +247,13 @@ const SliderWrapper = () => {
           </svg>
 
           <div className="relative inset-0 flex flex-col items-center gap-8 justify-between h-full text-white z-[20]">
-            <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col justify-center items-center z-[9]">
               <motion.h1
                 initial={{ opacity: 0, y: 80 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5 }}
-                className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-white text-center"
+                className="text-[2rem] z-[9] px-5 md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-white text-center"
               >
                 By The Numbers
               </motion.h1>
@@ -260,13 +263,44 @@ const SliderWrapper = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="text-[#fff] md:text-xl py-[40px] mx-auto md:max-w-[55rem] 2xl:max-w-[70rem] text-center"
+                className="text-[#fff] px-5 md:text-xl z-[9] pt-4 pb-[40px] mx-auto md:max-w-[55rem] 2xl:max-w-[70rem] text-center"
               >
-                The data doesn’t lie. Mason Amelia is your expert wingman with a proven track record and reputation.
+                The data doesn’t lie. Mason Amelia is your expert wingman with a
+                proven track record and reputation.
               </motion.p>
+
+              <div className="xl:hidden block h-[520px] absolute top-[-5rem] left-0 w-full p-0 m-0">
+                <div
+                  className="absolute z-[5] w-full h-full"
+                  style={{
+                    // background: "420px",
+                    background:
+                      "linear-gradient(to top, #111218fd 10%, #11121868 80%)",
+                  }}
+                ></div>
+                <div className="xl:hidden block">
+                  <Swiper
+                    spaceBetween={30}
+                    effect={"fade"}
+                    modules={[EffectFade, Autoplay]}
+                    autoplay={{ delay: 3000, disableOnInteraction: false }}
+                    className="mySwiper mb-0"
+                  >
+                    {images.map((item, index) => (
+                      <SwiperSlide key={index}>
+                        <img
+                          src={item}
+                          alt=""
+                          className="w-full h-[500px] object-cover mb-0"
+                        />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                </div>
+              </div>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+            <div className="z-[9] mt-[100px] xl:mt-0 px-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
               {cards.map((card, index) => {
                 const prefix = card.title === "$" ? "$" : "";
                 const suffix =

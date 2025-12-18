@@ -181,6 +181,7 @@ const AboutPage = () => {
   ];
 
   const media = useMediaQuery("(max-width: 1023px)");
+  const mobileMedia = useMediaQuery("(max-width: 767px)");
 
   return (
     <>
@@ -189,16 +190,18 @@ const AboutPage = () => {
       {/* HERO / FIRST SECTION */}
       <section
         ref={bannerRef}
-        className="relative lg:max-w-screen lg:h-screen bg-[#10121A] overflow-hidden"
+        className="relative md:max-w-screen lg:h-screen bg-[#10121A] overflow-hidden md:mt-0 mt-[100px]"
         style={{
           backgroundImage: `url(${media ? bgPlaneTeam : bgPlane})`,
-          backgroundSize: media ? "contain" : "cover",
+          backgroundSize: media ? "cover" : "cover",
           backgroundPosition: media ? "top 0px right 0px" : "100% 45%",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: media ? "static" : "fixed",
           backgroundColor: "#10121A",
+          height: mobileMedia ? "350px" : media ? "700px" : "100vh",
         }}
       >
+        <div className="lg:hidden block absolute w-full h-full opacity-50 bg-black"></div>
         <div className="container px-5">
           <About />
         </div>

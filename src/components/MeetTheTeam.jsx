@@ -26,7 +26,7 @@ const MeetTheTeam = () => {
               initial={{ y: 50, opacity: 0 }}
               viewport={{ amount: 0.2, once: true }}
               whileInView={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.4 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
               className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-primary_theme"
               style={{ lineHeight: "1.1" }}
             >
@@ -41,7 +41,7 @@ const MeetTheTeam = () => {
               initial={{ opacity: 0, y: 50 }}
               viewport={{ amount: 0.2, once: true }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.6 }}
+              transition={{ duration: 0.4, delay: 0.4 }}
               className="text-[#222] mt-5 md:text-lg leading-relaxed text-justify"
             >
               We are purveyors of high-end piston and owner-flown turbine aircraft. Our nationwide team brings decades of experience across
@@ -90,7 +90,7 @@ const MeetTheTeam = () => {
                 initial={{ opacity: 0, y: 50 }}
                 viewport={{ amount: 0.2, once: true }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 1.4 }}
+                transition={{ duration: 0.4, delay: 0.5 }}
               >
                 <Button
                   buttonLabel="View More"
@@ -131,10 +131,15 @@ const MeetTheTeam = () => {
               initial={{ opacity: 0, x: 70 }}
               viewport={{ amount: 0.2, once: true }}
               whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
               src={meetTheTeam}
               alt="Team Banner"
-              className="rounded-3xl w-full z-[20]"
+              className="rounded-3xl w-full z-[20] md:block hidden"
+            />
+            <img
+              src={meetTheTeam}
+              alt="Team Banner"
+              className="rounded-3xl w-full z-[20] md:hidden block"
             />
           </div>
         </div>

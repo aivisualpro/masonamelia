@@ -2,6 +2,8 @@ import React from "react";
 import { FaRegHandshake, FaRegPlayCircle, FaRocket } from "react-icons/fa";
 import Button from "./Button";
 import { motion } from "framer-motion";
+import vision from "/images/higher/vision.jpg";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const services = [
   {
@@ -28,17 +30,18 @@ const services = [
 ];
 
 const GlowingCardSection = () => {
+  const media = useMediaQuery("(max-width: 767px)");
   return (
     <section
       className="py-20 z-[0] relative lg:h-screen"
       style={{
-        backgroundImage: `url('https://t3.ftcdn.net/jpg/02/39/52/06/360_F_239520607_abB3AakIrZozIAPgdVAMiMArLwi0uJTL.jpg')`,
+        backgroundImage: media ? "" : `url(${vision})`,
         backgroundSize: "cover",
         backgroundPosition: "bottom",
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="absolute top-0 left-0 w-full h-full bg-black opacity-70 z-[-1]"></div>
+      {/* <div className="absolute top-0 left-0 w-full h-full bg-black opacity-70 z-[-1]"></div> */}
       <div className="container mx-auto px-4 gap-8 flex flex-col items-center justify-center h-full">
         {/* <div className="w-full px-4 flex flex-col md:flex-row justify-between items-center z-[4]">
           <div className="flex flex-col items-center jsutify-center mx-auto">
@@ -68,7 +71,23 @@ const GlowingCardSection = () => {
           </div>
         </div> */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="xl:hidden block absolute top-0 left-0 w-full p-0 m-0">
+          <div
+            className="absolute w-full h-full z-[0]"
+            style={{
+              // background: "420px",
+              background:
+                "linear-gradient(to top, #111218fd 5%, #11121868 20%)",
+            }}
+          ></div>
+          <div className="xl:hidden block">
+            <img src={vision} className="min-h-[300px] w-full" alt="" />
+          </div>
+        </div>
+
+        <div className="md:block hidden absolute bg-black/80 w-full h-full top-0 left-0"></div>
+
+        <div className="z-[9] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:pt-0 pt-[280px]">
           {services.map((service, index) => (
             <motion.div
               initial={{ scale: 0 }}
@@ -79,7 +98,10 @@ const GlowingCardSection = () => {
               <div className="glass-filter"></div>
               <div className="glass-overlay"></div>
               <div className="glass-specular"></div>
-              <div className="glass-content h-full" style={{ alignItems: "start" }}>
+              <div
+                className="glass-content h-full"
+                style={{ alignItems: "start" }}
+              >
                 <div
                   key={index}
                   className="p-6 rounded-xl relative w-full text-center"

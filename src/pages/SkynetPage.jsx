@@ -105,9 +105,11 @@ const SkynetPage = () => {
       {/* HERO / FIRST SECTION (sticky) */}
       <section
         ref={bannerRef}
-        className="h-screen w-full bg-cover bg-center z-[0] relative overflow-hidden"
+        className="md:h-screen w-full bg-cover bg-center z-[0] relative overflow-hidden"
         style={{
-          backgroundImage: `linear-gradient(
+          backgroundImage: media
+            ? ""
+            : `linear-gradient(
             to right,
             rgb(21, 22, 28, ${media ? ".8" : "1"}) ${media ? "100%" : "30%"},
             rgba(21, 22, 28, 0.3)
@@ -118,7 +120,7 @@ const SkynetPage = () => {
           backgroundAttachment: "fixed",
         }}
       >
-        <Skynet />
+        <Skynet banner={banner} />
 
         {/* Arrow appears ~3s if user hasn't interacted */}
         {showArrow && <BlinkingArrow onClick={handleArrowClick} />}

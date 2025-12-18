@@ -205,7 +205,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
             <img
               src={gallery?.[activeImgIndex]}
               alt="Main Aircraft"
-              className="w-full h-[300px] object-cover lg:rounded-2xl cursor-pointer"
+              className="w-full  object-cover lg:rounded-2xl cursor-pointer"
               onClick={() => onOpenModal(activeImgIndex, gallery)}
             />
             <div className="lg:mt-4">

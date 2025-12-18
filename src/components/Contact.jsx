@@ -292,7 +292,7 @@ const Contact = () => {
                 />
               </div>
 
-              <div className="md:col-span-2 text-right">
+              <div className="md:col-span-2 md:mx-0 mx-auto text-right">
                 <button
                   type="submit"
                   disabled={loading}

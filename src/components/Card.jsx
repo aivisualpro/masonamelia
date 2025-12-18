@@ -83,11 +83,11 @@ const Card = ({ detail }) => {
           <h1 className="text-[.8rem]">{ribbonText}</h1>
         </div>
         {/* Image */}
-        <div className="card-img">
+        <div className="card-img max-w-full">
           <img
             src={imgSrc}
             alt={detail?.title || "aircraft"}
-            className="w-full min-h-[225px] object-cover rounded-2xl"
+            className="w-full h-[200px] rounded-2xl"
             loading="lazy"
             decoding="async"
           />

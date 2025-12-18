@@ -6,10 +6,11 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 const AboutHeader = () => {
   const media = useMediaQuery("(max-width: 1023px)");
+  const mobileMedia = useMediaQuery("(max-width: 767px)");
 
   return (
     // Wrap hero in a relative section so overlay sit kare
-    <section className="relative h-[100vh] pt-[50px]">
+    <section className="relative lg:h-[100vh] h-full lg:pt-[50px] md:pt-0 md:h-[700px] pt-[200px]">
       <div className={`relative z-10 px-5 pb-4 container flex flex-col justify-end lg:justify-center h-full lg:items-start items-center`}>
         <motion.h1
           initial={{ opacity: 0, y: 100 }}
@@ -48,8 +49,8 @@ const AboutHeader = () => {
               text="We help distinguished clientele get where they want to go, but faster. Think TBM speed"
               disabled={false}
               speed={5}
-              className="text-center lg:text-start md:text-lg [text-shadow:_0_2px_8px_rgba(0,0,0,0.7)]"
-              color="text-[#ddd] md:text-[#b5b5b5a4]"
+              className="text-center lg:text-start sm:text-lg [text-shadow:_0_2px_8px_rgba(0,0,0,0.7)]"
+              color="text-[#ddd] lg:text-[#b5b5b5a4]"
             />
           </div>
         </motion.div>

@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 import ServiceBanner from "../components/ServiceBanner";
 import banner from "/images/brokerage/banner.jpg";
+import bannerTwo from "/images/brokerage/banner.png";
 import CTABanner from "../components/CTABanner";
 import BrokerageRappleResearch from "../components/BrokerageRappleResearch";
 import ServiceHighlights from "../components/ServiceHighlights";
@@ -281,8 +282,8 @@ const BrokeragePage = () => {
   return (
     <>
       {/* HERO / FIRST SECTION with arrow & auto-scroll */}
-      <div ref={bannerRef} className="relative h-screen lg:h-auto overflow-hidden">
-        <ServiceBanner banner={banner} />
+      <div ref={bannerRef} className="relative h-auto overflow-hidden">
+        <ServiceBanner banner={banner} bannerTwo={bannerTwo} />
         {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
       </div>
 
