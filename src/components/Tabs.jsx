@@ -1,39 +1,51 @@
+import React from "react";
 import { motion } from "framer-motion";
-import { useLocation } from "react-router-dom";
 import { GoFilter } from "react-icons/go";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 
 export default function Tabs({
   categories,
   activeTab,
   setActiveTab,
   isAllTab = true,
-  // NEW:
   showFilterToggle = false,
   isFilterOpen = true,
   onToggleFilter = () => {},
 }) {
-  const location = useLocation();
+  const containerRef = React.useRef(null);
+
+  const scrollContainer = (direction) => {
+    if (containerRef.current) {
+      const scrollAmount = direction === "left" ? -200 : 200;
+      containerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
 
   return (
-    <>
-      <div
-        style={styles.navContainer}
-        className={`gap-[12px] md:gap-[24px] tabs-scroll w-full ${
-          location.pathname !== "/showroom" ? "flex flex-row flex-wrap" : "flex flex-row flex-wrap"
-        }`}
+    /* 1. Relative wrapper to contain the sticky/absolute arrows */
+    <div className="relative w-full flex items-center group">
+      
+      {/* Left Arrow - Fixed to the left edge */}
+      <button
+        onClick={() => scrollContainer("left")}
+        className="absolute left-1 z-20 flex xl:hidden items-center justify-center w-6 h-6 text-white rounded-full shadow-lg transition-all"
+        aria-label="Scroll Left"
       >
-        {/* FILTER pill at the very start */}
+        <AiOutlineLeft size={16} />
+      </button>
+
+      {/* 2. Main Scroll Container */}
+      <div
+        ref={containerRef}
+        style={styles.navContainer}
+        className="tabs-scroll flex flex-nowrap items-center w-full overflow-x-auto scroll-smooth no-scrollbar px-10 xl:p-3"
+      >
+        {/* Filter Toggle */}
         {showFilterToggle && (
           <div
             onClick={onToggleFilter}
-            style={{
-              ...styles.tab,
-              color: "white",
-              position: "relative",
-              paddingLeft: 14,
-              paddingRight: 14,
-            }}
-            className="relative hidden xl:flex items-center gap-2"
+            className="relative hidden xl:flex items-center gap-2 flex-shrink-0 px-4 py-2 cursor-pointer"
+            style={{ color: "white" }}
           >
             <motion.div
               layoutId="filterHighlight"
@@ -41,15 +53,19 @@ export default function Tabs({
               style={{ borderColor: isFilterOpen ? "#49a8fc" : "#2d2f39" }}
             />
             <GoFilter className="relative z-10" />
-            <span className="relative z-10">{isFilterOpen ? "Hide Filters" : "Show Filters"}</span>
+            <span className="relative z-10 text-sm xl:text-base">
+              {isFilterOpen ? "Hide Filters" : "Show Filters"}
+            </span>
           </div>
         )}
 
+        {/* All Tab */}
         {isAllTab && (
           <div
             onClick={() => setActiveTab("all")}
-            style={{ ...styles.tab, color: activeTab === "all" ? "white" : "#aaa" }}
-            className="w-[40%] mx-2 md:w-auto text-center text-xs xl:text-base"
+            /* 3. Added flex-shrink-0 to ensure tab doesn't squash */
+            className="relative flex-shrink-0 justify-center mx-auto px-4 py-2 cursor-pointer select-none transition-colors duration-200"
+            style={{ color: activeTab === "all" ? "white" : "#aaa" }}
           >
             {activeTab === "all" && (
               <motion.div
@@ -58,64 +74,63 @@ export default function Tabs({
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
               />
             )}
-            <span style={{ position: "relative", zIndex: 1 }}>All</span>
+            <span className="relative z-10 text-xs xl:text-base font-medium">All</span>
           </div>
         )}
 
+        {/* Categories */}
         {categories.map((tab) => (
           <div
             key={tab.slug}
             onClick={() => setActiveTab(tab.slug)}
-            style={{ ...styles.tab, color: activeTab === tab.slug ? "white" : "#aaa" }}
-            className={`md:w-auto text-center text-xs xl:text-base ${
-              location.pathname !== "/showroom" ? "w-[40%] mx-2" : "w-[40%] mx-2"
-            }`}
+            /* 3. Added flex-shrink-0 here as well */
+            className="relative flex-shrink-0 mx-auto px-4 py-2 cursor-pointer select-none transition-colors duration-200"
+            style={{ color: activeTab === tab.slug ? "white" : "#aaa" }}
           >
             {activeTab === tab.slug && (
               <motion.div
                 layoutId="highlight"
                 style={styles.highlight}
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                className="w-full"
-
               />
             )}
-            <span style={{ position: "relative", zIndex: 1 }}>{tab?.name}</span>
+            <span className="relative z-10 text-xs xl:text-base font-medium">
+              {tab?.name}
+            </span>
           </div>
         ))}
       </div>
-    </>
+
+      {/* Right Arrow - Fixed to the right edge */}
+      <button
+        onClick={() => scrollContainer("right")}
+        className="absolute right-1 z-20 flex xl:hidden items-center justify-center w-6 h-6 text-white rounded-full shadow-lg transition-all"
+        aria-label="Scroll Right"
+      >
+        <AiOutlineRight size={16} />
+      </button>
+    </div>
   );
 }
 
 const styles = {
   navContainer: {
-    display: "flex",
     margin: "0 auto",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "2px",
     borderRadius: "50px",
     background: "#171921",
-  },
-  tab: {
-    position: "relative",
-    padding: "10px 15px",
-    cursor: "pointer",
-    borderRadius: "50px",
-    userSelect: "none",
+    // Hide scrollbar but keep functionality
+    msOverflowStyle: 'none',
+    scrollbarWidth: 'none',
   },
   highlight: {
     position: "absolute",
     top: 0,
     left: 0,
-    width: "100%",
-    height: "100%",
-    overflow: "hidden",
+    right: 0,
+    bottom: 0,
     borderRadius: "50px",
     background: "#000",
     border: "1px solid #49a8fc",
     zIndex: 0,
   },
 };
-

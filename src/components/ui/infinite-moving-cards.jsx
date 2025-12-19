@@ -223,7 +223,7 @@ const InfiniteMovingCards = ({
                 <button
                   type="button"
                   onClick={() => openModal(item)}
-                  className="absolute top-6 hover:bg-tertiary_color hover:text-white right-6 flex items-center justify-center rounded-full bg-white/90 text-sky-600 shadow-md p-2 opacity-0 -translate-y-3
+                  className="z-[999] absolute top-6 hover:bg-tertiary_color hover:text-white right-6 flex items-center justify-center rounded-full bg-white/90 text-sky-600 shadow-md p-2 opacity-0 -translate-y-3
                              transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
                 >
                   <FiBookOpen className="text-[18px]" />

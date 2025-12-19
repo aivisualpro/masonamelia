@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import About from "../components/About";
 import bgPlane from "/images/banner.png";
-import bgPlaneTeam from "/images/team.png";
+import bgPlaneTeam from "/images/team.webp";
 import ScrollToTop from "../components/ScrollToTop";
 import { Timeline } from "../components/ui/timeline";
 import { FaHandshake, FaUsers, FaChartLine } from "react-icons/fa";

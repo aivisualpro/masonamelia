@@ -5,9 +5,9 @@ import CTA from "../components/CTA";
 import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 // import { IoIosArrowDown } from "react-icons/io"; // not needed now
-import banner from "/images/showroom/banner.png";
-import bannerTwo from "/images/showroom/bannerTwo.png";
-import BlinkingArrow from "../components/BlinkingArrow";
+import banner from "/images/showroom/banner.webp";
+import bannerTwo from "/images/showroom/bannerTwo.webp";
+
 import Contact from "../components/Contact";
 import CTABanner from "../components/CTABanner";
 
@@ -139,7 +139,7 @@ const ShowroomPage = () => {
 
   return (
     <>
-      <Banner url={banner} banner={bannerTwo} />
+      <Banner url={banner} banner={bannerTwo} handleArrowClick={handleArrowClick} showArrow={showArrow} />
       {/* 👇 target for scroll */}
       <div ref={listingRef}>
         <Listing autoScrollEnabled={autoScrollEnabled} />
@@ -156,7 +156,7 @@ const ShowroomPage = () => {
       <Footer />
       <ScrollToTop />
 
-      {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
+     
     </>
   );
 };

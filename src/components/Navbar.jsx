@@ -86,8 +86,7 @@ const Navbar = () => {
               alt="logo"
               className="
         block
-        max-w-[250px]
-        h-[50px] md:h-[65px]
+        max-w-[150px]
         transition-opacity duration-150 ease-in-out
         opacity-100
         group-hover:opacity-0

@@ -96,8 +96,6 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
 
   const media = useMediaQuery("(max-width: 767px)");
 
-  //
-
   return (
     <>
       <Navbar />

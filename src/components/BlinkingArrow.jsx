@@ -6,7 +6,7 @@ const BlinkingArrow = ({ onClick }) => {
       aria-label="Scroll down"
       onClick={onClick}
       className="
-        absolute left-[45%] md:left-1/2 -translate-x-1/2 bottom-6
+        absolute left-[46%] md:left-1/2 -translate-x-1/2 bottom-6
         inline-flex items-center justify-center
         rounded-full h-[2rem] w-[2rem] md:w-12 md:h-12
         border border-white/30 bg-black/30 backdrop-blur

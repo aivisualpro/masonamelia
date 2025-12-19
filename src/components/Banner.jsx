@@ -3,14 +3,15 @@ import Navbar from "./Navbar";
 import BlurText from "./ui/BlurText";
 import ShinyText from "./ui/ShinyText";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import BlinkingArrow from "./BlinkingArrow";
 
-const Banner = ({ url, banner }) => {
+const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
   const media = useMediaQuery("(max-width: 767px)");
   return (
     <>
       <Navbar />
       <div
-        className="bg-img w-full md:sticky top-0 md:h-screen"
+        className="h-full relative bg-img w-full md:sticky top-0 md:h-screen"
         style={{
           backgroundImage: media ? "" : `linear-gradient(to right,rgb(21, 22, 28, ${
             media ? ".8" : "1"
@@ -21,6 +22,7 @@ const Banner = ({ url, banner }) => {
           backgroundPosition: "bottom right",
         }}
       >
+        {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
         {/* <div className="overlay bg-black opacity-60 absolute top-0 left-0 w-full h-full z-[-1]"></div> */}
 
         <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0">
