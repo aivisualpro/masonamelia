@@ -718,9 +718,6 @@ h6 {
   }
 }
 
-#showroom iframe {
-  filter: invert(100%) !important;
-}
 /* width */
 .testimonial-modal::-webkit-scrollbar {
   width: 0px;

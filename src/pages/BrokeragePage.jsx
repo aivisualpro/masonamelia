@@ -70,7 +70,7 @@ const BrokeragePage = () => {
     // 3s baad → agar top pe ho & cancelAuto false, arrow show
     const arrowTimer = setTimeout(() => {
       if (isNearTop() && !cancelAuto /* && !already */) setShowArrow(true);
-    }, 3000);
+    }, 1500);
 
     // 5s baad → agar ab tak interact nahi kiya to auto-scroll
     const scrollTimer = setTimeout(() => {
@@ -80,11 +80,11 @@ const BrokeragePage = () => {
           ? next.getBoundingClientRect().top + window.scrollY
           : bannerRef.current?.offsetHeight || 0;
 
-        smoothScrollTo(targetY, 2500);
+        smoothScrollTo(targetY, 2000);
         // sessionStorage.setItem(AUTO_KEY, "1");
         setShowArrow(false);
       }
-    }, 5000);
+    }, 3000);
 
     return () => {
       window.removeEventListener("wheel", onWheel);

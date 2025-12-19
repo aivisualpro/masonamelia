@@ -92,7 +92,7 @@ const AcquisitionPage = () => {
     // 3s → show arrow if still near top and not cancelled
     const arrowTimer = setTimeout(() => {
       if (isNearTop() && !cancelAuto) setShowArrow(true);
-    }, 3000);
+    }, 1500);
 
     // 5s → auto scroll smoothly if not cancelled
     const scrollTimer = setTimeout(() => {
@@ -102,10 +102,10 @@ const AcquisitionPage = () => {
           ? next.getBoundingClientRect().top + window.scrollY
           : bannerRef.current?.offsetHeight || 0;
 
-        smoothScrollTo(targetY, 2500);
+        smoothScrollTo(targetY, 2000);
         setShowArrow(false);
       }
-    }, 5000);
+    }, 3000);
 
     return () => {
       window.removeEventListener("wheel", onWheel);

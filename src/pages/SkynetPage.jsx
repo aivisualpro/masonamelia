@@ -63,7 +63,7 @@ const SkynetPage = () => {
 
     const arrowTimer = setTimeout(() => {
       if (isNearTop() && !cancelAuto /* && !already */) setShowArrow(true);
-    }, 3000);
+    }, 1500);
 
     const scrollTimer = setTimeout(() => {
       if (isNearTop() && !cancelAuto /* && !already */) {
@@ -72,11 +72,11 @@ const SkynetPage = () => {
           ? next.getBoundingClientRect().top + window.scrollY
           : bannerRef.current?.offsetHeight || 0;
 
-        smoothScrollTo(targetY, 2500);
+        smoothScrollTo(targetY, 2000);
         // sessionStorage.setItem(AUTO_KEY, "1");
         setShowArrow(false);
       }
-    }, 5000);
+    }, 3000);
 
     return () => {
       window.removeEventListener("wheel", onWheel);
@@ -95,7 +95,7 @@ const SkynetPage = () => {
       ? next.getBoundingClientRect().top + window.scrollY
       : bannerRef.current?.offsetHeight || 0;
 
-    smoothScrollTo(targetY, 2500);
+    smoothScrollTo(targetY, 2000);
     cancelAutoScroll();
   };
 
@@ -123,7 +123,7 @@ const SkynetPage = () => {
         <Skynet banner={banner} />
 
         {/* Arrow appears ~3s if user hasn't interacted */}
-        {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
+        {!showArrow && <BlinkingArrow onClick={handleArrowClick} />}
       </section>
 
       {/* TARGET SECTION — auto-scroll lands here */}

@@ -7,10 +7,10 @@ const Higher = ({ banner }) => {
   const media = useMediaQuery("(max-width: 767px)");
 
   return (
-    <div className="flex items-center h-[400px] md:h-screen">
+    <div className="flex items-center pt-[122px] pb-[32px] md:pb-0 md:pt-[0px] md:h-screen">
       {/* Overlay card */}
 
-      <div className="absolute md:hidden block w-full h-[400px] object-cover z-[-1] top-0 left-0">
+      <div className="absolute md:hidden block w-full object-cover z-[-1] top-0 left-0">
         <img src={banner} className="w-full h-full" alt="" />
       </div>
 
@@ -36,7 +36,7 @@ const Higher = ({ banner }) => {
             type: "spring",
             stiffness: 50,
             duration: 0.5,
-            delay: 0.3,
+            delay: 0.4,
           }}
           className="max-w-lg lg:max-w-xl flex justify-start md:mt-4"
         >

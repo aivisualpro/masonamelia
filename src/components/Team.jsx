@@ -16,7 +16,7 @@ const staticTeam = [
   /* ... same as before ... */
 ];
 
-const Team = () => {
+const Team = ({ teamRef }) => {
   const navigate = useNavigate();
 
   // make sure we don't shadow the staticTeam
@@ -87,7 +87,7 @@ const Team = () => {
         </div>
 
         {/* rest of team */}
-        <div className="container">
+        <div className="container" ref={teamRef}>
           <div className="mx-auto">
             <h5 className="text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-center py-14">
               Our Team
@@ -128,9 +128,7 @@ const Team = () => {
                         <h2 className="md:block hidden text-lg md:text-xl xl:text-2xl font-semibold text-white">
                           {member?.name}
                         </h2>
-                        <p className="text-sm text-gray-400">
-                          {member?.email}
-                        </p>
+                        <p className="text-sm text-gray-400">{member?.email}</p>
                         <p className="text-sm text-gray-400 mb-4">
                           {member?.title}
                         </p>

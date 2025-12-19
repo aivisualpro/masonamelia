@@ -60,7 +60,7 @@ const AboutPage = () => {
     // Arrow 3 sec baad show karo agar user ne kuch nahi kiya
     const arrowTimer = setTimeout(() => {
       if (isNearTop() && !cancelAuto) setShowArrow(true);
-    }, 3000);
+    }, 1500);
 
     // 5 sec tak agar user ne scroll nahi kiya to auto-scroll
     const scrollTimer = setTimeout(() => {
@@ -70,10 +70,10 @@ const AboutPage = () => {
           ? next.getBoundingClientRect().top + window.scrollY
           : bannerRef.current?.offsetHeight || 0;
 
-        smoothScrollTo(targetY, 2500);
+        smoothScrollTo(targetY, 2000);
         setShowArrow(false);
       }
-    }, 5000);
+    },3000);
 
     return () => {
       window.removeEventListener("wheel", onWheel);

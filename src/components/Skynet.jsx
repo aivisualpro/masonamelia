@@ -8,7 +8,7 @@ const Skynet = ({ banner }) => {
   const media = useMediaQuery("(max-width: 767px)");
 
   return (
-    <section className="lg:h-[400px] md:h-[100vh]">
+    <div className="lg:h-[400px] md:h-[100vh]">
       {/* Background Image Right Side */}
       <div className="px-8 container pt-[122px] pb-[32px] md:pt-[50px] md:h-screen flex flex-col justify-center h-full ">
         <div className="absolute md:hidden block w-full h-[400px] z-[-1] top-0 left-0">
@@ -54,7 +54,7 @@ const Skynet = ({ banner }) => {
           />
         </motion.div>
       </div>
-    </section>
+    </div>
   );
 };
 

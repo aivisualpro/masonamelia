@@ -61,7 +61,7 @@ const ShowroomPage = () => {
       (listingRef.current?.getBoundingClientRect().top ?? 0) +
       window.scrollY -
       12;
-    smoothScrollTo(top, { duration: 2200 });
+    smoothScrollTo(top, { duration: 2000 });
     setAutoScrollEnabled(true);
     cancelAutoScroll();
   };
@@ -113,14 +113,14 @@ const ShowroomPage = () => {
     // 3s baad arrow show (agar top pe ho & cancel nahi hua)
     arrowTimer = setTimeout(() => {
       if (isNearTop() && !cancelAuto) setShowArrow(true);
-    }, 3000);
+    }, 1500);
 
     // 5s baad smooth scroll (agar ab tak cancel nahi hua)
     scrollTimer = setTimeout(() => {
       if (isNearTop() && !cancelAuto) {
         scrollToListing();
       }
-    }, 5000);
+    }, 3000);
 
     return () => {
       clearTimeout(arrowTimer);

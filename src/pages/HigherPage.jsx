@@ -64,7 +64,7 @@ const HigherPage = () => {
     // 3s: show arrow if still near top
     const arrowTimer = setTimeout(() => {
       if (isNearTop() && !cancelAuto /* && !already */) setShowArrow(true);
-    }, 3000);
+    }, 1500);
 
     // 5s: auto-scroll to main content if not cancelled
     const scrollTimer = setTimeout(() => {
@@ -74,11 +74,11 @@ const HigherPage = () => {
           ? next.getBoundingClientRect().top + window.scrollY
           : bannerRef.current?.offsetHeight || 0;
 
-        smoothScrollTo(targetY, 2500);
+        smoothScrollTo(targetY, 2000);
         // sessionStorage.setItem(AUTO_KEY, "1");
         setShowArrow(false);
       }
-    }, 5000);
+    }, 3000);
 
     return () => {
       window.removeEventListener("wheel", onWheel);
@@ -107,7 +107,7 @@ const HigherPage = () => {
       {/* HERO / FIRST SECTION */}
       <section
         ref={bannerRef}
-        className="md:sticky top-0 w-full bg-cover h-[400px] md:h-screen bg-center z-[0] overflow-hidden"
+        className="md:sticky top-0 w-full bg-cover relative md:h-screen bg-center z-[0] overflow-hidden"
         style={{
           backgroundImage: media ? "" : `linear-gradient(to right, rgb(21, 22, 28, ${
             media ? ".5" : "1"
@@ -115,7 +115,7 @@ const HigherPage = () => {
         }}
       >
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-[-1]"></div>
-        <div className="container md:pt-[50px] pt-[50px]">
+        <div className="container md:pt-[50px]">
           <Higher banner={bgPlane} />
         </div>
 
