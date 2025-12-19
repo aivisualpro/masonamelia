@@ -134,20 +134,12 @@ const MeetTheTeam = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               src={meetTheTeam}
               alt="Team Banner"
-<<<<<<< HEAD
-              className="md:block hidden rounded-3xl w-full z-[20]"
-=======
               className="rounded-3xl w-full z-[20] md:block hidden"
->>>>>>> origin/main
             />
             <img
               src={meetTheTeam}
               alt="Team Banner"
-<<<<<<< HEAD
-              className="md:hidden block rounded-3xl w-full z-[20]"
-=======
               className="rounded-3xl w-full z-[20] md:hidden block"
->>>>>>> origin/main
             />
           </div>
         </div>

@@ -88,7 +88,7 @@ export default function WhatSetsUsApart() {
               initial={{ opacity: 0, y: 100 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="text-base md:text-lg text-neutral-300 py-4 py-[24px] md:py-[40px] max-w-4xl"
+              className="text-base md:text-lg text-neutral-300 py-[24px] md:py-[40px] max-w-4xl"
             >
               An aircraft brokerage named after our founder Jesse Adams’
               children, focused on high-performance piston and owner-flown
