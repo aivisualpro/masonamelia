@@ -123,7 +123,7 @@ const SkynetPage = () => {
         <Skynet banner={banner} />
 
         {/* Arrow appears ~3s if user hasn't interacted */}
-        {!showArrow && <BlinkingArrow onClick={handleArrowClick} />}
+        {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
       </section>
 
       {/* TARGET SECTION — auto-scroll lands here */}
