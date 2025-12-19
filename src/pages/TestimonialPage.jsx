@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Reviews from "../components/Reviews";
-import bgPlane from "/images/brokerage/banner.png"; // Replace with your path
+// import bgPlane from "/images/brokerage/banner.png"; // Replace with your path
 import ScrollToTop from "../components/ScrollToTop";
 import CTABanner from "../components/CTABanner";
 

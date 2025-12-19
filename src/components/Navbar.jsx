@@ -99,8 +99,7 @@ const Navbar = () => {
               alt="logo colored"
               className="
         absolute inset-0 mt-[-1px]
-        max-w-[178px]
-        h-[50px] md:h-[67px]
+        max-w-[149px]
         transition-opacity duration-150 ease-in-out
         opacity-0
         group-hover:opacity-100
