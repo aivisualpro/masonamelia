@@ -94,7 +94,7 @@ const InfiniteMovingCards = ({
 }) => {
   const containerRef = useRef(null); // viewport
   const rowRef = useRef(null);
-  const cardRefs = useRef([]); // har card ka ref
+  const cardRefs = useRef([]); // refs for each card
 
   const [start, setStart] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
@@ -111,7 +111,6 @@ const InfiniteMovingCards = ({
     setDirectionVar();
     setSpeedVar();
     setStart(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setDirectionVar = () => {
@@ -134,10 +133,10 @@ const InfiniteMovingCards = ({
     setIsRowHovered(true);
   };
 
-  // container leave → x reset, phir marquee resume
+  // container leave → x reset, then marquee resume
   const handleContainerLeave = () => {
     setIsResettingX(true);
-    hoverX.set(0); // spring se 0 par lao
+    hoverX.set(0); // spring to 0
 
     if (resetTimeoutRef.current) {
       clearTimeout(resetTimeoutRef.current);
@@ -145,11 +144,11 @@ const InfiniteMovingCards = ({
     resetTimeoutRef.current = setTimeout(() => {
       setIsResettingX(false);
       setIsRowHovered(false);
-    }, 220); // spring duration ke approx
+    }, 220); // approx spring duration
   };
 
   const openModal = (item) => {
-    setActiveItem(item)
+    setActiveItem(item);
   };
   const closeModal = () => {
     document.body.style.overflow = "scroll";
@@ -160,6 +159,33 @@ const InfiniteMovingCards = ({
 
   const shouldPauseAnimation =
     pauseOnHover && (isRowHovered || isResettingX);
+
+  const handleCardEnter = (idx) => {
+    const cardEl = cardRefs.current[idx];
+    const viewportEl = containerRef.current;
+
+    // Ensure the hovered card is fully visible
+    ensureVisible(cardEl, viewportEl, hoverX);
+  };
+
+  // Function to make the hovered card visible
+  function ensureVisible(cardEl, viewportEl, hoverMv) {
+    if (!cardEl || !viewportEl) return;
+    const margin = 24; // gutter space
+    const viewRect = viewportEl.getBoundingClientRect();
+    const cardRect = cardEl.getBoundingClientRect();
+
+    let delta = 0;
+    if (cardRect.left < viewRect.left + margin) {
+      delta = viewRect.left + margin - cardRect.left;
+    } else if (cardRect.right > viewRect.right - margin) {
+      delta = viewRect.right - margin - cardRect.right;
+    }
+
+    if (delta !== 0) {
+      hoverMv.set(hoverMv.get() + delta);
+    }
+  }
 
   if (loopItems.length <= 1) {
     return <div className="py-10 text-center text-white">Loading....</div>;
@@ -197,7 +223,7 @@ const InfiniteMovingCards = ({
                 <button
                   type="button"
                   onClick={() => openModal(item)}
-                  className="absolute top-6 z-[999999] hover:bg-tertiary_color hover:text-white right-6 flex items-center justify-center rounded-full bg-white/90 text-sky-600 shadow-md p-2 opacity-0 -translate-y-3
+                  className="absolute top-6 hover:bg-tertiary_color hover:text-white right-6 flex items-center justify-center rounded-full bg-white/90 text-sky-600 shadow-md p-2 opacity-0 -translate-y-3
                              transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
                 >
                   <FiBookOpen className="text-[18px]" />
@@ -206,8 +232,7 @@ const InfiniteMovingCards = ({
                 <div>
                   <li
                     className={cn(
-                      "z-[9999] flex flex-col justify-center relative w-[325px] max-w-full pt-8 rounded-[50px] px-4 md:px-8 py-0 md:py-6 md:w-[450px] h-[300px]",
-                      "flex flex-col justify-center relative w-[325px] max-w-full pt-8 rounded-[50px] px-4 md:px-8 py-0 md:py-6 md:w-[450px] h-[300px]",
+                      " flex flex-col justify-center relative w-[325px] max-w-full pt-8 rounded-[50px] px-4 md:px-8 py-0 md:py-6 md:w-[450px] h-[300px]",
                       bgColor ? "" : "bg-black/30"
                     )}
                     style={bgColor ? { backgroundColor: bgColor } : undefined}
