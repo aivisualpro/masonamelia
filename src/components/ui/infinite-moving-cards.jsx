@@ -30,7 +30,6 @@ const TestimonialModal = ({ item, onClose }) => {
   if (!item) return null;
   if (typeof document === "undefined") return null;
 
-  // body scroll lock
   useEffect(() => {
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -55,7 +54,6 @@ const TestimonialModal = ({ item, onClose }) => {
             exit={{ opacity: 0, scale: 0.9, y: 10 }}
             transition={{ duration: 0.2 }}
           >
-            {/* Close button */}
             <button
               type="button"
               onClick={onClose}
@@ -70,9 +68,7 @@ const TestimonialModal = ({ item, onClose }) => {
               </div>
               <div>
                 <h3 className="text-lg font-semibold">{item?.name}</h3>
-                <p className="text-sm text-blue-100/80">
-                  {item?.location}
-                </p>
+                <p className="text-sm text-blue-100/80">{item?.location}</p>
               </div>
             </div>
 
@@ -93,15 +89,23 @@ const InfiniteMovingCards = ({
   speed = "fast",
   pauseOnHover = true,
   className,
+  bgColor,
+  itemClass,
 }) => {
-  const containerRef = useRef(null); // viewport for marquee
+  const containerRef = useRef(null); // viewport
   const rowRef = useRef(null);
+  const cardRefs = useRef([]); // har card ka ref
+
   const [start, setStart] = useState(false);
-
-  const hoverX = useSpring(0, { stiffness: 200, damping: 30, bounce: 0 });
-  const cardRefs = useRef([]);
-
   const [activeItem, setActiveItem] = useState(null);
+
+  // x-offset for centering card
+  const hoverX = useSpring(0, { stiffness: 200, damping: 30, bounce: 0 });
+
+  // row hover state
+  const [isRowHovered, setIsRowHovered] = useState(false);
+  const [isResettingX, setIsResettingX] = useState(false);
+  const resetTimeoutRef = useRef(null);
 
   useEffect(() => {
     setDirectionVar();
@@ -121,81 +125,114 @@ const InfiniteMovingCards = ({
   const setSpeedVar = () => {
     if (!containerRef.current) return;
     const duration =
-      speed === "fast" ? "20s" : speed === "normal" ? "40s" : "100s";
+      speed === "fast" ? "70s" : speed === "normal" ? "40s" : "100s";
     containerRef.current.style.setProperty("--animation-duration", duration);
   };
 
-  const handleEnter = (idx) => {
-    const el = cardRefs.current[idx];
-    ensureVisible(el, containerRef.current, hoverX);
+  // container enter → pause marquee
+  const handleContainerEnter = () => {
+    setIsRowHovered(true);
   };
-  const handleLeave = () => hoverX.set(0);
 
-  const openModal = (item) => setActiveItem(item);
+  // container leave → x reset, phir marquee resume
+  const handleContainerLeave = () => {
+    setIsResettingX(true);
+    hoverX.set(0); // spring se 0 par lao
+
+    if (resetTimeoutRef.current) {
+      clearTimeout(resetTimeoutRef.current);
+    }
+    resetTimeoutRef.current = setTimeout(() => {
+      setIsResettingX(false);
+      setIsRowHovered(false);
+    }, 220); // spring duration ke approx
+  };
+
+  // kisi bhi card par hover → us card ko full view
+  const handleCardEnter = (idx) => {
+    const cardEl = cardRefs.current[idx];
+    if (!cardEl || !containerRef.current) return;
+    ensureVisible(cardEl, containerRef.current, hoverX);
+  };
+
+  const openModal = (item) => {
+    setActiveItem(item)
+  };
   const closeModal = () => {
     document.body.style.overflow = "scroll";
-    setActiveItem(null)
+    setActiveItem(null);
   };
 
   const loopItems = items.concat(items);
+
+  const shouldPauseAnimation =
+    pauseOnHover && (isRowHovered || isResettingX);
+
+  if (loopItems.length <= 1) {
+    return <div className="py-10 text-center text-white">Loading....</div>;
+  }
 
   return (
     <>
       <div
         ref={containerRef}
         className={cn("scroller relative z-20 overflow-hidden", className)}
+        onMouseEnter={handleContainerEnter}
+        onMouseLeave={handleContainerLeave}
       >
-        <motion.div style={{ x: hoverX }}>
+        <motion.div style={{ x: hoverX, willChange: "transform opacity" }}>
           <ul
             ref={rowRef}
             className={cn(
               "flex w-max min-w-full shrink-0 flex-nowrap gap-4",
               start && "animate-scroll",
-              pauseOnHover && "hover:[animation-play-state:paused]"
+              shouldPauseAnimation && "[animation-play-state:paused]"
             )}
           >
             {loopItems.map((item, idx) => (
               <div
                 key={`card-${idx}`}
-                ref={(el) => (cardRefs.current[idx] = el)}
-                className="glass-container relative group flex items-center justify-center glass-container--rounded md:px-4 md:py-3"
-                onMouseEnter={() => handleEnter(idx)}
-                onMouseLeave={handleLeave}
+                ref={(el) => {
+                  cardRefs.current[idx] = el;
+                }}
+                className={cn(
+                  "relative group flex items-center justify-center md:px-2",
+                )}
+                onMouseEnter={() => handleCardEnter(idx)}
               >
-                <div className="glass-filter" />
-                <div className="glass-overlay" />
-                <div className="glass-specular" />
-
                 {/* READ ICON – slide down on hover */}
                 <button
                   type="button"
                   onClick={() => openModal(item)}
-                  className="absolute top-6 z-[999] hover:bg-tertiary_color hover:text-white right-6 flex items-center justify-center rounded-full bg-white/90 text-sky-600 shadow-md p-2 opacity-0 -translate-y-3
+                  className="absolute top-6 z-[999999] hover:bg-tertiary_color hover:text-white right-6 flex items-center justify-center rounded-full bg-white/90 text-sky-600 shadow-md p-2 opacity-0 -translate-y-3
                              transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
                 >
                   <FiBookOpen className="text-[18px]" />
                 </button>
 
-                <div
-                  className="glass-content glass-content--inline justify-center overflow-hidden"
-                  style={{ padding: "1rem 0" }}
-                >
-                  <li className="relative w-[350px] max-w-full shrink-0 rounded-2xl px-4 md:px-8 py-0 md:py-6 md:w-[450px]">
-                    <blockquote>
+                <div>
+                  <li
+                    className={cn(
+                      "z-[9999] flex flex-col justify-center relative w-[325px] max-w-full pt-8 rounded-[50px] px-4 md:px-8 py-0 md:py-6 md:w-[450px] h-[300px]",
+                      bgColor ? "" : "bg-black/30"
+                    )}
+                    style={bgColor ? { backgroundColor: bgColor } : undefined}
+                  >
+                    <blockquote className="pt-2">
                       <div
                         aria-hidden="true"
-                        className="user-select-none pointer-events-none absolute -top-0.5 -left-0.5 -z-1 h-[calc(100%_+_4px)] w-[calc(100%_+_4px)]"
+                        className="user-select-none pointer-events-none flex flex-col justify-center "
                       />
                       <span className="relative z-20 text-[13px] md:text-[16px] leading-[1.6] font-normal text-[#ddd] dark:text-gray-100">
                         {(item.review ?? "").slice(0, 250)}
                         {item.review && item.review.length > 250 && "…"}
                       </span>
-                      <div className="relative z-20 mt-6 flex flex-row items-center justify-center">
-                        <span className="flex flex-col gap-1">
-                          <span className="text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
+                      <div className="relative z-20 mt-6">
+                        <span className="flex flex-col">
+                          <span className="text-sm md:text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
                             {item.name}
                           </span>
-                          <span className="text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
+                          <span className="text-sm md:text-[1.1rem] leading-[1.6] font-normal text-[#ddd] dark:text-gray-400">
                             {item.location}
                           </span>
                         </span>

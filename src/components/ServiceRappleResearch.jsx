@@ -19,7 +19,7 @@ const ServiceRappleResearch = ({
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed"
         }}
-        className="relative xl:h-screen py-20 z-[10]"
+        className="relative h-screen py-20 z-[10]"
       >
         <div className="overlay bg-tertiary_color opacity-90 absolute top-0 left-0 w-full h-full z-[-1]" />
         <div className="container px-5 flex flex-col justify-center h-full">
@@ -28,19 +28,27 @@ const ServiceRappleResearch = ({
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-[1.6rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white max-w-7xl mx-auto"
+              className="text-[1.8rem] md:text-[3rem] xl:text-7xl font-bold text-white max-w-7xl mx-auto"
               style={{ lineHeight: "1.1" }}
             >
               <span className="bg-gradient-to-r text-white bg-clip-text text-transparent">
                 {highlightedTitle}
               </span>{" "}
+            </motion.h2>
+            <motion.h2
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-xl xl:text-2xl py-[40px] font-bold text-white max-w-7xl mx-auto"
+              style={{ lineHeight: "1.1" }}
+            >
               {title}
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, y: 70 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-[#fff] py-[40px] text-sm md:text-lg xl:text-xl font-light max-w-5xl mx-auto"
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-[#fff] md:text-xl max-w-[55rem] 2xl:max-w-[60rem] font-light mx-auto"
             >
               {description}
             </motion.p>

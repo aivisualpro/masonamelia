@@ -83,11 +83,11 @@ const Card = ({ detail }) => {
           <h1 className="text-[.8rem]">{ribbonText}</h1>
         </div>
         {/* Image */}
-        <div className="card-img">
+        <div className="card-img max-w-full">
           <img
             src={imgSrc}
             alt={detail?.title || "aircraft"}
-            className="w-full min-h-[225px] object-cover rounded-2xl"
+            className="w-full h-[200px] rounded-2xl"
             loading="lazy"
             decoding="async"
           />
@@ -102,13 +102,11 @@ const Card = ({ detail }) => {
                 "inset 3px 3px 3px 0 rgba(255, 255, 255, .05), inset -3px -3px 3px 0 rgba(255, 255, 255, .05)",
             }}
           />
-          <h3 className="text-white md:text-start text-center text-lg mb-2">
-            {detail?.title?.length > 20
-              ? detail.title.slice(0, 20) + "..."
-              : detail?.title || ""}
-          </h3>
+          <h5 className="text-white md:text-start text-center text-lg mb-2">
+            {detail?.title}
+          </h5>
 
-          <div className="text-center md:text-start">
+          {/* <div className="text-center md:text-start">
             {overviewSnippet ? (
               <p className="text-white/90 text-[0.95rem] leading-relaxed">
                 {overviewSnippet.length > 20
@@ -118,10 +116,10 @@ const Card = ({ detail }) => {
             ) : (
               <p className="text-white/70">No overview available.</p>
             )}
-          </div>
+          </div> */}
 
           {/* Price */}
-          <div className="price pt-3 text-center md:text-start">
+          <div className="price text-center md:text-start">
             <span className="text-tertiary_color text-[1.2rem]">
               {typeof detail?.price === "number" ? (
                 detail.price === 0 ? (
@@ -137,6 +135,14 @@ const Card = ({ detail }) => {
 
           {/* Mini specs */}
           <div className="mt-4 flex items-center justify-between gap-4">
+            <div className="w-[33%] flex flex-col items-center gap-2 bg-[#171921] py-2 rounded-lg">
+              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
+                Year
+              </span>
+              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
+                {detail?.year ?? 0}
+              </span>
+            </div>
             <div className="w-[33%] flex flex-col items-center gap-2 bg-[#171921] py-2 rounded-lg">
               <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
                 Airframe
@@ -164,14 +170,6 @@ const Card = ({ detail }) => {
                   </>
                 )}
               </div>
-            </div>
-            <div className="w-[33%] flex flex-col items-center gap-2 bg-[#171921] py-2 rounded-lg">
-              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
-                Propeller
-              </span>
-              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
-                {detail?.propeller ?? 0}
-              </span>
             </div>
           </div>
         </div>

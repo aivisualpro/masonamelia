@@ -9,17 +9,17 @@ export default function TaxiCardsDarkSection({ tagline, title, description, card
     <section className="relative overflow-hidden bg-[#111218] py-20 text-slate-100">
       {/* background accents */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -top-40 -right-28 h-[28rem] w-[28rem] rotate-12 rounded-full bg-gradient-to-br from-[#1777cb]/20 to-[#1777cb]/20 blur-3xl" />
-        <div className="absolute -bottom-40 -left-28 h-[28rem] w-[28rem] -rotate-12 rounded-full bg-gradient-to-tr from-[#1777cb]/20 to-[#1777cb]/20 blur-3xl" />
+        <div className="lg:block hidden absolute -top-40 -right-28 h-[28rem] w-[28rem] rotate-12 rounded-full bg-gradient-to-br from-[#1777cb]/20 to-[#1777cb]/20 blur-3xl" />
+        <div className="lg:block hidden absolute -bottom-40 -left-28 h-[28rem] w-[28rem] -rotate-12 rounded-full bg-gradient-to-tr from-[#1777cb]/20 to-[#1777cb]/20 blur-3xl" />
       </div>
 
       <div className="container px-5">
         <div className="mb-12 text-center">
-          <div className="mx-auto mb-3 inline-flex items-center gap-2 rounded-full border border-slate-800 bg-slate-900/60 px-4 py-1 text-xs font-semibold text-slate-300">
+          <div className="text-[1.8rem] md:text-[3rem] xl:text-7xl inline-block  mx-autoinline-flex items-center gap-2 rounded-full bg-slate-900/60 px-8 py-3 font-bold text-slate-400 border-[1px] border-slate-800">
             {tagline}
           </div>
-          <h2 className="text-3xl mx-auto font-bold tracking-tight md:text-4xl max-w-3xl py-4">{title}</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-slate-400">
+          <h2 className="mx-auto font-light text-xl xl:text-2xl max-w-3xl py-8">{title}</h2>
+          <p className="mx-auto max-w-[55rem] 2xl:max-w-[60rem] md:text-lg text-slate-300">
             {description}
           </p>
         </div>

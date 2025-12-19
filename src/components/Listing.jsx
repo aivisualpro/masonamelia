@@ -34,13 +34,19 @@ const STATUS_TABS = [
   { name: "Previous Transactions", slug: "previous" },
 ];
 
-export default function Listing({ autoScrollEnabled = true }) {
+export default function Listing({ autoScrollEnabled = true, q = "" }) {
   const sectionRef = useRef(null);
   const queryClient = useQueryClient();
 
   // ui
   const [filterOpen, setFilterOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  // search
+  const [searchJets, setSearchJets] = useState("");
+  const [filteredAircrafts, setFilteredAircrafts] = useState([]);
+
+  console.log("searchJets", searchJets)
 
   // filters (state to send to server)
   const [selectedFilters, setSelectedFilters] = useState([]);
@@ -60,6 +66,8 @@ export default function Listing({ autoScrollEnabled = true }) {
   // categories for checkbox list
   const { data: aircraftOptions = [], isLoading: catsLoading } =
     useCategoriesQuery();
+
+  console.log("aircraft Options inside frontend = >", aircraftOptions)
 
   /* ---------- NEW: fetch slider domains from /ranges ---------- */
   const { data: ranges, isLoading: rangesLoading } = useRangesQuery({
@@ -81,6 +89,7 @@ export default function Listing({ autoScrollEnabled = true }) {
     isFetching,
     error,
   } = useAircraftsQuery({
+    searchKeyword: q,
     status: activeTab,
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
@@ -90,6 +99,18 @@ export default function Listing({ autoScrollEnabled = true }) {
     engineRange: engineTouched ? engineRange : undefined,
   });
 
+  useEffect(() => {
+    const filterAircrafts = () => {
+      const filteredRows = api?.rows?.filter((aircraft) => {
+        return aircraft.title.toLowerCase().includes(searchJets.toLowerCase());
+      })
+      setFilteredAircrafts(filteredRows);
+    };
+
+    filterAircrafts();
+    console.log(filteredAircrafts, "Filtered")
+  }, [searchJets, setSearchJets])
+
   // keep page in sync with backend clamped page (if any)
   useEffect(() => {
     const p = api?.meta?.page;
@@ -97,7 +118,7 @@ export default function Listing({ autoScrollEnabled = true }) {
   }, [api?.meta?.page]);
 
   const loading = isPending || isFetching;
-  const rows = api?.rows || [];
+  const rows = filteredAircrafts?.length > 0 ? filteredAircrafts : api?.rows || [];
   const meta = api?.meta || {};
   const totalPages = meta.pageCount || 1;
   const errMsg = error?.message || "";
@@ -299,6 +320,8 @@ export default function Listing({ autoScrollEnabled = true }) {
                 className="rounded-2xl border border-[#ffffff48] p-0 bg-transparent"
               >
                 <FilterCheckboxList
+                  searchJets={searchJets}
+                  setSearchJets={setSearchJets}
                   selected={selectedFilters}
                   setSelected={setSelectedFilters}
                   // price slider domain from /ranges
@@ -325,6 +348,8 @@ export default function Listing({ autoScrollEnabled = true }) {
           {/* Mobile drawer */}
           <div className="block">
             <FilterSideBar
+              searchJets={searchJets}
+              setSearchJets={setSearchJets}
               isOpen={isOpen}
               setIsOpen={setIsOpen}
               selected={selectedFilters}

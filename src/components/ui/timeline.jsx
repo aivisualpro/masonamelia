@@ -44,7 +44,7 @@ export const Timeline = ({
             y: 0,
           }}
           transition={{ duration: 0.5 }}
-          className="mx-auto max-w-3xl font-semibold text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-6xl mb-4 text-white"
+          className="mx-auto max-w-3xl font-semibold text-[1.5rem] md:text-[3.5rem] lg:text-[3rem] xl:text-6xl mb-4 text-white"
           style={{ lineHeight: "1.1" }}
         >
           {topTitle}{" "}
@@ -63,7 +63,7 @@ export const Timeline = ({
             y: 0,
           }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-white text-base md:text-xl max-w-4xl mx-auto pt-[40px] pb-[80px]"
+          className="text-white text-base md:text-lg max-w-4xl mx-auto pt-[40px] pb-[80px]"
         >
           Discover the pivotal moments that have defined Mason Amelia’s
           evolution. From our entrepreneurial roots to becoming one of the

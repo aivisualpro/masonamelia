@@ -8,23 +8,17 @@ import ScrollToTop from "../components/ScrollToTop";
 import { Timeline } from "../components/ui/timeline";
 import { FaHandshake, FaUsers, FaChartLine } from "react-icons/fa";
 import { FaJetFighterUp } from "react-icons/fa6";
-import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import WhatSetsUsApart from "../components/WhatSetsApart";
 import aboutBanner from "/images/about/banner.avif";
-import WhyChoosUs from "../components/WhyChoosUs";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import BlinkingArrow from "../components/BlinkingArrow"; // ← added
-import Contact from "../components/Contact";
+import BlinkingArrow from "../components/BlinkingArrow";
 import CTABanner from "../components/CTABanner";
 
 const AboutPage = () => {
-  /** ---------- Smooth auto-scroll (same as other pages) ---------- */
+  /** ---------- Smooth auto-scroll ---------- */
   const bannerRef = useRef(null);
   const [showArrow, setShowArrow] = useState(false);
   const [cancelAuto, setCancelAuto] = useState(false);
-
-  // const AUTO_KEY = "about_auto_scrolled_v1";
-  // useEffect(() => { sessionStorage.removeItem(AUTO_KEY); }, []);
 
   function smoothScrollTo(to, duration = 2500) {
     const start = window.scrollY || window.pageYOffset;
@@ -43,12 +37,19 @@ const AboutPage = () => {
 
   const isNearTop = () => (window.scrollY || 0) <= 5;
 
+  // 🔥 ek helper: jahan bhi user interact kare, isko call karo
+  const cancelAutoScroll = () => {
+    setCancelAuto(true);
+    setShowArrow(false); // arrow turant hide
+  };
+
   useEffect(() => {
-    const onWheel = () => setCancelAuto(true);
-    const onTouch = () => setCancelAuto(true);
-    const onKey = () => setCancelAuto(true);
+    const onWheel = () => cancelAutoScroll();
+    const onTouch = () => cancelAutoScroll();
+    const onKey = () => cancelAutoScroll();
     const onScroll = () => {
-      if ((window.scrollY || 0) > 80) setCancelAuto(true);
+      // thora sa bhi scroll ho jaye to cancel
+      if ((window.scrollY || 0) > 5) cancelAutoScroll();
     };
 
     window.addEventListener("wheel", onWheel, { passive: true });
@@ -56,23 +57,20 @@ const AboutPage = () => {
     window.addEventListener("keydown", onKey);
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    // const already = sessionStorage.getItem(AUTO_KEY) === "1";
-
-    // Show arrow after ~3s if still near top
+    // Arrow 3 sec baad show karo agar user ne kuch nahi kiya
     const arrowTimer = setTimeout(() => {
-      if (isNearTop() && !cancelAuto /* && !already */) setShowArrow(true);
+      if (isNearTop() && !cancelAuto) setShowArrow(true);
     }, 3000);
 
-    // Auto-scroll after ~5s if not cancelled
+    // 5 sec tak agar user ne scroll nahi kiya to auto-scroll
     const scrollTimer = setTimeout(() => {
-      if (isNearTop() && !cancelAuto /* && !already */) {
+      if (isNearTop() && !cancelAuto) {
         const next = document.getElementById("about-main");
         const targetY = next
           ? next.getBoundingClientRect().top + window.scrollY
           : bannerRef.current?.offsetHeight || 0;
 
         smoothScrollTo(targetY, 2500);
-        // sessionStorage.setItem(AUTO_KEY, "1");
         setShowArrow(false);
       }
     }, 5000);
@@ -85,9 +83,20 @@ const AboutPage = () => {
       clearTimeout(arrowTimer);
       clearTimeout(scrollTimer);
     };
-  }, [cancelAuto]);
+  }, [cancelAuto]); // cancelAuto change pe timers cleanup & re-setup
 
-  /** ---------- Page content (your existing data) ---------- */
+  // 👇 optional: arrow pe click kare to bhi scroll ho jaye
+  const handleArrowClick = () => {
+    const next = document.getElementById("about-main");
+    const targetY = next
+      ? next.getBoundingClientRect().top + window.scrollY
+      : bannerRef.current?.offsetHeight || 0;
+
+    smoothScrollTo(targetY, 2500);
+    cancelAutoScroll();
+  };
+
+  /** ---------- Timeline data (same as your code) ---------- */
   const data = [
     {
       title: "2005–2015",
@@ -172,31 +181,33 @@ const AboutPage = () => {
   ];
 
   const media = useMediaQuery("(max-width: 1023px)");
-  const height = useMediaQuery("(max-height: 750px)");
+  const mobileMedia = useMediaQuery("(max-width: 767px)");
 
   return (
     <>
       <Navbar />
-      {/* HERO / FIRST SECTION with arrow + auto-scroll */}
+
+      {/* HERO / FIRST SECTION */}
       <section
         ref={bannerRef}
-        className="md:sticky top-0  relative lg:max-w-screen lg:h-screen bg-[#10121A] overflow-hidden"
+        className="relative md:max-w-screen lg:h-screen bg-[#10121A] overflow-hidden md:mt-0 mt-[100px]"
         style={{
           backgroundImage: `url(${media ? bgPlaneTeam : bgPlane})`,
-          backgroundSize: `${media ? "contain" : "cover"}`,
-          backgroundPosition: `${media ? "top 0px right 0px" : "100% 45%"}`,
+          backgroundSize: media ? "cover" : "cover",
+          backgroundPosition: media ? "top 0px right 0px" : "100% 45%",
           backgroundRepeat: "no-repeat",
-          backgroundAttachment: `${media ? "static" : "fixed"}`,
+          backgroundAttachment: media ? "static" : "fixed",
           backgroundColor: "#10121A",
+          height: mobileMedia ? "350px" : media ? "700px" : "100vh",
         }}
       >
-        {/* <div className="absolute top-0 left-0 w-full h-full bg-[#10121A] opacity-70 z-[-1]"></div> */}
-        <div className={`container px-5 ${height ? "pt-[70px] md:pt-0" : "pt-[30px] md:pt-0"}`}>
+        <div className="lg:hidden block absolute w-full h-full opacity-50 bg-black"></div>
+        <div className="container px-5">
           <About />
         </div>
 
-        {/* Arrow appears ~3s if user hasn't interacted */}
-        {showArrow && <BlinkingArrow />}
+        {/* Arrow 3s baad appear hoga, 5s pe auto-scroll (agar user ne kuch na kiya) */}
+        {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
       </section>
 
       {/* TARGET SECTION — auto-scroll lands here */}
@@ -218,20 +229,12 @@ const AboutPage = () => {
           <Timeline data={data} />
         </section>
 
-        {/* <section className="py-20 relative bg-[#111218]">
-          <div className="container px-5">
-            <WhyChoosUs />
-          </div>
-        </section> */}
-
-        <section className="bg-[#111218] relative z-[10] py-10">
+        <section className="bg-[#111218] relative z-[10] py-20">
           <div className="container px-5">
             <CTABanner />
           </div>
         </section>
       </main>
-
-      {/* <Contact /> */}
 
       <Footer />
       <ScrollToTop />

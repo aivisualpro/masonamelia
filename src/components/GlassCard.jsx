@@ -18,7 +18,7 @@ export default function GlassCard() {
             duration: 0.5,
             delay: 0.6,
           }}
-          className={`md:block hidden mx-auto text-[2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-extrabold capitalize leading-[1.2]`}
+          className={`md:block hidden mx-auto text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-extrabold capitalize`}
         >
           Turbulence-Free Transactions
         </motion.h2>
@@ -34,7 +34,7 @@ export default function GlassCard() {
             text="Industry-leading marketing, data, and grit to help you buy or sell."
             disabled={false}
             speed={5}
-            className="custom-class text-lg md:text-xl mt-4"
+            className="custom-class text-lg md:text-xl py-6"
           />
         </motion.div>
         <motion.div
@@ -42,7 +42,7 @@ export default function GlassCard() {
           viewport={{ amount: 0.2, once: true }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1.2 }}
-          className="md:flex hidden justify-center mt-4"
+          className="md:flex hidden justify-center"
         >
           <Button
             buttonLabel="Visit Showroom"

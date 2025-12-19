@@ -217,10 +217,10 @@ export const HeroParallax = ({ headerTitle = 'A Bespoke Approach For Brokerage',
 export const Header = ({ headerTitle = '', headerTagline = '' }) => {
   return (
     <div className="h-screen absolute z-[-1] mx-auto px-4 w-full left-0 flex items-center justify-center flex-col text-center">
-      <h1 className="text-[2rem] md:text-[2.5rem] lg:text-[3.2rem] xl:text-7xl font-bold text-white">
+      <h1 className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-white">
         {headerTitle}
       </h1>
-      <p className="max-w-[1000px] text-2xl md:text-4xl mx-auto mt-8 text-white">
+      <p className="max-w-[1000px] text-xl xl:text-3xl font-bold mx-auto mt-4 2xl:mt-8 text-white">
         {headerTagline}
       </p>
     </div>

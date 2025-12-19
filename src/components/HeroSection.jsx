@@ -11,15 +11,15 @@ const HeroSection = () => {
       className="
             w-full h-full md:h-[90vh] lg:h-[85vh] xl:h-[89vh]
             flex justify-center
-            relative p-0
+            relative p-0 bg-[#111218]/90 md:bg-transparent
           "
     >
-      <div className="container z-10 px-4">
-        <div className="hero_section_content_container flex flex-col xl:gap-0 justify-end md:h-[100vh] relative text-white my-auto py-4">
+      <div className="container z-10 px-6 md:py-0 py-10">
+        <div className="hero_section_content_container flex flex-col xl:gap-0 justify-end md:h-[100vh] relative text-white my-auto">
           <div className="md:order-1 order-1">
             <GlassCard />
           </div>
-          <div className="md:flex hidden sm:order-2 order-2 w-full justify-between md:mb-12 mt-8">
+          <div className="md:flex hidden sm:order-2 order-2 w-full justify-between md:mb-6 mt-6">
             <div
               className={`glass-container w-full`}
               style={{ borderRadius: "5px" }}

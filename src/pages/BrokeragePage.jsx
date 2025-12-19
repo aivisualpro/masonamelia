@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 import ServiceBanner from "../components/ServiceBanner";
 import banner from "/images/brokerage/banner.jpg";
+import bannerTwo from "/images/brokerage/banner.png";
 import CTABanner from "../components/CTABanner";
 import BrokerageRappleResearch from "../components/BrokerageRappleResearch";
 import ServiceHighlights from "../components/ServiceHighlights";
@@ -11,13 +12,12 @@ import { FaHandshake, FaUsers, FaChartLine } from "react-icons/fa";
 import { FaJetFighterUp } from "react-icons/fa6";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import brokerageBanner from "/images/brokerage/timeline-banner.avif";
-import BlinkingArrow from "../components/BlinkingArrow"; // <-- added
+import BlinkingArrow from "../components/BlinkingArrow";
 import Contact from "../components/Contact";
 import TaxiCardsDarkSection from "../components/TaxiAndSystemCheck";
 import { FaBullhorn, FaDollarSign, FaProjectDiagram, FaClipboardList } from "react-icons/fa";
 import ClearForTakeoff from "../components/ClearForTakeoff";
 import Relationship from "../components/Relationship";
-// import Navbar from "../components/Navbar";
 
 const BrokeragePage = () => {
   /** ---------- Smooth auto-scroll (same pattern as Acquisition) ---------- */
@@ -45,12 +45,19 @@ const BrokeragePage = () => {
 
   const isNearTop = () => (window.scrollY || 0) <= 5;
 
+  // 🔥 helper: jahan bhi user interact kare, auto cancel + arrow hide
+  const cancelAutoScroll = () => {
+    setCancelAuto(true);
+    setShowArrow(false);
+  };
+
   useEffect(() => {
-    const onWheel = () => setCancelAuto(true);
-    const onTouch = () => setCancelAuto(true);
-    const onKey = () => setCancelAuto(true);
+    const onWheel = () => cancelAutoScroll();
+    const onTouch = () => cancelAutoScroll();
+    const onKey = () => cancelAutoScroll();
     const onScroll = () => {
-      if ((window.scrollY || 0) > 80) setCancelAuto(true);
+      // zara sa bhi scroll > 5px → cancel
+      if ((window.scrollY || 0) > 5) cancelAutoScroll();
     };
 
     window.addEventListener("wheel", onWheel, { passive: true });
@@ -60,16 +67,18 @@ const BrokeragePage = () => {
 
     // const already = sessionStorage.getItem(AUTO_KEY) === "1";
 
+    // 3s baad → agar top pe ho & cancelAuto false, arrow show
     const arrowTimer = setTimeout(() => {
       if (isNearTop() && !cancelAuto /* && !already */) setShowArrow(true);
     }, 3000);
 
+    // 5s baad → agar ab tak interact nahi kiya to auto-scroll
     const scrollTimer = setTimeout(() => {
       if (isNearTop() && !cancelAuto /* && !already */) {
         const next = document.getElementById("brokerage");
         const targetY = next
           ? next.getBoundingClientRect().top + window.scrollY
-          : (bannerRef.current?.offsetHeight || 0);
+          : bannerRef.current?.offsetHeight || 0;
 
         smoothScrollTo(targetY, 2500);
         // sessionStorage.setItem(AUTO_KEY, "1");
@@ -86,6 +95,17 @@ const BrokeragePage = () => {
       clearTimeout(scrollTimer);
     };
   }, [cancelAuto]);
+
+  // 👇 arrow pe click kare to bhi scroll & cancel
+  const handleArrowClick = () => {
+    const next = document.getElementById("brokerage");
+    const targetY = next
+      ? next.getBoundingClientRect().top + window.scrollY
+      : bannerRef.current?.offsetHeight || 0;
+
+    smoothScrollTo(targetY, 2500);
+    cancelAutoScroll();
+  };
 
   /** ---------- Page content (unchanged) ---------- */
   const data = [
@@ -227,12 +247,6 @@ const BrokeragePage = () => {
       gradient: "from-cyan-400 to-blue-500",
       points: [
         "This is where we go full throttle. From pro photography and high-impact video to disruptive social campaigns, we turn your aircraft into a must-see listing.",
-        // "ABSOLUTE SAVAGE… “Guerrilla Marketing”",
-        // "We find the true value of an aircraft by connecting the latent buyers:",
-        // "MA marketing ‘hits’ differently",
-        // "Active in all forums and aviation communities",
-        // "Social media aficionados",
-        // "Setting the aviation marketing and sales landscape",
       ],
       img: "/images/ads-aircraft.jpg",
     },
@@ -265,13 +279,12 @@ const BrokeragePage = () => {
     },
   ];
 
-
   return (
     <>
       {/* HERO / FIRST SECTION with arrow & auto-scroll */}
-      <div ref={bannerRef} className="relative h-screen lg:h-auto overflow-hidden">
-        <ServiceBanner banner={banner} />
-        {showArrow && <BlinkingArrow />}
+      <div ref={bannerRef} className="relative h-auto overflow-hidden">
+        <ServiceBanner banner={banner} bannerTwo={bannerTwo} />
+        {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
       </div>
 
       {/* TARGET SECTION */}
@@ -308,7 +321,18 @@ const BrokeragePage = () => {
           <Timeline data={timeline} isHeading={true} />
         </section> */}
 
-        <TaxiCardsDarkSection tagline={<><span>Taxi &amp; Systems Check</span></>} title={"Bringing to Market"} description={"Four pillars to move your aircraft from runway‑ready to market‑ready — engineered for speed, visibility, and precision."} cards={cards} />
+        <TaxiCardsDarkSection
+          tagline={
+            <>
+              <span>Taxi &amp; Systems Check</span>
+            </>
+          }
+          title={"Bringing to Market"}
+          description={
+            "Four pillars to move your aircraft from runway-ready to market-ready — engineered for speed, visibility, and precision."
+          }
+          cards={cards}
+        />
 
         <ClearForTakeoff
           eyebrow="FRAME 4"
@@ -323,9 +347,9 @@ const BrokeragePage = () => {
             "Coordinate logistics and support a seamless handoff at delivery.",
           ]}
           outro="From first call to final handshake, we don’t just list aircraft. We own the process, executing with precision, creating demand, and closing with clean and solid results."
-          image="/images/cleared-for-takeoff.jpg"   // replace with your asset
+          image="/images/cleared-for-takeoff.jpg" // replace with your asset
           imageAlt="Mason Amelia — Cleared for Takeoff"
-          imageOn="right"                            // set to "left" if you want image on left
+          imageOn="right" // set to "left" if you want image on left
         />
 
         <Relationship />

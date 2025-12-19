@@ -4,6 +4,7 @@ import axios from "axios";
 export const ITEMS_PER_PAGE = 16;
 
 export function buildUrl({
+  searchKeyword,
   status = "all",
   page = 1,
   pageSize = ITEMS_PER_PAGE,
@@ -18,6 +19,10 @@ export function buildUrl({
   params.set("page", String(page));
   params.set("pageSize", String(pageSize));
   if (status && status !== "all") params.set("status", status);
+
+  if (searchKeyword) {
+    params.set("searchKeyword", searchKeyword);
+  }
 
   if (Array.isArray(categories) && categories.length) {
     params.set("categories", categories.join(","));
@@ -52,6 +57,7 @@ async function fetchAircrafts(args) {
 }
 
 export function useAircraftsQuery({
+  searchKeyword = "",
   status = "all",
   page = 1,
   pageSize = ITEMS_PER_PAGE,
@@ -64,6 +70,7 @@ export function useAircraftsQuery({
     queryKey: [
       "aircrafts",
       {
+        searchKeyword,
         status,
         page,
         pageSize,
@@ -75,6 +82,7 @@ export function useAircraftsQuery({
     ],
     queryFn: ({ signal }) =>
       fetchAircrafts({
+        searchKeyword,
         status,
         page,
         pageSize,

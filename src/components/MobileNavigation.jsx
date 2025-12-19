@@ -81,13 +81,6 @@ const MobileNavigation = ({ isOpen, setIsOpen }) => {
           </div>
         </div> */}
 
-        <Link
-          to="/skynet"
-          className="uppercase text-lg hover:text-tertiary_color transition duration-50"
-        >
-          Skynet
-        </Link>
-
         <div className="text-white">
           <div
             className="uppercase text-lg cursor-pointer flex items-center"
@@ -123,6 +116,14 @@ const MobileNavigation = ({ isOpen, setIsOpen }) => {
             </Link>
           </div>
         </div>
+        
+        <Link
+          to="/skynet"
+          className="uppercase text-lg hover:text-tertiary_color transition duration-50"
+        >
+          Skynet
+        </Link>
+
 
         <Link
           to="/#contact"

@@ -10,12 +10,12 @@ const Showcase = () => {
   return (
     <header className="hero_section_header w-screen md:h-screen z-[10]">
       <div
-        className="sm:absolute top-0 left-0 w-full h-full md:h-screen z-[-1]"
+        className="sticky top-0 sm:absolute top-0 left-0 w-full h-full md:h-screen z-[-1]"
         style={{
           filter: "drop-shadow(20px 10px 15px rgba(255, 255, 255, 0.2))",
         }}
       >
-        <div className="z-[2] relative md:static hero_section_header_overlay w-screen h-[80vh] sm:h-[50vh] md:h-[75%] lg:h-screen overflow-hidden">
+        <div className="z-[2] relative md:static hero_section_header_overlay w-screen h-[80vh] md:h-[75%] lg:h-screen">
           <div
             className={`hero_section_header_overlay_dark overlay absolute top-0 left-0 w-full h-full z-10 md:block hidden`}
             style={{
@@ -25,7 +25,7 @@ const Showcase = () => {
           ></div>
           <div className="overlay md:hidden block opacity-50 bg-black absolute top-0 left-0 w-full h-full z-0"></div>
           <video
-            className="w-full h-full object-cover"
+            className="w-full h-[80vh] object-cover relative"
             loop
             muted
             autoPlay
@@ -44,14 +44,14 @@ const Showcase = () => {
               duration: 0.5,
               delay: 0.6,
             }}
-            className={`z-[3] p-4 absolute top-[75%] w-full text-center text-white text-[1.4rem] font-extrabold capitalize leading-[1.2]`}
+            className={`z-[3] md:hidden block p-4 absolute top-[calc(80vh-110px)] w-full text-center text-white text-[1.4rem] font-extrabold capitalize leading-[1.2]`}
           >
             Turbulence-Free Transactions
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               viewport={{ amount: 0.2, once: true }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.2 }}
+              transition={{ duration: 0.5, delay: 0.9 }}
               className="flex justify-center mt-4"
             >
               <Button
@@ -65,6 +65,7 @@ const Showcase = () => {
               />
             </motion.div>
           </motion.h2>
+
         </div>
       </div>
 

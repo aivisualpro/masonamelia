@@ -11,13 +11,14 @@ export function useCategoriesQuery() {
       const { data } = await axios.get(url, { signal });
       return Array.isArray(data?.data) ? data.data : [];
     },
-    select: (rows) => {
-      const slugs = rows
-        .map((c) => String(c?.slug || "").trim().toLowerCase())
-        .filter(Boolean);
-      const uniq = Array.from(new Set(slugs));
-      return uniq.sort((a, b) => a.localeCompare(b));
-    },
+    // select: (rows) => {
+    //   const slugs = rows
+    //     .map((c) => String(c?.slug || "").trim().toLowerCase())
+    //     .filter(Boolean);
+    //   // const uniq = Array.from(new Set(slugs));
+    //   // return uniq.sort((a, b) => a.localeCompare(b));
+    //   return slugs
+    // },
     staleTime: 60_000,
   });
 }

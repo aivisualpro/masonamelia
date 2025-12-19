@@ -87,9 +87,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
     (async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/api/aircrafts/lists/`,
+          `${import.meta.env.VITE_BASE_URL}/api/aircrafts/relatedAircrafts?category=${aircraft?.category?.name}&status=${aircraft?.status}`,
           { signal: ac.signal }
         );
+        console.log("res recieved =========>", res)
         const json = await res.json();
         const rows = Array.isArray(json?.data) ? json.data : [];
         const mapped = rows
@@ -99,12 +100,13 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
             title: r.title,
             price: Number(r.price || 0),
             featuredImage: r.featuredImage,
+            status: r?.status,
             overview: r.overview,
             images: Array.isArray(r.images) ? r.images : [],
             airframe: String(r.airframe ?? ""),
             engine: String(r.engine ?? ""),
             propeller: String(r.propeller ?? ""),
-            category: r.status || "for-sale", // Card expects string
+            category: r.category?.name, // Card expects string
           }));
         setRelated(mapped);
       } catch {
@@ -112,7 +114,9 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       }
     })();
     return () => ac.abort();
-  }, [id]);
+  }, [id, aircraft]);
+
+  console.log("aircrafts", aircraft)
 
   const overviewHTML = useMemo(() => {
     const dirty = aircraft?.overview || "";
@@ -166,12 +170,13 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
+  console.log("related ======== >", related)
+
   return (
     <>
       {/* Spinner mounts into <body> via portal */}
       <FullscreenSpinner show={loading} text="Loading aircraft..." />
 
-      {/* If API failed AND no fallback, you can show a soft message */}
       {errMsg && (
         <div className="py-10 text-center text-red-400">
           Failed to load aircraft.
@@ -180,19 +185,18 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
       <section
         id="showroom"
-        className="pb-20 pt-[85px] md:pb-20 md:pt-[calc(110px+5rem)]"
+        className="pb-20 pt-[98px] md:pb-20 md:pt-[calc(110px+76px)]"
       >
-        <div className="md:hidden flex items-center justify-between bg-[#1777cb]">
+        <div className="md:hidden flex items-center bg-[#1777cb] px-2">
           <Link to="/showroom">
-            <div className="showroom-redirect-icon flex items-center ms-3">
+            <div className="showroom-redirect-icon flex items-center">
               <IoIosArrowBack size={16} color="white" />
-              <span className="text-white text-sm ms-2">Showroom</span>
             </div>
           </Link>
-          <h1 className="text-2xl md:text-3xl font-bold mt-2 mb-2 lg:mt-0 lg:mb-8 mx-auto text-white">
-            {aircraft?.title?.slice(0, 6)}
+          <h1 className="text-base md:text-3xl mx-auto font-bold mt-2 mb-2 lg:mt-0 lg:mb-8 text-white">
+            {aircraft?.title}
           </h1>
-          <span className="text-[#1777cb]">helloafdad</span>
+          {/* <span className="text-[#1777cb]">helloafdad</span> */}
         </div>
 
         <div className="md:hidden flex flex-col gap-4">
@@ -201,7 +205,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
             <img
               src={gallery?.[activeImgIndex]}
               alt="Main Aircraft"
-              className="w-full h-[400px] object-cover lg:rounded-2xl cursor-pointer"
+              className="w-full  object-cover lg:rounded-2xl cursor-pointer"
               onClick={() => onOpenModal(activeImgIndex, gallery)}
             />
             <div className="lg:mt-4">
@@ -226,11 +230,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                     <img
                       src={src}
                       alt={`Thumb ${i}`}
-                      className={`${
-                        activeImgIndex === i
-                          ? "border-2 border-[#1777cb] opacity-70"
-                          : ""
-                      } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
+                      className={`${activeImgIndex === i
+                        ? "border-2 border-[#1777cb] opacity-70"
+                        : ""
+                        } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
                       onClick={() => setActiveImgIndex(i)}
                     />
                   </SwiperSlide>
@@ -242,14 +245,14 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   className="thumb-prev absolute left-2 top-1/2 z-10 -translate-y-1/2 text-white p-2 rounded-full shadow-md"
                   aria-label="Previous"
                 >
-                  <IoIosArrowBack />
+                  <IoIosArrowBack size={20} color="#fff" className="bg-[#111218cb] rounded-[50%] text-[8px] p-[3px]" />
                 </button>
                 <button
                   ref={nextRef}
                   className="thumb-next absolute right-2 top-1/2 z-10 -translate-y-1/2 text-white p-2 rounded-full shadow-md"
                   aria-label="Next"
                 >
-                  <IoIosArrowForward />
+                  <IoIosArrowForward size={20} color="#fff" className="bg-[#111218cb] rounded-[50%] text-[8px] p-[3px]" />
                 </button>
               </Swiper>
               <div className="flex mt-4 px-5">
@@ -276,10 +279,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
           {/* Right: specs & contact */}
 
           <div className="lg:w-[40%] px-5">
-            <div className="jet_featured md:flex-row flex-col flex justify-between mt-4 gap-4">
-              <div className="flex flex-col items-center bg-[#171921] md:w-1/2 w-full p-4 rounded-3xl">
+            <div className="jet_featured flex-row flex justify-between gap-4">
+              <div className="flex flex-col items-center bg-[#171921] w-1/2 p-4 rounded-3xl">
                 <div className="featured_value">
-                  <h4 className="text-xl md:text-2xl text-white">
+                  <h4 className="text-md md:text-2xl text-white">
                     {aircraft?.price ? (
                       `$${Number(aircraft?.price || 0).toLocaleString()}`
                     ) : (
@@ -293,9 +296,9 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   </h4>
                 </div>
               </div>
-              <div className="flex flex-col items-center bg-[#171921] md:w-1/2 w-full p-4 rounded-3xl">
+              <div className="flex flex-col items-center bg-[#171921] w-1/2 p-4 rounded-3xl">
                 <div className="featured_value">
-                  <h4 className="text-xl md:text-2xl text-white">
+                  <h4 className="text-md md:text-2xl text-white">
                     {aircraft?.year}
                   </h4>
                 </div>
@@ -307,9 +310,9 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
               </div>
             </div>
 
-            <div className="mt-8 md:flex items-start justify-between">
-              <div className="contact-info">
-                <h2 className="mb-4 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+            <div className="md:flex items-start justify-between">
+              <div className="contact-info py-8">
+                <h2 className="mb-4 text-[1.2rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                   Agent Details
                 </h2>
                 <div className="gap-4">
@@ -339,8 +342,8 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 </div>
               </div>
 
-              <div className="aircraft-location">
-                <h2 className="mb-4 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+              <div className="aircraft-location pb-8">
+                <h2 className="mb-4 text-[1.2rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                   Aircraft Location
                 </h2>
                 <div className="gap-4">
@@ -357,25 +360,27 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
             <div className="">
               <iframe
-                src={`${
-                  aircraft?.latitude && aircraft?.longitude
-                    ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed`
-                    : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
-                } &zoom=12
-                  &maptype=roadmap
-                  &style=feature:all|element:geometry|color:0x212121
-                  &style=feature:all|element:labels.text.fill|color:0xffffff
-                  &style=feature:all|element:labels.text.stroke|color:0x000000`}
-                className="w-full h-[180px] mt-6 rounded"
-                allowFullScreen
+                // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49118.23391548527!2d-111.87382773125353!3d39.697185689909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x874c5648a65523d9%3A0xd7b6f9f8a451f49e!2sNephi%2C%20UT%2084648%2C%20USA!5e0!3m2!1sen!2s!4v1755939914578!5m2!1sen!2s"
+                src={`${aircraft?.latitude && aircraft?.longitude
+                  ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed`
+                  : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
+                  }`}
+                className="w-full h-[180px] rounded"
               />
             </div>
           </div>
         </div>
 
         <div className="container px-5">
+
+          <Link to="/showroom" className="md:block hidden">
+            <div className="showroom-redirect-icon flex items-center">
+              <IoIosArrowBack size={28} className="hover:text-[#ddd] text-white" />
+            </div>
+          </Link>
+
           <div className="hidden md:flex items-center justify-between">
-            <h1 className="text-3xl font-bold mb-4 lg:mb-8 text-white">
+            <h1 className="text-[1.5rem] md:text-[2rem] xl:text-[2.5rem] 2xl:text-[3rem] leading-none font-bold my-4 lg:mb-8 text-white">
               {aircraft?.title}
             </h1>
             <div className="tag-container mb-4">
@@ -421,11 +426,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                       <img
                         src={src}
                         alt={`Thumb ${i}`}
-                        className={`${
-                          activeImgIndex === i
-                            ? "border-2 border-[#1777cb] opacity-70"
-                            : ""
-                        } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
+                        className={`${activeImgIndex === i
+                          ? "border-2 border-[#1777cb] opacity-70"
+                          : ""
+                          } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
                         onClick={() => setActiveImgIndex(i)}
                       />
                     </SwiperSlide>
@@ -434,17 +438,17 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   {/* Custom arrows (outside look) */}
                   <button
                     ref={prevRef}
-                    className="thumb-prev absolute left-2 top-1/2 z-10 -translate-y-1/2 text-white p-2 rounded-full shadow-md"
+                    className="thumb-prev absolute left-2 top-1/2 z-10 -translate-y-1/2 text-white p-3 rounded-full shadow-md"
                     aria-label="Previous"
                   >
-                    <IoIosArrowBack size={24} color="#fff" />
+                    <IoIosArrowBack size={20} color="#fff" className="bg-[#111218cb] rounded-[50%] text-[8px] p-[3px]" />
                   </button>
                   <button
                     ref={nextRef}
                     className="thumb-next absolute right-2 top-1/2 z-10 -translate-y-1/2 text-white p-2 rounded-full shadow-md"
                     aria-label="Next"
                   >
-                    <IoIosArrowForward size={24} color="#fff" />
+                    <IoIosArrowForward size={20} color="#fff" className="bg-[#111218cb] rounded-[50%] text-[8px] p-[3px]" />
                   </button>
                 </Swiper>
                 <div className="flex mt-4">
@@ -472,7 +476,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
             <div className="lg:w-[40%] w-full">
               <div className="jet_featured flex md:flex-row flex-col justify-between mt-4 gap-4">
-                <div className="flex flex-col items-center bg-[#171921] md:w-1/2 w-full p-4 rounded-3xl">
+                <div className="flex flex-col items-center bg-[#171921] w-1/2 w-full p-4 rounded-3xl">
                   <div className="featured_value">
                     <h4 className="text-xl md:text-2xl text-white">
                       {aircraft?.price ? (
@@ -488,7 +492,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                     </h4>
                   </div>
                 </div>
-                <div className="flex flex-col items-center bg-[#171921] md:w-1/2 w-full p-4 rounded-3xl">
+                <div className="flex flex-col items-center bg-[#171921] w-1/2 w-full p-4 rounded-3xl">
                   <div className="featured_value">
                     <h4 className="text-xl md:text-2xl text-white">
                       {aircraft?.year}
@@ -502,9 +506,9 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 </div>
               </div>
 
-              <div className="mt-8 md:flex items-start justify-between">
+              <div className="py-8 flex xl:flex-row lg:flex-col md:flex-row flex-col items-start justify-between">
                 <div className="contact-info">
-                  <h2 className="mb-4 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                  <h2 className="mb-4 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                     Agent Details
                   </h2>
                   <div className="gap-4">
@@ -534,8 +538,8 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   </div>
                 </div>
 
-                <div className="aircraft-location">
-                  <h2 className="mb-4 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                <div className="aircraft-location xl:pt-0 lg:pt-8 md:pt-0 pt-8">
+                  <h2 className="mb-4 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                     Aircraft Location
                   </h2>
                   <div className="gap-4">
@@ -553,28 +557,27 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
               <div className="">
                 <iframe
                   // src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d49118.23391548527!2d-111.87382773125353!3d39.697185689909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x874c5648a65523d9%3A0xd7b6f9f8a451f49e!2sNephi%2C%20UT%2084648%2C%20USA!5e0!3m2!1sen!2s!4v1755939914578!5m2!1sen!2s"
-                  src={`${
-                    aircraft?.latitude && aircraft?.longitude
-                      ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed`
-                      : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
-                  }`}
-                  className="w-full h-[180px] mt-6 rounded"
+                  src={`${aircraft?.latitude && aircraft?.longitude
+                    ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed`
+                    : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
+                    }`}
+                  className="w-full h-[180px] rounded"
                 />
               </div>
             </div>
           </div>
 
-          <div className="mt-12 flex sm:flex-row flex-col sm:items-center">
-            <div className="airframe">
-              <h2 className="mb-3 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+          <div className="py-8 flex flex-row items-center justify-between lg:w-[30%] w-full">
+            <div className="airframe md:text-start text-center">
+              <h2 className="mb-3 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                 Airframe
               </h2>
               <span className="text-white/90 text-lg">
                 {aircraft?.airframe}
               </span>
             </div>
-            <div className="engine sm:mx-12 sm:my-0 my-6">
-              <h2 className="mb-3 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+            <div className="engine md:text-start text-center">
+              <h2 className="mb-3 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                 Engine
               </h2>
               <span className="text-white/90 text-lg">
@@ -582,8 +585,8 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 {aircraft?.engineTwo ? `/ ${aircraft?.engineTwo}` : ""}
               </span>
             </div>
-            <div className="propeller">
-              <h2 className="mb-3 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+            <div className="propeller md:text-start text-center">
+              <h2 className="mb-3 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                 Propeller
               </h2>
               <span className="text-white/90 text-lg">
@@ -594,8 +597,8 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
           </div>
 
           {/* Overview (rich HTML from backend) */}
-          <div className="overview mt-8">
-            <h2 className="mb-8 text-2xl bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+          <div className="overview">
+            <h2 className="mb-8 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
               Overview
             </h2>
 
@@ -614,14 +617,14 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   dangerouslySetInnerHTML={{ __html: overviewHTML }}
                 />
               ) : (
-                <p className="text-white/70">No overview available.</p>
+                <p className="text-[1.2rem] xl:text-[1.5rem] text-white/70">No overview available.</p>
               )}
             </div>
           </div>
 
           {/* Tabs from backend sections */}
           {tabs.length > 0 && (
-            <div className="tabs mt-16">
+            <div className="tabs mt-8">
               <Tabs
                 categories={tabs}
                 activeTab={activeTab}
@@ -632,15 +635,15 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
           )}
 
           {/* Tab Content (checkmark list) */}
-          <div className="md:flex justify-between mt-6 space-y-2 border-t-[1px] border-b-[1px] border-dashed border-gray-700 pt-2">
+          <div className="md:flex justify-between mt-8 space-y-2 border-t-[1px] border-b-[1px] border-dashed border-gray-700 pt-2">
             <div className="md:w-[20%] tab-heading">
-              <h2 className="pt-4 text-3xl font-semibold bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+              <h2 className="pt-4 text-[1.2rem] xl:text-[1.5rem] font-semibold bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                 {titleCase(activeTab)}
               </h2>
             </div>
             <div className="md:w-[80%]">
               {activeItems.length === 0 ? (
-                <p className="text-white/70 py-4">No data available.</p>
+                <p className="text-[1.2rem] xl:text-[1.5rem] text-white/70 py-4">No data available.</p>
               ) : (
                 activeItems.map((item, index) => (
                   <div key={index} className="text-sm py-4">
@@ -657,7 +660,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
           {/* Related Aircraft */}
           {related.length > 0 && (
             <>
-              <h4 className="mt-16 mb-8 text-4xl text-white">
+              <h4 className="py-8 text-[1.2rem] xl:text-[1.5rem] text-white">
                 Related Aircraft
               </h4>
               <Swiper
