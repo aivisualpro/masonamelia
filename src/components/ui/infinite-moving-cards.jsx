@@ -132,6 +132,30 @@ const InfiniteMovingCards = ({
   // container enter → pause marquee
   const handleContainerEnter = () => {
     setIsRowHovered(true);
+<<<<<<< HEAD
+=======
+  };
+
+  // container leave → x reset, phir marquee resume
+  const handleContainerLeave = () => {
+    setIsResettingX(true);
+    hoverX.set(0); // spring se 0 par lao
+
+    if (resetTimeoutRef.current) {
+      clearTimeout(resetTimeoutRef.current);
+    }
+    resetTimeoutRef.current = setTimeout(() => {
+      setIsResettingX(false);
+      setIsRowHovered(false);
+    }, 220); // spring duration ke approx
+  };
+
+  // kisi bhi card par hover → us card ko full view
+  const handleCardEnter = (idx) => {
+    const cardEl = cardRefs.current[idx];
+    if (!cardEl || !containerRef.current) return;
+    ensureVisible(cardEl, containerRef.current, hoverX);
+>>>>>>> origin/main
   };
 
   // container leave → x reset, phir marquee resume
@@ -168,10 +192,13 @@ const InfiniteMovingCards = ({
   const shouldPauseAnimation =
     pauseOnHover && (isRowHovered || isResettingX);
 
+<<<<<<< HEAD
   if (loopItems.length <= 1) {
     return <div className="py-10 text-center text-white">Loading....</div>;
   }
 
+=======
+>>>>>>> origin/main
   return (
     <>
       <div
@@ -213,7 +240,11 @@ const InfiniteMovingCards = ({
                 <div>
                   <li
                     className={cn(
+<<<<<<< HEAD
                       "z-[9999] flex flex-col justify-center relative w-[325px] max-w-full pt-8 rounded-[50px] px-4 md:px-8 py-0 md:py-6 md:w-[450px] h-[300px]",
+=======
+                      "flex flex-col justify-center relative w-[325px] max-w-full pt-8 rounded-[50px] px-4 md:px-8 py-0 md:py-6 md:w-[450px] h-[300px]",
+>>>>>>> origin/main
                       bgColor ? "" : "bg-black/30"
                     )}
                     style={bgColor ? { backgroundColor: bgColor } : undefined}

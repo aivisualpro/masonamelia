@@ -67,9 +67,22 @@ const Reviews = () => {
             pauseOnHover={true}
             speed={"fast"}
             items={reviews}
+<<<<<<< HEAD
+=======
             itemClass={"min-w-[600px]"}
           />
         </div>
+        {/* <div className="testimonial_moving_card mt-8 md:[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+          <InfiniteMovingCards
+            bgColor=""
+            direction="right"
+            pauseOnHover={true}
+            speed={"slow"}
+            items={reviews?.slice(3, 7)}
+>>>>>>> origin/main
+            itemClass={"min-w-[600px]"}
+          />
+        </div> */}
       </section>
     </>
   );
