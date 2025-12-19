@@ -67,8 +67,6 @@ const Reviews = () => {
             pauseOnHover={true}
             speed={"fast"}
             items={reviews}
-<<<<<<< HEAD
-=======
             itemClass={"min-w-[600px]"}
           />
         </div>
@@ -79,7 +77,6 @@ const Reviews = () => {
             pauseOnHover={true}
             speed={"slow"}
             items={reviews?.slice(3, 7)}
->>>>>>> origin/main
             itemClass={"min-w-[600px]"}
           />
         </div> */}
