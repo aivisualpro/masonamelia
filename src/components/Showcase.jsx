@@ -10,7 +10,7 @@ const Showcase = () => {
   return (
     <header className="hero_section_header w-screen md:h-screen z-[10]">
       <div
-        className="sticky top-0 sm:absolute top-0 left-0 w-full h-full md:h-screen z-[-1]"
+        className="sticky top-0 sm:absolute left-0 w-full h-full md:h-screen z-[-1]"
         style={{
           filter: "drop-shadow(20px 10px 15px rgba(255, 255, 255, 0.2))",
         }}
