@@ -72,7 +72,7 @@ const Team = ({ teamRef }) => {
                   initial={{ opacity: 0, y: 100 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-[#fff]"
+                  className="pb-4 text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-[#fff]"
                   style={{ lineHeight: "1.2" }}
                 >
                   A Team of Pilots and{" "}
@@ -82,7 +82,7 @@ const Team = ({ teamRef }) => {
                   initial={{ opacity: 0, y: 100 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.4 }}
-                  className="text-base xl:text-xl text-center px-8 mt-[30px] font-light"
+                  className="text-base xl:text-xl text-center px-8 font-light"
                 >
                   Our team combines over a century of flight experience with
                   deep market expertise, offering clients the rare advantage of
