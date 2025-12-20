@@ -3,6 +3,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Higher from "../components/Higher";
 import bgPlane from "/images/higher/banner.webp";
+import bgPlaneTwo from "/images/higher/bannerTwo.webp";
 import Gallary from "../components/Gallary";
 import ScrollToTop from "../components/ScrollToTop";
 import Vision from "../components/Vision";
@@ -111,12 +112,12 @@ const HigherPage = () => {
         style={{
           backgroundImage: media ? "" : `linear-gradient(to right, rgb(21, 22, 28, ${
             media ? ".5" : "1"
-          }) ${media ? "100%" : "20%"}, rgba(0, 0, 0, 0.05)), url(${bgPlane})`,
+          }) ${media ? "100%" : "30%"}, rgba(0, 0, 0, 0.05)), url(${bgPlaneTwo})`,
         }}
       >
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-[-1]"></div>
         <div className="container">
-          <Higher banner={bgPlane} />
+          <Higher banner={bgPlane} bannerTwo={bgPlaneTwo} />
         </div>
 
         {/* Arrow appears ~3s if user hasn't interacted */}

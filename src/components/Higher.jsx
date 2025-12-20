@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import ShinyText from "./ui/ShinyText";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const Higher = ({ banner }) => {
+const Higher = ({ banner, bannerTwo }) => {
   const media = useMediaQuery("(max-width: 767px)");
 
   return (
