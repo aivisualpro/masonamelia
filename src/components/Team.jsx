@@ -111,7 +111,7 @@ const Team = ({ teamRef }) => {
                     <div className="transition-all duration-300 group-hover:h-[100%] absolute top-0 left-0 w-full h-0 bg-black opacity-0 lg:opacity-60 z-[0]"></div>
                   </div>
                 </Link>
-                <div className="absolute -bottom-[30px] md:-bottom-[5px] left-0 right-0 rounded-[100px] h-[235px] lg:h-[130px] group-hover:h-[210px] transition-all duration-500">
+                <div className="absolute -bottom-[30px] md:-bottom-[5px] left-0 right-0 rounded-[100px] h-[210px] lg:h-[150px] group-hover:h-[210px] transition-all duration-500">
                   <div
                     className="glass-container flex items-center justify-center glass-container--rounded px-4 py-3"
                     style={{ borderRadius: "0" }}
@@ -124,7 +124,7 @@ const Team = ({ teamRef }) => {
                         <h2 className="block text-lg md:text-xl xl:text-2xl font-semibold text-white">
                           {member?.name}
                         </h2>
-                        <h4 className="block py-1 text-sm font-light text-white">
+                        <h4 className="block pt-3 pb-2 text-xs font-light text-white">
                           {member?.designation || "Owner"}
                         </h4>
                         <p className="text-sm text-gray-400">{member?.email}</p>
