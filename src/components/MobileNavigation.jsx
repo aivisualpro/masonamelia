@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -12,6 +12,8 @@ const MobileNavigation = ({ isOpen, setIsOpen }) => {
   const toggleAccordion = (panel) => {
     setExpanded((prev) => (prev === panel ? null : panel));
   };
+
+  const location = useLocation();
 
   return (
     <div
@@ -28,25 +30,25 @@ const MobileNavigation = ({ isOpen, setIsOpen }) => {
 
         <Link
           to="/"
-          className="uppercase text-lg hover:text-tertiary_color transition duration-50 mt-8"
+          className={`${location.pathname === "/" ? "text-tertiary_color" : "text-white"} uppercase text-lg hover:text-tertiary_color transition duration-50 mt-8`}
         >
           Home
         </Link>
         <Link
           to="/showroom"
-          className="uppercase text-lg hover:text-tertiary_color transition duration-50"
+          className={`${location.pathname === "/showroom" || location.pathname.includes("showroom") ? "text-tertiary_color" : "text-white"} uppercase text-lg hover:text-tertiary_color transition duration-50`}
         >
           Showroom
         </Link>
         <Link
           to="/acquisition"
-          className="uppercase text-lg hover:text-tertiary_color transition duration-50"
+          className={`${location.pathname === "/acquisition" ? "text-tertiary_color" : "text-white"} uppercase text-lg hover:text-tertiary_color transition duration-50`}
         >
           Acquisition
         </Link>
         <Link
           to="/brokerage"
-          className="uppercase text-lg hover:text-tertiary_color transition duration-50"
+          className={`${location.pathname === "/brokerage" ? "text-tertiary_color" : "text-white"} uppercase text-lg hover:text-tertiary_color transition duration-50`}
         >
           Brokerage
         </Link>
@@ -83,7 +85,7 @@ const MobileNavigation = ({ isOpen, setIsOpen }) => {
 
         <div className="text-white">
           <div
-            className="uppercase text-lg cursor-pointer flex items-center"
+            className={`${location.pathname === "/about" || location.pathname === "/team" || location.pathname === "/higher" ? "text-tertiary_color" : "text-white"} uppercase text-lg cursor-pointer flex items-center`}
             onClick={() => toggleAccordion("about")}
           >
             <Link to="/about">ABOUT MA</Link>
@@ -92,9 +94,8 @@ const MobileNavigation = ({ isOpen, setIsOpen }) => {
             </span>
           </div>
           <div
-            className={`flex flex-col gap-2 mt-2 transition-all duration-300 overflow-hidden ${
-              expanded === "about" ? "max-h-40" : "max-h-0"
-            }`}
+            className={`flex flex-col gap-2 mt-2 transition-all duration-300 overflow-hidden ${expanded === "about" ? "max-h-40" : "max-h-0"
+              }`}
           >
             <Link
               to="/team"
@@ -116,10 +117,10 @@ const MobileNavigation = ({ isOpen, setIsOpen }) => {
             </Link>
           </div>
         </div>
-        
+
         <Link
           to="/skynet"
-          className="uppercase text-lg hover:text-tertiary_color transition duration-50"
+          className={`${location.pathname === "/skynet" ? "text-tertiary_color" : "text-white"} uppercase text-lg hover:text-tertiary_color transition duration-50`}
         >
           Skynet
         </Link>

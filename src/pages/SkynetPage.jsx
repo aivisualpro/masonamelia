@@ -105,7 +105,7 @@ const SkynetPage = () => {
       {/* HERO / FIRST SECTION (sticky) */}
       <section
         ref={bannerRef}
-        className="md:h-screen w-full bg-cover bg-center z-[0] relative overflow-hidden"
+        className="md:mt-0 mt-[100px] h-full md:h-screen w-full bg-cover bg-center z-[0] relative overflow-hidden"
         style={{
           backgroundImage: media
             ? ""

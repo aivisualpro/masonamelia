@@ -107,7 +107,7 @@ const HigherPage = () => {
       {/* HERO / FIRST SECTION */}
       <section
         ref={bannerRef}
-        className="md:sticky top-0 w-full bg-cover relative md:h-screen bg-center z-[0] overflow-hidden"
+        className="mt-[100px] md:mt-0 md:sticky top-0 w-full bg-cover h-full relative md:h-screen bg-center z-[0] overflow-hidden"
         style={{
           backgroundImage: media ? "" : `linear-gradient(to right, rgb(21, 22, 28, ${
             media ? ".5" : "1"
@@ -115,7 +115,7 @@ const HigherPage = () => {
         }}
       >
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-[-1]"></div>
-        <div className="container md:pt-[50px]">
+        <div className="container">
           <Higher banner={bgPlane} />
         </div>
 

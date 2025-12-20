@@ -15,7 +15,7 @@ import veterenLogo from "/images/veteren.png"
 
 const Footer = () => {
   return (
-    <footer className="bg-[#15161c] md:py-4 py-10 relative px-4">
+    <footer id="footer" className="bg-[#15161c] md:py-4 py-10 relative px-4">
       <div className="container px-5">
         <div className="flex md:flex-row flex-col items-center justify-between gap-6">
           {/* Logo Section */}

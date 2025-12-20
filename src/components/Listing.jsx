@@ -262,7 +262,7 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
     <section
       id="showroom"
       ref={sectionRef}
-      className="bg-[#111218] relative z-[10] py-20"
+      className="bg-[#111218] relative py-20"
     >
       <div className="container px-6">
         {/* <div className="text-center mb-20">
@@ -346,7 +346,7 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
           )}
 
           {/* Mobile drawer */}
-          <div className="block">
+          <div className="block z-[999999999999999]">
             <FilterSideBar
               searchJets={searchJets}
               setSearchJets={setSearchJets}

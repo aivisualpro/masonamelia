@@ -199,7 +199,6 @@ const SliderWrapper = () => {
       <section className="xl:h-screen h-full relative z-[0] w-screen py-20 overflow-x-hidden">
         <div className="absolute w-full top-0 left-0 h-full">
           <div className="absolute h-full w-full bg-[#111218] opacity-100 xl:opacity-50 z-[10]"></div>
-
           <Swiper
             spaceBetween={30}
             effect={"fade"}

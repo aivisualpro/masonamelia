@@ -55,52 +55,61 @@ export default function WhatSetsUsApart() {
       <div className="container px-5">
         <div className="rounded-2xl w-full">
           <div className="w-full px-4 flex flex-col justify-center text-center items-center">
-            {/* Left Side: Headline */}
+            {/* --- Mobile View: Animate on Load --- */}
+            <div className="md:hidden">
+              <motion.h2
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="text-[1.5rem] font-bold text-white"
+                style={{ lineHeight: "1.2" }}
+              >
+                Who is{" "}
+                <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                  Mason Amelia?
+                </span>
+              </motion.h2>
 
-            {/* <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="tag-container mb-4"
-            >
-              <div className="tag-left-arrow"></div>
-              <div className="flex items-center gap-2 px-4 py-[9px] bg-[#222] text-white text-sm font-semibold">
-                <span className="w-2 h-2 bg-[#fff] rounded-full"></span>
-                Expert Guidance
-              </div>
-            </motion.div> */}
-            <motion.h2
-              initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-[1.5rem] md:text-[3.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white md:max-w-3xl"
-              style={{ lineHeight: "1.2" }}
-            >
-              Who is{" "}
-              <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                Mason Amelia?
-              </span>
-            </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="text-base text-neutral-300 py-[24px]"
+              >
+                An aircraft brokerage named after our founder Jesse Adams’
+                children, focused on high-performance piston and owner-flown
+                turbine aircraft, built on:
+              </motion.p>
+            </div>
 
-            {/* Right Side: Paragraph + Button */}
+            {/* --- Desktop View: Animate on Scroll (whileInView) --- */}
+            <div className="hidden md:block">
+              <motion.h2
+                initial={{ opacity: 0, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="md:text-[3.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white md:max-w-3xl"
+                style={{ lineHeight: "1.2" }}
+              >
+                Who is{" "}
+                <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                  Mason Amelia?
+                </span>
+              </motion.h2>
 
-            <motion.p
-              initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-              className="text-base md:text-lg text-neutral-300 py-[24px] md:py-[40px] max-w-4xl"
-            >
-              An aircraft brokerage named after our founder Jesse Adams’
-              children, focused on high-performance piston and owner-flown
-              turbine aircraft, built on:
-            </motion.p>
-            {/* <motion.div
-              initial={{ opacity: 0, y: 100 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-            >
-              <Button buttonLabel="Contact Us" onClick="/contact" />
-            </motion.div> */}
+              <motion.p
+                initial={{ opacity: 0, y: 100 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="text-lg text-neutral-300 py-[40px] max-w-4xl"
+              >
+                An aircraft brokerage named after our founder Jesse Adams’
+                children, focused on high-performance piston and owner-flown
+                turbine aircraft, built on:
+              </motion.p>
+            </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
             {features.map((card, idx) => (

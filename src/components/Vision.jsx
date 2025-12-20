@@ -80,14 +80,14 @@ const GlowingCardSection = () => {
                 "linear-gradient(to top, #111218fd 5%, #11121868 20%)",
             }}
           ></div>
-          <div className="xl:hidden block">
+          {/* <div className="xl:hidden block">
             <img src={vision} className="min-h-[300px] w-full" alt="" />
-          </div>
+          </div> */}
         </div>
 
         <div className="md:block hidden absolute bg-black/80 w-full h-full top-0 left-0"></div>
 
-        <div className="z-[9] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:pt-0 pt-[280px]">
+        <div className="z-[9] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:pt-0">
           {services.map((service, index) => (
             <motion.div
               initial={{ scale: 0 }}

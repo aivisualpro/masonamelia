@@ -727,11 +727,11 @@ h6 {
 }
 
 @media (max-width: 768px) {
-  label {
+  #contact label {
     text-align: center !important;
     width: 100%;
   }
-  ::placeholder {
+  #contact ::placeholder {
     text-align: center !important;
   }
 }

@@ -22,7 +22,7 @@ export default function GlassmorphismCircularCard({
       relative
       flex flex-col items-center justify-center
       text-center lg:py-3 py-4
-      w-full md:bg-transparent bg-[#181a23]
+      w-full md:bg-transparent bg-[#181a23] rounded-[10px]
       glassmorphism_card cursor-pointer group my-4
     "
       >

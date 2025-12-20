@@ -42,11 +42,18 @@ const Team = ({ teamRef }) => {
         id="team"
         className="text-white pt-40 pb-20 md:pb-20 px-4 md:px-10"
       >
+
+        <div className="mx-auto">
+          <h5 className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl text-center">
+            Meet The Team
+          </h5>
+        </div>
+
         <div className="container flex items-center">
-          <div className="w-full mb-8 md:mb-0">
+          <div className="w-full my-8 md:my-8">
             {/* left glass card ... unchanged */}
             <div
-              className={`w-full glass-container md:mb-0 mb-4 lg:minh-[375px] flex items-center justify-center`}
+              className={`w-full glass-container flex items-center justify-center`}
               style={{
                 borderRadius: "0px",
                 boxShadow:
@@ -88,20 +95,12 @@ const Team = ({ teamRef }) => {
 
         {/* rest of team */}
         <div className="container" ref={teamRef}>
-          <div className="mx-auto">
-            <h5 className="text-4xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-center py-14">
-              Our Team
-            </h5>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {team.map((member, idx) => (
               <div
                 key={`rest-${idx}`}
                 className="relative team-card rounded-xl overflow-hidden group"
               >
-                <h2 className="md:hidden block text-2xl mb-4 font-semibold text-white">
-                  {member?.name}
-                </h2>
                 <Link to={`/team/${member?._id}`}>
                   <div className="relative w-full">
                     <img
@@ -112,7 +111,7 @@ const Team = ({ teamRef }) => {
                     <div className="transition-all duration-300 group-hover:h-[100%] absolute top-0 left-0 w-full h-0 bg-black opacity-0 lg:opacity-60 z-[0]"></div>
                   </div>
                 </Link>
-                <div className="absolute -bottom-[30px] md:-bottom-[5px] left-0 right-0 rounded-[100px] h-[160px] lg:h-[160px] group-hover:h-[210px] transition-all duration-500">
+                <div className="absolute -bottom-[30px] md:-bottom-[5px] left-0 right-0 rounded-[100px] h-[235px] lg:h-[130px] group-hover:h-[210px] transition-all duration-500">
                   <div
                     className="glass-container flex items-center justify-center glass-container--rounded px-4 py-3"
                     style={{ borderRadius: "0" }}
@@ -121,18 +120,15 @@ const Team = ({ teamRef }) => {
                     <div className="glass-overlay"></div>
                     <div className="glass-specular"></div>
                     <div className="glass-content glass-content--inline justify-center">
-                      <div className="relative w-full md:py-5 px-2">
-                        <h3 className="text-base font-light text-gray-400 mb-4 px-3">
-                          {member?.address}
-                        </h3>
-                        <h2 className="md:block hidden text-lg md:text-xl xl:text-2xl font-semibold text-white">
+                      <div className="relative w-full py-2 px-2">
+                        <h2 className="block text-lg md:text-xl xl:text-2xl font-semibold text-white">
                           {member?.name}
                         </h2>
+                        <h4 className="block py-1 text-sm font-light text-white">
+                          {member?.designation || "Owner"}
+                        </h4>
                         <p className="text-sm text-gray-400">{member?.email}</p>
-                        <p className="text-sm text-gray-400 mb-4">
-                          {member?.title}
-                        </p>
-                        <div className="social-icons flex items-center gap-4 justify-center">
+                        <div className="py-4 social-icons flex items-center gap-4 justify-center">
                           {member?.facebook && (
                             <a href={member?.facebook} target="_blank">
                               <FaFacebook className="hover:text-[#0866ff] text-xl transition cursor-pointer" />
@@ -154,6 +150,9 @@ const Team = ({ teamRef }) => {
                             </a>
                           )}
                         </div>
+                        <h4 className="text-xs font-light text-gray-400 mb-4 px-3">
+                          {member?.address}
+                        </h4>
                       </div>
                     </div>
                   </div>

@@ -10,13 +10,13 @@ const Skynet = ({ banner }) => {
   return (
     <div className="lg:h-[400px] md:h-[100vh]">
       {/* Background Image Right Side */}
-      <div className="px-8 container pt-[122px] pb-[32px] md:pt-[50px] md:h-screen flex flex-col justify-center h-full ">
-        <div className="absolute md:hidden block w-full h-[400px] z-[-1] top-0 left-0">
-          <img src={banner} className="w-full h-full" alt="" />
-        </div>
+      <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0">
+        <img src={banner} className="w-full h-full object-cover" alt="" />
+      </div>
 
-        <div className="absolute md:hidden block w-full h-[400px] z-[-1] top-0 left-0 bg-black/60"></div>
+      <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/60"></div>
 
+      <div className="px-8 container pt-[32px] pb-[32px] md:pt-[50px] md:h-screen flex flex-col justify-center h-full ">
         <motion.h1
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}

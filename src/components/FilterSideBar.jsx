@@ -28,17 +28,13 @@ const FilterSideBar = ({
   maxEngine,
 
   aircraftOptions = [],
-  onClearAll
+  onClearAll,
 }) => {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
-  // 🔒 Prevent background scroll when sidebar is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "";
     return () => {
       document.body.style.overflow = "";
     };
@@ -54,12 +50,13 @@ const FilterSideBar = ({
       )}
 
       <div
-        className={`filter-sidebar overflow-y-auto fixed top-0 left-0 w-[80%] max-w-[300px] h-[100vh] bg-black z-[9999] transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+        className={`filter-sidebar fixed top-0 left-0 w-[80%] max-w-[300px] h-[100vh] bg-black z-[9999] transition-transform duration-300 ease-in-out ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
         role="dialog"
         aria-modal="true"
       >
-        <div className="flex justify-end p-4">
+        <div className="absolute right-0 top-0 flex justify-end p-4 z-[99999999]">
           <IoMdClose
             size={28}
             color="white"
@@ -69,27 +66,31 @@ const FilterSideBar = ({
           />
         </div>
 
-        <div className="px-4 relative overflow-y-auto h-[calc(100vh-64px)] pb-6">
-          <FilterCheckboxList
-            searchJets={searchJets}
-            setSearchJets={setSearchJets}
-            selected={selected}
-            setSelected={setSelected}
-            range={range}
-            setRange={setRange}
-            minPrice={minPrice}
-            maxPrice={maxPrice}
-            aircraftOptions={aircraftOptions}
-            airframeRange={airframeRange}
-            setAirframeRange={setAirframeRange}
-            minAirframe={minAirframe}
-            maxAirframe={maxAirframe}
-            engineRange={engineRange}
-            setEngineRange={setEngineRange}
-            minEngine={minEngine}
-            maxEngine={maxEngine}
-            onClearAll={onClearAll}
-          />
+        {/* ✅ Make this area flex + scroll */}
+        <div className="px-4 relative h-screen overflow-y-auto flex flex-col py-6">
+          {/* ✅ This wrapper centers the filter box vertically */}
+          <div className="my-auto">
+            <FilterCheckboxList
+              searchJets={searchJets}
+              setSearchJets={setSearchJets}
+              selected={selected}
+              setSelected={setSelected}
+              range={range}
+              setRange={setRange}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+              aircraftOptions={aircraftOptions}
+              airframeRange={airframeRange}
+              setAirframeRange={setAirframeRange}
+              minAirframe={minAirframe}
+              maxAirframe={maxAirframe}
+              engineRange={engineRange}
+              setEngineRange={setEngineRange}
+              minEngine={minEngine}
+              maxEngine={maxEngine}
+              onClearAll={onClearAll}
+            />
+          </div>
         </div>
       </div>
     </>
