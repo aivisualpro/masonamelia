@@ -16,7 +16,7 @@ const Higher = ({ banner }) => {
 
       <div className="absolute md:hidden block w-full h-[300px] z-[-1] top-0 left-0 bg-black/60"></div>
 
-      <div className="pt-[32px] pb-[32px] md:pb-0 md:pt-[50px] px-2 text-white text-start h-full md:block flex items-center flex-col justify-center">
+      <div className="pt-[32px] pb-[32px] md:pb-0 md:pt-[50px] px-2 text-white text-start h-full flex flex-col justify-center">
         <motion.h2
           initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}
