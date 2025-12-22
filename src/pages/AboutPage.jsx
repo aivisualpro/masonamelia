@@ -218,7 +218,7 @@ const AboutPage = () => {
         <section
           id="timeline"
           style={{
-            backgroundImage: `url(${aboutBanner})`,
+            backgroundImage: media ? "" : `url(${aboutBanner})`,
             backgroundSize: media ? "" : "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
