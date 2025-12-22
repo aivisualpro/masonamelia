@@ -219,10 +219,10 @@ const AboutPage = () => {
           id="timeline"
           style={{
             backgroundImage: `url(${aboutBanner})`,
-            // backgroundSize: "cover",
+            backgroundSize: "cover",
             backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundAttachment: mobileMedia ? "fixed" : "fixed",
+            // backgroundRepeat: "no-repeat",
+            backgroundAttachment: "fixed",
           }}
           className="py-20 relative z-[10]"
         >
