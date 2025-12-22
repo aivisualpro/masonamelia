@@ -282,7 +282,7 @@ const BrokeragePage = () => {
   return (
     <>
       {/* HERO / FIRST SECTION with arrow & auto-scroll */}
-      <div ref={bannerRef} className="relative h-auto overflow-hidden">
+      <div ref={bannerRef} className="relative z-[9] h-auto overflow-hidden">
         <ServiceBanner banner={banner} bannerTwo={bannerTwo} />
         {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
       </div>

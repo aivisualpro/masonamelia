@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import brokerageBanner from "/images/brokerage/service-banner.webp";
@@ -10,45 +10,69 @@ const BrokerageRappleResearch = ({
   title,
   description,
 }) => {
-  // Check if screen is mobile (less than 768px)
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 767px)");
 
-  // Helper function to switch between 'animate' and 'whileInView'
+  const sectionRef = useRef(null);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const obs = new IntersectionObserver(
+      ([entry]) => setActive(entry.isIntersecting),
+      { threshold: 0.25 }
+    );
+
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   const getAnimationProps = (delay = 0) => ({
     initial: { opacity: 0, y: 70 },
-    // Agar mobile hai toh load par animate ho, warna scroll par (whileInView)
     [isMobile ? "animate" : "whileInView"]: { opacity: 1, y: 0 },
     viewport: { once: true },
-    transition: { duration: 0.8, delay: delay },
+    transition: { duration: 0.8, delay },
   });
 
   return (
     <>
-      <section
+      {/* ✅ Fixed background layer (Safari safe) */}
+      <div
+        aria-hidden="true"
+        className={`fixed top-0 left-0 right-0 bottom-0 w-full h-full transition-opacity duration-300 pointer-events-none ${
+          active ? "opacity-100" : "opacity-0"
+        }`}
         style={{
           backgroundImage: `url(${brokerageBanner})`,
-          backgroundSize: "cover", // 'contain' ki jagah 'cover' background ko poora fill karega
+          backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
+          transform: "translateZ(0)",
+          willChange: "opacity",
+          zIndex: 0,
         }}
-        className="relative 2xl:py-0 py-20 z-[10] md:h-screen"
+      />
+
+      {/* ✅ Section */}
+      <section
+        ref={sectionRef}
+        className="relative z-0 2xl:py-0 py-20 md:min-h-screen min-h-[100svh] overflow-hidden"
       >
-        <div className="overlay bg-tertiary_color opacity-90 absolute top-0 left-0 w-full h-full z-[-1]" />
-        
-        <div className="container px-5 flex justify-center items-center h-full mx-auto">
-          <div className="px-4 flex flex-col justify-center z-[4] text-center w-full">
-            
-            {/* Title - Hamesha load par animate hota hai */}
+        {/* ✅ Overlay ABOVE background (no negative z) */}
+        <div className="absolute inset-0 bg-tertiary_color/90 z-0" />
+
+        {/* ✅ Content */}
+        <div className="relative z-10 container px-5 flex justify-center items-center min-h-[100svh] md:min-h-screen mx-auto">
+          <div className="px-4 flex flex-col justify-center text-center w-full">
+            {/* Title - always animate on load */}
             <motion.h2
               initial={{ opacity: 0, y: 100 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               className="text-[1.8rem] md:text-[3rem] xl:text-7xl font-bold text-white max-w-7xl mx-auto"
             >
-              <span className="bg-gradient-to-r text-white bg-clip-text text-transparent">
-                {title}
-              </span>
+              <span className="text-white">{title}</span>
             </motion.h2>
 
             {/* Consultation Subtitle */}
@@ -61,14 +85,13 @@ const BrokerageRappleResearch = ({
               </motion.h2>
             )}
 
-            {/* Description Paragraph */}
+            {/* Description */}
             <motion.p
               {...getAnimationProps(0.4)}
-              className="text-[#fff] md:text-xl max-w-[55rem] 2xl:max-w-[60rem] font-light mx-auto"
+              className="text-white md:text-xl max-w-[55rem] 2xl:max-w-[60rem] font-light mx-auto"
             >
               {description}
             </motion.p>
-            
           </div>
         </div>
       </section>
@@ -77,35 +100,3 @@ const BrokerageRappleResearch = ({
 };
 
 export default BrokerageRappleResearch;
-
-
-
-
-{/* <div className="md:ms-[15%] md:w-[40%] flex flex-col gap-4">
-  {data.map((item, index) => (
-    <motion.div
-      initial={{
-        opacity: 0,
-        y: 100,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-      }}
-      transition={{ duration: 0.8, delay: index * 0.2 }}
-      className="w-full p-8 rounded-2xl bg-[#11121837] overflow-hidden relative"
-    >
-      <div className="flex flex-col items-center text-center space-y-4">
-        <div className="flex items-center justify-center">
-          <span className="text-[#130e0e4a] text-[7rem] absolute top-[-50px] left-[-5px] font-extrabold">
-            0{item.id}
-          </span>
-        </div>
-        <h4 className="text-[1.4rem] font-semibold text-white pt-8">
-          {item.title}
-        </h4>
-        <p className="text-base text-white/80">{item.description}</p>
-      </div>
-    </motion.div>
-  ))}
-</div> */}
