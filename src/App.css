@@ -6,9 +6,9 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  overflow-x: hidden !important;
+  overflow-x: hidden;
   background-color: #111218;
-  width: 100vw !important;
+  width: 100vw;
 }
 
 .brand_img {
