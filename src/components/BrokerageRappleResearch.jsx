@@ -57,13 +57,13 @@ const BrokerageRappleResearch = ({
       {/* ✅ Section */}
       <section
         ref={sectionRef}
-        className="relative z-0 2xl:py-0 py-20 md:min-h-screen min-h-[100svh] overflow-hidden"
+        className="relative z-0 2xl:py-0 py-20 md:min-h-screen min-h-full overflow-hidden"
       >
         {/* ✅ Overlay ABOVE background (no negative z) */}
         <div className="absolute inset-0 bg-tertiary_color/90 z-0" />
 
         {/* ✅ Content */}
-        <div className="relative z-10 container px-5 flex justify-center items-center min-h-[100svh] md:min-h-screen mx-auto">
+        <div className="relative z-10 container px-5 flex justify-center items-center min-h-full md:min-h-screen mx-auto">
           <div className="px-4 flex flex-col justify-center text-center w-full">
             {/* Title - always animate on load */}
             <motion.h2
