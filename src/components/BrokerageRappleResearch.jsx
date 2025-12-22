@@ -40,7 +40,7 @@ const BrokerageRappleResearch = ({
       {/* ✅ Fixed background layer (Safari safe) */}
       <div
         aria-hidden="true"
-        className={`fixed top-0 left-0 right-0 bottom-0 w-full h-full transition-opacity duration-300 pointer-events-none ${
+        className={`fixed top-0 overflow-x-hidden left-0 right-0 bottom-0 w-full h-full transition-opacity duration-300 pointer-events-none ${
           active ? "opacity-100" : "opacity-0"
         }`}
         style={{

@@ -11,9 +11,7 @@ body {
   width: 100vw;
 }
 
-#root {
-  overflow-x: hidden;
-}
+
 
 .brand_img {
   filter: brightness(0) invert(1);
@@ -740,4 +738,8 @@ h6 {
   #contact ::placeholder {
     text-align: center !important;
   }
+}
+
+#testimonial {
+  overflow-x: hidden !important;
 }

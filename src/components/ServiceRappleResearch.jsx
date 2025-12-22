@@ -28,7 +28,7 @@ const ServiceRappleResearch = ({ highlightedTitle, title, description }) => {
     <>
       {/* ✅ Fixed background layer (works on Safari too) */}
       <div
-        className={`fixed inset-0 transition-opacity duration-300 ${
+        className={`fixed inset-0 transition-opacity duration-300 overflow-x-hidden ${
           active ? "opacity-100" : "opacity-0"
         }`}
         style={{
