@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import banner from "/images/acquisition/service-banner.webp";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const ServiceRappleResearch = ({
   data,
@@ -14,6 +15,8 @@ const ServiceRappleResearch = ({
     visible: { opacity: 1, y: 0 },
   };
 
+  const media = useMediaQuery("max-width: 767px");
+
   return (
     <>
       <section
@@ -22,7 +25,7 @@ const ServiceRappleResearch = ({
           backgroundSize: "cover", // 'contain' aksar background gap chor deta hai, 'cover' behtar hai
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
+          backgroundAttachment: media ? "scroll" : "fixed",
         }}
         className="relative md:h-screen py-20 z-[10]"
       >
