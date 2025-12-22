@@ -13,7 +13,7 @@ import aboutBanner from "/images/about/banner.avif";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import BlinkingArrow from "../components/BlinkingArrow";
 import CTABanner from "../components/CTABanner";
-import { HiOutlineSparkles, HiOutlineRocketLaunch, HiOutlineCpuChip } from "react-icons/hi2";
+import { HiOutlineCpuChip, HiOutlineRocketLaunch, HiOutlineSparkles } from "react-icons/hi2";
 
 const AboutPage = () => {
   /** ---------- Smooth auto-scroll ---------- */
@@ -219,7 +219,7 @@ const AboutPage = () => {
           id="timeline"
           style={{
             backgroundImage: `url(${aboutBanner})`,
-            backgroundSize: "cover",
+            // backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundAttachment: mobileMedia ? "fixed" : "fixed",
