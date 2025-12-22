@@ -16,7 +16,7 @@ const Higher = ({ banner, bannerTwo }) => {
 
       <div className="absolute md:hidden block w-full h-[280px] z-[-1] top-0 left-0 bg-black/60"></div>
 
-      <div className="pt-[32px] pb-[32px] md:pb-0 md:pt-[50px] px-2 text-white text-start h-full flex flex-col justify-end">
+      <div className="pt-[32px] pb-[32px] md:pb-0 md:pt-[50px] px-2 text-white text-start h-full flex flex-col md:justify-center justify-end">
         <motion.h2
           initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -24,7 +24,7 @@ const Higher = ({ banner, bannerTwo }) => {
           className="text-white md:text-start text-center text-[1.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-6xl md:max-w-md lg:max-w-2xl"
           style={{ lineHeight: "1.1" }}
         >
-          We’re more than brokers -{" "}
+          We’re more than brokers -{" "} <br className="md:hidden block" />
           <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
             We’re storytellers
           </span>
