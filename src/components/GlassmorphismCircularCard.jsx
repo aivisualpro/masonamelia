@@ -35,7 +35,7 @@ export default function GlassmorphismCircularCard({
             </div>
           </div>
 
-          <h1 className="text-[.9rem] lg:text-base xl:text-lg font-semibold text-white px-4 rounded-md z-[12]">
+          <h1 className="py-2 text-[.9rem] lg:text-base xl:text-lg font-semibold text-white px-4 rounded-md z-[12]">
             {title}
           </h1>
           <p className="px-3 md:px-0 lg:px-3 text-xs lg:text-sm font-light text-gray-300 z-[12]">

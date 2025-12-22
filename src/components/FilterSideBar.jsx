@@ -44,15 +44,15 @@ const FilterSideBar = ({
     <>
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/60 z-[9]"
+          className="fixed inset-0 z-[9998]"
+          style={{ backgroundColor: "rgba(0,0,0,0.75)" }}  // 0.75 try karo
           onClick={toggleSidebar}
         />
       )}
 
       <div
-        className={`filter-sidebar fixed top-0 left-0 w-[80%] max-w-[300px] h-[100vh] bg-black z-[9999] transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`filter-sidebar fixed top-0 left-0 w-[80%] max-w-[300px] h-[100vh] bg-black z-[9999] transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
         role="dialog"
         aria-modal="true"
       >
@@ -69,7 +69,7 @@ const FilterSideBar = ({
         {/* ✅ Make this area flex + scroll */}
         <div className="px-4 relative h-screen overflow-y-auto flex flex-col py-6">
           {/* ✅ This wrapper centers the filter box vertically */}
-          <div className="my-auto">
+          <div className="my-auto" style={{ margin: "auto 0" }}>
             <FilterCheckboxList
               searchJets={searchJets}
               setSearchJets={setSearchJets}

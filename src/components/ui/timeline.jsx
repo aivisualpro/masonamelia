@@ -80,7 +80,7 @@ export const Timeline = ({
               }`}
             >
               <div className="h-16 absolute left-0 w-16 rounded-full bg-white dark:bg-black flex items-center justify-center">
-                <div className="h-10 w-10 flex items-center rounded-full bg-neutral-200 dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700">
+                <div className="h-10 w-10 flex items-center rounded-full">
                   {item.icon}
                 </div>
               </div>

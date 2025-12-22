@@ -13,6 +13,7 @@ import aboutBanner from "/images/about/banner.avif";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import BlinkingArrow from "../components/BlinkingArrow";
 import CTABanner from "../components/CTABanner";
+import { HiOutlineSparkles, HiOutlineRocketLaunch, HiOutlineCpuChip } from "react-icons/hi2";
 
 const AboutPage = () => {
   /** ---------- Smooth auto-scroll ---------- */
@@ -139,7 +140,7 @@ const AboutPage = () => {
     },
     {
       title: "2023",
-      icon: <FaChartLine size={48} color="#1777cb" />,
+      icon: <HiOutlineSparkles size={48} color="#1777cb" />,
       content: (
         <div>
           <p className="mb-4 text-lg font-normal text-white">
@@ -153,7 +154,7 @@ const AboutPage = () => {
     },
     {
       title: "2024",
-      icon: <FaChartLine size={48} color="#1777cb" />,
+      icon: <HiOutlineRocketLaunch size={48} color="#1777cb" />,
       content: (
         <div>
           <p className="mb-4 text-lg font-normal text-white">
@@ -167,7 +168,7 @@ const AboutPage = () => {
     },
     {
       title: "2025",
-      icon: <FaChartLine size={48} color="#1777cb" />,
+      icon: <HiOutlineCpuChip size={48} color="#1777cb" />,
       content: (
         <div>
           <p className="mb-4 text-lg font-normal text-white">
@@ -221,7 +222,7 @@ const AboutPage = () => {
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
-            backgroundAttachment: "fixed",
+            backgroundAttachment: mobileMedia ? "fixed" : "fixed",
           }}
           className="py-20 relative z-[10]"
         >
