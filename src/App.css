@@ -11,6 +11,10 @@ body {
   width: 100vw;
 }
 
+#root {
+  overflow-x: hidden;
+}
+
 .brand_img {
   filter: brightness(0) invert(1);
 }
