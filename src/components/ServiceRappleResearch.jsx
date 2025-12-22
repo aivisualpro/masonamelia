@@ -44,7 +44,7 @@ const ServiceRappleResearch = ({ highlightedTitle, title, description }) => {
       {/* ✅ Your section */}
       <section
         ref={sectionRef}
-        className="relative py-20 md:min-h-screen min-h-auto z-10 overflow-hidden"
+        className="relative py-20 md:min-h-screen min-h-auto z-10 overflow-x-hidden"
       >
         {/* ✅ Overlay above bg */}
         <div className="absolute inset-0 bg-tertiary_color/90 z-0" />
