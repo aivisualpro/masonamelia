@@ -116,8 +116,10 @@ app.get('/api/aircrafts/lists', async (req, res) => {
         statusToQuery = 'acquired';
       }
       query.status = { $regex: new RegExp(statusToQuery, 'i') };
+    } else {
+      // 'all' filter excludes sold and acquired - they only show via their specific tabs
+      query.status = { $nin: ['sold', 'acquired'] };
     }
-    // Note: 'all' shows everything including sold and acquired
     
     if (searchKeyword) {
       query.$or = [
