@@ -100,7 +100,29 @@ app.get('/api/teams/lists', async (req, res) => {
   }
 });
 
-// Aircrafts
+// Search Endpoint for SearchBox
+app.get('/api/aircrafts/lists/search', async (req, res) => {
+  await connectToDatabase();
+  try {
+    const { q } = req.query;
+    const query = {};
+    
+    if (q) {
+      query.$or = [
+        { title: { $regex: q, $options: 'i' } },
+        { model: { $regex: q, $options: 'i' } }
+      ];
+    }
+    
+    // Limit results for autocomplete
+    const aircrafts = await Aircraft.find(query).limit(20);
+    res.json({ success: true, data: aircrafts });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Aircrafts list (paginated)
 app.get('/api/aircrafts/lists', async (req, res) => {
   await connectToDatabase();
   try {
