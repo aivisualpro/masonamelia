@@ -10,38 +10,34 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
   return (
     <>
       <Navbar />
-      <div className="h-full relative bg-img w-full md:sticky top-0 md:h-screen overflow-hidden">
-        {/* Desktop Background Image */}
-        <div className="hidden md:block absolute inset-0 z-0">
-          <img 
-            src={url} 
-            className="w-full h-full object-cover object-right-bottom" 
-            alt="Aircraft Background" 
-          />
-          {/* Strong solid dark overlay on left half for text */}
-          <div 
-            className="absolute inset-0"
-            style={{
-              background: "linear-gradient(90deg, #111218 0%, #111218 45%, rgba(17, 18, 24, 0.7) 60%, rgba(17, 18, 24, 0.3) 75%, transparent 100%)"
-            }}
-          />
-        </div>
-
-        {/* Mobile Hero Background */}
-        <div className="absolute md:hidden block w-full h-full min-h-[480px] z-0 top-0 left-0 overflow-hidden">
-          <img 
-            src={banner} 
-            className="w-full h-full object-cover object-center" 
-            alt="Aircraft" 
-          />
-          {/* Gradient overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#111218]/70 via-[#111218]/50 to-[#111218]/90"></div>
-        </div>
-
+      <div
+        className="bg-img w-full md:sticky top-0 h-screen"
+        style={{
+          backgroundImage: media 
+            ? "" 
+            : `linear-gradient(to right, rgb(21, 22, 28, 1) 0%, rgb(21, 22, 28, 1) 20%, rgba(0, 0, 0, 0.05) 50%), url(${url})`,
+          backgroundSize: "cover",
+          backgroundAttachment: "fixed",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+        }}
+      >
         {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
 
-        <div className="container relative z-10 flex flex-col justify-center h-full pt-[100px] pb-[40px] md:pt-[132px] md:pb-[32px] md:items-start items-center px-5 min-h-[480px] md:min-h-screen">
-          <div className="banner-content text-center md:text-left md:max-w-[45%] lg:max-w-[40%]">
+        {/* Mobile Background Image */}
+        {media && (
+          <div className="absolute w-full h-full z-[-1] top-0 left-0 overflow-hidden">
+            <img 
+              src={banner || url} 
+              className="w-full h-full object-cover object-center" 
+              alt="Aircraft" 
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#111218]/70 via-[#111218]/50 to-[#111218]/90"></div>
+          </div>
+        )}
+
+        <div className="container flex flex-col justify-center h-full md:items-start items-center px-5">
+          <div className="banner-content md:-mt-[10vh] text-center md:text-left">
             <BlurText
               text="Where Precision "
               highlightedText=" Meets Passion"
@@ -49,26 +45,24 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
               delay={150}
               animateBy="words"
               direction="top"
-              className="text-[1.8rem] sm:text-[2.2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl leading-tight font-bold text-white"
+              className="max-w-xl text-[1.8rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white"
             />
-            <div className="mt-4 md:mt-6 space-y-4">
-              <ShinyText
-                text="We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators."
-                disabled={false}
-                isTextCenter={media ? true : false}
-                speed={5}
-                className="custom-class text-sm md:text-base lg:text-lg"
-                color="text-white/90 md:text-white/80"
-              />
-              <ShinyText
-                text="If your dream aircraft isn't in our showroom, consider it already in motion. Our global network ensures we find exactly what you seek."
-                disabled={false}
-                isTextCenter={media ? true : false}
-                speed={5}
-                className="custom-class text-sm md:text-base lg:text-lg"
-                color="text-white/80 md:text-white/70"
-              />
-            </div>
+            <ShinyText
+              text="We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators."
+              disabled={false}
+              isTextCenter={media ? true : false}
+              speed={5}
+              className="custom-class text-sm md:text-lg mt-4 md:max-w-lg lg:max-w-xl"
+              color="text-white/90 md:text-[#b5b5b5]"
+            />
+            <ShinyText
+              text="If your dream aircraft isn't in our showroom, consider it already in motion. Our global network ensures we find exactly what you seek."
+              disabled={false}
+              isTextCenter={media ? true : false}
+              speed={5}
+              className="custom-class text-sm md:text-lg mt-3 md:max-w-lg lg:max-w-xl"
+              color="text-white/80 md:text-[#b5b5b5]"
+            />
           </div>
         </div>
       </div>
