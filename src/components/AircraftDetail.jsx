@@ -54,6 +54,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
   const [related, setRelated] = useState([]);
   const [activeImgIndex, setActiveImgIndex] = useState(0);
+  const [showVideo, setShowVideo] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
 
   // ---- Fetch detail ----
@@ -153,6 +154,11 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
     if (sec.html) return extractItems(sec.html);
     return [];
   }, [sections, activeTab]);
+
+  const handleThumbnailClick = (i) => {
+    setActiveImgIndex(i);
+    setShowVideo(false);
+  };
 
   const openVideoModal = () => setVideoModalOpen(true);
   const closeVideoModal = () => setVideoModalOpen(false);
