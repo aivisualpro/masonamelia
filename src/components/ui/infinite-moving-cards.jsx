@@ -112,6 +112,7 @@ const InfiniteMovingCards = ({
   const [start, setStart] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
   const [isPaused, setIsPaused] = useState(false); // Simple toggle
+  const isPausedRef = useRef(false); // Sync ref to prevent race conditions
 
   // x-offset for centering card
   const hoverX = useSpring(0, { stiffness: 200, damping: 30, bounce: 0 });
@@ -168,11 +169,16 @@ const InfiniteMovingCards = ({
 
     if (isCentered) {
       // Toggle pause/resume only on centered card
-      setIsPaused(!isPaused);
+      const newPaused = !isPausedRef.current;
+      isPausedRef.current = newPaused;
+      setIsPaused(newPaused);
     } else {
-      // Edge card: pause and center it
-      setIsPaused(true);
-      centerCard(cardEl, viewportEl, hoverX);
+      // Edge card: pause and center it (only if not already paused)
+      if (!isPausedRef.current) {
+        isPausedRef.current = true;
+        setIsPaused(true);
+        centerCard(cardEl, viewportEl, hoverX);
+      }
     }
   };
 
