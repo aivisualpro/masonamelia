@@ -14,21 +14,23 @@ export default function Tabs({
 }) {
   const containerRef = React.useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
   // Check scroll position and update arrow states
   const updateScrollState = () => {
     if (containerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
-      setCanScrollLeft(scrollLeft > 5);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 5);
+      const hasOverflow = scrollWidth > clientWidth;
+      setCanScrollLeft(hasOverflow && scrollLeft > 5);
+      setCanScrollRight(hasOverflow && scrollLeft < scrollWidth - clientWidth - 5);
     }
   };
 
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
-      updateScrollState();
+      // Delay to allow layout to settle
+      setTimeout(updateScrollState, 100);
       container.addEventListener("scroll", updateScrollState);
       window.addEventListener("resize", updateScrollState);
       return () => {
@@ -45,29 +47,34 @@ export default function Tabs({
     }
   };
 
+  // Check if we need scroll arrows (content overflows)
+  const showArrows = canScrollLeft || canScrollRight;
+
   return (
     /* Outer wrapper with arrows outside */
     <div className="relative w-full flex items-center gap-2">
       
-      {/* Left Arrow - Glass style, outside container */}
-      <button
-        onClick={() => scrollContainer("left")}
-        disabled={!canScrollLeft}
-        className={`flex-shrink-0 z-20 flex xl:hidden items-center justify-center w-8 h-8 rounded-full shadow-lg transition-all active:scale-90 ${
-          canScrollLeft 
-            ? "text-white bg-white/10 backdrop-blur-md hover:bg-white/20" 
-            : "text-white/30 bg-white/5 cursor-not-allowed"
-        }`}
-        aria-label="Scroll Left"
-      >
-        <AiOutlineLeft size={16} />
-      </button>
+      {/* Left Arrow - Only show if content overflows */}
+      {showArrows && (
+        <button
+          onClick={() => scrollContainer("left")}
+          disabled={!canScrollLeft}
+          className={`flex-shrink-0 z-20 flex xl:hidden items-center justify-center w-8 h-8 rounded-full shadow-lg transition-all active:scale-90 ${
+            canScrollLeft 
+              ? "text-white bg-white/10 backdrop-blur-md hover:bg-white/20" 
+              : "text-white/30 bg-white/5 cursor-not-allowed"
+          }`}
+          aria-label="Scroll Left"
+        >
+          <AiOutlineLeft size={16} />
+        </button>
+      )}
 
       {/* Main Scroll Container */}
       <div
         ref={containerRef}
         style={styles.navContainer}
-        className="tabs-scroll flex flex-1 flex-nowrap items-center overflow-x-auto scroll-smooth no-scrollbar px-2 md:px-3 py-1"
+        className="tabs-scroll flex flex-1 items-center overflow-x-auto scroll-smooth no-scrollbar px-2 md:px-3 py-1 xl:justify-between"
       >
         {/* Filter Toggle - Desktop only */}
         {showFilterToggle && (
@@ -82,7 +89,7 @@ export default function Tabs({
               style={{ borderColor: isFilterOpen ? "#49a8fc" : "#2d2f39" }}
             />
             <GoFilter className="relative z-10" />
-            <span className="relative z-10 text-sm xl:text-base">
+            <span className="relative z-10 text-sm xl:text-base whitespace-nowrap">
               {isFilterOpen ? "Hide Filters" : "Show Filters"}
             </span>
           </div>
@@ -92,7 +99,7 @@ export default function Tabs({
         {isAllTab && (
           <div
             onClick={() => setActiveTab("all")}
-            className="relative flex-shrink-0 justify-center px-3 md:px-4 py-2 cursor-pointer select-none transition-colors duration-200"
+            className="relative flex-shrink-0 xl:flex-1 text-center px-3 md:px-4 py-2 cursor-pointer select-none transition-colors duration-200"
             style={{ color: activeTab === "all" ? "white" : "#aaa" }}
           >
             {activeTab === "all" && (
@@ -111,7 +118,7 @@ export default function Tabs({
           <div
             key={tab.slug}
             onClick={() => setActiveTab(tab.slug)}
-            className="relative flex-shrink-0 px-3 md:px-4 py-2 cursor-pointer select-none transition-colors duration-200"
+            className="relative flex-shrink-0 xl:flex-1 text-center px-3 md:px-4 py-2 cursor-pointer select-none transition-colors duration-200"
             style={{ color: activeTab === tab.slug ? "white" : "#aaa" }}
           >
             {activeTab === tab.slug && (
@@ -128,19 +135,21 @@ export default function Tabs({
         ))}
       </div>
 
-      {/* Right Arrow - Glass style, outside container */}
-      <button
-        onClick={() => scrollContainer("right")}
-        disabled={!canScrollRight}
-        className={`flex-shrink-0 z-20 flex xl:hidden items-center justify-center w-8 h-8 rounded-full shadow-lg transition-all active:scale-90 ${
-          canScrollRight 
-            ? "text-white bg-white/10 backdrop-blur-md hover:bg-white/20" 
-            : "text-white/30 bg-white/5 cursor-not-allowed"
-        }`}
-        aria-label="Scroll Right"
-      >
-        <AiOutlineRight size={16} />
-      </button>
+      {/* Right Arrow - Only show if content overflows */}
+      {showArrows && (
+        <button
+          onClick={() => scrollContainer("right")}
+          disabled={!canScrollRight}
+          className={`flex-shrink-0 z-20 flex xl:hidden items-center justify-center w-8 h-8 rounded-full shadow-lg transition-all active:scale-90 ${
+            canScrollRight 
+              ? "text-white bg-white/10 backdrop-blur-md hover:bg-white/20" 
+              : "text-white/30 bg-white/5 cursor-not-allowed"
+          }`}
+          aria-label="Scroll Right"
+        >
+          <AiOutlineRight size={16} />
+        </button>
+      )}
     </div>
   );
 }
