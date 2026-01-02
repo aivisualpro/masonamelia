@@ -44,7 +44,7 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
 
   // search
   const [searchJets, setSearchJets] = useState("");
-  const [filteredAircrafts, setFilteredAircrafts] = useState([]);
+
 
   console.log("searchJets", searchJets)
 
@@ -99,17 +99,7 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
     engineRange: engineTouched ? engineRange : undefined,
   });
 
-  useEffect(() => {
-    const filterAircrafts = () => {
-      const filteredRows = api?.rows?.filter((aircraft) => {
-        return aircraft.title.toLowerCase().includes(searchJets.toLowerCase());
-      })
-      setFilteredAircrafts(filteredRows);
-    };
 
-    filterAircrafts();
-    console.log(filteredAircrafts, "Filtered")
-  }, [searchJets, setSearchJets])
 
   // keep page in sync with backend clamped page (if any)
   useEffect(() => {
@@ -118,7 +108,13 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
   }, [api?.meta?.page]);
 
   const loading = isPending || isFetching;
-  const rows = filteredAircrafts?.length > 0 ? filteredAircrafts : api?.rows || [];
+  const rows = useMemo(() => {
+    const raw = api?.rows || [];
+    if (!searchJets) return raw;
+    return raw.filter((r) =>
+      r.title.toLowerCase().includes(searchJets.toLowerCase())
+    );
+  }, [api?.rows, searchJets]);
   const meta = api?.meta || {};
   const totalPages = meta.pageCount || 1;
   const errMsg = error?.message || "";
@@ -401,7 +397,7 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
                     } gap-8`}
                 >
                   {rows.map((airplane) => (
-                    <Card key={airplane._id} detail={airplane} />
+                    <Card key={airplane._id} detail={airplane} currentTab={activeTab} />
                   ))}
                 </motion.div>
 

@@ -1,5 +1,4 @@
 import React from "react";
-import image from "../../public/images/clearForTakeoff.webp"
 
 export default function ClearForTakeoff({
   eyebrow,                // small label above title
@@ -53,7 +52,7 @@ export default function ClearForTakeoff({
           <div className="relative lg:w-1/2 w-full">
             <div className="absolute -inset-6 -z-10 rounded-3xl bg-sky-500/10 blur-3xl" />
             <img
-              src={image}
+              src="/images/clearForTakeoff.webp"
               alt={imageAlt}
               className="w-full rounded-2xl object-cover"
             />

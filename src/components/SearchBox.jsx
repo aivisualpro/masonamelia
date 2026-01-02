@@ -3,7 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 /** ---------- config ---------- */
-const API_BASE = import.meta.env.VITE_BASE_URL; // e.g. http://localhost:5000
+const API_BASE = import.meta.env.VITE_BASE_URL || ""; // e.g. http://localhost:5000
 const SEARCH_URL = `${API_BASE}/api/aircrafts/lists/search`;
 
 /** Typewriter placeholder hook + blinking cursor */
@@ -330,7 +330,7 @@ const SearchBox = () => {
                 <input
                   type="text"
                   placeholder={placeholder || "Search"}
-                  className="flex-grow bg-transparent outline-none text-white placeholder-white/70 px-3 py-3"
+                  className="flex-grow bg-transparent outline-none text-white placeholder-white/70 px-3 py-2 text-sm"
                   autoComplete="off"
                   aria-label="Search jets"
                   value={query}
@@ -343,7 +343,7 @@ const SearchBox = () => {
                 />
                 <button
                   type="button"
-                  className="w-10 h-10 mr-2 flex items-center justify-center rounded-full bg-tertiary_color hover:bg-tertiary_color/80 transition"
+                  className="w-8 h-8 mr-2 flex items-center justify-center rounded-full bg-tertiary_color hover:bg-tertiary_color/80 transition"
                   onClick={handleSubmit}
                   aria-label="Search"
                 >

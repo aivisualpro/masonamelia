@@ -13,7 +13,7 @@ export function buildUrl({
   airframeRange,
   engineRange,
 }) {
-  const base = import.meta.env.VITE_BASE_URL;
+  const base = import.meta.env.VITE_BASE_URL || "";
   const params = new URLSearchParams();
 
   params.set("page", String(page));
@@ -132,7 +132,7 @@ export function useAircraftsQuery({
 /* ---------- NEW: Ranges ---------- */
 
 function buildRangesUrl({ status = "all", categories = [] } = {}) {
-  const base = import.meta.env.VITE_BASE_URL;
+  const base = import.meta.env.VITE_BASE_URL || "";
   const params = new URLSearchParams();
   if (status && status !== "all") params.set("status", status);
   if (Array.isArray(categories) && categories.length) {

@@ -86,7 +86,7 @@ const GlassNavbar = () => {
       >
         {/* NAV BAR */}
         <div
-          className="glass-container flex items-center justify-center glass-container--rounded px-4 py-3"
+          className="glass-container flex items-center justify-center glass-container--rounded px-3 py-2"
           style={{ borderRadius: "5px" }}
         >
           <div className="glass-filter" style={{ filter: "url(#lg-dist)" }} />

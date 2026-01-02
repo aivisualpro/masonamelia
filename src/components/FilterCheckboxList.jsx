@@ -61,17 +61,7 @@ export default function FilterCheckboxList({
     );
   };
 
-  const clearAll = () => {
-    setCurrentPage(1);
-    setPriceRange(undefined);
-    setAirframeRange(undefined);
-    setEngineRange(undefined);
-    setPriceTouched(false);
-    setAirframeTouched(false);
-    setEngineTouched(false);
-  };
-
-  /* helpers to render labels safely (0 should show as 0, not “–”) */
+  /* helpers to render labels safely (0 should show as 0, not "–") */
   const fmt = (n) => Number(n ?? 0).toLocaleString();
 
   // ▼ Mobile-only dropdown state for Aircraft group
@@ -174,16 +164,21 @@ export default function FilterCheckboxList({
             const [a, b] = Array.isArray(v) ? v : [v, v];
             setAirframeRange([Number(a), Number(b)]);
           }}
-          renderTrack={(props, state) => (
-            <div
-              {...props}
-              className={`slider-track ${state.index === 0 ? "track-0" : "track-1"
-                }`}
-            />
-          )}
-          renderThumb={(props) => (
-            <div {...props} className="slider-thumb relative" />
-          )}
+          renderTrack={(props, state) => {
+            const { key, ...otherProps } = props;
+            return (
+              <div
+                key={key}
+                {...otherProps}
+                className={`slider-track ${state.index === 0 ? "track-0" : "track-1"
+                  }`}
+              />
+            );
+          }}
+          renderThumb={(props) => {
+            const { key, ...otherProps } = props;
+            return <div key={key} {...otherProps} className="slider-thumb relative" />;
+          }}
         />
         <div className="flex justify-between mt-3 text-[.6rem] xl:text-xs text-gray-300 font-bold">
           <span>Min: {fmt((airframeRange ?? [minAirframe])[0])}</span>
@@ -208,16 +203,21 @@ export default function FilterCheckboxList({
             const [a, b] = Array.isArray(v) ? v : [v, v];
             setEngineRange([Number(a), Number(b)]);
           }}
-          renderTrack={(props, state) => (
-            <div
-              {...props}
-              className={`slider-track ${state.index === 0 ? "track-0" : "track-1"
-                }`}
-            />
-          )}
-          renderThumb={(props) => (
-            <div {...props} className="slider-thumb relative" />
-          )}
+          renderTrack={(props, state) => {
+            const { key, ...otherProps } = props;
+            return (
+              <div
+                key={key}
+                {...otherProps}
+                className={`slider-track ${state.index === 0 ? "track-0" : "track-1"
+                  }`}
+              />
+            );
+          }}
+          renderThumb={(props) => {
+            const { key, ...otherProps } = props;
+            return <div key={key} {...otherProps} className="slider-thumb relative" />;
+          }}
         />
         <div className="flex justify-between mt-3 text-[.6rem] xl:text-xs text-gray-300 font-bold">
           <span>Min: {fmt((engineRange ?? [minEngine])[0])}</span>
@@ -238,14 +238,21 @@ export default function FilterCheckboxList({
           min={fullPriceRange[0]}
           max={fullPriceRange[1]}
           step={1000}
-          renderTrack={(props, state) => (
-            <div
-              {...props}
-              className={`slider-track ${state.index === 0 ? "track-0" : "track-1"
-                }`}
-            />
-          )}
-          renderThumb={(props) => <div {...props} className="slider-thumb" />}
+          renderTrack={(props, state) => {
+            const { key, ...otherProps } = props;
+            return (
+              <div
+                key={key}
+                {...otherProps}
+                className={`slider-track ${state.index === 0 ? "track-0" : "track-1"
+                  }`}
+              />
+            );
+          }}
+          renderThumb={(props) => {
+            const { key, ...otherProps } = props;
+            return <div key={key} {...otherProps} className="slider-thumb" />;
+          }}
         />
         <div className="flex justify-between mt-3 text-gray-300">
           <span className="text-[.6rem] xl:text-xs font-bold">

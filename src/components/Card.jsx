@@ -5,15 +5,6 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import DOMPurify from "dompurify";
 
-// const categoryGradients = {
-//   acquired: ["from-[#3b82f6]", "to-[#7eb0fc]"],
-//   "coming-soon": ["from-[#9333ea]", "to-[#c084fc]"],
-//   "for-sale": ["from-[#6bfc3f]", "to-[#a5fc8a]"],
-//   "off-market": ["from-[#4e54fc]", "to-[#8f93fc]"],
-//   "sale-pending": ["from-[#9a2c3a]", "to-[#ce93d8]"],
-//   sold: ["from-[#ff0000]", "to-[#fc6262]"],
-//   wanted: ["from-[#f97316]", "to-[#fb923c]"],
-// };
 const categoryGradients = {
   acquired: ["from-[#ff0000]", "to-[#fc6262]"],
   "coming-soon": ["from-[#3b82f6]", "to-[#7eb0fc]"],
@@ -24,8 +15,14 @@ const categoryGradients = {
   wanted: ["from-[#3b82f6]", "to-[#7eb0fc]"],
 };
 
-const Card = ({ detail }) => {
-  const status = (detail?.status || "").toLowerCase();
+const Card = ({ detail, currentTab }) => {
+  let status = (detail?.status || "").toLowerCase();
+
+  // If status is missing but we have a specific tab active, fallback to that tab's slug
+  if (!status && currentTab && currentTab !== "all") {
+    status = currentTab;
+  }
+
   const gradient = categoryGradients[status] || [
     "from-[#ff8a41]",
     "to-[#fca168]",
@@ -37,29 +34,6 @@ const Card = ({ detail }) => {
     return DOMPurify.sanitize(html, { USE_PROFILES: { html: true } });
   }, [detail?.overview]);
 
-  // first non-empty paragraph -> trimmed snippet
-  const overviewSnippet = useMemo(() => {
-    if (!overviewHTML) return "";
-    try {
-      const div = document.createElement("div");
-      div.innerHTML = overviewHTML;
-      const paras = Array.from(div.querySelectorAll("p"));
-      let text =
-        paras
-          .map((p) => (p.textContent || "").replace(/\s+/g, " ").trim())
-          .find(Boolean) ||
-        div.textContent ||
-        "";
-      text = text.replace(/\s+/g, " ").trim();
-      const MAX = 120; // a sane preview length
-      return text.length <= MAX
-        ? text
-        : text.slice(0, MAX).replace(/\s+$/, "") + "…";
-    } catch {
-      return "";
-    }
-  }, [overviewHTML]);
-
   const ribbonText = (status || "for-sale")
     .split("-")
     .map((w) => String(w).toUpperCase())
@@ -68,104 +42,93 @@ const Card = ({ detail }) => {
   const imgSrc = detail?.featuredImage || "";
 
   return (
-    <Link to={`/showroom/${detail?._id}`}>
+    <Link to={`/showroom/${detail?._id}`} className="group block h-full">
       <motion.div
-        className="relative card rounded-lg overflow-hidden shadow-lg"
-        initial={{ scale: 0 }}
-        whileInView={{ scale: 1 }}
-        viewport={{ once: true, amount: 0.2 }}
+        className="relative h-full flex flex-col bg-[#1A1C24] rounded-2xl border border-white/5 overflow-hidden shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-white/10 hover:-translate-y-1"
+        initial={{ y: 20, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.4 }}
       >
         {/* Ribbon */}
         <div
-          className={`absolute top-6 -right-14 w-48 text-center rotate-45 bg-gradient-to-r ${gradient[0]} ${gradient[1]} text-white font-medium py-1 shadow-lg`}
+          className={`absolute top-5 -right-12 w-40 text-center rotate-45 bg-gradient-to-r ${gradient[0]} ${gradient[1]} text-white text-[0.7rem] font-bold py-1.5 shadow-lg z-10 tracking-wider`}
         >
-          <h1 className="text-[.8rem]">{ribbonText}</h1>
+          {ribbonText}
         </div>
-        {/* Image */}
-        <div className="card-img max-w-full">
+
+        {/* Image Container */}
+        <div className="relative overflow-hidden w-full aspect-video bg-[#1A1C24] flex items-center justify-center">
           <img
             src={imgSrc}
             alt={detail?.title || "aircraft"}
-            className="w-full h-[200px] rounded-2xl"
+            className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
             loading="lazy"
             decoding="async"
           />
+          {/* Subtle Overlay gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#1A1C24] to-transparent opacity-0 group-hover:opacity-40 transition-opacity duration-300"></div>
         </div>
 
         {/* Body */}
-        <div className="py-4 px-5 relative mt-2">
-          <div
-            className="liquid-glass--edge"
-            style={{
-              boxShadow:
-                "inset 3px 3px 3px 0 rgba(255, 255, 255, .05), inset -3px -3px 3px 0 rgba(255, 255, 255, .05)",
-            }}
-          />
-          <h5 className="text-white md:text-start text-center text-lg mb-2">
-            {detail?.title}
-          </h5>
-
-          {/* <div className="text-center md:text-start">
-            {overviewSnippet ? (
-              <p className="text-white/90 text-[0.95rem] leading-relaxed">
-                {overviewSnippet.length > 20
-                  ? overviewSnippet.slice(0, 20) + "..."
-                  : overviewSnippet}
-              </p>
-            ) : (
-              <p className="text-white/70">No overview available.</p>
-            )}
-          </div> */}
-
-          {/* Price */}
-          <div className="price text-center md:text-start">
-            <span className="text-tertiary_color text-[1.2rem]">
-              {typeof detail?.price === "number" ? (
-                detail.price === 0 ? (
-                  <a href="tel:210-882-9658">Call For Price</a>
+        <div className="flex flex-col flex-grow p-5 gap-3 items-center text-center">
+          {/* Title */}
+          <div className="w-full">
+            <div className="h-[44px] flex items-center justify-center w-full mb-1">
+              <h5 className="text-white font-bold text-base leading-snug line-clamp-2 group-hover:text-tertiary_color transition-colors duration-300">
+                {detail?.title}
+              </h5>
+            </div>
+            
+            {/* Price */}
+            <div>
+              <span className="text-tertiary_color font-semibold text-lg tracking-wide">
+                {typeof detail?.price === "number" ? (
+                  detail.price === 0 ? (
+                    <span className="text-sm uppercase tracking-wider text-white/60">Call For Price</span>
+                  ) : (
+                    `$${detail.price.toLocaleString()}`
+                  )
                 ) : (
-                  `$ ${detail.price.toLocaleString()}`
-                )
-              ) : (
-                ""
-              )}
-            </span>
+                  ""
+                )}
+              </span>
+            </div>
           </div>
 
-          {/* Mini specs */}
-          <div className="mt-4 flex items-center justify-between gap-4">
-            <div className="w-[33%] flex flex-col items-center gap-2 bg-[#171921] py-2 rounded-lg">
-              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
-                Year
-              </span>
-              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
-                {detail?.year ?? 0}
+          {/* Divider */}
+          <div className="h-px w-full bg-white/5 my-1"></div>
+
+          {/* Specs Grid */}
+          <div className="grid grid-cols-3 gap-2 mt-auto w-full">
+             {/* Year */}
+            <div className="flex flex-col items-center justify-center p-3 rounded-xl bg-gradient-to-b from-[#1E2026] to-[#13141A] border border-white/5 shadow-[0_4px_8px_rgba(0,0,0,0.4)]">
+               <span className="text-[0.65rem] uppercase tracking-widest text-white/40 mb-1">Year</span>
+               <span className="text-white font-bold text-base tracking-wide">
+                  {detail?.year ?? "-"}
+               </span>
+            </div>
+
+            {/* Airframe */}
+            <div className="flex flex-col items-center justify-center p-3 rounded-xl bg-gradient-to-b from-[#1E2026] to-[#13141A] border border-white/5 shadow-[0_4px_8px_rgba(0,0,0,0.4)]">
+              <span className="text-[0.65rem] uppercase tracking-widest text-white/40 mb-1">Airframe</span>
+              <span className="text-white font-bold text-base tracking-wide">
+                {detail?.airframe ?? "-"}
               </span>
             </div>
-            <div className="w-[33%] flex flex-col items-center gap-2 bg-[#171921] py-2 rounded-lg">
-              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
-                Airframe
-              </span>
-              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
-                {detail?.airframe ?? 0}
-              </span>
-            </div>
-            <div className="w-[33%] flex flex-col items-center gap-2 bg-[#171921] py-2 rounded-lg">
-              <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
-                Engine
-              </span>
-              <div className="flex items-center gap-2">
-                <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
-                  {detail?.engine ?? 0}
+
+            {/* Engine */}
+            <div className="flex flex-col items-center justify-center p-3 rounded-xl bg-gradient-to-b from-[#1E2026] to-[#13141A] border border-white/5 shadow-[0_4px_8px_rgba(0,0,0,0.4)]">
+              <span className="text-[0.65rem] uppercase tracking-widest text-white/40 mb-1">Engine</span>
+               <div className="flex items-center gap-1">
+                <span className="text-white font-bold text-base tracking-wide">
+                  {detail?.engine ?? "-"}
                 </span>
                 {detail?.engineTwo && (
                   <>
-                    <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
-                      /
-                    </span>
-                    <span className="text-white xl:text-[.8rem] lg:text-[.6rem] text-[.8rem]">
-                      {detail?.engineTwo ?? 0}
+                    <span className="text-white/40 text-xs">/</span>
+                    <span className="text-white font-bold text-base tracking-wide">
+                      {detail?.engineTwo}
                     </span>
                   </>
                 )}

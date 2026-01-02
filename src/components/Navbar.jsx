@@ -4,8 +4,6 @@ import { MdMenu } from "react-icons/md";
 import GlassNavbar from "./GlassNavbar";
 import { Link, useLocation } from "react-router-dom";
 import MobileNavigation from "./MobileNavigation";
-import logo from "../../public/logo.png"
-import logoWhite from "../../public/logo-white.png"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +25,7 @@ const Navbar = () => {
         window.requestAnimationFrame(() => {
           const delta = currentY - lastScrollY.current;
 
-          // Add “scrolled” styling after slight offset
+          // Add "scrolled" styling after slight offset
           setScrolled(currentY > 50);
 
           // At very top: always show
@@ -73,8 +71,8 @@ const Navbar = () => {
           : "bg-transparent backdrop-blur-0 shadow-none",
       ].join(" ")}
     >
-      <div className="py-4 md:py-1 mx-auto text-white flex items-center justify-between">
-        <div className="ms-5 mt-[.5rem] z-[9999] group">
+      <div className="py-0 md:py-0 mx-auto text-white flex items-center justify-between">
+        <div className="ms-5 mt-[.5rem] mb-[.5rem] z-[9999] group">
           <Link
             to={"/"}
             onClick={() => sessionStorage.clear()}
@@ -82,7 +80,7 @@ const Navbar = () => {
           >
             {/* Default: WHITE logo */}
             <img
-              src={logoWhite}
+              src="/logo-white.png"
               alt="logo"
               className="
         block
@@ -95,7 +93,7 @@ const Navbar = () => {
 
             {/* Hover: COLORED logo */}
             <img
-              src={logo}
+              src="/logo.png"
               alt="logo colored"
               className="
         absolute inset-0 mt-[-1px]

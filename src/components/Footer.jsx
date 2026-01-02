@@ -10,7 +10,6 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import logo from "../../public/logoIcon.png";
 import veterenLogo from "/images/veteren.png"
 
 const Footer = () => {
@@ -66,17 +65,11 @@ const Footer = () => {
           <div className="md:order-second order-first md:w-[33.3%] flex flex-col md:items-center items-start justify-center">
             <Link to={"/"}>
               <img
-                src={logo}
+                src="/logoIcon.png"
                 className=" object-contain h-16"
                 alt=""
               />
             </Link>
-            {/* <p className="mt-8 text-white lg:max-w-lg text-start md:text-justify">
-              Mason Amelia delivers advanced aviation services with precision,
-              reliability, and innovation across the U.S. Proudly veteran-owned,
-              we are committed to excellence in every flight and every client
-              relationship.
-            </p> */}
           </div>
 
           <div className="md:w-[33.3%] gap-4 flex flex-col md:items-end items-center justify-center">
