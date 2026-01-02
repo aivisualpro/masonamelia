@@ -22,12 +22,12 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
           backgroundPosition: "center right",
         }}
       >
-        {/* Desktop Gradient Overlay - left side dark, fades to transparent */}
+        {/* Desktop Gradient Overlay - solid dark left, gradual fade to transparent */}
         {!media && (
           <div 
             className="absolute inset-0 z-[1]"
             style={{
-              background: "linear-gradient(90deg, rgba(17, 18, 24, 0.95) 0%, rgba(17, 18, 24, 0.85) 25%, rgba(17, 18, 24, 0.4) 45%, rgba(17, 18, 24, 0.1) 60%, transparent 80%)"
+              background: "linear-gradient(90deg, rgba(17, 18, 24, 1) 0%, rgba(17, 18, 24, 0.98) 30%, rgba(17, 18, 24, 0.6) 50%, rgba(17, 18, 24, 0.2) 70%, transparent 90%)"
             }}
           />
         )}
@@ -47,7 +47,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
         )}
 
         <div className="container relative z-[2] flex flex-col justify-center h-full md:items-start items-center px-5">
-          <div className="banner-content md:-mt-[10vh] text-center md:text-left">
+          <div className="banner-content md:-mt-[10vh] text-center md:text-left max-w-[500px]">
             <BlurText
               text="Where Precision "
               highlightedText=" Meets Passion"
@@ -55,24 +55,14 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
               delay={150}
               animateBy="words"
               direction="top"
-              className="max-w-xl text-[1.8rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white"
+              className="text-[1.8rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight"
             />
-            <ShinyText
-              text="We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators."
-              disabled={false}
-              isTextCenter={media ? true : false}
-              speed={5}
-              className="custom-class text-sm md:text-base lg:text-lg mt-4 md:max-w-md lg:max-w-lg"
-              color="text-white/90 md:text-white/80"
-            />
-            <ShinyText
-              text="If your dream aircraft isn't in our showroom, consider it already in motion. Our global network ensures we find exactly what you seek."
-              disabled={false}
-              isTextCenter={media ? true : false}
-              speed={5}
-              className="custom-class text-sm md:text-base lg:text-lg mt-4 md:max-w-md lg:max-w-lg"
-              color="text-white/80 md:text-white/70"
-            />
+            <p className="text-white/80 text-sm md:text-base lg:text-lg mt-6 leading-relaxed">
+              We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators.
+            </p>
+            <p className="text-white/70 text-sm md:text-base lg:text-lg mt-4 leading-relaxed">
+              If your dream aircraft isn't in our showroom, consider it already in motion. Our global network ensures we find exactly what you seek.
+            </p>
           </div>
         </div>
       </div>
