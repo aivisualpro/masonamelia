@@ -160,6 +160,12 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
     setShowVideo(false);
   };
 
+  const getVideoSrc = (url) => {
+    if (!url) return "";
+    const separator = url.includes("?") ? "&" : "?";
+    return `${url}${separator}autoplay=1&mute=1`;
+  };
+
   const openVideoModal = () => setVideoModalOpen(true);
   const closeVideoModal = () => setVideoModalOpen(false);
 
@@ -210,7 +216,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
           <div className="lg:w-[60%]">
             {showVideo && aircraft?.videoUrl ? (
               <iframe
-                src={aircraft.videoUrl}
+                src={getVideoSrc(aircraft.videoUrl)}
                 title="Aircraft Video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -433,7 +439,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
             <div className="lg:w-[60%] w-full">
               {showVideo && aircraft?.videoUrl ? (
                 <iframe
-                  src={aircraft.videoUrl}
+                  src={getVideoSrc(aircraft.videoUrl)}
                   title="Aircraft Video"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
