@@ -213,18 +213,6 @@ app.get('/api/aircrafts/lists/ranges', async (req, res) => {
   }
 });
 
-// Single Aircraft
-app.get('/api/aircrafts/:id', async (req, res) => {
-  await connectToDatabase();
-  try {
-    const aircraft = await Aircraft.findById(req.params.id);
-    if (!aircraft) return res.status(404).json({ error: 'Aircraft not found' });
-    res.json({ success: true, data: aircraft });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
 // Related Aircrafts
 app.get('/api/aircrafts/relatedAircrafts', async (req, res) => {
   await connectToDatabase();
@@ -236,6 +224,18 @@ app.get('/api/aircrafts/relatedAircrafts', async (req, res) => {
     
     const aircrafts = await Aircraft.find(query).limit(8).sort({ createdAt: -1 });
     res.json({ success: true, data: aircrafts });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Single Aircraft
+app.get('/api/aircrafts/:id', async (req, res) => {
+  await connectToDatabase();
+  try {
+    const aircraft = await Aircraft.findById(req.params.id);
+    if (!aircraft) return res.status(404).json({ error: 'Aircraft not found' });
+    res.json({ success: true, data: aircraft });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
