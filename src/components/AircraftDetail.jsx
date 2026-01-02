@@ -372,25 +372,38 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
         </div>
 
         <div className="container px-5">
+          {/* Desktop Header Row - Back Ribbon | Title | Status Tag */}
+          <div className="hidden md:flex items-center gap-4 mb-6">
+            {/* Back Ribbon Button */}
+            <Link to="/showroom" className="flex-shrink-0">
+              <div className="flex items-center">
+                <div
+                  className="tag-left-arrow"
+                  style={{ borderRight: "16px solid #22242e" }}
+                />
+                <div className="flex items-center gap-2 px-4 py-2 bg-[#22242e] text-white text-sm font-semibold hover:bg-[#2a2d38] transition-colors duration-200">
+                  <IoIosArrowBack size={18} />
+                  <span>Back</span>
+                </div>
+              </div>
+            </Link>
 
-          <Link to="/showroom" className="md:block hidden">
-            <div className="showroom-redirect-icon flex items-center">
-              <IoIosArrowBack size={28} className="hover:text-[#ddd] text-white" />
-            </div>
-          </Link>
-
-          <div className="hidden md:flex items-center justify-between">
-            <h1 className="text-[1.5rem] md:text-[2rem] xl:text-[2.5rem] 2xl:text-[3rem] leading-none font-bold my-4 lg:mb-8 text-white">
+            {/* Title - Takes remaining space */}
+            <h1 className="flex-1 text-[1.5rem] md:text-[2rem] xl:text-[2.5rem] 2xl:text-[3rem] leading-none font-bold text-white truncate">
               {aircraft?.title}
             </h1>
-            <div className="tag-container mb-4">
-              <div
-                className="tag-left-arrow"
-                style={{ borderRight: "20px solid #1777cb" }}
-              />
-              <div className="flex items-center gap-2 px-4 py-[9px] bg-[#1777cb] text-white text-sm font-semibold">
-                <span className="w-2 h-2 bg-[#fff] rounded-full" />
-                {titleCase(aircraft?.status || "")}
+
+            {/* Status Tag */}
+            <div className="tag-container flex-shrink-0">
+              <div className="flex items-center">
+                <div
+                  className="tag-left-arrow"
+                  style={{ borderRight: "16px solid #1777cb" }}
+                />
+                <div className="flex items-center gap-2 px-4 py-2 bg-[#1777cb] text-white text-sm font-semibold">
+                  <span className="w-2 h-2 bg-[#fff] rounded-full" />
+                  {titleCase(aircraft?.status || "")}
+                </div>
               </div>
             </div>
           </div>
