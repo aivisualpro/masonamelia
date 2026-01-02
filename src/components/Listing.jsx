@@ -46,7 +46,7 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
   const [searchJets, setSearchJets] = useState("");
 
 
-  console.log("searchJets", searchJets)
+
 
   // filters (state to send to server)
   const [selectedFilters, setSelectedFilters] = useState([]);
@@ -67,7 +67,7 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
   const { data: aircraftOptions = [], isLoading: catsLoading } =
     useCategoriesQuery();
 
-  console.log("aircraft Options inside frontend = >", aircraftOptions)
+
 
   /* ---------- NEW: fetch slider domains from /ranges ---------- */
   const { data: ranges, isLoading: rangesLoading } = useRangesQuery({

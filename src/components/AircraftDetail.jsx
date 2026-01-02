@@ -91,7 +91,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
           `${import.meta.env.VITE_BASE_URL}/api/aircrafts/relatedAircrafts?category=${aircraft?.category}&status=${aircraft?.status}`,
           { signal: ac.signal }
         );
-        console.log("res recieved =========>", res)
+
         const json = await res.json();
         const rows = Array.isArray(json?.data) ? json.data : [];
         const mapped = rows
@@ -117,7 +117,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
     return () => ac.abort();
   }, [id, aircraft]);
 
-  console.log("aircrafts", aircraft)
+
 
   const overviewHTML = useMemo(() => {
     const dirty = aircraft?.overview || "";
@@ -182,7 +182,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
-  console.log("related ======== >", related)
+
 
   return (
     <>
