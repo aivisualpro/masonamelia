@@ -83,13 +83,14 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
   const maxEngine = ranges?.maxEngine ?? 0;
 
   // fetch aircrafts (send filters only if touched)
+  // fetch aircrafts (send filters only if touched)
   const {
     data: api,
     isPending,
     isFetching,
     error,
   } = useAircraftsQuery({
-    searchKeyword: q,
+    searchKeyword: searchJets || q,
     status: activeTab,
     page: currentPage,
     pageSize: ITEMS_PER_PAGE,
@@ -109,12 +110,8 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
 
   const loading = isPending || isFetching;
   const rows = useMemo(() => {
-    const raw = api?.rows || [];
-    if (!searchJets) return raw;
-    return raw.filter((r) =>
-      r.title.toLowerCase().includes(searchJets.toLowerCase())
-    );
-  }, [api?.rows, searchJets]);
+    return api?.rows || [];
+  }, [api?.rows]);
   const meta = api?.meta || {};
   const totalPages = meta.pageCount || 1;
   const errMsg = error?.message || "";
