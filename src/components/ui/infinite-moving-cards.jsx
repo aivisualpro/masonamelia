@@ -153,9 +153,8 @@ const InfiniteMovingCards = ({
   // Handle any interaction (click/tap/hover) on a card
   const handleCardInteraction = (idx) => {
     if (isPaused) {
-      // Resume scrolling
+      // Resume scrolling from current position (no reset)
       setIsPaused(false);
-      hoverX.set(0);
     } else {
       // Pause and center the card
       setIsPaused(true);
