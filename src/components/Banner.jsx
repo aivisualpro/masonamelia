@@ -10,21 +10,19 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
   return (
     <>
       <Navbar />
-      <div
-        className="h-full relative bg-img w-full md:sticky top-0 md:h-screen overflow-hidden"
-      >
-        {/* Desktop Background Image with Gradient Overlay */}
+      <div className="h-full relative bg-img w-full md:sticky top-0 md:h-screen overflow-hidden">
+        {/* Desktop Background Image */}
         <div className="hidden md:block absolute inset-0 z-0">
           <img 
             src={url} 
             className="w-full h-full object-cover object-right-bottom" 
             alt="Aircraft Background" 
           />
-          {/* Strong gradient overlay from left for text readability */}
+          {/* Strong solid dark overlay on left half for text */}
           <div 
             className="absolute inset-0"
             style={{
-              background: "linear-gradient(to right, rgba(17, 18, 24, 1) 0%, rgba(17, 18, 24, 0.95) 35%, rgba(17, 18, 24, 0.4) 60%, rgba(0, 0, 0, 0.1) 100%)"
+              background: "linear-gradient(90deg, #111218 0%, #111218 45%, rgba(17, 18, 24, 0.7) 60%, rgba(17, 18, 24, 0.3) 75%, transparent 100%)"
             }}
           />
         </div>
@@ -43,7 +41,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
         {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
 
         <div className="container relative z-10 flex flex-col justify-center h-full pt-[100px] pb-[40px] md:pt-[132px] md:pb-[32px] md:items-start items-center px-5 min-h-[480px] md:min-h-screen">
-          <div className="banner-content text-center md:text-left">
+          <div className="banner-content text-center md:text-left md:max-w-[45%] lg:max-w-[40%]">
             <BlurText
               text="Where Precision "
               highlightedText=" Meets Passion"
@@ -51,7 +49,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
               delay={150}
               animateBy="words"
               direction="top"
-              className="max-w-xl text-[1.8rem] sm:text-[2.2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl leading-tight font-bold text-white"
+              className="text-[1.8rem] sm:text-[2.2rem] md:text-[2.5rem] lg:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl leading-tight font-bold text-white"
             />
             <div className="mt-4 md:mt-6 space-y-4">
               <ShinyText
@@ -59,16 +57,16 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
                 disabled={false}
                 isTextCenter={media ? true : false}
                 speed={5}
-                className="custom-class text-sm md:text-lg md:max-w-md lg:max-w-lg xl:max-w-xl"
-                color="text-white/90 md:text-white/70"
+                className="custom-class text-sm md:text-base lg:text-lg"
+                color="text-white/90 md:text-white/80"
               />
               <ShinyText
                 text="If your dream aircraft isn't in our showroom, consider it already in motion. Our global network ensures we find exactly what you seek."
                 disabled={false}
                 isTextCenter={media ? true : false}
                 speed={5}
-                className="custom-class text-sm md:text-lg md:max-w-md lg:max-w-lg xl:max-w-xl"
-                color="text-white/80 md:text-white/60"
+                className="custom-class text-sm md:text-base lg:text-lg"
+                color="text-white/80 md:text-white/70"
               />
             </div>
           </div>
