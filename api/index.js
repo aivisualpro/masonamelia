@@ -38,6 +38,22 @@ const BlogCategory = createModel('BlogCategory', 'blogcategories');
 const Blog = createModel('Blog', 'blogs');
 const Team = createModel('Team', 'teams');
 const User = createModel('User', 'users');
+const AircraftCategory = createModel('AircraftCategory', 'aircraftcategories');
+
+/* -------------------------------------------------------------------------- */
+/*                                   Routes                                  */
+/* -------------------------------------------------------------------------- */
+
+// Aircraft Categories
+app.get('/api/aircraftCategories/lists', async (req, res) => {
+  await connectToDatabase();
+  try {
+    const categories = await AircraftCategory.find({}).sort({ name: 1 });
+    res.json({ success: true, data: categories });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // Helper for pagination
 const getPaginatedData = async (Model, req, query = {}) => {
