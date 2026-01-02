@@ -7,6 +7,18 @@ import { createPortal } from "react-dom";
 import { isMobile } from "react-device-detect";
 import { cn } from "../../lib/utils";
 
+function centerCard(cardEl, viewportEl, hoverMv) {
+  if (!cardEl || !viewportEl) return;
+  const viewRect = viewportEl.getBoundingClientRect();
+  const cardRect = cardEl.getBoundingClientRect();
+
+  const viewCenter = viewRect.left + viewRect.width / 2;
+  const cardCenter = cardRect.left + cardRect.width / 2;
+
+  const delta = viewCenter - cardCenter;
+  hoverMv.set(hoverMv.get() + delta);
+}
+
 /** hovered card ko viewport (container) ke andar fully visible banaye */
 function ensureVisible(cardEl, viewportEl, hoverMv) {
   if (!cardEl || !viewportEl) return;
@@ -99,6 +111,7 @@ const InfiniteMovingCards = ({
 
   const [start, setStart] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
+  const [focusedIdx, setFocusedIdx] = useState(null); // Track clicked card
 
   // x-offset for centering card
   const hoverX = useSpring(0, { stiffness: 200, damping: 30, bounce: 0 });
@@ -136,6 +149,7 @@ const InfiniteMovingCards = ({
 
   // container leave → x reset, then marquee resume
   const handleContainerLeave = () => {
+    if (focusedIdx !== null) return; // Don't reset if focused
     setIsResettingX(true);
     hoverX.set(0); // spring to 0
 
@@ -159,10 +173,10 @@ const InfiniteMovingCards = ({
   const loopItems = items.concat(items);
 
   const shouldPauseAnimation =
-    pauseOnHover && (isRowHovered || isResettingX);
+    (pauseOnHover && (isRowHovered || isResettingX)) || focusedIdx !== null;
 
   const handleCardEnter = (idx) => {
-    if (isMobile) return;
+    if (isMobile || focusedIdx !== null) return; // Ignore hover if focused
     const cardEl = cardRefs.current[idx];
     const viewportEl = containerRef.current;
 
@@ -170,24 +184,25 @@ const InfiniteMovingCards = ({
     ensureVisible(cardEl, viewportEl, hoverX);
   };
 
-  // Function to make the hovered card visible
-  function ensureVisible(cardEl, viewportEl, hoverMv) {
-    if (!cardEl || !viewportEl) return;
-    const margin = 24; // gutter space
-    const viewRect = viewportEl.getBoundingClientRect();
-    const cardRect = cardEl.getBoundingClientRect();
-
-    let delta = 0;
-    if (cardRect.left < viewRect.left + margin) {
-      delta = viewRect.left + margin - cardRect.left;
-    } else if (cardRect.right > viewRect.right - margin) {
-      delta = viewRect.right - margin - cardRect.right;
+  const handleCardClick = (idx) => {
+    if (focusedIdx === idx) {
+      // Resume
+      setIsResettingX(true);
+      setFocusedIdx(null);
+      hoverX.set(0);
+      
+      if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current);
+      resetTimeoutRef.current = setTimeout(() => {
+        setIsResettingX(false);
+      }, 220);
+    } else {
+      // Pause and center
+      setFocusedIdx(idx);
+      const cardEl = cardRefs.current[idx];
+      const viewportEl = containerRef.current;
+      centerCard(cardEl, viewportEl, hoverX);
     }
-
-    if (delta !== 0) {
-      hoverMv.set(hoverMv.get() + delta);
-    }
-  }
+  };
 
   if (loopItems.length <= 1) {
     return <div className="py-10 text-center text-white">Loading....</div>;
@@ -220,11 +235,12 @@ const InfiniteMovingCards = ({
                   "relative group flex items-center justify-center md:px-2",
                 )}
                 onMouseEnter={() => handleCardEnter(idx)}
+                onClick={() => handleCardClick(idx)}
               >
                 {/* READ ICON – slide down on hover */}
                 <button
                   type="button"
-                  onClick={() => openModal(item)}
+                  onClick={(e) => { e.stopPropagation(); openModal(item); }}
                   className="z-[999] absolute top-6 hover:bg-tertiary_color hover:text-white right-6 flex items-center justify-center rounded-full bg-white/90 text-sky-600 shadow-md p-2 opacity-0 -translate-y-3
                              transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0"
                 >
