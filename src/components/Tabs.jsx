@@ -22,25 +22,25 @@ export default function Tabs({
   };
 
   return (
-    /* 1. Relative wrapper to contain the sticky/absolute arrows */
-    <div className="relative w-full flex items-center group">
+    /* Outer wrapper with arrows outside */
+    <div className="relative w-full flex items-center gap-2">
       
-      {/* Left Arrow - Fixed to the left edge */}
+      {/* Left Arrow - Glass style, outside container */}
       <button
         onClick={() => scrollContainer("left")}
-        className="absolute left-1 z-20 flex xl:hidden items-center justify-center w-6 h-6 text-white rounded-full shadow-lg transition-all"
+        className="flex-shrink-0 z-20 flex xl:hidden items-center justify-center w-8 h-8 text-white bg-white/10 backdrop-blur-md rounded-full shadow-lg hover:bg-white/20 transition-all active:scale-90"
         aria-label="Scroll Left"
       >
         <AiOutlineLeft size={16} />
       </button>
 
-      {/* 2. Main Scroll Container */}
+      {/* Main Scroll Container */}
       <div
         ref={containerRef}
         style={styles.navContainer}
-        className="tabs-scroll flex flex-nowrap items-center w-full overflow-x-auto scroll-smooth no-scrollbar px-10 xl:p-3"
+        className="tabs-scroll flex flex-1 flex-nowrap items-center overflow-x-auto scroll-smooth no-scrollbar px-2 md:px-3 py-1"
       >
-        {/* Filter Toggle */}
+        {/* Filter Toggle - Desktop only */}
         {showFilterToggle && (
           <div
             onClick={onToggleFilter}
@@ -63,8 +63,7 @@ export default function Tabs({
         {isAllTab && (
           <div
             onClick={() => setActiveTab("all")}
-            /* 3. Added flex-shrink-0 to ensure tab doesn't squash */
-            className="relative flex-shrink-0 justify-center mx-auto px-4 py-2 cursor-pointer select-none transition-colors duration-200"
+            className="relative flex-shrink-0 justify-center px-3 md:px-4 py-2 cursor-pointer select-none transition-colors duration-200"
             style={{ color: activeTab === "all" ? "white" : "#aaa" }}
           >
             {activeTab === "all" && (
@@ -74,7 +73,7 @@ export default function Tabs({
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
               />
             )}
-            <span className="relative z-10 text-xs xl:text-base font-medium">All</span>
+            <span className="relative z-10 text-xs md:text-sm xl:text-base font-medium whitespace-nowrap">All</span>
           </div>
         )}
 
@@ -83,8 +82,7 @@ export default function Tabs({
           <div
             key={tab.slug}
             onClick={() => setActiveTab(tab.slug)}
-            /* 3. Added flex-shrink-0 here as well */
-            className="relative flex-shrink-0 mx-auto px-4 py-2 cursor-pointer select-none transition-colors duration-200"
+            className="relative flex-shrink-0 px-3 md:px-4 py-2 cursor-pointer select-none transition-colors duration-200"
             style={{ color: activeTab === tab.slug ? "white" : "#aaa" }}
           >
             {activeTab === tab.slug && (
@@ -94,17 +92,17 @@ export default function Tabs({
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
               />
             )}
-            <span className="relative z-10 text-xs xl:text-base font-medium">
+            <span className="relative z-10 text-xs md:text-sm xl:text-base font-medium whitespace-nowrap">
               {tab?.name}
             </span>
           </div>
         ))}
       </div>
 
-      {/* Right Arrow - Fixed to the right edge */}
+      {/* Right Arrow - Glass style, outside container */}
       <button
         onClick={() => scrollContainer("right")}
-        className="absolute right-1 z-20 flex xl:hidden items-center justify-center w-6 h-6 text-white rounded-full shadow-lg transition-all"
+        className="flex-shrink-0 z-20 flex xl:hidden items-center justify-center w-8 h-8 text-white bg-white/10 backdrop-blur-md rounded-full shadow-lg hover:bg-white/20 transition-all active:scale-90"
         aria-label="Scroll Right"
       >
         <AiOutlineRight size={16} />
@@ -115,7 +113,6 @@ export default function Tabs({
 
 const styles = {
   navContainer: {
-    margin: "0 auto",
     borderRadius: "50px",
     background: "#171921",
     // Hide scrollbar but keep functionality
