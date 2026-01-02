@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion, useSpring, AnimatePresence } from "framer-motion";
 import { FiBookOpen, FiX } from "react-icons/fi";
 import { createPortal } from "react-dom";
+import { isMobile } from "react-device-detect";
 import { cn } from "../../lib/utils";
 
 /** hovered card ko viewport (container) ke andar fully visible banaye */
@@ -161,6 +162,7 @@ const InfiniteMovingCards = ({
     pauseOnHover && (isRowHovered || isResettingX);
 
   const handleCardEnter = (idx) => {
+    if (isMobile) return;
     const cardEl = cardRefs.current[idx];
     const viewportEl = containerRef.current;
 
