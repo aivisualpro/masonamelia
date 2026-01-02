@@ -231,8 +231,8 @@ app.get('/api/aircrafts/relatedAircrafts', async (req, res) => {
   try {
     const { category, status } = req.query;
     const query = {};
-    if (category) query['category.name'] = { $regex: new RegExp(category, 'i') };
-    if (status) query.status = { $regex: new RegExp(status, 'i') };
+    if (category && category !== 'undefined') query.category = category;
+    if (status && status !== 'undefined') query.status = { $regex: new RegExp(status, 'i') };
     
     const aircrafts = await Aircraft.find(query).limit(8).sort({ createdAt: -1 });
     res.json({ success: true, data: aircrafts });

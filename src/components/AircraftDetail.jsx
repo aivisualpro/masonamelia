@@ -88,7 +88,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
     (async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/api/aircrafts/relatedAircrafts?category=${aircraft?.category?.name}&status=${aircraft?.status}`,
+          `${import.meta.env.VITE_BASE_URL}/api/aircrafts/relatedAircrafts?category=${aircraft?.category}&status=${aircraft?.status}`,
           { signal: ac.signal }
         );
         console.log("res recieved =========>", res)
