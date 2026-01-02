@@ -8,7 +8,7 @@ import Button from "./Button";
 
 const Showcase = () => {
   return (
-    <header className="hero_section_header w-screen md:h-screen z-[10]">
+    <header className="hero_section_header w-screen md:h-screen z-[10] bg-[#111218]">
       <div
         className="sticky top-0 sm:absolute left-0 w-full h-full md:h-screen z-[-1]"
         style={{
@@ -25,7 +25,7 @@ const Showcase = () => {
           ></div>
           <div className="overlay md:hidden block opacity-50 bg-black absolute top-0 left-0 w-full h-full z-0"></div>
           <video
-            className="w-full h-auto min-h-[50vh] md:h-[80vh] object-cover relative"
+            className="w-full h-auto min-h-[50vh] md:h-[80vh] object-cover relative pt-[80px] md:pt-0"
             loop
             muted
             autoPlay
