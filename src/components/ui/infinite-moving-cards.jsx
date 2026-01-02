@@ -112,7 +112,6 @@ const InfiniteMovingCards = ({
   const [start, setStart] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
   const [isPaused, setIsPaused] = useState(false); // Simple toggle
-  const isPausedRef = useRef(false); // Sync ref to prevent race conditions
 
   // x-offset for centering card
   const hoverX = useSpring(0, { stiffness: 200, damping: 30, bounce: 0 });
@@ -151,34 +150,17 @@ const InfiniteMovingCards = ({
   // Pause if: manually paused OR modal is open
   const shouldPauseAnimation = isPaused || activeItem !== null;
 
-  // Check if a card is centered (within tolerance)
-  const isCardCentered = (cardEl, viewportEl, tolerance = 50) => {
-    if (!cardEl || !viewportEl) return false;
-    const viewRect = viewportEl.getBoundingClientRect();
-    const cardRect = cardEl.getBoundingClientRect();
-    const viewCenter = viewRect.left + viewRect.width / 2;
-    const cardCenter = cardRect.left + cardRect.width / 2;
-    return Math.abs(viewCenter - cardCenter) < tolerance;
-  };
-
   // Handle any interaction (click/tap/hover) on a card
   const handleCardInteraction = (idx) => {
-    const cardEl = cardRefs.current[idx];
-    const viewportEl = containerRef.current;
-    const isCentered = isCardCentered(cardEl, viewportEl);
-
-    if (isCentered) {
-      // Toggle pause/resume only on centered card
-      const newPaused = !isPausedRef.current;
-      isPausedRef.current = newPaused;
-      setIsPaused(newPaused);
+    if (isPaused) {
+      // Resume scrolling from current position (no reset)
+      setIsPaused(false);
     } else {
-      // Edge card: pause and center it (only if not already paused)
-      if (!isPausedRef.current) {
-        isPausedRef.current = true;
-        setIsPaused(true);
-        centerCard(cardEl, viewportEl, hoverX);
-      }
+      // Pause and center the card
+      setIsPaused(true);
+      const cardEl = cardRefs.current[idx];
+      const viewportEl = containerRef.current;
+      centerCard(cardEl, viewportEl, hoverX);
     }
   };
 

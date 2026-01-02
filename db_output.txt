@@ -1,0 +1,174 @@
+[dotenv@17.2.3] injecting env (3) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+Connected to MongoDB
+Collections:
+- authors
+  Sample: {
+  "_id": "68a2c563e64e3b5fae40f9ce",
+  "name": "Maria Sufi",
+  "createdAt": "2025-08-18T06:17:07.071Z",
+  "updatedAt": "2025-08-18T06:17:07.071Z",
+  "__v": 0
+}
+- videos
+  Sample: null
+- blogs
+  Sample: null
+- users
+  Sample: {
+  "_id": "68a71c3e94aada39ae4a3863",
+  "name": "Mason Amelia",
+  "email": "info@masonamelia.com",
+  "username": "mason-amelia",
+  "password": "$2b$10$sTw.7.qZVI2YrG9JP3KnmOeSSoTIYs5FtW4toj2nijwzLfw/9pdke",
+  "createdAt": "2025-08-21T13:16:46.821Z",
+  "updatedAt": "2025-08-21T13:16:46.821Z",
+  "__v": 0
+}
+- reviews
+  Sample: {
+  "_id": "68a734f494aada39ae4a38b7",
+  "name": "Jim Work",
+  "review": "The big guys aren’t always the best. In my business we sell things that cost hundreds of thousands to well qualified individuals and our sales staff gets paid commissions to do so. Data as the big brokerages will tell you is the best, well it’s the best if you want to sell planes quickly and not at the highest dollar for your clients. Mason Amelia flips that on its head. They know the market data but they also know how to run proper marketing and truly sell. I had our last plane with a major brokerage and might have seen one ad or proactive marketing. Frustrated and feeling like it could be done better, I talked to Jesse at MA. The guy didn’t just talk the talk, he backed it up. He and Tom Donaldson hustled to get it listed with better photography, marketing it 20x and got me a better price than a certain other brokerage said I’d get. Just remember, when the broker makes 3% of a 20k delta, not all will care as much. Jesse and Tom did and they were well worth it. I have bought and sold a few and I would probably use them again. Haven’t said that about any of the other “big” shops.",
+  "location": "Cirrus N319PW - Piston Brokerage",
+  "createdAt": "2025-08-21T15:02:12.012Z",
+  "updatedAt": "2025-12-10T17:51:17.770Z",
+  "__v": 0
+}
+- aircrafts
+  Sample: {
+  "_id": "68c3d97b257b2c9656b860e0",
+  "title": "N17DA 2024 Cirrus SR22-G7 Turbo GTS",
+  "year": 2025,
+  "price": 1199900,
+  "status": "for-sale",
+  "category": "68c3beaaf9aee8d88f7c637a",
+  "airframe": 250,
+  "engine": 250,
+  "propeller": 250,
+  "overview": "<p>Jesse Adams of Mason Amelia proudly presents N17DA, a handsomely-equipped SR22-G7 Turbo GTS. This plane has every domestic option you could add onto a Cirrus, plus a great Starlink setup to keep you connected!.</p><p><br /></p><p>You really must see it to believe… one of the final ‘24 produced G7’s, flown right and dialed-in for 250 flight hours – yet the cosmetics inside/out rival a 50 hour plane. No squawks, no quality control issues on N17DA, and you get the balance of a 5 year Spinner-to-Tail factory warranty and 3 years of CMX (paid maintenance). You’re essentially flying for free.</p><p><br /></p><p>Contact Jesse today for your chance to own the best “dressed”, best-equipped SR on the market!</p><p><br /></p><p>STAY TUNED FOR N17DA OWNER WALKAROUND VIDEO ON OUR YOUTUBE CHANNEL, LOOKING FOR HIGHER.</p>",
+  "description": {
+    "version": 1,
+    "sections": {
+      "airframe": {
+        "html": "<ul><li><strong>2024 Cirrus SR22T GTS - \"Generation 7\"</strong></li><li>Certified for Flight in Known Icing (FIKI)</li><li>250 hours TTSN (Flight)</li></ul>",
+        "items": []
+      },
+      "engine": {
+        "html": "<ul><li><strong>Continental TSIO-550-K</strong></li><li>315 HP, Twin Turbocharged</li><li>250 hours TTSN (Flight)</li><li>TBO at 2,200 hours (Flight)</li><li>Push Button Start - G7 Feature</li></ul>",
+        "items": []
+      },
+      "propeller": {
+        "html": "<ul><li><strong>Hartzell Four Blade Composite</strong></li><li>De-Ice</li><li>250 hours TTSN (Flight)</li></ul>",
+        "items": []
+      },
+      "avionics": {
+        "html": "<p><strong>GTS Includes All Option Packages:</strong></p><p><br></p><p><strong>Cirrus Advantage:</strong></p><p><br></p><ul><li>Garmin 14-inch LED Displays</li><li>G7 Feature</li><li>3D SafeTaxi w/ Taxiway Routing</li><li>G7 Feature - SurfaceWatch</li><li>ChartView (Powered by Jeppesen)</li></ul><p><br></p><p><strong>Cirrus Awareness:</strong></p><p><br></p><ul><li>Active Traffic + ADS-B In &amp; Out</li><li>eTAWS</li></ul>",
+        "items": []
+      },
+      "equipment": {
+        "html": "<ul><li>Factory Installed Air Conditioning</li><li>Flight Into Known Icing (FIKI)</li><li>Cirrus Airframe Parachute System (CAPS)</li><li><strong>ALL O₂ EQUIPMENT BRAND NEW - NEVER USED!</strong></li></ul>",
+        "items": []
+      },
+      "interior": {
+        "html": "<ul><li>Carbon appearance package</li><li>Graphite Leather Interior w/ Black</li><li>Black Alcantara Inserts</li><li>60/40 Flex Seating</li></ul>",
+        "items": []
+      },
+      "exterior": {
+        "html": "<ul><li>Carbon appearance package</li><li>Meteorite Gray over Sterling</li></ul>",
+        "items": []
+      },
+      "inspection": {
+        "html": "<ul><li><strong>5 Year Spinner-to-Tail Warranty</strong> through November 25th, 2029</li><li><strong>CMX</strong> through November 25th, 2027</li></ul>",
+        "items": []
+      }
+    }
+  },
+  "contactAgent": {
+    "name": "Jesse Adams",
+    "email": "jesse@masonamelia.com",
+    "phone": "210-882-9658"
+  },
+  "images": [
+    "https://res.cloudinary.com/dso2jjdcz/image/upload/v1757665653/Mason%20Amelia%20Assets/1757665653032-5_pbvynp.avif",
+    "https://res.cloudinary.com/dso2jjdcz/image/upload/v1757665655/Mason%20Amelia%20Assets/1757665653034-4_jclvrp.avif",
+    "https://res.cloudinary.com/dso2jjdcz/image/upload/v1757665655/Mason%20Amelia%20Assets/1757665653037-3_cu6h8s.avif",
+    "https://res.cloudinary.com/dso2jjdcz/image/upload/v1757665656/Mason%20Amelia%20Assets/1757665653040-2_nocfmo.avif",
+    "https://res.cloudinary.com/dso2jjdcz/image/upload/v1757665657/Mason%20Amelia%20Assets/1757665653041-1_gb5rzj.avif",
+    "https://res.cloudinary.com/dso2jjdcz/image/upload/v1757746976/Mason%20Amelia%20Assets/1757747096681-8_tfmhgp.avif",
+    "https://res.cloudinary.com/dso2jjdcz/image/upload/v1757746977/Mason%20Amelia%20Assets/1757747096683-7_upe10f.avif",
+    "https://res.cloudinary.com/dso2jjdcz/image/upload/v1757746978/Mason%20Amelia%20Assets/1757747096684-6_ud9xq6.avif",
+    "https://res.cloudinary.com/dso2jjdcz/image/upload/v1757746979/Mason%20Amelia%20Assets/1757747096685-5_iu6agd.avif",
+    "https://res.cloudinary.com/dso2jjdcz/image/upload/v1757746980/Mason%20Amelia%20Assets/1757747096685-4_iar2cl.avif",
+    "https://res.cloudinary.com/dso2jjdcz/image/upload/v1757746981/Mason%20Amelia%20Assets/1757747096686-3_ux3efq.avif",
+    "https://res.cloudinary.com/dso2jjdcz/image/upload/v1757746981/Mason%20Amelia%20Assets/1757747096687-2_dhp9lv.avif",
+    "https://res.cloudinary.com/dso2jjdcz/image/upload/v1757746982/Mason%20Amelia%20Assets/1757747096688-1_l2yclz.avif"
+  ],
+  "location": "Bentonville, AR, USA",
+  "createdAt": "2025-09-12T08:27:39.073Z",
+  "updatedAt": "2025-11-18T11:18:59.787Z",
+  "__v": 0,
+  "videoUrl": "https://www.youtube.com/embed/OmyCXxpgh2E?si=d4V_KJPqIch-Lrt7",
+  "featuredImage": "https://res.cloudinary.com/dso2jjdcz/image/upload/v1758008955/Mason%20Amelia%20Assets/1758008956179-1_n20jro.avif",
+  "latitude": "36.373497622596645",
+  "longitude": " -94.21190776250387",
+  "index": 26
+}
+- aircraftcategories
+  Sample: {
+  "_id": "68c3a918bdfc7664d2888c42",
+  "name": "TBM",
+  "slug": "tbm",
+  "createdAt": "2025-09-12T05:01:12.982Z",
+  "updatedAt": "2025-09-12T05:01:12.982Z",
+  "__v": 0
+}
+- teams
+  Sample: {
+  "_id": "68a99f6058705f0d28895269",
+  "name": "Jesse Adams",
+  "profile_picture": "https://res.cloudinary.com/dso2jjdcz/image/upload/v1758611230/bp0vy8rbtdauuizwlolk.png",
+  "description": "<h3><strong>20 Years in Aviation:</strong></h3><p><br /></p><ul><li>Mason Amelia is the fastest-growing aircraft brokerage, disrupting the marketing and selling of owner-flown piston / turbine aircraft</li><li>300+ aircraft/<strong> </strong>$250M<strong> </strong>transactional volume</li><li>Cirrus owner, maintaining proficiency in the Meridian and TBM</li><li>Certified Flight Instructor (CFI/II/MEI) and former pilot for Republic Airways, 6,000+ flight hours</li><li>“Living” with his plane at a Texas airpark is apparently a qualification…</li></ul><p><br /></p><h3><strong>Executive Summary:</strong></h3><p><br /></p><p>Jesse Adams is an accomplished aviation and business professional. After enlisted military service, Jesse began flying in 2004, quickly climbing the ranks of CFI/CFII/MEI, followed by 5 years’ experience flying regional jets for Republic Airways, logging over 6,000 flight hours.</p><p><br /></p><p>In 2012 Jesse transitioned into the business world, partnering with his two brothers to grow their prior business, Sagacious Consultants, to acquisition by Accenture, but he never stopped flying… Then as an aircraft owner, he guided those around him through the acquisition and transition into high-performance aircraft. That experience led Jesse into the brokerage and acquisition of owner-flown piston &amp; turbine aircraft. His tenure of nearly five years at the world's largest brokerage, Aerista, afforded him a wealth of experience and professional growth, where he led 200+ transactions around the globe. That was Jesse's springboard for something bigge<strong>r...</strong></p><p><br /></p><p>In 2023, Jesse founded Mason Amelia — and they took the market by storm. Built to reimagine how high-end, owner-flown aircraft should be marketed and sold, Mason Amelia has quickly become the fastest-growing aircraft brokerage in the country. If your feed has become inundated with aircraft sales videos that have over the top cinematography and gnarly music... yeah sorry, MA started that trend and takes full responsibility! But, it is really about telling the \"story\" of each aircraft. Their YouTube channel, Looking for Higher, has become a go-to resource for buyers, sellers, and dreamers alike — helping raise the bar (and the production value) for aircraft sales marketing everywhere.</p><p><br /></p><p>Jesse holds a Bachelor of Science in Aviation Technology from Utah Valley University. Living in a Texas airpark, Jesse spares no opportunity to fly his Cirrus SR22T to visit his clients, or to take his family of four to the beaches along the Gulf Coast – and beyond.</p>",
+  "designation": "President | Mason Amelia, LLC",
+  "phone": "(210) 882-9658",
+  "email": "jesse@masonamelia.com",
+  "address": "SAN ANTONIO, TX",
+  "facebook": "https://www.facebook.com/masonamelia.aviation",
+  "instagram": "https://www.instagram.com/lookingforhigher/",
+  "linkedin": "https://www.linkedin.com/in/jesse-j-adams/",
+  "youtube": "https://www.youtube.com/c/lookingforhigher",
+  "createdAt": "2025-08-23T11:00:48.868Z",
+  "updatedAt": "2025-09-23T07:07:11.172Z",
+  "__v": 0,
+  "team_member_picture": "https://res.cloudinary.com/dso2jjdcz/image/upload/v1758611230/qnhxwvm3mo3p492taqbv.png"
+}
+- blogcategories
+  Sample: {
+  "_id": "68a2c54ee64e3b5fae40f9cc",
+  "name": "Luxury Jets",
+  "slug": "luxury-jets",
+  "createdAt": "2025-08-18T06:16:46.221Z",
+  "updatedAt": "2025-08-18T06:16:46.221Z",
+  "__v": 0
+}
+- contacts
+  Sample: {
+  "_id": "68a83c3fef1d3b4f6dd73920",
+  "email": "info@masonamelia.com",
+  "address": "Birmingham AL, Duluth MN, San Antonio TX, Scottsdale AZ, Upstate NY.",
+  "phone": "(210) 882-9658",
+  "facebook": "https://www.facebook.com/masonamelia.aviation",
+  "instagram": "https://www.instagram.com/masonamelia.aircraftsales/",
+  "linkedin": "https://www.linkedin.com/company/masonamelia",
+  "youtube": "https://www.youtube.com/c/lookingforhigher",
+  "createdAt": "2025-08-22T09:45:35.517Z",
+  "updatedAt": "2025-09-18T14:27:46.775Z",
+  "__v": 0
+}
+- brands
+  Sample: {
+  "_id": "68a72ab894aada39ae4a387f",
+  "logo": "https://res.cloudinary.com/dso2jjdcz/image/upload/v1762519247/g8xwh73cijkdhxowcy7d.png",
+  "createdAt": "2025-08-21T14:18:32.048Z",
+  "updatedAt": "2025-11-07T12:40:48.328Z",
+  "__v": 0
+}
