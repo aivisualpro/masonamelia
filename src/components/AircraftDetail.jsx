@@ -235,7 +235,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 key={gallery?.length || 0} // re-init if gallery changes
                 spaceBetween={12}
                 slidesPerView={5}
-                loop={Array.isArray(gallery) && gallery.length > 1} // guard
+                loop={Array.isArray(gallery) && gallery.length > 5} // guard
                 modules={[Navigation]}
                 onBeforeInit={(swiper) => {
                   swiper.params.navigation.prevEl = prevRef.current;
@@ -458,7 +458,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   key={gallery?.length || 0} // re-init if gallery changes
                   spaceBetween={12}
                   slidesPerView={5}
-                  loop={Array.isArray(gallery) && gallery.length > 1} // guard
+                  loop={Array.isArray(gallery) && gallery.length > 5} // guard
                   modules={[Navigation]}
                   onBeforeInit={(swiper) => {
                     swiper.params.navigation.prevEl = prevRef.current;
