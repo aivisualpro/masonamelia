@@ -177,6 +177,22 @@ app.get('/api/aircrafts/:id', async (req, res) => {
   }
 });
 
+// Related Aircrafts
+app.get('/api/aircrafts/relatedAircrafts', async (req, res) => {
+  await connectToDatabase();
+  try {
+    const { category, status } = req.query;
+    const query = {};
+    if (category) query['category.name'] = { $regex: new RegExp(category, 'i') };
+    if (status) query.status = { $regex: new RegExp(status, 'i') };
+    
+    const aircrafts = await Aircraft.find(query).limit(8).sort({ createdAt: -1 });
+    res.json({ success: true, data: aircrafts });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Contacts
 app.get('/api/contacts', async (req, res) => {
     await connectToDatabase();

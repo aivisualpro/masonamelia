@@ -64,7 +64,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       try {
         setErrMsg("");
         const res = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/api/aircrafts/lists/${id}`,
+          `${import.meta.env.VITE_BASE_URL}/api/aircrafts/${id}`,
           { signal: ac.signal }
         );
         if (!res.ok) throw new Error(`Detail ${res.status}`);
