@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { GoFilter } from "react-icons/go";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
@@ -13,10 +13,34 @@ export default function Tabs({
   onToggleFilter = () => {},
 }) {
   const containerRef = React.useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  // Check scroll position and update arrow states
+  const updateScrollState = () => {
+    if (containerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
+      setCanScrollLeft(scrollLeft > 5);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 5);
+    }
+  };
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      updateScrollState();
+      container.addEventListener("scroll", updateScrollState);
+      window.addEventListener("resize", updateScrollState);
+      return () => {
+        container.removeEventListener("scroll", updateScrollState);
+        window.removeEventListener("resize", updateScrollState);
+      };
+    }
+  }, [categories]);
 
   const scrollContainer = (direction) => {
     if (containerRef.current) {
-      const scrollAmount = direction === "left" ? -200 : 200;
+      const scrollAmount = direction === "left" ? -150 : 150;
       containerRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
@@ -28,7 +52,12 @@ export default function Tabs({
       {/* Left Arrow - Glass style, outside container */}
       <button
         onClick={() => scrollContainer("left")}
-        className="flex-shrink-0 z-20 flex xl:hidden items-center justify-center w-8 h-8 text-white bg-white/10 backdrop-blur-md rounded-full shadow-lg hover:bg-white/20 transition-all active:scale-90"
+        disabled={!canScrollLeft}
+        className={`flex-shrink-0 z-20 flex xl:hidden items-center justify-center w-8 h-8 rounded-full shadow-lg transition-all active:scale-90 ${
+          canScrollLeft 
+            ? "text-white bg-white/10 backdrop-blur-md hover:bg-white/20" 
+            : "text-white/30 bg-white/5 cursor-not-allowed"
+        }`}
         aria-label="Scroll Left"
       >
         <AiOutlineLeft size={16} />
@@ -102,7 +131,12 @@ export default function Tabs({
       {/* Right Arrow - Glass style, outside container */}
       <button
         onClick={() => scrollContainer("right")}
-        className="flex-shrink-0 z-20 flex xl:hidden items-center justify-center w-8 h-8 text-white bg-white/10 backdrop-blur-md rounded-full shadow-lg hover:bg-white/20 transition-all active:scale-90"
+        disabled={!canScrollRight}
+        className={`flex-shrink-0 z-20 flex xl:hidden items-center justify-center w-8 h-8 rounded-full shadow-lg transition-all active:scale-90 ${
+          canScrollRight 
+            ? "text-white bg-white/10 backdrop-blur-md hover:bg-white/20" 
+            : "text-white/30 bg-white/5 cursor-not-allowed"
+        }`}
         aria-label="Scroll Right"
       >
         <AiOutlineRight size={16} />
