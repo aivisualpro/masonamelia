@@ -108,7 +108,9 @@ app.get('/api/aircrafts/lists', async (req, res) => {
     const query = {};
 
     if (status && status !== 'all') {
-      query.status = { $regex: new RegExp(status, 'i') };
+      // Map 'previous' to 'sold' for Previous Transactions filter
+      const statusToQuery = status === 'previous' ? 'sold' : status;
+      query.status = { $regex: new RegExp(statusToQuery, 'i') };
     }
     
     if (searchKeyword) {
