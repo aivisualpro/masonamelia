@@ -8,14 +8,14 @@ import Button from "./Button";
 
 const Showcase = () => {
   return (
-    <header className="hero_section_header w-screen md:h-screen z-[10] bg-[#111218] sm:bg-transparent">
+    <header className="hero_section_header w-full md:h-screen z-[10] bg-[#111218] sm:bg-transparent overflow-hidden">
       <div
         className="sticky top-0 sm:absolute left-0 w-full h-full md:h-screen z-[0] sm:z-[-1] pt-[80px] sm:pt-0"
         style={{
           filter: "drop-shadow(20px 10px 15px rgba(255, 255, 255, 0.2))",
         }}
       >
-        <div className="z-[2] relative md:static hero_section_header_overlay w-screen h-auto md:h-[75%] lg:h-screen">
+        <div className="z-[2] relative md:static hero_section_header_overlay w-full h-auto md:h-[75%] lg:h-screen">
           <div
             className={`hero_section_header_overlay_dark overlay absolute top-0 left-0 w-full h-full z-10 md:block hidden`}
             style={{
@@ -25,7 +25,7 @@ const Showcase = () => {
           ></div>
           <div className="overlay md:hidden block opacity-50 bg-black absolute top-0 left-0 w-full h-full z-0"></div>
           <video
-            className="w-full h-auto min-h-[50vh] md:h-[80vh] object-cover relative"
+            className="w-full h-full md:h-[80vh] object-cover relative min-h-[50vh]"
             loop
             muted
             autoPlay

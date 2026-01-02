@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import {
-  FaPhoneAlt,
   FaEnvelope,
   FaMapMarkerAlt,
-  FaLinkedinIn,
-  FaFacebookF,
-  FaInstagram,
-  FaYoutube,
 } from "react-icons/fa";
 import contactBanner from "/images/contact.avif";
 import { useLocation } from "react-router-dom";
@@ -108,19 +103,20 @@ const Contact = () => {
         <div className="container mx-auto px-4 py-20 grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left */}
           <div
-            className={`relative rounded-2xl shadow-md lg:h-auto h-[425px] ${location.pathname === "/contact" && isMobile ? "mt-[15vh]" : ""
+            className={`relative rounded-2xl shadow-md ${location.pathname === "/contact" && isMobile ? "mt-4" : ""
               }`}
           >
             <div
-              className="liquid-glass flex flex-col justify-center"
-              style={{ padding: "20px 40px" }}
+              className="liquid-glass flex flex-col justify-center h-full"
+              style={{ padding: "0" }}
             >
+              {/* Using Tailwind classes for padding instead of inline styles */}
               <div className="liquid-glass--bend" />
               <div className="liquid-glass--face" />
               <div className="liquid-glass--edge" />
-              <div className="relative rounded-xl flex flex-col md:justify-around lg:py-0 py-4 h-full w-full">
+              <div className="relative rounded-xl flex flex-col md:justify-around p-8 md:p-10 h-full w-full">
                 <div>
-                  <h2 className="text-4xl font-bold mb-2 text-white">
+                  <h2 className="text-3xl md:text-4xl font-bold mb-2 text-white">
                     Contact Us
                   </h2>
                   {/* <p className="mb-6 text-sm text-gray-200">
@@ -152,45 +148,6 @@ const Contact = () => {
                       </span>
                     </div>
                   </div>
-                </div>
-
-                <div className="flex gap-4 mt-6">
-                  <a
-                    href="https://www.linkedin.com/company/masonamelia/"
-                    target="_blank"
-                  >
-                    {/* <FaLinkedinIn
-                      size={24}
-                      className="text-white hover:text-blue-400 cursor-pointer transition"
-                    /> */}
-                  </a>
-                  <a
-                    href="https://www.facebook.com/masonamelia.aviation"
-                    target="_blank"
-                  >
-                    {/* <FaFacebookF
-                      size={24}
-                      className="text-white hover:text-blue-400 cursor-pointer transition"
-                    /> */}
-                  </a>
-                  <a
-                    href="https://www.instagram.com/masonamelia.aircraftsales/"
-                    target="_blank"
-                  >
-                    {/* <FaInstagram
-                      size={24}
-                      className="text-white hover:text-pink-400 cursor-pointer transition"
-                    /> */}
-                  </a>
-                  <a
-                    href="https://www.youtube.com/c/lookingforhigher"
-                    target="_blank"
-                  >
-                    {/* <FaYoutube
-                      size={24}
-                      className="text-white hover:text-red-500 cursor-pointer transition"
-                    /> */}
-                  </a>
                 </div>
               </div>
             </div>

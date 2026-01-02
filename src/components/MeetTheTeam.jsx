@@ -17,8 +17,8 @@ const MeetTheTeam = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="container h-full px-5 flex items-center">
-        <div className="flex flex-col lg:flex-row items-center  justify-between gap-8 md:gap-4 lg:gap-4 xl:gap-8">
+      <div className="container mx-auto h-full px-5 flex items-center">
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-8 md:gap-4 lg:gap-8">
           {/* LEFT CONTENT */}
           <div className="w-full lg:w-1/2 rounded-3xl text-white">
             {/* Heading */}
@@ -50,40 +50,6 @@ const MeetTheTeam = () => {
               foundation of our success and yours.
             </motion.p>
 
-            {/* Bullet Points */}
-            {/* <ul className="mt-6 space-y-3 text-sm md:text-base">
-              <motion.li
-                initial={{ opacity: 0, y: 50 }}
-                viewport={{ amount: 0.2, once: true }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.8 }}
-                className="flex items-start gap-2 text-primary_theme"
-              >
-                <span className="text-tertiary_color">✔</span>
-                Decades of collective aviation and tech expertise
-              </motion.li>
-              <motion.li
-                initial={{ opacity: 0, y: 50 }}
-                viewport={{ amount: 0.2, once: true }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 1 }}
-                className="flex items-start gap-2 text-primary_theme"
-              >
-                <span className="text-tertiary_color">✔</span>
-                Grounded in values, driven by innovation
-              </motion.li>
-              <motion.li
-                initial={{ opacity: 0, y: 50 }}
-                viewport={{ amount: 0.2, once: true }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 1.2 }}
-                className="flex items-start gap-2 text-primary_theme"
-              >
-                <span className="text-tertiary_color">✔</span>
-                From San Antonio to Duluth — one united mission
-              </motion.li>
-            </ul> */}
-
             {/* CTA + Phone */}
             <div className="flex flex-col lg:flex-row lg:items-center mt-8 gap-4">
               <motion.div
@@ -102,45 +68,19 @@ const MeetTheTeam = () => {
                   fillColor="fill-gray-200"
                 />
               </motion.div>
-
-              {/* <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 1.6 }}
-                className="flex items-center gap-3"
-              >
-                <div className="bg-tertiary_color p-3 rounded-full">
-                  <FiPhoneCall />
-                </div>
-                <div className="text-sm">
-                  <p className="text-[#222]">Call Anytime</p>
-                  <a
-                    href="mailto:info@masonamelia.com"
-                    className="font-semibold text-[#222]"
-                  >
-                    info@masonamelia.com
-                  </a>
-                </div>
-              </motion.div> */}
             </div>
           </div>
 
           {/* RIGHT IMAGE */}
-
           <div className="justify-center lg:w-1/2 flex relative z-[0]">
-            <motion.img
+             <motion.img
               initial={{ opacity: 0, x: 70 }}
               viewport={{ amount: 0.2, once: true }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               src={meetTheTeam}
               alt="Team Banner"
-              className="rounded-3xl w-full z-[20] md:block hidden"
-            />
-            <img
-              src={meetTheTeam}
-              alt="Team Banner"
-              className="rounded-3xl w-full z-[20] md:hidden block"
+              className="rounded-3xl w-full z-[20]"
             />
           </div>
         </div>
