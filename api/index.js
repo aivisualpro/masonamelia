@@ -108,10 +108,16 @@ app.get('/api/aircrafts/lists', async (req, res) => {
     const query = {};
 
     if (status && status !== 'all') {
-      // Map 'previous' to 'sold' for Previous Transactions filter
-      const statusToQuery = status === 'previous' ? 'sold' : status;
+      // Map frontend status slugs to database status values
+      let statusToQuery = status;
+      if (status === 'previous') {
+        statusToQuery = 'sold';
+      } else if (status === 'off-market') {
+        statusToQuery = 'acquired';
+      }
       query.status = { $regex: new RegExp(statusToQuery, 'i') };
     }
+    // Note: 'all' shows everything including sold and acquired
     
     if (searchKeyword) {
       query.$or = [
