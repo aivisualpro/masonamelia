@@ -111,15 +111,10 @@ const InfiniteMovingCards = ({
 
   const [start, setStart] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
-  const [focusedIdx, setFocusedIdx] = useState(null); // Track clicked card
+  const [isPaused, setIsPaused] = useState(false); // Simple toggle
 
   // x-offset for centering card
   const hoverX = useSpring(0, { stiffness: 200, damping: 30, bounce: 0 });
-
-  // row hover state
-  const [isRowHovered, setIsRowHovered] = useState(false);
-  const [isResettingX, setIsResettingX] = useState(false);
-  const resetTimeoutRef = useRef(null);
 
   useEffect(() => {
     setDirectionVar();
@@ -142,26 +137,6 @@ const InfiniteMovingCards = ({
     containerRef.current.style.setProperty("--animation-duration", duration);
   };
 
-  // container enter → pause marquee
-  const handleContainerEnter = () => {
-    setIsRowHovered(true);
-  };
-
-  // container leave → x reset, then marquee resume
-  const handleContainerLeave = () => {
-    if (focusedIdx !== null) return; // Don't reset if focused
-    setIsResettingX(true);
-    hoverX.set(0); // spring to 0
-
-    if (resetTimeoutRef.current) {
-      clearTimeout(resetTimeoutRef.current);
-    }
-    resetTimeoutRef.current = setTimeout(() => {
-      setIsResettingX(false);
-      setIsRowHovered(false);
-    }, 220); // approx spring duration
-  };
-
   const openModal = (item) => {
     setActiveItem(item);
   };
@@ -172,74 +147,18 @@ const InfiniteMovingCards = ({
 
   const loopItems = items.concat(items);
 
-  const shouldPauseAnimation =
-    (pauseOnHover && (isRowHovered || isResettingX)) || focusedIdx !== null;
+  // Pause if: manually paused OR modal is open
+  const shouldPauseAnimation = isPaused || activeItem !== null;
 
+  // Handle any interaction (click/tap/hover) on a card
   const handleCardInteraction = (idx) => {
-    // If this card is already focused, un-focus it (resume)
-    if (focusedIdx === idx) {
-      setIsResettingX(true);
-      setFocusedIdx(null);
+    if (isPaused) {
+      // Resume scrolling
+      setIsPaused(false);
       hoverX.set(0);
-
-      if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current);
-      resetTimeoutRef.current = setTimeout(() => {
-        setIsResettingX(false);
-      }, 220);
     } else {
-      // Focus this card (pause & center)
-      setFocusedIdx(idx);
-      const cardEl = cardRefs.current[idx];
-      const viewportEl = containerRef.current;
-      centerCard(cardEl, viewportEl, hoverX);
-    }
-  };
-
-  const handleCardEnter = (idx) => {
-    // On desktop, hover acts as "focus" if not already focused by click
-    if (!isMobile && focusedIdx === null) {
-        handleCardInteraction(idx);
-    }
-  };
-
-  const handleCardLeave = (idx) => {
-    // On desktop, leaving should resume, UNLESS it was effectively "clicked" to stay
-    // BUT user asked for: click/hover/tap stores => stop & center. again => start.
-    // This implies a toggle behavior. Standard hover behavior (resume on leave) might fight with "click to sticky".
-    // Let's rely on the explicit toggle requirement: 
-    // "when click/hover/tap ... stop and centered. if we do ... again ... start scrolling"
-    
-    // Actually, "hover again" is hard to define. Usually you hover IN and hover OUT.
-    // Use case: User hovers -> card stops & centers. User moves mouse away -> card resumes? 
-    // OR User hovers -> card stops. User clicks -> resume?
-    
-    // To strictly follow "if we do all of these AGAIN... should start", it implies a toggle state.
-    // So for HOVER, entering triggers focus. Leaving might NOT clear focus if we treat it as a toggle state that requires an explicit action to undo? 
-    // Or does "again" mean "hovering another card"? 
-    
-    // Let's stick to:
-    // Mobile Tap: Toggle Focus.
-    // Desktop Hover: Toggle Focus? No, usually Hover = Focus, Leave = Unfocus.
-    // The user request "if we click/hover/tap AGAIN" suggests sticky state.
-    
-    // Let's implement generic toggle on interaction.
-  };
-
-
-  const handleCardClick = (idx) => {
-    if (focusedIdx === idx) {
-      // Resume
-      setIsResettingX(true);
-      setFocusedIdx(null);
-      hoverX.set(0);
-      
-      if (resetTimeoutRef.current) clearTimeout(resetTimeoutRef.current);
-      resetTimeoutRef.current = setTimeout(() => {
-        setIsResettingX(false);
-      }, 220);
-    } else {
-      // Pause and center
-      setFocusedIdx(idx);
+      // Pause and center the card
+      setIsPaused(true);
       const cardEl = cardRefs.current[idx];
       const viewportEl = containerRef.current;
       centerCard(cardEl, viewportEl, hoverX);
@@ -255,8 +174,6 @@ const InfiniteMovingCards = ({
       <div
         ref={containerRef}
         className={cn("scroller relative z-20 overflow-hidden", className)}
-        onMouseEnter={handleContainerEnter}
-        onMouseLeave={handleContainerLeave}
       >
         <motion.div style={{ x: hoverX, willChange: "transform opacity" }}>
           <ul
@@ -274,10 +191,9 @@ const InfiniteMovingCards = ({
                   cardRefs.current[idx] = el;
                 }}
                 className={cn(
-                  "relative group flex items-center justify-center md:px-2",
+                  "relative group flex items-center justify-center md:px-2 cursor-pointer",
                 )}
-                onMouseEnter={() => !isMobile && handleCardInteraction(idx)}
-                onMouseLeave={() => !isMobile && focusedIdx === idx && handleCardInteraction(idx)}
+                onMouseEnter={() => handleCardInteraction(idx)}
                 onClick={() => handleCardInteraction(idx)}
               >
                 {/* READ ICON – slide down on hover */}
