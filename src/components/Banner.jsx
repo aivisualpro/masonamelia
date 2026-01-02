@@ -19,15 +19,15 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "center right",
+          backgroundPosition: "center",
         }}
       >
-        {/* Desktop Gradient Overlay - solid dark left, gradual fade to transparent */}
+        {/* Desktop Gradient Overlay - matches reference exactly */}
         {!media && (
           <div 
             className="absolute inset-0 z-[1]"
             style={{
-              background: "linear-gradient(90deg, rgba(17, 18, 24, 1) 0%, rgba(17, 18, 24, 0.98) 30%, rgba(17, 18, 24, 0.6) 50%, rgba(17, 18, 24, 0.2) 70%, transparent 90%)"
+              background: "linear-gradient(90deg, #111218 0%, #111218 35%, rgba(17, 18, 24, 0.7) 45%, rgba(17, 18, 24, 0.3) 55%, transparent 70%)"
             }}
           />
         )}
@@ -47,7 +47,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
         )}
 
         <div className="container relative z-[2] flex flex-col justify-center h-full md:items-start items-center px-5">
-          <div className="banner-content md:-mt-[10vh] text-center md:text-left max-w-[500px]">
+          <div className="banner-content md:-mt-[5vh] text-center md:text-left" style={{ maxWidth: "420px" }}>
             <BlurText
               text="Where Precision "
               highlightedText=" Meets Passion"
@@ -55,12 +55,12 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
               delay={150}
               animateBy="words"
               direction="top"
-              className="text-[1.8rem] sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight"
+              className="text-[1.8rem] sm:text-4xl md:text-[2.8rem] lg:text-[3.2rem] xl:text-[3.8rem] font-bold text-white leading-[1.1]"
             />
-            <p className="text-white/80 text-sm md:text-base lg:text-lg mt-6 leading-relaxed">
+            <p className="text-[#b5b5b5] text-[15px] md:text-[16px] mt-6 leading-[1.6]">
               We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators.
             </p>
-            <p className="text-white/70 text-sm md:text-base lg:text-lg mt-4 leading-relaxed">
+            <p className="text-[#a0a0a0] text-[15px] md:text-[16px] mt-4 leading-[1.6]">
               If your dream aircraft isn't in our showroom, consider it already in motion. Our global network ensures we find exactly what you seek.
             </p>
           </div>
