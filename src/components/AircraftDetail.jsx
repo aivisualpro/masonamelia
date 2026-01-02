@@ -202,12 +202,22 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
         <div className="md:hidden flex flex-col gap-4">
           {/* Left: gallery */}
           <div className="lg:w-[60%]">
-            <img
-              src={gallery?.[activeImgIndex]}
-              alt="Main Aircraft"
-              className="w-full  object-cover lg:rounded-2xl cursor-pointer"
-              onClick={() => onOpenModal(activeImgIndex, gallery)}
-            />
+            {showVideo && aircraft?.videoUrl ? (
+              <iframe
+                src={aircraft.videoUrl}
+                title="Aircraft Video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full aspect-video lg:rounded-2xl"
+              />
+            ) : (
+              <img
+                src={gallery?.[activeImgIndex]}
+                alt="Main Aircraft"
+                className="w-full object-cover lg:rounded-2xl cursor-pointer"
+                onClick={() => onOpenModal(activeImgIndex, gallery)}
+              />
+            )}
             <div className="lg:mt-4">
               <Swiper
                 key={gallery?.length || 0} // re-init if gallery changes
@@ -230,11 +240,11 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                     <img
                       src={src}
                       alt={`Thumb ${i}`}
-                      className={`${activeImgIndex === i
+                      className={`${activeImgIndex === i && !showVideo
                         ? "border-2 border-[#1777cb] opacity-70"
                         : ""
                         } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
-                      onClick={() => setActiveImgIndex(i)}
+                      onClick={() => handleThumbnailClick(i)}
                     />
                   </SwiperSlide>
                 ))}
@@ -242,7 +252,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 {/* Custom arrows (outside look) */}
                 <button
                   ref={prevRef}
-                  className="thumb-prev absolute left-2 top-1/2 z-10 -translate-y-1/2 text-white p-2 rounded-full shadow-md"
+                  className="thumb-prev absolute left-2 top-1/2 z-10 -translate-y-1/2 text-white p-3 rounded-full shadow-md"
                   aria-label="Previous"
                 >
                   <IoIosArrowBack size={20} color="#fff" className="bg-[#111218cb] rounded-[50%] text-[8px] p-[3px]" />
@@ -265,11 +275,15 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   </button> */}
                 {aircraft?.videoUrl && (
                   <button
-                    onClick={openVideoModal}
-                    className="bg-[#22242e] w-full md:mb-0 mb-4 hover:bg-[#22242e]/80 transition-all duration-300 flex items-center justify-center gap-2 text-white py-3 px-4 rounded-[30px] text-sm md:text-lg font-semibold"
+                    onClick={() => setShowVideo(true)}
+                    className={`w-full md:mb-0 mb-4 transition-all duration-300 flex items-center justify-center gap-2 text-white py-3 px-4 rounded-[30px] text-sm md:text-lg font-semibold ${
+                      showVideo 
+                        ? "bg-[#1777cb] hover:bg-[#1777cb]/80" 
+                        : "bg-[#22242e] hover:bg-[#22242e]/80"
+                    }`}
                   >
                     <FaRegCirclePlay size={media ? 18 : 22} />
-                    <span>Video</span>
+                    <span>{showVideo ? "Playing Video" : "Video"}</span>
                   </button>
                 )}
               </div>
@@ -411,12 +425,22 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
           <div className="md:block lg:flex hidden gap-4">
             {/* Left: gallery */}
             <div className="lg:w-[60%] w-full">
-              <img
-                src={gallery?.[activeImgIndex]}
-                alt="Main Aircraft"
-                className="w-full h-[400px] object-cover lg:rounded-2xl cursor-pointer"
-                onClick={() => onOpenModal(activeImgIndex, gallery)}
-              />
+              {showVideo && aircraft?.videoUrl ? (
+                <iframe
+                  src={aircraft.videoUrl}
+                  title="Aircraft Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-[400px] lg:rounded-2xl"
+                />
+              ) : (
+                <img
+                  src={gallery?.[activeImgIndex]}
+                  alt="Main Aircraft"
+                  className="w-full h-[400px] object-cover lg:rounded-2xl cursor-pointer"
+                  onClick={() => onOpenModal(activeImgIndex, gallery)}
+                />
+              )}
               <div className="md:mt-4">
                 <Swiper
                   key={gallery?.length || 0} // re-init if gallery changes
@@ -439,11 +463,11 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                       <img
                         src={src}
                         alt={`Thumb ${i}`}
-                        className={`${activeImgIndex === i
+                        className={`${activeImgIndex === i && !showVideo
                           ? "border-2 border-[#1777cb] opacity-70"
                           : ""
                           } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
-                        onClick={() => setActiveImgIndex(i)}
+                        onClick={() => handleThumbnailClick(i)}
                       />
                     </SwiperSlide>
                   ))}
@@ -474,11 +498,15 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   </button> */}
                   {aircraft?.videoUrl && (
                     <button
-                      onClick={openVideoModal}
-                      className="bg-[#22242e] w-full md:mb-0 mb-4 hover:bg-[#22242e]/80 transition-all duration-300 flex items-center justify-center gap-2 text-white py-3 px-4 rounded-[30px] text-sm md:text-lg font-semibold"
+                      onClick={() => setShowVideo(true)}
+                      className={`w-full md:mb-0 mb-4 transition-all duration-300 flex items-center justify-center gap-2 text-white py-3 px-4 rounded-[30px] text-sm md:text-lg font-semibold ${
+                        showVideo 
+                          ? "bg-[#1777cb] hover:bg-[#1777cb]/80" 
+                          : "bg-[#22242e] hover:bg-[#22242e]/80"
+                      }`}
                     >
                       <FaRegCirclePlay size={media ? 18 : 22} />
-                      <span>Video</span>
+                      <span>{showVideo ? "Playing Video" : "Video"}</span>
                     </button>
                   )}
                 </div>
