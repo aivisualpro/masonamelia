@@ -136,12 +136,12 @@ const SliderWrapper = () => {
         icon: <GrTransaction size={32} className="text-tertiary_color" />,
         title: "$", // prefix
         suffix: "M",
-        count: 450,
-        description: "Million worth of completed aircraft transactions",
+        count: 500,
+        description: "In completed aircraft transactions",
         onClick: "/contact",
       },
       {
-        icon: <SiTrustpilot size={32} className="text-tertiary_color" />,
+        icon: <GiCommercialAirplane size={32} className="text-tertiary_color" />,
         title: "+", // suffix
         count: 300,
         description: "Aircraft closings successfully managed worldwide",
@@ -149,7 +149,7 @@ const SliderWrapper = () => {
       },
       {
         icon: (
-          <GiCommercialAirplane size={32} className="text-tertiary_color" />
+          <SiTrustpilot size={32} className="text-tertiary_color" />
         ),
         title: "",
         count: 75,
@@ -254,7 +254,7 @@ const SliderWrapper = () => {
                 transition={{ duration: 0.5 }}
                 className="text-[2rem] z-[9] px-5 md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-white text-center"
               >
-                By The Numbers
+                By the Numbers
               </motion.h1>
 
               <motion.p

@@ -170,7 +170,7 @@ const MobileNavigation = ({ isOpen, setIsOpen }) => {
                     onClick={() => setIsOpen(false)}
                     className="text-white/80 text-base ps-4 hover:text-tertiary_color relative flex items-center gap-2"
                   >
-                    <span className="w-2 h-[1px] bg-white/60"></span> Meet The Team
+                    <span className="w-2 h-[1px] bg-white/60"></span> Meet the Team
                   </Link>
                   <Link
                     to="/higher"

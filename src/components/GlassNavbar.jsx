@@ -184,7 +184,7 @@ const GlassNavbar = () => {
                       { text: "Ancillary", link: "/acquisition#service_highlight" },
                     ]
                   : [
-                      { text: "Meet The Team", link: "/team" },
+                      { text: "Meet the Team", link: "/team" },
                       { text: "Looking For Higher", link: "/higher" },
                       { text: "Testimonials", link: "/#testimonial" },
                     ]

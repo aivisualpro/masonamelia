@@ -45,7 +45,7 @@ const Team = ({ teamRef }) => {
 
         <div className="mx-auto">
           <h5 className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl text-center">
-            Meet The Team
+            Meet the Team
           </h5>
         </div>
 

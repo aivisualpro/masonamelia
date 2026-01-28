@@ -32,7 +32,7 @@ const MeetTheTeam = () => {
             >
               From San Antonio to Duluth…{" "}
               <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                Meet The Team
+                Meet the Team
               </span>{" "}
             </motion.h2>
 

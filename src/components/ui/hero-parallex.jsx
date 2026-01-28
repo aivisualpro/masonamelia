@@ -220,9 +220,9 @@ export const Header = ({ headerTitle = '', headerTagline = '' }) => {
       <h1 className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-white">
         {headerTitle}
       </h1>
-      <p className="max-w-[1000px] text-xl xl:text-3xl font-bold mx-auto mt-4 2xl:mt-8 text-white">
+      {headerTagline && <p className="max-w-[1000px] text-xl xl:text-3xl font-bold mx-auto mt-4 2xl:mt-8 text-white">
         {headerTagline}
-      </p>
+      </p>}
     </div>
   );
 };
