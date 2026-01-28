@@ -14,11 +14,11 @@ const Relationship = () => {
 
                         <div className="rounded-3xl py-10">
                             <h1 className="text-[2rem] md:text-[3rem] xl:text-7xl font-semibold text-[#111827] leading-tight">
-                                Relationship for Life
+                                Relationships for Life
                             </h1>
 
                             <h3 className="py-4 text-xl xl:text-2xl font-bold text-[#222]">
-                                This isn’t transactional. This is a life-long friendship
+                                This isn’t transactional. This is a life-long friendship.
                             </h3>
                         </div>
                     </div>

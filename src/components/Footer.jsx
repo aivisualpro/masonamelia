@@ -82,7 +82,7 @@ const Footer = () => {
               />
             </div>
             <p className="text-white md:order-1 order-2 text-sm md:text-base text-start">
-              © 2025 Mason Amelia. All rights reserved.
+              © 2026 Mason Amelia. All rights reserved.
             </p>
           </div>
         </div>

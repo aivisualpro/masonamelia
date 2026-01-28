@@ -249,6 +249,7 @@ const BrokeragePage = () => {
         "This is where we go full throttle. From pro photography and high-impact video to disruptive social campaigns, we turn your aircraft into a must-see listing.",
       ],
       img: "/images/ads-aircraft.jpg",
+      link: "/higher",
     },
     {
       title: "Pricing Accuracy",
@@ -329,7 +330,7 @@ const BrokeragePage = () => {
           }
           title={"Bringing to Market"}
           description={
-            "Four pillars to move your aircraft from runway-ready to market-ready — engineered for speed, visibility, and precision."
+            "Four disciplines. One objective: sell your aircraft efficiently and correctly."
           }
           cards={cards}
         />

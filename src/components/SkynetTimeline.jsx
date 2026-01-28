@@ -93,10 +93,7 @@ const SkynetTimeline = () => {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="text-center text-[#222] md:text-lg py-[40px] max-w-6xl mx-auto"
         >
-          From pioneering data access to deploying proprietary AI-powered
-          analytics, Mason Amelia is leading a transformation in aircraft
-          valuation. SkyNet is redefining what’s possible in aviation pricing
-          intelligence.
+          
         </motion.p>
       </div>
 

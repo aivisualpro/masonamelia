@@ -57,13 +57,13 @@ const BrokerageRappleResearch = ({
       {/* ✅ Section */}
       <section
         ref={sectionRef}
-        className="relative z-0 2xl:py-0 py-20 md:min-h-screen min-h-full overflow-hidden"
+        className="relative z-0 2xl:py-0 py-20 min-h-auto overflow-hidden"
       >
         {/* ✅ Overlay ABOVE background (no negative z) */}
         <div className="absolute inset-0 bg-tertiary_color/90 z-0" />
 
         {/* ✅ Content */}
-        <div className="relative z-10 container px-5 flex justify-center items-center min-h-full md:min-h-screen mx-auto">
+        <div className="relative z-10 container px-5 flex justify-center items-center min-h-full mx-auto">
           <div className="px-4 flex flex-col justify-center text-center w-full">
             {/* Title - always animate on load */}
             <motion.h2
@@ -81,7 +81,7 @@ const BrokerageRappleResearch = ({
                 {...getAnimationProps(0.2)}
                 className="text-xl xl:text-2xl py-[40px] font-bold text-white max-w-7xl mx-auto"
               >
-                Consultation:
+                Consultation
               </motion.h2>
             )}
 

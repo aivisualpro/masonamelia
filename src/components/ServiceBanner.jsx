@@ -53,11 +53,11 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
           >
             {location.pathname === "/brokerage"
               ? "A Strategic, Hands-On Approach"
-              : "The right aircraft "}{" "}
+              : "The Right Aircraft "}{" "}
             <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
               {location.pathname === "/brokerage"
                 ? "to Selling Your Aircraft"
-                : "changes everything"}
+                : "Changes Everything"}
             </span>
           </motion.h1>
           <motion.div

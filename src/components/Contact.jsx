@@ -216,13 +216,13 @@ const Contact = () => {
             >
               <div className="md:col-span-2">
                 <label className="text-sm text-white mb-2 inline-block">
-                  First name:
+                  Name:
                 </label>
                 <input
                   type="text"
                   required
                   className="w-full p-3 text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
-                  placeholder="Enter name"
+                  placeholder="Name"
                   value={formData.name}
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
@@ -237,7 +237,7 @@ const Contact = () => {
                 <input
                   type="tel"
                   className="w-full p-3 text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
-                  placeholder="Enter Phone Number"
+                  placeholder="Phone Number"
                   value={formData.phone}
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
@@ -253,7 +253,7 @@ const Contact = () => {
                   type="email"
                   required
                   className="w-full p-3 text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
-                  placeholder="Enter Email"
+                  placeholder="Email"
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
@@ -268,7 +268,7 @@ const Contact = () => {
                 <input
                   type="text"
                   className="w-full p-3 text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
-                  placeholder="Enter subject"
+                  placeholder="Subject"
                   value={formData.subject}
                   onChange={(e) =>
                     setFormData({ ...formData, subject: e.target.value })

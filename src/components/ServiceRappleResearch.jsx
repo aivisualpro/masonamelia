@@ -44,13 +44,13 @@ const ServiceRappleResearch = ({ highlightedTitle, title, description }) => {
       {/* ✅ Your section */}
       <section
         ref={sectionRef}
-        className="relative py-20 md:min-h-screen min-h-auto z-10"
+        className="relative py-20 min-h-auto z-10"
       >
         {/* ✅ Overlay above bg */}
         <div className="absolute inset-0 bg-tertiary_color/90 z-0" />
 
         {/* ✅ Content */}
-        <div className="relative z-10 container px-5 flex flex-col justify-center h-full md:h-screen">
+        <div className="relative z-10 container px-5 flex flex-col justify-center h-full">
           <div className="w-full px-4 flex flex-col justify-between items-center text-center">
             <motion.h2
               initial={{ opacity: 0, y: 100 }}
