@@ -259,6 +259,7 @@ const BrokeragePage = () => {
         "Leveraging our decades of experience and backed by SkyNet, our proprietary market valuation platform, we analyze real-time data to set an accurate, competitive price from the very start.",
       ],
       img: "/images/pricing-aircraft.jpg",
+      link: "/skynet",
     },
     {
       title: "Sales Network",

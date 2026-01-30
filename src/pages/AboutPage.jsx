@@ -5,15 +5,12 @@ import About from "../components/About";
 import bgPlane from "/images/banner.png";
 import bgPlaneTeam from "/images/team.webp";
 import ScrollToTop from "../components/ScrollToTop";
-import { Timeline } from "../components/ui/timeline";
-import { FaHandshake, FaUsers, FaChartLine } from "react-icons/fa";
-import { FaJetFighterUp } from "react-icons/fa6";
 import WhatSetsUsApart from "../components/WhatSetsApart";
-import aboutBanner from "/images/about/banner.avif";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import BlinkingArrow from "../components/BlinkingArrow";
 import CTABanner from "../components/CTABanner";
-import { HiOutlineCpuChip, HiOutlineRocketLaunch, HiOutlineSparkles } from "react-icons/hi2";
+
+import AboutAmazingTimeline from "../components/AboutAmazingTimeline";
 
 const AboutPage = () => {
   /** ---------- Smooth auto-scroll ---------- */
@@ -97,90 +94,6 @@ const AboutPage = () => {
     cancelAutoScroll();
   };
 
-  /** ---------- Timeline data (same as your code) ---------- */
-  const data = [
-    {
-      title: "2005–2015",
-      icon: <FaHandshake size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <p className="mb-8 text-lg font-normal text-white">
-            Jesse Adams spends 10 years as a commercial airline pilot. His love
-            for airplanes and flying grows deeper as the years progress.
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2015",
-      icon: <FaJetFighterUp size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <p className="mb-8 text-lg font-normal text-white">
-            Sagacious Consultants, co-founded by Jesse Adams, is acquired by
-            Accenture, setting the stage for future ventures and entrepreneurial
-            growth.
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2018–2023",
-      icon: <FaUsers size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <p className="mb-8 text-lg font-normal text-white">
-            Jesse Adams returns to aviation with a renewed sense of purpose,
-            spending nearly five years at Aerista, the world's largest
-            brokerage. He leads over 200 global aircraft transactions, gaining
-            valuable experience across piston and owner-flown turbine markets.
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2023",
-      icon: <HiOutlineSparkles size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <p className="mb-4 text-lg font-normal text-white">
-            Inspired by family and fueled by passion, Jesse Adams founded Mason
-            Amelia, LLC, naming it after his children. What starts as a solo
-            venture quickly blossoms into a team, with Mason Amelia representing
-            aircraft and clients nationwide.
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2024",
-      icon: <HiOutlineRocketLaunch size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <p className="mb-4 text-lg font-normal text-white">
-            Mason Amelia becomes the fastest-growing aircraft brokerage in the
-            U.S. Their YouTube channel, Looking for Higher, emerges as a leading
-            resource for buyers, sellers, and aviation enthusiasts, raising the
-            bar for aircraft sales marketing across the industry.
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2025",
-      icon: <HiOutlineCpuChip size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <p className="mb-4 text-lg font-normal text-white">
-            Mason Amelia launches SkyNet, its proprietary pricing intelligence
-            tool, further establishing Mason Amelia as the aircraft brokerage of
-            the future.
-          </p>
-        </div>
-      ),
-    },
-  ];
-
   const media = useMediaQuery("(max-width: 1023px)");
   const mobileMedia = useMediaQuery("(max-width: 767px)");
 
@@ -215,20 +128,7 @@ const AboutPage = () => {
       <main id="about-main">
         <WhatSetsUsApart />
 
-        <section
-          id="timeline"
-          style={{
-            backgroundImage: media ? "" : `url(${aboutBanner})`,
-            backgroundSize: media ? "" : "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundAttachment: media ? "scroll" : "fixed",
-          }}
-          className="py-20 relative z-[10]"
-        >
-          <div className="absolute top-0 left-0 w-full h-full bg-black opacity-80 z-[-1]"></div>
-          <Timeline data={data} />
-        </section>
+        <AboutAmazingTimeline />
 
         <section className="bg-[#111218] relative z-[10] py-20">
           <div className="container px-5">

@@ -11,7 +11,7 @@ const SkynetTimeline = () => {
       year: "2023",
       title: "Data Access Revolutionized",
       description:
-        "Mason Amelia is launched, relying on traditional, manual methods of aircraft price gathering.",
+        "Mason Amelia launches, relying on traditional, manual methods for aircraft data aggregation and analysis.",
       image: timelineOne,
         
     },
@@ -19,14 +19,14 @@ const SkynetTimeline = () => {
       year: "2024",
       title: "Proprietary Tech Stack Deployed",
       description:
-        "We set out to break away from outdated and incomplete data sources by building our own trusted source of verified, high-value market data. We named it SkyNet. ",
+        "As the sales team grew, it became clear that shared spreadsheets and folders were insufficient to properly equip and align our brokers. We envisioned a purpose-built web and mobile platform and named it SkyNet.",
       image: timelineFive,
     },
     {
       year: "2025",
       title: "Real-Time Market Insight",
       description:
-        "SkyNet is deployed. Secure, fast, and built by aviation experts, it quickly became the backbone of our brokers’ decision-making.",
+        "SkyNet is deployed. Secure, fast, and built by aviation experts, it quickly becomes the backbone of our brokers’ pricing, market insight, and decision-making.",
       image:
         timelineFour,
     },

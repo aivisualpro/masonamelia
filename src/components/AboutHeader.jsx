@@ -24,7 +24,7 @@ const AboutHeader = () => {
           "
           style={{ lineHeight: "1.1" }}
         >
-          Redefining Aviation With{" "}
+          Redefining{" "}
           <span
             className="
               text-tertiary_color [text-shadow:_0_3px_12px_rgba(0,0,0,0.75)]
@@ -32,7 +32,7 @@ const AboutHeader = () => {
             // thin stroke for extra edge contrast on busy bg
             style={{ WebkitTextStroke: "0.5px rgba(0,0,0,0.25)" }}
           >
-            Trust and Legacy
+            Aircraft Brokerage
           </span>
         </motion.h1>
 
@@ -46,7 +46,7 @@ const AboutHeader = () => {
           <div className={`rounded-md md:bg-transparent lg:pt-0 lg:pb-0 md:pt-2 md:pb-6`}>
             <ShinyText
               // isTextCenter={}
-              text="We help distinguished clientele get where they want to go, but faster. Think TBM speed"
+              text="Built on trust, performance, and relationships that endure."
               disabled={false}
               speed={5}
               className="text-center lg:text-start sm:text-lg [text-shadow:_0_2px_8px_rgba(0,0,0,0.7)]"

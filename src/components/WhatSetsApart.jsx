@@ -29,7 +29,7 @@ const features = [
     title: "Relationships",
     desc: (
       <>
-        We value relationships over transactions. Loyalty runs deep here—to our
+        We value relationships over transactions. Loyalty runs deep here : to our
         clients, our partners, and our friends. Matching the right buyer with
         the right seller is how we take care of our circle.
       </>
@@ -76,9 +76,7 @@ export default function WhatSetsUsApart() {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="text-base text-neutral-300 py-[24px]"
               >
-                An aircraft brokerage named after our founder Jesse Adams’
-                children, focused on high-performance piston and owner-flown
-                turbine aircraft, built on:
+                A trusted purveyor of high-performance piston and owner-flown turbine aircraft, named after founder Jesse Adams’ children, built on:
               </motion.p>
             </div>
 
