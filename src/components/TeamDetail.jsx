@@ -11,6 +11,7 @@ const TeamDetail = () => {
   const { id } = useParams(); // /team/:id
   const { data: m, isLoading, isFetching, error } = useMemberDetail(id);
 
+  // Force HMR update
   return (
     <>
       <FullscreenSpinner

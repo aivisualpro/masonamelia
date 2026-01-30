@@ -1,14 +1,6 @@
-import React, { useState } from "react";
-import Modal from "react-modal";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Thumbs, FreeMode, Keyboard, Navigation } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-import "swiper/css/free-mode";
-import "swiper/css/thumbs";
-import "swiper/css/keyboard";
-import "swiper/css/navigation";
+import React from "react";
+import { HeroParallax } from "./ui/hero-parallex";
+import "../custom.css";
 
 import GallaryOne from "/images/thumbnails/1.jpg";
 import GallaryTwo from "/images/thumbnails/2.webp";
@@ -31,113 +23,17 @@ import GallaryEighteen from "/images/thumbnails/18.webp";
 import GallaryNineteen from "/images/thumbnails/19.webp";
 import GallaryTwenty from "/images/thumbnails/20.webp";
 import GallaryTwentyOne from "/images/thumbnails/21.webp";
-import { HeroParallax } from "./ui/hero-parallex";
-import "../custom.css";
-import { IoPlayCircle } from "react-icons/io5";
 
-Modal.setAppElement("#root");
-
-const Gallary = ({ title = "A Tailored Approach to Brokerage", tagline = "Curated strategies for distinctive aircraft and discerning clients." }) => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const openHeroModal = (index) => {
-    console.log(index);
-    setCurrentIndex(index);
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-    setCurrentIndex(0);
-  };
-
+const Gallary = ({ 
+  title = "", 
+  tagline = "" 
+}) => {
   return (
-    <>
-      <HeroParallax
-        headerTitle={title}
-        headerTagline={tagline}
-        portfolio={products}
-        onImageClick={openHeroModal}
-      />
-
-      {/* Modal */}
-      <Modal
-        isOpen={modalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Video Gallery Modal"
-        className="gallary_thumbnail fixed inset-0 flex items-center justify-center bg-black/90 z-[9999]"
-        overlayClassName="z-[9999]"
-      >
-        <div className="bg-black h-screen rounded-lg w-[95%] md:w-[80%] max-w-5xl">
-          <button
-            onClick={closeModal}
-            className="text-white text-3xl font-bold absolute top-5 right-8"
-          >
-            &times;
-          </button>
-
-          {/* Main Video */}
-          <div className="h-[70%]">
-            <iframe
-              src={products[currentIndex].videoUrl}
-              title={products[currentIndex].src}
-              allowFullScreen
-              className="w-full h-full mt-10 rounded"
-            ></iframe>
-          </div>
-
-          {/* Thumbnails */}
-          <div className="h-[30%]">
-            <Swiper
-              onSwiper={setThumbsSwiper}
-              spaceBetween={10}
-              slidesPerView={4.5} // default (fallback)
-              navigation
-              loop
-              freeMode
-              watchSlidesProgress
-              keyboard
-              modules={[FreeMode, Thumbs, Navigation, Keyboard]}
-              className="mySwiper w-full min-w-screen flex items-end"
-              breakpoints={{
-                320: { slidesPerView: 1.5, spaceBetween: 3 }, // phones
-                768: { slidesPerView: 2.5, spaceBetween: 10 }, // md
-                1024: { slidesPerView: 2.5, spaceBetween: 12 }, // lg
-                1280: { slidesPerView: 3.5, spaceBetween: 12 }, // lg
-              }}
-            >
-              {products?.map((video, i) => (
-                <SwiperSlide key={video.id} className="cursor-pointer">
-                  <div
-                    className="group relative"
-                    onClick={() => setCurrentIndex(i)}
-                  >
-                    <img
-                      src={video.src}
-                      alt={video.title}
-                      className={`rounded h-full p-4 md:min-w-[250px] lg:min-w-[300px] w-full object-cover border-4 ${currentIndex === i
-                          ? "border-blue-500"
-                          : "border-transparent"
-                        }`}
-                    />
-                    <div className="group-hover:opacity-100 opacity-0 transition-all duration-300 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-                      <button className="h-[100px] w-[100px] flex items-center justify-center text-white rounded-full">
-                        <IoPlayCircle
-                          size={48}
-                          className="hover:text-blue-500"
-                        />
-                      </button>
-                    </div>
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        </div>
-      </Modal>
-    </>
+    <HeroParallax
+      headerTitle={title}
+      headerTagline={tagline}
+      portfolio={products}
+    />
   );
 };
 

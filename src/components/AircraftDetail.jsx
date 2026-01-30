@@ -384,6 +384,21 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
               </div>
             </div>
 
+            <div className="grid grid-cols-3 gap-3 mb-6" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+              <div className="flex flex-col items-center p-3 rounded-xl bg-gradient-to-br from-[#1b1d25] to-[#111218] border border-white/5 shadow-[5px_5px_15px_rgba(0,0,0,0.5),-2px_-2px_10px_rgba(255,255,255,0.02)] transition-transform hover:scale-[1.02] duration-300">
+                <span className="text-[#7C7C88] text-[10px] uppercase tracking-tighter font-semibold mb-1">Airframe</span>
+                <span className="text-white text-xs font-bold text-center leading-tight whitespace-normal w-full">{aircraft?.airframe || "—"}</span>
+              </div>
+              <div className="flex flex-col items-center p-3 rounded-xl bg-gradient-to-br from-[#1b1d25] to-[#111218] border border-white/5 shadow-[5px_5px_15px_rgba(0,0,0,0.5),-2px_-2px_10px_rgba(255,255,255,0.02)] transition-transform hover:scale-[1.02] duration-300">
+                <span className="text-[#7C7C88] text-[10px] uppercase tracking-tighter font-semibold mb-1">Engine</span>
+                <span className="text-white text-xs font-bold text-center leading-tight whitespace-normal w-full">{aircraft?.engine || "—"}</span>
+              </div>
+              <div className="flex flex-col items-center p-3 rounded-xl bg-gradient-to-br from-[#1b1d25] to-[#111218] border border-white/5 shadow-[5px_5px_15px_rgba(0,0,0,0.5),-2px_-2px_10px_rgba(255,255,255,0.02)] transition-transform hover:scale-[1.02] duration-300">
+                <span className="text-[#7C7C88] text-[10px] uppercase tracking-tighter font-semibold mb-1">Propeller</span>
+                <span className="text-white text-xs font-bold text-center leading-tight whitespace-normal w-full">{aircraft?.propeller || "—"}</span>
+              </div>
+            </div>
+
             <div className="rounded-lg overflow-hidden">
               <iframe
                 src={`${aircraft?.latitude && aircraft?.longitude
@@ -391,7 +406,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
                   }`}
                 className="w-full h-[180px] rounded"
-                style={{ filter: "invert(90%) hue-rotate(180deg)" }}
+                style={{ filter: "grayscale(1) invert(1) contrast(1.2)" }}
               />
             </div>
           </div>
@@ -526,12 +541,12 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
             </div>
 
             {/* Right: specs & contact */}
-
-            <div className="lg:w-[40%] w-full">
-              <div className="jet_featured flex md:flex-row flex-col justify-between mt-4 gap-4">
-                <div className="flex flex-col items-center bg-[#171921] w-1/2 w-full p-4 rounded-3xl">
+            <div className="lg:w-[40%] w-full flex flex-col gap-4">
+              {/* Top Row: Price & Year */}
+              <div className="jet_featured grid grid-cols-2 gap-4" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <div className="flex flex-col items-center p-5 rounded-2xl bg-gradient-to-br from-[#1b1d25] to-[#111218] border border-white/5 shadow-[5px_5px_15px_rgba(0,0,0,0.5),-2px_-2px_10px_rgba(255,255,255,0.02)] transition-transform hover:scale-[1.02] duration-300">
                   <div className="featured_value">
-                    <h4 className="text-xl md:text-2xl text-white">
+                    <h4 className="text-xl md:text-2xl text-white font-bold">
                       {aircraft?.price ? (
                         `$${Number(aircraft?.price || 0).toLocaleString()}`
                       ) : (
@@ -540,49 +555,50 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                     </h4>
                   </div>
                   <div className="featured_text">
-                    <h4 className="text-[#7C7C88] text-base md:text-lg mt-2 text-center">
+                    <h4 className="text-[#7C7C88] text-xs uppercase tracking-wider font-semibold mt-1">
                       Price
                     </h4>
                   </div>
                 </div>
-                <div className="flex flex-col items-center bg-[#171921] w-1/2 w-full p-4 rounded-3xl">
+                <div className="flex flex-col items-center p-5 rounded-2xl bg-gradient-to-br from-[#1b1d25] to-[#111218] border border-white/5 shadow-[5px_5px_15px_rgba(0,0,0,0.5),-2px_-2px_10px_rgba(255,255,255,0.02)] transition-transform hover:scale-[1.02] duration-300">
                   <div className="featured_value">
-                    <h4 className="text-xl md:text-2xl text-white">
+                    <h4 className="text-xl md:text-2xl text-white font-bold">
                       {aircraft?.year}
                     </h4>
                   </div>
                   <div className="featured_text">
-                    <h4 className="text-[#7C7C88] text-base md:text-lg text-center mt-2">
+                    <h4 className="text-[#7C7C88] text-xs uppercase tracking-wider font-semibold mt-1">
                       Year
                     </h4>
                   </div>
                 </div>
               </div>
 
-              <div className="py-8 flex xl:flex-row lg:flex-col md:flex-row flex-col items-start justify-between">
+              {/* Middle Row: Agent & Location */}
+              <div className="py-2 flex xl:flex-row lg:flex-col md:flex-row flex-col items-start justify-between">
                 <div className="contact-info">
-                  <h2 className="mb-4 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                  <h2 className="mb-3 text-[1.1rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent font-bold" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                     Agent Details
                   </h2>
-                  <div className="gap-4">
-                    <p className="text-base mb-3 text-white flex items-center">
+                  <div className="gap-2">
+                    <p className="text-sm mb-2 text-white flex items-center">
                       <CiUser
-                        className="mr-2 bg-tertiary_color p-[6px] rounded-full"
-                        size={28}
+                        className="mr-2 bg-tertiary_color p-[4px] rounded-full"
+                        size={22}
                       />
                       {aircraft?.contactAgent?.name || "—"}
                     </p>
-                    <p className="text-base mb-3 text-white flex items-center">
+                    <p className="text-sm mb-2 text-white flex items-center">
                       <TfiEmail
-                        className="mr-2 bg-tertiary_color p-[6px] rounded-full"
-                        size={28}
+                        className="mr-2 bg-tertiary_color p-[4px] rounded-full"
+                        size={22}
                       />
                       {aircraft?.contactAgent?.email || "—"}
                     </p>
-                    <p className="text-base mb-3 text-white flex items-center">
+                    <p className="text-sm text-white flex items-center">
                       <FaPhone
-                        className="mr-2 bg-tertiary_color p-[6px] rounded-full"
-                        size={28}
+                        className="mr-2 bg-tertiary_color p-[4px] rounded-full"
+                        size={22}
                       />
                       <a href="tel:210-882-9658">
                         {aircraft?.contactAgent?.phone || "—"}
@@ -591,15 +607,15 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   </div>
                 </div>
 
-                <div className="aircraft-location xl:pt-0 lg:pt-8 md:pt-0 pt-8">
-                  <h2 className="mb-4 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                <div className="aircraft-location xl:pt-0 lg:pt-4 md:pt-0 pt-4">
+                  <h2 className="mb-3 text-[1.1rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent font-bold" style={{ fontFamily: "'DM Sans', sans-serif" }}>
                     Aircraft Location
                   </h2>
-                  <div className="gap-4">
-                    <p className="text-base mb-3 text-white flex items-center">
+                  <div className="gap-2">
+                    <p className="text-sm text-white flex items-center">
                       <ImLocation2
-                        className="mr-2 bg-tertiary_color p-[6px] rounded-full"
-                        size={28}
+                        className="mr-2 bg-tertiary_color p-[4px] rounded-full"
+                        size={22}
                       />
                       {aircraft?.location || "—"}
                     </p>
@@ -607,55 +623,42 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 </div>
               </div>
 
-              <div className="rounded-lg overflow-hidden">
+              {/* New Specs Row: Airframe, Engine, Propeller */}
+              <div className="grid grid-cols-3 gap-3" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                <div className="flex flex-col items-center p-3 rounded-xl bg-gradient-to-br from-[#1b1d25] to-[#111218] border border-white/5 shadow-[5px_5px_15px_rgba(0,0,0,0.5),-2px_-2px_10px_rgba(255,255,255,0.02)] transition-transform hover:scale-[1.02] duration-300">
+                  <span className="text-[#7C7C88] text-[10px] uppercase tracking-tighter font-semibold mb-1">Airframe</span>
+                  <span className="text-white text-xs font-bold text-center leading-tight whitespace-normal w-full">{aircraft?.airframe || "—"}</span>
+                </div>
+                <div className="flex flex-col items-center p-3 rounded-xl bg-gradient-to-br from-[#1b1d25] to-[#111218] border border-white/5 shadow-[5px_5px_15px_rgba(0,0,0,0.5),-2px_-2px_10px_rgba(255,255,255,0.02)] transition-transform hover:scale-[1.02] duration-300">
+                  <span className="text-[#7C7C88] text-[10px] uppercase tracking-tighter font-semibold mb-1">Engine</span>
+                  <span className="text-white text-xs font-bold text-center leading-tight whitespace-normal w-full">{aircraft?.engine || "—"}</span>
+                </div>
+                <div className="flex flex-col items-center p-3 rounded-xl bg-gradient-to-br from-[#1b1d25] to-[#111218] border border-white/5 shadow-[5px_5px_15px_rgba(0,0,0,0.5),-2px_-2px_10px_rgba(255,255,255,0.02)] transition-transform hover:scale-[1.02] duration-300">
+                  <span className="text-[#7C7C88] text-[10px] uppercase tracking-tighter font-semibold mb-1">Propeller</span>
+                  <span className="text-white text-xs font-bold text-center leading-tight whitespace-normal w-full">{aircraft?.propeller || "—"}</span>
+                </div>
+              </div>
+
+              {/* 3D Map Container */}
+              <div className="p-1 rounded-2xl bg-gradient-to-br from-[#1b1d25] to-[#111218] border border-white/5 shadow-[5px_5px_15px_rgba(0,0,0,0.5),-2px_-2px_10px_rgba(255,255,255,0.02)] overflow-hidden">
                 <iframe
                   src={`${aircraft?.latitude && aircraft?.longitude
                     ? `https://maps.google.com/maps?q=${aircraft?.latitude},${aircraft?.longitude}&z=12&output=embed`
                     : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
                     }`}
-                  className="w-full h-[180px] rounded"
-                  style={{ filter: "invert(90%) hue-rotate(180deg)" }}
+                  className="w-full h-[165px] rounded-xl"
+                  style={{ filter: "grayscale(1) invert(1) contrast(1.2)" }}
                 />
               </div>
             </div>
           </div>
 
-          <div className="py-8 flex flex-row items-center justify-between lg:w-[30%] w-full">
-            <div className="airframe md:text-start text-center">
-              <h2 className="mb-3 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                Airframe
-              </h2>
-              <span className="text-white/90 text-lg">
-                {aircraft?.airframe}
-              </span>
-            </div>
-            <div className="engine md:text-start text-center">
-              <h2 className="mb-3 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                Engine
-              </h2>
-              <span className="text-white/90 text-lg">
-                {aircraft?.engine}{" "}
-                {aircraft?.engineTwo ? `/ ${aircraft?.engineTwo}` : ""}
-              </span>
-            </div>
-            <div className="propeller md:text-start text-center">
-              <h2 className="mb-3 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                Propeller
-              </h2>
-              <span className="text-white/90 text-lg">
-                {aircraft?.propeller}{" "}
-                {aircraft?.propellerTwo ? `/ ${aircraft?.propellerTwo}` : ""}
-              </span>
-            </div>
-          </div>
-
           {/* Overview (rich HTML from backend) */}
-          <div className="overview">
-            <h2 className="mb-8 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-              Overview
-            </h2>
-
+          <div className="overview" style={{ fontFamily: "'DM Sans', sans-serif" }}>
             <div className="border-t-[1px] border-b-[1px] border-dashed border-[#46485D] py-6">
+              <h2 className="mb-8 text-[1.2rem] xl:text-[1.5rem] bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent font-bold">
+                Description
+              </h2>
               {overviewHTML ? (
                 <div
                   className="
@@ -694,16 +697,16 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 {titleCase(activeTab)}
               </h2>
             </div>
-            <div className="md:w-[80%]">
+            <div className="md:w-[80%] grid grid-cols-1 md:grid-cols-2 gap-x-10">
               {activeItems.length === 0 ? (
                 <p className="text-[1.2rem] xl:text-[1.5rem] text-white/70 py-4">No data available.</p>
               ) : (
                 activeItems.map((item, index) => (
-                  <div key={index} className="text-sm py-4">
-                    <span className="text-white border-b border-t border-dashed border-[#46485D] font-medium block text-white/80 bg-[#171921] text-lg p-4">
-                      <IoCheckmarkDoneOutline className="text-tertiary_color inline-block mr-2 mb-[6px]" />
+                  <div key={index} className="text-sm py-3">
+                    <div className="flex items-center text-white/80 text-lg border-b border-dashed border-[#46485D] pb-3 font-medium">
+                      <div className="w-2 h-2 rounded-full bg-[#268AE0] mr-4 shrink-0 shadow-[0_0_8px_rgba(38,138,224,0.4)]" />
                       {item}
-                    </span>
+                    </div>
                   </div>
                 ))
               )}

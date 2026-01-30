@@ -74,7 +74,7 @@ export default function WhatSetsUsApart() {
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="text-base text-neutral-300 py-[24px]"
+                className="text-xl text-neutral-300 py-[24px]"
               >
                 A trusted purveyor of high-performance piston and owner-flown turbine aircraft, named after founder Jesse Adams’ children, built on:
               </motion.p>
@@ -101,7 +101,7 @@ export default function WhatSetsUsApart() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="text-lg text-neutral-300 py-[40px] max-w-4xl"
+                className="text-xl text-neutral-300 py-[40px] max-w-4xl"
               >
                 An aircraft brokerage named after our founder Jesse Adams’
                 children, focused on high-performance piston and owner-flown

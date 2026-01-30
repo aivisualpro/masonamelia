@@ -49,7 +49,7 @@ const AboutHeader = () => {
               text="Built on trust, performance, and relationships that endure."
               disabled={false}
               speed={5}
-              className="text-center lg:text-start sm:text-lg [text-shadow:_0_2px_8px_rgba(0,0,0,0.7)]"
+              className="text-center lg:text-start sm:text-xl [text-shadow:_0_2px_8px_rgba(0,0,0,0.7)]"
               color="text-[#ddd] lg:text-[#b5b5b5a4]"
             />
           </div>

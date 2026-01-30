@@ -181,7 +181,7 @@ const GlassNavbar = () => {
                       { text: "Acquisition", link: "/acquisition" },
                       { text: "Brokerage", link: "/brokerage" },
                       // ✅ navigate to Acquisition and scroll to #service_highlight
-                      { text: "Ancillary", link: "/acquisition#service_highlight" },
+                      { text: "Ancillary", link: "/acquisition#acquisition" },
                     ]
                   : [
                       { text: "Meet the Team", link: "/team" },

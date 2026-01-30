@@ -48,18 +48,10 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
               disabled={false}
               isTextCenter={media ? true : false}
               speed={5}
-              className="custom-class text-sm md:text-lg py-4 md:max-w-md lg:max-w-lg xl:max-w-xl"
+              className="custom-class text-sm md:text-xl py-4 md:max-w-md lg:max-w-lg xl:max-w-xl"
               color="md:text-[#b5b5b5a4] text-white"
             />{" "}
             <br />
-            <ShinyText
-              text="If your dream aircraft isn’t in our showroom, consider it already in motion. Our global network ensures we find exactly what you seek."
-              disabled={false}
-              isTextCenter={media ? true : false}
-              speed={5}
-              className="custom-class text-sm md:text-lg md:max-w-md lg:max-w-lg xl:max-w-xl"
-              color="md:text-[#b5b5b5a4] text-white"
-            />
           </div>
         </div>
       </div>

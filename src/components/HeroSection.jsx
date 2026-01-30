@@ -67,7 +67,7 @@ const HeroSection = () => {
                 <div className="w-full md:w-[33%] relative">
                   <GlassmorphismCircularCard
                     title="Valuation"
-                    tagline="Real-Time Insights By SkyNet"
+                    tagline="Real-Time Insights by SkyNet"
                     link="/skynet"
                     icon={
                       <FiTrendingUp
@@ -136,7 +136,7 @@ const HeroSection = () => {
                 <div className="w-full md:w-[33%] relative mb-8">
                   <GlassmorphismCircularCard
                     title="Valuation"
-                    tagline="Real-Time Insights By SkyNet"
+                    tagline="Real-Time Insights by SkyNet"
                     link="/skynet"
                     icon={
                       <FiTrendingUp

@@ -23,7 +23,55 @@ const Team = ({ teamRef }) => {
   const { data: teamData = [], isLoading, isFetching, error } = useTeam();
 
   // prefer API; fallback to static if empty
-  const team = teamData?.length ? teamData : staticTeam;
+  // prefer API; fallback to static if empty
+  let allTeam = teamData?.length ? [...teamData] : [...staticTeam];
+
+  // Define Brandi Martinez
+  const brandi = {
+    _id: "brandi-martinez", 
+    name: "Brandi Martinez",
+    designation: "Sales Support | Operations",
+    email: "brandi@masonamelia.com",
+    phone: "(210) 954-6022",
+    address: "SAN ANTONIO, TX", // Matching typical location or leave blank
+    image: "/images/team/brandi.png",
+  };
+
+  // Define desired order
+  const desiredOrder = [
+    "Jesse Adams",
+    "Melissa Patterson",
+    "Donny Gabriel",
+    "Peyton Lindbloom",
+    "Carlos Lopez",
+    "Tom Donaldson",
+    "Melissa Adams",
+    "Brandi Martinez"
+  ];
+
+  // Rename Meet Donny -> Donny Gabriel
+  allTeam = allTeam.map(m => 
+    (m.name?.trim().toLowerCase() === "meet donny") ? { ...m, name: "Donny Gabriel" } : m
+  );
+
+  // Add Brandi if not present
+  if (!allTeam.find(m => m.name === "Brandi Martinez")) {
+    allTeam.push(brandi);
+  }
+
+  // Filter out Nick Buccellato
+  allTeam = allTeam.filter((member) => member?.name !== "Nick Buccellato");
+
+  // Sort based on order
+  const team = allTeam.sort((a, b) => {
+    const indexA = desiredOrder.indexOf(a.name);
+    const indexB = desiredOrder.indexOf(b.name);
+
+    if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+    if (indexA !== -1) return -1;
+    if (indexB !== -1) return 1;
+    return 0;
+  });
 
   return (
     <>
@@ -40,66 +88,18 @@ const Team = ({ teamRef }) => {
       {/* Your original UI (unchanged except using `team`) */}
       <section
         id="team"
-        className="text-white pt-40 pb-20 md:pb-20 px-4 md:px-10"
+        className="text-white pt-20 pb-20 md:pb-20 px-4 md:px-10"
       >
-
-        <div className="mx-auto">
-          <h5 className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl text-center">
-            Meet the Team
-          </h5>
-        </div>
-
-        <div className="container flex items-center">
-          <div className="w-full my-8 md:my-8">
-            {/* left glass card ... unchanged */}
-            <div
-              className={`w-full glass-container flex items-center justify-center`}
-              style={{
-                borderRadius: "0px",
-                boxShadow:
-                  "0 6px 6px rgba(0,0,0,0.02), 0 0 20px rgba(0,0,0,0.1)",
-                height: "100%",
-              }}
-            >
-              <div className="glass-filter"></div>
-              <div className="glass-overlay"></div>
-              <div className="glass-specular"></div>
-              <div
-                className="glass-content flex flex-col"
-                style={{ padding: "3rem 1rem" }}
-              >
-                <motion.h2
-                  initial={{ opacity: 0, y: 100 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="pb-4 text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-[#fff]"
-                  style={{ lineHeight: "1.2" }}
-                >
-                  A Team of Pilots and{" "}
-                  <span className="text-[#fff]">Aviation Experts</span>
-                </motion.h2>
-                <motion.p
-                  initial={{ opacity: 0, y: 100 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                  className="text-base xl:text-xl text-center px-8 font-light"
-                >
-                  Our team combines over a century of flight experience with
-                  deep market expertise, offering clients the rare advantage of
-                  working with brokers who are true aviation professionals.
-                </motion.p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* rest of team */}
-        <div className="container" ref={teamRef}>
+        <div className="container mx-auto" ref={teamRef}>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {team.map((member, idx) => (
-              <div
+              <motion.div
                 key={`rest-${idx}`}
                 className="relative team-card rounded-xl overflow-hidden group"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
               >
                 <Link to={`/team/${member?._id}`}>
                   <div className="relative w-full">
@@ -111,7 +111,7 @@ const Team = ({ teamRef }) => {
                     <div className="transition-all duration-300 group-hover:h-[100%] absolute top-0 left-0 w-full h-0 bg-black opacity-0 lg:opacity-60 z-[0]"></div>
                   </div>
                 </Link>
-                <div className="absolute -bottom-[30px] md:-bottom-[5px] left-0 right-0 rounded-[100px] h-[210px] lg:h-[150px] group-hover:h-[210px] transition-all duration-500">
+                <div className="absolute -bottom-[30px] md:-bottom-[5px] left-0 right-0 rounded-[100px] h-[210px] lg:h-[150px] group-hover:h-[260px] transition-all duration-500">
                   <div
                     className="glass-container flex items-center justify-center glass-container--rounded px-4 py-3"
                     style={{ borderRadius: "0" }}
@@ -127,37 +127,53 @@ const Team = ({ teamRef }) => {
                         <h4 className="block pt-3 pb-2 text-xs font-light text-white">
                           {member?.designation || "Owner"}
                         </h4>
-                        <p className="text-sm text-gray-400">{member?.email}</p>
-                        <div className="py-4 social-icons flex items-center gap-4 justify-center">
-                          {member?.facebook && (
-                            <a href={member?.facebook} target="_blank">
-                              <FaFacebook className="hover:text-[#0866ff] text-xl transition cursor-pointer" />
-                            </a>
-                          )}
-                          {member?.twitter && (
-                            <a href={member?.twitter} target="_blank">
-                              <FaYoutube className="hover:text-[#ff0000] text-xl transition cursor-pointer" />
-                            </a>
-                          )}
-                          {member?.instagram && (
-                            <a href={member?.instagram} target="_blank">
-                              <FaInstagram className="hover:text-[#c3407b] text-xl transition cursor-pointer" />
-                            </a>
-                          )}
-                          {member?.linkedin && (
-                            <a href={member?.linkedin} target="_blank">
-                              <FaLinkedin className="hover:text-[#0a66c2] text-xl transition cursor-pointer" />
-                            </a>
-                          )}
+                        <p className="text-sm text-gray-400">{member?.address}</p>
+                        <div className="py-4 social-icons flex flex-col items-center gap-2 justify-center">
+                          <div className="flex items-center gap-4 justify-center">
+                            {member?.facebook && (
+                              <a href={member?.facebook} target="_blank">
+                                <FaFacebook className="hover:text-[#0866ff] text-xl transition cursor-pointer" />
+                              </a>
+                            )}
+                            {member?.twitter && (
+                              <a href={member?.twitter} target="_blank">
+                                <FaYoutube className="hover:text-[#ff0000] text-xl transition cursor-pointer" />
+                              </a>
+                            )}
+                            {member?.instagram && (
+                              <a href={member?.instagram} target="_blank">
+                                <FaInstagram className="hover:text-[#c3407b] text-xl transition cursor-pointer" />
+                              </a>
+                            )}
+                            {member?.linkedin && (
+                              <a href={member?.linkedin} target="_blank">
+                                <FaLinkedin className="hover:text-[#0a66c2] text-xl transition cursor-pointer" />
+                              </a>
+                            )}
+                          </div>
+                          
+                          {/* Reveal on hover */}
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center gap-1 mt-2">
+                             {member?.phone && (
+                               <a href={`tel:${member.phone}`} className="text-xs text-gray-300 hover:text-white transition">
+                                 {member.phone}
+                               </a>
+                             )}
+                             {member?.email && (
+                               <a href={`mailto:${member.email}`} className="text-xs text-gray-300 hover:text-white transition">
+                                 {member.email}
+                               </a>
+                             )}
+                             <Link to={`/team/${member?._id}`} className="text-xs text-tertiary_color hover:text-white transition mt-1 font-semibold underline underline-offset-4">
+                               View Bio
+                             </Link>
+                          </div>
                         </div>
-                        <h4 className="text-xs font-light text-gray-400 mb-4 px-3">
-                          {member?.address}
-                        </h4>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

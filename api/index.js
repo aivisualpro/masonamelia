@@ -116,6 +116,28 @@ app.get('/api/teams/lists', async (req, res) => {
   }
 });
 
+// Single Team Member
+app.get('/api/teams/lists/:id', async (req, res) => {
+  await connectToDatabase();
+  try {
+    const { id } = req.params;
+    
+    // Check if it's a valid MongoDB ObjectId
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      const member = await Team.findById(id);
+      if (member) {
+        return res.json({ success: true, data: member });
+      }
+    }
+    
+    // Fallback to searching by slug or other criteria if needed, 
+    // but for now we primarily use ID or return nothing
+    res.status(404).json({ error: 'Member not found' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Search Endpoint for SearchBox
 app.get('/api/aircrafts/lists/search', async (req, res) => {
   await connectToDatabase();

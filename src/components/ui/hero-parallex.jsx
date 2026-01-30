@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { IoPlayCircle } from "react-icons/io5";
@@ -119,7 +119,7 @@ export const HeroParallax = ({ headerTitle = 'A Bespoke Approach For Brokerage',
               key={`first-${idx}`}
               data={item}
               translate={row1X}
-              onClick={() => onImageClick(idx)}
+              onClick={() => onImageClick?.(idx)}
               onHover={(el) => ensureVisible(el, row1Ref.current, row1Hover)}
               onLeave={() => row1Hover.set(0)}
             />
@@ -133,7 +133,7 @@ export const HeroParallax = ({ headerTitle = 'A Bespoke Approach For Brokerage',
               key={`second-${idx}`}
               data={item}
               translate={row2X}
-              onClick={() => onImageClick(idx)}
+              onClick={() => onImageClick?.(idx)}
               onHover={(el) => ensureVisible(el, row2Ref.current, row2Hover)}
               onLeave={() => row2Hover.set(0)}
             />
@@ -147,7 +147,7 @@ export const HeroParallax = ({ headerTitle = 'A Bespoke Approach For Brokerage',
               key={`third-${idx}`}
               data={item}
               translate={row3X}
-              onClick={() => onImageClick(idx)}
+              onClick={() => onImageClick?.(idx)}
               onHover={(el) => ensureVisible(el, row3Ref.current, row3Hover)}
               onLeave={() => row3Hover.set(0)}
             />
@@ -161,7 +161,7 @@ export const HeroParallax = ({ headerTitle = 'A Bespoke Approach For Brokerage',
               key={`fourth-${idx}`}
               data={item}
               translate={row4X}
-              onClick={() => onImageClick(idx)}
+              onClick={() => onImageClick?.(idx)}
               onHover={(el) => ensureVisible(el, row4Ref.current, row4Hover)}
               onLeave={() => row4Hover.set(0)}
             />
@@ -175,7 +175,7 @@ export const HeroParallax = ({ headerTitle = 'A Bespoke Approach For Brokerage',
               key={`fifth-${idx}`}
               data={item}
               translate={row5X}
-              onClick={() => onImageClick(idx)}
+              onClick={() => onImageClick?.(idx)}
               onHover={(el) => ensureVisible(el, row5Ref.current, row5Hover)}
               onLeave={() => row5Hover.set(0)}
             />
@@ -189,7 +189,7 @@ export const HeroParallax = ({ headerTitle = 'A Bespoke Approach For Brokerage',
               key={`sixth-${idx}`}
               data={item}
               translate={row6X}
-              onClick={() => onImageClick(idx)}
+              onClick={() => onImageClick?.(idx)}
               onHover={(el) => ensureVisible(el, row6Ref.current, row6Hover)}
               onLeave={() => row6Hover.set(0)}
             />
@@ -203,7 +203,7 @@ export const HeroParallax = ({ headerTitle = 'A Bespoke Approach For Brokerage',
               key={`seventh-${idx}`}
               data={item}
               translate={row7X}
-              onClick={() => onImageClick(idx)}
+              onClick={() => onImageClick?.(idx)}
               onHover={(el) => ensureVisible(el, row7Ref.current, row7Hover)}
               onLeave={() => row7Hover.set(0)}
             />
@@ -215,6 +215,7 @@ export const HeroParallax = ({ headerTitle = 'A Bespoke Approach For Brokerage',
 };
 
 export const Header = ({ headerTitle = '', headerTagline = '' }) => {
+  if (!headerTitle && !headerTagline) return null;
   return (
     <div className="h-screen absolute z-[-1] mx-auto px-4 w-full left-0 flex items-center justify-center flex-col text-center">
       <h1 className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-white">
@@ -227,36 +228,56 @@ export const Header = ({ headerTitle = '', headerTagline = '' }) => {
   );
 };
 
-export const ProductCard = ({ data, translate, onClick, onHover, onLeave }) => {
+export const ProductCard = ({ data, translate, onHover, onLeave }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
   const cardRef = useRef(null);
+
+  const videoUrl = data?.videoUrl ? `${data.videoUrl}${data.videoUrl.includes('?') ? '&' : '?'}autoplay=1&rel=0` : "";
 
   return (
     <motion.div
       style={{ x: translate }}
-      whileHover={{ y: -20 }}
+      whileHover={!isPlaying ? { y: -20 } : {}}
       className="group relative cursor-pointer p-3"
-      onClick={onClick}
       role="button"
       tabIndex={0}
-      onMouseEnter={() => onHover?.(cardRef.current)}
-      onMouseLeave={() => onLeave?.()}
+      onMouseEnter={() => !isPlaying && onHover?.(cardRef.current)}
+      onMouseLeave={() => !isPlaying && onLeave?.()}
     >
       {/* Fixed-size wrapper so layout jump na ho */}
       <div
         ref={cardRef}
         className="group relative min-h-[225px] min-w-[400px] md:min-h-[315px] md:min-w-[560px] lg:min-h-[405px] lg:min-w-[720px] 2xl:min-h-[450px] 2xl:min-w-[800px] rounded-[5px] overflow-hidden bg-black"
       >
-        <img
-          src={data?.src}
-          alt={data?.title}
-          loading="lazy"
-          className="absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:object-contain"
-        />
-        <div className="group-hover:opacity-100 opacity-0 transition-all duration-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <button className="h-[100px] w-[100px] flex items-center justify-center text-white rounded-full">
-            <IoPlayCircle size={72} className="hover:text-blue-500" />
-          </button>
-        </div>
+        {isPlaying ? (
+          <iframe
+            src={videoUrl}
+            title={data?.title}
+            allow="autoplay; encrypted-media"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full z-[100]"
+          ></iframe>
+        ) : (
+          <>
+            <img
+              src={data?.src}
+              alt={data?.title}
+              loading="lazy"
+              className="absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:object-contain"
+            />
+            <div className="group-hover:opacity-100 opacity-0 transition-all duration-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsPlaying(true);
+                }}
+                className="h-[100px] w-[100px] flex items-center justify-center text-white rounded-full"
+              >
+                <IoPlayCircle size={72} className="hover:text-blue-500" />
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </motion.div>
   );

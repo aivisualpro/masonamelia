@@ -55,7 +55,7 @@ const AcquisitionPage = () => {
   useEffect(() => {
     const want =
       (location.state && location.state.scrollTo) ||
-      (location.hash === "#service_highlight" ? "service_highlight" : null);
+      (location.hash === "#acquisition" ? "acquisition" : null);
     if (!want) return;
 
     // prevent the timed auto-scroll from kicking in

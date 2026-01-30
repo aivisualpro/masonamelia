@@ -49,7 +49,7 @@ const Skynet = ({ banner }) => {
             }
             disabled={false}
             speed={5}
-            className="text-sm md:text-lg"
+            className="text-sm md:text-xl"
             color="md:text-[#b5b5b5a4] text-white"
           />
         </motion.div>

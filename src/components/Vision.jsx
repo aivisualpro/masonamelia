@@ -2,131 +2,53 @@ import React from "react";
 import { FaRegHandshake, FaRegPlayCircle, FaRocket } from "react-icons/fa";
 import Button from "./Button";
 import { motion } from "framer-motion";
-import vision from "/images/higher/vision.jpg";
+import vision from "/images/higher/vision_new.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
-
-const services = [
-  {
-    icon: <FaRegHandshake className="text-2xl text-white" />,
-    title: "Elevating Aircraft Brokerage Standards",
-    description:
-      "A lot of people pose as “aviation experts.” Very few actually fly the life. Our founder, Jesse Adams, does. His YouTube channel Looking for Higher captures the real side of ownership, from the rush of turbine transitions to cross-country family adventures, and now powers Mason Amelia’s video marketing platform.",
-    color: "from-[#1777cb] to-[#1777cb]",
-  },
-  {
-    icon: <FaRegPlayCircle className="text-2xl text-white" />,
-    title: "Where Aviation Meets Storytelling",
-    description:
-      "Each video we create is more than marketing; it’s storytelling with intent. We show what makes an aircraft desirable, capable, and worth owning. We turn data into desire and browsers into buyers.",
-    color: "from-[#1777cb] to-[#1777cb]",
-  },
-  {
-    icon: <FaRocket className="text-2xl text-white" />,
-    title: "Marketing that Moves Jets",
-    description:
-      "Partnering with Mason Amelia means you’re not waiting for buyers; you’re attracting them. Our full-service, marketing-driven strategy amplifies exposure, accelerates momentum, and delivers the right buyer.",
-    color: "from-[#1777cb] to-[#1777cb]",
-  },
-];
+import FlowFieldBackground from "./ui/FlowFieldBackground";
 
 const GlowingCardSection = () => {
   const media = useMediaQuery("(max-width: 767px)");
+
   return (
-    <section
-      className="py-20 z-[0] relative lg:h-screen"
-      style={{
-        backgroundImage: media ? "" : `url(${vision})`,
-        backgroundSize: "cover",
-        backgroundPosition: "bottom",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      {/* <div className="absolute top-0 left-0 w-full h-full bg-black opacity-70 z-[-1]"></div> */}
-      <div className="container mx-auto px-4 gap-8 flex flex-col items-center justify-center h-full">
-        {/* <div className="w-full px-4 flex flex-col md:flex-row justify-between items-center z-[4]">
-          <div className="flex flex-col items-center jsutify-center mx-auto">
-            <motion.h2
-              initial={{ opacity: 0, y: 80 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-4xl xl:text-6xl font-bold text-white text-center max-w-4xl"
-              style={{ lineHeight: "1.1" }}
-            >
-              Aviation Marketing with {" "}
-              <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                Heart & Precision
-              </span>
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 80 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="text-white py-[40px] md:text-lg font-light text-center max-w-5xl"
-            >
-              We blend the emotional power of storytelling with the accuracy of
-              data-driven strategy. Every aircraft we market is positioned not
-              just as a product, but as a personal journey. This human-first,
-              precision-led approach delivers trust—and results.
-            </motion.p>
-          </div>
-        </div> */}
+    <section className="py-24 z-[0] relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Dynamic Flow Field Background */}
+      <div className="absolute inset-0 z-0">
+        <FlowFieldBackground 
+          color="#268AE0" 
+          particleCount={800} 
+          trailOpacity={0.1}
+          speed={0.8}
+        />
+      </div>
 
-        <div className="xl:hidden block absolute top-0 left-0 w-full p-0 m-0">
-          <div
-            className="absolute w-full h-full z-[0]"
-            style={{
-              // background: "420px",
-              background:
-                "linear-gradient(to top, #111218fd 5%, #11121868 20%)",
-            }}
-          ></div>
-          {/* <div className="xl:hidden block">
-            <img src={vision} className="min-h-[300px] w-full" alt="" />
-          </div> */}
-        </div>
-
-        <div className="md:block hidden absolute bg-black/80 w-full h-full top-0 left-0"></div>
-
-        <div className="z-[9] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:pt-0">
-          {services.map((service, index) => (
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 30, duration: 0.5 }}
-              className={`glass-container w-full `}
-            >
-              <div className="glass-filter"></div>
-              <div className="glass-overlay"></div>
-              <div className="glass-specular"></div>
-              <div
-                className="glass-content h-full"
-                style={{ alignItems: "start" }}
-              >
-                <div
-                  key={index}
-                  className="p-6 rounded-xl relative w-full text-center"
-                >
-                  {/* Glowing Icon */}
-                  <div className="flex justify-center mb-4">
-                    <div
-                      className={`p-4 rounded-full bg-gradient-to-br ${service.color} shadow-xl`}
-                    >
-                      {service.icon}
-                    </div>
-                  </div>
-
-                  {/* <h3 className="text-white font-semibold text-lg mb-2">
-                    {service.title}
-                  </h3> */}
-                  <p className="text-gray-300 text-sm mb-4">
-                    {service.description}
-                  </p>
-                  {/* <Button buttonLabel="Read More" onClick="/about" /> */}
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+      {/* Cinematic Overlays */}
+      <div className="absolute inset-0 bg-gradient-to-t from-[#000] via-transparent to-[#000] z-[1]"></div>
+      
+      {/* Scanline Effect */}
+      <div className="absolute inset-0 pointer-events-none z-[2] opacity-[0.05]" 
+           style={{ backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06))', backgroundSize: '100% 2px, 3px 100%' }}>
+      </div>
+      <div className="container relative z-[10] px-5 text-center px-4 gap-8 flex flex-col items-center justify-center h-full">
+        <motion.div
+           initial={{ opacity: 0, y: 40 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.8, ease: "easeOut" }}
+           className="max-w-5xl mx-auto"
+         >
+          <h2 className="text-white text-[2rem] md:text-[56px] font-bold mb-4 leading-tight" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            Looking for <i className="italic">Higher</i> on <span className="text-[#FF0000]">YouTube</span>
+          </h2>
+          
+          <p className="text-tertiary_color text-lg md:text-[20px] font-medium mb-12 max-w-4xl mx-auto leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            When you partner with Mason Amelia, you're not just getting a brokerage—you’re getting a full-service, marketing-driven strategy to maximize visibility and find the right buyer.
+          </p>
+          <p className="text-gray-300 text-lg md:text-[20px] font-light leading-relaxed mb-6" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            At Mason Amelia, we’re more than brokers; we’re storytellers. While there are many brokers out there, few live truer to the aviation lifestyle than our founder, Jesse Adams, who started the YouTube channel, <a href="https://www.youtube.com/@LookingforHigher" target="_blank" rel="noopener noreferrer" className="text-tertiary_color font-medium italic underline underline-offset-4 hover:text-white transition-colors">Looking for Higher</a>, which now serves as Mason Amelia's video marketing platform. On the channel, you will find insights on the true experience of aircraft ownership from transitioning into a turbine to the freedom of flying family across the country.
+          </p>
+          <p className="text-gray-300 text-lg md:text-[20px] font-light leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+            Every video we create tells the unique story of each aircraft we represent, bringing its personality and capabilities to life in ways that resonate with prospective buyers. This storytelling approach is powerful and essential in today’s market, where a listing alone doesn’t cut it. If your broker isn’t crafting a marketing plan as compelling as the plane itself, they’re not truly selling it.
+          </p>
+        </motion.div>
       </div>
     </section>
   );

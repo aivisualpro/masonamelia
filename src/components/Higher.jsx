@@ -24,9 +24,9 @@ const Higher = ({ banner, bannerTwo }) => {
           className="text-white md:text-start text-center text-[1.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-6xl md:max-w-md lg:max-w-2xl"
           style={{ lineHeight: "1.1" }}
         >
-          We’re more than brokers -{" "} <br className="md:hidden block" />
+          We’re More Than Brokers -{" "} <br className="md:hidden block" />
           <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-            We’re storytellers
+            We’re Storytellers
           </span>
         </motion.h2>
         <motion.div
@@ -47,7 +47,7 @@ const Higher = ({ banner, bannerTwo }) => {
             }
             disabled={false}
             speed={5}
-            className="text-sm md:text-lg mt-4"
+            className="text-sm md:text-xl mt-4"
             color="md:text-[#b5b5b5a4] text-white"
           />
         </motion.div>

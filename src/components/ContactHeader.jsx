@@ -40,7 +40,7 @@ const ContactHeader = () => {
             }
             disabled={false}
             speed={5}
-            className="text-base md:text-lg mt-4"
+            className="text-base md:text-xl mt-4"
           />
         </motion.div>
       </div>
