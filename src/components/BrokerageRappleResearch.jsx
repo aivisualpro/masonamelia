@@ -57,7 +57,7 @@ const BrokerageRappleResearch = ({
       {/* ✅ Section */}
       <section
         ref={sectionRef}
-        className="relative z-0 2xl:py-0 py-20 min-h-auto overflow-hidden"
+        className="relative z-0 py-20 2xl:py-16 min-h-[280px] overflow-hidden"
       >
         {/* ✅ Overlay ABOVE background (no negative z) */}
         <div className="absolute inset-0 bg-tertiary_color/90 z-0" />
