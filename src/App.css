@@ -63,6 +63,15 @@ h6 {
   border-radius: 0 4px 4px 0;
 }
 
+.tag-right-arrow {
+  width: 0;
+  height: 0;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid #222;
+  border-radius: 4px 0 0 4px;
+}
+
 #meetTheTeam .btn-main,
 #latestJets .btn-main {
   position: relative;

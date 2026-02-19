@@ -483,14 +483,14 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
             {/* Next Ribbon Button */}
             <button onClick={handleNext} disabled={isTransitioning} className="flex-shrink-0 group/next">
               <div className="flex items-center">
-                <div
-                  className="tag-left-arrow transition-all duration-300"
-                  style={{ borderRight: "16px solid #1777cb" }}
-                />
                 <div className="flex items-center gap-2 px-4 py-2 bg-[#1777cb] text-white text-sm font-semibold hover:bg-[#1a8ae0] transition-all duration-300 group-hover/next:shadow-[0_0_20px_rgba(23,119,203,0.5)]">
                   <span>Next</span>
                   <IoIosArrowForward size={18} className="transition-transform duration-300 group-hover/next:translate-x-0.5" />
                 </div>
+                <div
+                  className="tag-right-arrow transition-all duration-300"
+                  style={{ borderLeft: "16px solid #1777cb" }}
+                />
               </div>
             </button>
 
