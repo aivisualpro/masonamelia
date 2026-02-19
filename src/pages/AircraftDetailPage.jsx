@@ -11,10 +11,12 @@ const AircraftDetailPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [gallary, setGallary] = useState([]);
+  const [sourceRect, setSourceRect] = useState(null);
 
-  const openModal = (index, images) => {
+  const openModal = (index, images, rect) => {
     setCurrentIndex(index);
     setGallary(images);
+    setSourceRect(rect || null);
     setModalOpen(true);
   };
 
@@ -48,9 +50,11 @@ const AircraftDetailPage = () => {
         images={gallary}
         currentIndex={currentIndex}
         setCurrentIndex={setCurrentIndex}
+        sourceRect={sourceRect}
       />
     </>
   );
 };
 
 export default AircraftDetailPage;
+

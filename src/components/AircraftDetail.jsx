@@ -278,7 +278,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 src={gallery?.[activeImgIndex]}
                 alt="Main Aircraft"
                 className="w-full object-cover lg:rounded-2xl cursor-pointer"
-                onClick={() => onOpenModal(activeImgIndex, gallery)}
+                onClick={(e) => onOpenModal(activeImgIndex, gallery, e.currentTarget.getBoundingClientRect())}
               />
             )}
             <div className="lg:mt-4">
@@ -457,7 +457,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
                   }`}
                 className="w-full h-[180px] rounded"
-                style={{ filter: "grayscale(1) invert(1) contrast(1.2)" }}
+                  style={{ filter: "invert(1) hue-rotate(180deg) brightness(0.95) contrast(1.2) saturate(0.3)" }}
               />
             </div>
           </div>
@@ -530,7 +530,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   src={gallery?.[activeImgIndex]}
                   alt="Main Aircraft"
                   className="w-full h-[400px] object-cover lg:rounded-2xl cursor-pointer"
-                  onClick={() => onOpenModal(activeImgIndex, gallery)}
+                  onClick={(e) => onOpenModal(activeImgIndex, gallery, e.currentTarget.getBoundingClientRect())}
                 />
               )}
               <div className="md:mt-4">
@@ -712,7 +712,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                     : "https://maps.google.com/maps?q=34.7732102,-80.3917315&z=12&output=embed"
                     }`}
                   className="w-full h-[165px] rounded-xl"
-                  style={{ filter: "grayscale(1) invert(1) contrast(1.2)" }}
+                    style={{ filter: "invert(1) hue-rotate(180deg) brightness(0.95) contrast(1.2) saturate(0.3)" }}
                 />
               </div>
             </div>
