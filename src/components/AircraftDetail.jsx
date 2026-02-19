@@ -63,8 +63,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
   // ─── Navigate back to showroom preserving filters ───
   const handleBack = useCallback(() => {
+    // Save the current aircraft id so the listing can highlight it
+    try { sessionStorage.setItem('showroom_highlight_id', id); } catch {}
     navigate('/showroom', { state: { fromDetail: true } });
-  }, [navigate]);
+  }, [navigate, id]);
 
   // ─── Navigate to Next aircraft in filtered list ───
   const handleNext = useCallback(() => {

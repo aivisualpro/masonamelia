@@ -42,6 +42,25 @@ export default function Listing({ autoScrollEnabled = true, q = "", initialFilte
   const [filterOpen, setFilterOpen] = useState(initialFilters?.filterOpen ?? false);
   const [isOpen, setIsOpen] = useState(false);
 
+  // ─── Highlight card when returning from detail page ───
+  const [highlightId, setHighlightId] = useState(() => {
+    if (!initialFilters) return null;
+    try {
+      const hid = sessionStorage.getItem('showroom_highlight_id');
+      if (hid) sessionStorage.removeItem('showroom_highlight_id');
+      return hid || null;
+    } catch { return null; }
+  });
+
+  // Clear the highlight after 3 seconds
+  useEffect(() => {
+    if (!highlightId) return;
+    const timer = setTimeout(() => setHighlightId(null), 3000);
+    return () => clearTimeout(timer);
+  }, [highlightId]);
+
+
+
   // search
   const [searchJets, setSearchJets] = useState(initialFilters?.searchJets ?? "");
 
@@ -112,6 +131,17 @@ export default function Listing({ autoScrollEnabled = true, q = "", initialFilte
   const meta = api?.meta || {};
   const totalPages = meta.pageCount || 1;
   const errMsg = error?.message || "";
+
+  // Scroll to the highlighted card once data loads
+  useEffect(() => {
+    if (!highlightId || loading) return;
+    requestAnimationFrame(() => {
+      const el = document.getElementById(`card-${highlightId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  }, [highlightId, loading]);
 
   // ── Persist filter state to sessionStorage (for back-navigation) ──
   useEffect(() => {
@@ -417,7 +447,7 @@ export default function Listing({ autoScrollEnabled = true, q = "", initialFilte
                     } gap-8`}
                 >
                   {rows.map((airplane) => (
-                    <Card key={airplane._id} detail={airplane} currentTab={activeTab} />
+                    <Card key={airplane._id} detail={airplane} currentTab={activeTab} highlighted={airplane._id === highlightId} />
                   ))}
                 </motion.div>
 

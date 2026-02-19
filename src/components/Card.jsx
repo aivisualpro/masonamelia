@@ -15,7 +15,7 @@ const categoryGradients = {
   wanted: ["from-[#3b82f6]", "to-[#7eb0fc]"],
 };
 
-const Card = ({ detail, currentTab }) => {
+const Card = ({ detail, currentTab, highlighted = false }) => {
   let status = (detail?.status || "").toLowerCase();
 
   // If status is missing but we have a specific tab active, fallback to that tab's slug
@@ -42,14 +42,23 @@ const Card = ({ detail, currentTab }) => {
   const imgSrc = detail?.featuredImage || "";
 
   return (
-    <Link to={`/showroom/${detail?._id}`} className="group block h-full">
+    <Link to={`/showroom/${detail?._id}`} id={`card-${detail?._id}`} className="group block h-full">
       <motion.div
-        className="relative h-full flex flex-col bg-[#1A1C24] rounded-2xl border border-white/5 overflow-hidden shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-white/10 hover:-translate-y-1"
+        className={`relative h-full flex flex-col bg-[#1A1C24] rounded-2xl border overflow-hidden shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-white/10 hover:-translate-y-1 ${
+          highlighted
+            ? "card-highlight-glow border-[#1777cb]/60"
+            : "border-white/5"
+        }`}
         initial={{ y: 20, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         viewport={{ once: true, amount: 0.1 }}
         transition={{ duration: 0.4 }}
       >
+        {/* Highlight ring overlay */}
+        {highlighted && (
+          <div className="absolute inset-0 rounded-2xl pointer-events-none z-20 card-highlight-ring" />
+        )}
+
         {/* Ribbon */}
         <div
           className={`absolute top-5 -right-12 w-40 text-center rotate-45 bg-gradient-to-r ${gradient[0]} ${gradient[1]} text-white text-[0.7rem] font-bold py-1.5 shadow-lg z-10 tracking-wider`}
@@ -142,3 +151,4 @@ const Card = ({ detail, currentTab }) => {
 };
 
 export default React.memo(Card);
+
