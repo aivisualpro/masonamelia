@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useMemo, useState, useRef, useCallback } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { IoImageOutline, IoCheckmarkDoneOutline } from "react-icons/io5";
 import { FaRegCirclePlay, FaPhone } from "react-icons/fa6";
 import { TfiEmail } from "react-icons/tfi";
@@ -14,7 +14,7 @@ import { Navigation, Keyboard } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import DOMPurify from "dompurify";
 import { PuffLoader } from "react-spinners";
@@ -47,6 +47,7 @@ const extractItems = (html = "") => {
 
 const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   const [aircraft, setAircraft] = useState(null);
@@ -56,6 +57,37 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const [showVideo, setShowVideo] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
+
+  // ─── Transition state for Next button animation ───
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // ─── Navigate back to showroom preserving filters ───
+  const handleBack = useCallback(() => {
+    navigate('/showroom', { state: { fromDetail: true } });
+  }, [navigate]);
+
+  // ─── Navigate to Next aircraft in filtered list ───
+  const handleNext = useCallback(() => {
+    if (isTransitioning) return;
+    try {
+      const stored = sessionStorage.getItem('showroom_aircraft_ids');
+      if (!stored) return;
+      const ids = JSON.parse(stored);
+      if (!Array.isArray(ids) || ids.length === 0) return;
+
+      const currentIdx = ids.indexOf(id);
+      const nextIdx = currentIdx === -1 ? 0 : (currentIdx + 1) % ids.length;
+      const nextId = ids[nextIdx];
+
+      if (nextId && nextId !== id) {
+        setIsTransitioning(true);
+        navigate(`/showroom/${nextId}`);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Reset after animation completes
+        setTimeout(() => setIsTransitioning(false), 600);
+      }
+    } catch {}
+  }, [id, navigate, isTransitioning]);
 
   // ---- Fetch detail ----
   useEffect(() => {
@@ -195,20 +227,37 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
         </div>
       )}
 
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={id}
+          initial={{ opacity: 0, x: 60, scale: 0.98, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, x: -60, scale: 0.97, filter: 'blur(6px)' }}
+          transition={{
+            duration: 0.5,
+            ease: [0.22, 1, 0.36, 1],
+            opacity: { duration: 0.35 },
+            filter: { duration: 0.4 },
+          }}
+        >
       <section
         id="showroom"
         className="pb-20 pt-[98px] md:pb-20 md:pt-[calc(110px+76px)]"
       >
-        <div className="md:hidden flex items-center bg-[#1777cb] px-2">
-          <Link to="/showroom">
+        <div className="md:hidden flex items-center justify-between bg-[#1777cb] px-2">
+          <button onClick={handleBack} className="flex-shrink-0">
             <div className="showroom-redirect-icon flex items-center">
               <IoIosArrowBack size={16} color="white" />
             </div>
-          </Link>
+          </button>
           <h1 className="text-base md:text-3xl mx-auto font-bold mt-2 mb-2 lg:mt-0 lg:mb-8 text-white">
             {aircraft?.title}
           </h1>
-          {/* <span className="text-[#1777cb]">helloafdad</span> */}
+          <button onClick={handleNext} className="flex-shrink-0" disabled={isTransitioning}>
+            <div className="showroom-redirect-icon flex items-center">
+              <IoIosArrowForward size={16} color="white" />
+            </div>
+          </button>
         </div>
 
         <div className="md:hidden flex flex-col gap-4">
@@ -413,21 +462,35 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
         </div>
 
         <div className="container px-5">
-          {/* Desktop Header Row - Back Ribbon | Title | Status Tag */}
+          {/* Desktop Header Row - Back Ribbon | Title | Next Ribbon | Status Tag */}
           <div className="hidden md:flex items-center gap-4 mb-6">
             {/* Back Ribbon Button */}
-            <Link to="/showroom" className="flex-shrink-0">
+            <button onClick={handleBack} className="flex-shrink-0 group/back">
               <div className="flex items-center">
                 <div
-                  className="tag-left-arrow"
+                  className="tag-left-arrow transition-all duration-300"
                   style={{ borderRight: "16px solid #22242e" }}
                 />
-                <div className="flex items-center gap-2 px-4 py-2 bg-[#22242e] text-white text-sm font-semibold hover:bg-[#2a2d38] transition-colors duration-200">
-                  <IoIosArrowBack size={18} />
+                <div className="flex items-center gap-2 px-4 py-2 bg-[#22242e] text-white text-sm font-semibold hover:bg-[#2a2d38] transition-all duration-300 group-hover/back:shadow-[0_0_20px_rgba(23,119,203,0.3)]">
+                  <IoIosArrowBack size={18} className="transition-transform duration-300 group-hover/back:-translate-x-0.5" />
                   <span>Back</span>
                 </div>
               </div>
-            </Link>
+            </button>
+
+            {/* Next Ribbon Button */}
+            <button onClick={handleNext} disabled={isTransitioning} className="flex-shrink-0 group/next">
+              <div className="flex items-center">
+                <div
+                  className="tag-left-arrow transition-all duration-300"
+                  style={{ borderRight: "16px solid #1777cb" }}
+                />
+                <div className="flex items-center gap-2 px-4 py-2 bg-[#1777cb] text-white text-sm font-semibold hover:bg-[#1a8ae0] transition-all duration-300 group-hover/next:shadow-[0_0_20px_rgba(23,119,203,0.5)]">
+                  <span>Next</span>
+                  <IoIosArrowForward size={18} className="transition-transform duration-300 group-hover/next:translate-x-0.5" />
+                </div>
+              </div>
+            </button>
 
             {/* Title - Takes remaining space */}
             <h1 className="flex-1 text-[1.5rem] md:text-[2rem] xl:text-[2.5rem] 2xl:text-[3rem] leading-none font-bold text-white truncate">
@@ -769,6 +832,8 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
           </Modal>
         </div>
       </section>
+        </motion.div>
+      </AnimatePresence>
     </>
   );
 };

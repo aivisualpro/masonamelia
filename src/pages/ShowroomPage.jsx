@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useMemo } from "react";
+import { useLocation } from "react-router-dom";
 import Listing from "../components/Listing";
 import Banner from "../components/Banner";
 import CTA from "../components/CTA";
@@ -42,9 +43,22 @@ const smoothScrollTo = (targetY, { duration = 2200 } = {}) => {
 /* ------------------------------------------------------------- */
 
 const ShowroomPage = () => {
+  const location = useLocation();
+  // Check if we're coming back from a detail page
+  const isReturning = location.state?.fromDetail === true;
+
+  // Restore filter state from sessionStorage if returning from detail
+  const restoredFilters = useMemo(() => {
+    if (!isReturning) return null;
+    try {
+      const saved = sessionStorage.getItem('showroom_filters');
+      return saved ? JSON.parse(saved) : null;
+    } catch { return null; }
+  }, [isReturning]);
+
   const [showArrow, setShowArrow] = useState(false);
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(false);
-  const [cancelAuto, setCancelAuto] = useState(false);
+  const [cancelAuto, setCancelAuto] = useState(isReturning); // skip auto-scroll if returning
   const listingRef = useRef(null);
 
   const isNearTop = () => (window.scrollY || 0) <= 5;
@@ -66,7 +80,7 @@ const ShowroomPage = () => {
     cancelAutoScroll();
   };
 
-  // force start at top, avoid unwanted browser jumps
+  // scroll restoration OR force start at top
   useEffect(() => {
     const { documentElement } = document;
     const prevRestore = history.scrollRestoration;
@@ -75,8 +89,28 @@ const ShowroomPage = () => {
     const prevBehavior = documentElement.style.scrollBehavior;
     documentElement.style.scrollBehavior = "auto";
 
-    window.scrollTo(0, 0);
-    const fixTimer = setTimeout(() => window.scrollTo(0, 0), 0);
+    if (isReturning) {
+      // Restore scroll position from sessionStorage
+      try {
+        const savedScroll = sessionStorage.getItem('showroom_scroll_y');
+        const scrollY = savedScroll ? Number(savedScroll) : 0;
+        // Small delay to let the DOM render with restored filter state
+        requestAnimationFrame(() => {
+          window.scrollTo(0, scrollY);
+        });
+      } catch {
+        window.scrollTo(0, 0);
+      }
+    } else {
+      window.scrollTo(0, 0);
+      const fixTimer = setTimeout(() => window.scrollTo(0, 0), 0);
+      return () => {
+        clearTimeout(fixTimer);
+        documentElement.style.scrollBehavior = prevBehavior || "";
+        if ("scrollRestoration" in history)
+          history.scrollRestoration = prevRestore || "auto";
+      };
+    }
 
     const restoreTimer = setTimeout(() => {
       documentElement.style.scrollBehavior = prevBehavior || "";
@@ -85,7 +119,6 @@ const ShowroomPage = () => {
     }, 300);
 
     return () => {
-      clearTimeout(fixTimer);
       clearTimeout(restoreTimer);
       documentElement.style.scrollBehavior = prevBehavior || "";
       if ("scrollRestoration" in history)
@@ -93,8 +126,19 @@ const ShowroomPage = () => {
     };
   }, []);
 
-  // arrow at 3s, auto-scroll at 5s (unless cancelled)
+  // Save scroll position on every scroll (for restoration later)
   useEffect(() => {
+    const handleScroll = () => {
+      try { sessionStorage.setItem('showroom_scroll_y', String(window.scrollY)); } catch {}
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // arrow at 3s, auto-scroll at 5s (unless cancelled / returning)
+  useEffect(() => {
+    if (isReturning) return; // skip auto-scroll when returning from detail
+
     let arrowTimer, scrollTimer;
 
     const onWheel = () => cancelAutoScroll();
@@ -130,7 +174,7 @@ const ShowroomPage = () => {
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("scroll", onScroll);
     };
-  }, [cancelAuto]); // cancelAuto change → timers re-check
+  }, [cancelAuto, isReturning]); // cancelAuto change → timers re-check
 
   // arrow click → same behavior as timed auto-scroll
   const handleArrowClick = () => {
@@ -142,7 +186,7 @@ const ShowroomPage = () => {
       <Banner url={banner} banner={bannerTwo} handleArrowClick={handleArrowClick} showArrow={showArrow} />
       {/* 👇 target for scroll */}
       <div ref={listingRef}>
-        <Listing autoScrollEnabled={autoScrollEnabled} />
+        <Listing autoScrollEnabled={autoScrollEnabled} initialFilters={restoredFilters} />
       </div>
       {/* <CTA /> */}
 

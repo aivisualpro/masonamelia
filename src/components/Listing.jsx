@@ -34,34 +34,31 @@ const STATUS_TABS = [
   { name: "Previous Transactions", slug: "previous" },
 ];
 
-export default function Listing({ autoScrollEnabled = true, q = "" }) {
+export default function Listing({ autoScrollEnabled = true, q = "", initialFilters = null }) {
   const sectionRef = useRef(null);
   const queryClient = useQueryClient();
 
   // ui
-  const [filterOpen, setFilterOpen] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(initialFilters?.filterOpen ?? false);
   const [isOpen, setIsOpen] = useState(false);
 
   // search
-  const [searchJets, setSearchJets] = useState("");
-
-
-
+  const [searchJets, setSearchJets] = useState(initialFilters?.searchJets ?? "");
 
   // filters (state to send to server)
-  const [selectedFilters, setSelectedFilters] = useState([]);
-  const [priceRange, setPriceRange] = useState(undefined);
-  const [airframeRange, setAirframeRange] = useState(undefined);
-  const [engineRange, setEngineRange] = useState(undefined);
+  const [selectedFilters, setSelectedFilters] = useState(initialFilters?.selectedFilters ?? []);
+  const [priceRange, setPriceRange] = useState(initialFilters?.priceRange ?? undefined);
+  const [airframeRange, setAirframeRange] = useState(initialFilters?.airframeRange ?? undefined);
+  const [engineRange, setEngineRange] = useState(initialFilters?.engineRange ?? undefined);
 
   // touched flags (VERY IMPORTANT)
-  const [priceTouched, setPriceTouched] = useState(false);
-  const [airframeTouched, setAirframeTouched] = useState(false);
-  const [engineTouched, setEngineTouched] = useState(false);
+  const [priceTouched, setPriceTouched] = useState(initialFilters?.priceTouched ?? false);
+  const [airframeTouched, setAirframeTouched] = useState(initialFilters?.airframeTouched ?? false);
+  const [engineTouched, setEngineTouched] = useState(initialFilters?.engineTouched ?? false);
 
   // tabs + pagination
-  const [activeTab, setActiveTab] = useState("all");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [activeTab, setActiveTab] = useState(initialFilters?.activeTab ?? "all");
+  const [currentPage, setCurrentPage] = useState(initialFilters?.currentPage ?? 1);
 
   // categories for checkbox list
   const { data: aircraftOptions = [], isLoading: catsLoading } =
@@ -115,6 +112,32 @@ export default function Listing({ autoScrollEnabled = true, q = "" }) {
   const meta = api?.meta || {};
   const totalPages = meta.pageCount || 1;
   const errMsg = error?.message || "";
+
+  // ── Persist filter state to sessionStorage (for back-navigation) ──
+  useEffect(() => {
+    const state = {
+      activeTab,
+      selectedFilters,
+      priceRange,
+      airframeRange,
+      engineRange,
+      priceTouched,
+      airframeTouched,
+      engineTouched,
+      currentPage,
+      searchJets,
+      filterOpen,
+    };
+    try { sessionStorage.setItem('showroom_filters', JSON.stringify(state)); } catch {}
+  }, [activeTab, selectedFilters, priceRange, airframeRange, engineRange, priceTouched, airframeTouched, engineTouched, currentPage, searchJets, filterOpen]);
+
+  // ── Persist the filtered aircraft IDs list (for Next button on detail page) ──
+  useEffect(() => {
+    if (rows.length > 0) {
+      const ids = rows.map((r) => r._id);
+      try { sessionStorage.setItem('showroom_aircraft_ids', JSON.stringify(ids)); } catch {}
+    }
+  }, [rows]);
 
   // dataset key (status + categories)
   const domainKey = useMemo(

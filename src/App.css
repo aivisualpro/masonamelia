@@ -743,3 +743,28 @@ h6 {
 #testimonial {
   overflow-x: hidden !important;
 }
+
+/* ─── Aircraft Detail Next Button Shimmer ─── */
+@keyframes nextButtonShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.group\/next:not(:disabled):hover .shimmer-bg {
+  background: linear-gradient(
+    90deg,
+    #1777cb 0%,
+    #1777cb 30%,
+    #3b9ded 50%,
+    #1777cb 70%,
+    #1777cb 100%
+  );
+  background-size: 200% 100%;
+  animation: nextButtonShimmer 1.5s ease infinite;
+}
+
+/* Next/Back button disabled state */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

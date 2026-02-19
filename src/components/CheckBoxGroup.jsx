@@ -85,7 +85,7 @@ const CheckBoxGroup = ({ title, items = [], selected = [], onChange }) => {
         {otherItems.length > 0 && (
           <li key="__others__">
             <CheckboxRow
-              label="Others"
+              label="Other"
               checked={othersChecked}
               onToggle={handleOthersToggle}
             />

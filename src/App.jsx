@@ -27,6 +27,8 @@ function App() {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    // Skip for showroom routes – they handle scroll restoration themselves
+    if (pathname === '/showroom' || pathname.startsWith('/showroom/')) return;
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [pathname]);
 
