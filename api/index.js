@@ -160,6 +160,27 @@ app.get('/api/aircrafts/lists/search', async (req, res) => {
   }
 });
 
+// Helper: build a status match filter
+function buildStatusFilter(status) {
+  if (status && status !== 'all') {
+    let statusToQuery = status;
+    if (status === 'previous') statusToQuery = 'sold';
+    else if (status === 'off-market') statusToQuery = 'acquired';
+    return { $regex: new RegExp(statusToQuery, 'i') };
+  }
+  // 'all' filter excludes sold and acquired - they only show via their specific tabs
+  return { $nin: ['sold', 'acquired'] };
+}
+
+// Helper: resolve category slugs → ObjectIds
+async function resolveCategorySlugs(categoryCsv) {
+  if (!categoryCsv) return null;
+  const slugs = categoryCsv.split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+  if (!slugs.length) return null;
+  const cats = await AircraftCategory.find({ slug: { $in: slugs } }).select('_id');
+  return cats.map(c => c._id);
+}
+
 // Aircrafts list (paginated)
 app.get('/api/aircrafts/lists', async (req, res) => {
   await connectToDatabase();
@@ -167,19 +188,7 @@ app.get('/api/aircrafts/lists', async (req, res) => {
     const { searchKeyword, status, minPrice, maxPrice, minAirframe, maxAirframe, minEngine, maxEngine, categories } = req.query;
     const query = {};
 
-    if (status && status !== 'all') {
-      // Map frontend status slugs to database status values
-      let statusToQuery = status;
-      if (status === 'previous') {
-        statusToQuery = 'sold';
-      } else if (status === 'off-market') {
-        statusToQuery = 'acquired';
-      }
-      query.status = { $regex: new RegExp(statusToQuery, 'i') };
-    } else {
-      // 'all' filter excludes sold and acquired - they only show via their specific tabs
-      query.status = { $nin: ['sold', 'acquired'] };
-    }
+    query.status = buildStatusFilter(status);
     
     if (searchKeyword) {
       query.$or = [
@@ -188,21 +197,32 @@ app.get('/api/aircrafts/lists', async (req, res) => {
       ];
     }
 
-    if (categories) {
-       // Assuming categories is a comma-separated list of slugs or IDs
-       // This depends on how it's stored. Inspect DB showed 'category' might be a populated field or ID.
-       // For simple reconstruction, we skip complex category filter or assume slug match if possible.
-       // Ignoring for now to prevent crash, or adding simple check.
+    // Category filter: resolve slugs to ObjectIds
+    const categoryIds = await resolveCategorySlugs(categories);
+    if (categoryIds && categoryIds.length) {
+      query.category = { $in: categoryIds };
     }
 
-    // Range queries
+    // Price range
     if (minPrice || maxPrice) {
       query.price = {};
       if (minPrice) query.price.$gte = Number(minPrice);
       if (maxPrice) query.price.$lte = Number(maxPrice);
     }
-    
-    // ... similarly for airframe, engine if fields match DB schema
+
+    // Airframe range
+    if (minAirframe || maxAirframe) {
+      query.airframe = {};
+      if (minAirframe) query.airframe.$gte = Number(minAirframe);
+      if (maxAirframe) query.airframe.$lte = Number(maxAirframe);
+    }
+
+    // Engine range
+    if (minEngine || maxEngine) {
+      query.engine = {};
+      if (minEngine) query.engine.$gte = Number(minEngine);
+      if (maxEngine) query.engine.$lte = Number(maxEngine);
+    }
     
     const result = await getPaginatedData(Aircraft, req, query);
     res.json(result);
@@ -211,12 +231,22 @@ app.get('/api/aircrafts/lists', async (req, res) => {
   }
 });
 
-// Aircraft Ranges
+// Aircraft Ranges (respects status + categories filters)
 app.get('/api/aircrafts/lists/ranges', async (req, res) => {
   await connectToDatabase();
   try {
-    // Basic aggregation to get min/max
-    const result = await Aircraft.aggregate([
+    const { status, categories } = req.query;
+    const matchStage = {};
+
+    matchStage.status = buildStatusFilter(status);
+
+    const categoryIds = await resolveCategorySlugs(categories);
+    if (categoryIds && categoryIds.length) {
+      matchStage.category = { $in: categoryIds };
+    }
+
+    const pipeline = [
+      { $match: matchStage },
       {
         $group: {
           _id: null,
@@ -228,7 +258,9 @@ app.get('/api/aircrafts/lists/ranges', async (req, res) => {
           maxEngine: { $max: "$engine" }
         }
       }
-    ]);
+    ];
+
+    const result = await Aircraft.aggregate(pipeline);
     res.json({ success: true, data: result[0] || {} });
   } catch (err) {
     res.status(500).json({ error: err.message });
