@@ -155,6 +155,8 @@ const InfiniteMovingCards = forwardRef(({
   }, [trackActiveCard]);
 
   // ─── Expose goToIndex method to parent ───
+  const resumeTimerRef = useRef(null);
+
   useImperativeHandle(ref, () => ({
     goToIndex: (targetIdx) => {
       if (!containerRef.current || items.length === 0) return;
@@ -170,6 +172,10 @@ const InfiniteMovingCards = forwardRef(({
       // Update active index
       activeIndexRef.current = targetIdx;
       onActiveIndexChange?.(targetIdx);
+
+      // Auto-resume scrolling after 2s
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = setTimeout(() => setIsPaused(false), 2000);
     },
   }), [items.length, onActiveIndexChange, hoverX]);
 
@@ -207,19 +213,39 @@ const InfiniteMovingCards = forwardRef(({
   // Pause if: manually paused OR modal is open
   const shouldPauseAnimation = isPaused || activeItem !== null;
 
-  // Handle any interaction (click/tap/hover) on a card
-  const handleCardInteraction = (idx) => {
-    if (isPaused) {
-      // Resume scrolling from current position (no reset)
-      setIsPaused(false);
-    } else {
-      // Pause and center the card
-      setIsPaused(true);
-      const cardEl = cardRefs.current[idx];
-      const viewportEl = containerRef.current;
-      centerCard(cardEl, viewportEl, hoverX);
+  // ─── Lock to prevent chain-reaction mouseEnter during centering ───
+  const hoverLockRef = useRef(false);
+  const hoverLockTimerRef = useRef(null);
+
+  // Handle hover enter → pause + center with lock
+  const handleMouseEnter = useCallback((idx) => {
+    // If locked (centering in progress), ignore
+    if (hoverLockRef.current) return;
+
+    clearTimeout(resumeTimerRef.current);
+    setIsPaused(true);
+
+    // Center the card and lock to prevent chain reactions
+    const cardEl = cardRefs.current[idx];
+    const viewportEl = containerRef.current;
+    if (cardEl && viewportEl) {
+      hoverLockRef.current = true;
+      ensureVisible(cardEl, viewportEl, hoverX);
+
+      // Unlock after the spring animation settles
+      clearTimeout(hoverLockTimerRef.current);
+      hoverLockTimerRef.current = setTimeout(() => {
+        hoverLockRef.current = false;
+      }, 600);
     }
-  };
+  }, [hoverX]);
+
+  // Handle hover leave → resume scrolling
+  const handleMouseLeave = useCallback(() => {
+    clearTimeout(hoverLockTimerRef.current);
+    hoverLockRef.current = false;
+    setIsPaused(false);
+  }, []);
 
   if (loopItems.length <= 1) {
     return <div className="py-10 text-center text-white">Loading....</div>;
@@ -249,8 +275,9 @@ const InfiniteMovingCards = forwardRef(({
                 className={cn(
                   "relative group flex items-center justify-center md:px-2 cursor-pointer",
                 )}
-                onMouseEnter={() => handleCardInteraction(idx)}
-                onClick={() => handleCardInteraction(idx)}
+                onMouseEnter={() => handleMouseEnter(idx)}
+                onMouseLeave={handleMouseLeave}
+                onClick={() => handleMouseEnter(idx)}
               >
                 {/* READ ICON – slide down on hover */}
                 <button
