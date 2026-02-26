@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback, useImperativeHandle, forwardRef } from "react";
 import { motion, useSpring, AnimatePresence } from "framer-motion";
 import { FiBookOpen, FiX } from "react-icons/fi";
 import { createPortal } from "react-dom";
@@ -96,7 +96,7 @@ const TestimonialModal = ({ item, onClose }) => {
   );
 };
 
-const InfiniteMovingCards = ({
+const InfiniteMovingCards = forwardRef(({
   items = [],
   direction = "left",
   speed = "fast",
@@ -104,7 +104,8 @@ const InfiniteMovingCards = ({
   className,
   bgColor,
   itemClass,
-}) => {
+  onActiveIndexChange,
+}, ref) => {
   const containerRef = useRef(null); // viewport
   const rowRef = useRef(null);
   const cardRefs = useRef([]); // refs for each card
@@ -115,6 +116,62 @@ const InfiniteMovingCards = ({
 
   // x-offset for centering card
   const hoverX = useSpring(0, { stiffness: 200, damping: 30, bounce: 0 });
+
+  // ─── Track which card is closest to viewport center ───
+  const activeIndexRef = useRef(0);
+  const trackingTimerRef = useRef(null);
+
+  const trackActiveCard = useCallback(() => {
+    if (!containerRef.current || !cardRefs.current.length || items.length === 0) return;
+    const viewRect = containerRef.current.getBoundingClientRect();
+    const viewCenter = viewRect.left + viewRect.width / 2;
+
+    let closestIdx = 0;
+    let closestDist = Infinity;
+
+    cardRefs.current.forEach((el, idx) => {
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      const cardCenter = rect.left + rect.width / 2;
+      const dist = Math.abs(viewCenter - cardCenter);
+      if (dist < closestDist) {
+        closestDist = dist;
+        closestIdx = idx;
+      }
+    });
+
+    // Map back to original items index (loopItems is items.concat(items))
+    const realIdx = closestIdx % items.length;
+    if (realIdx !== activeIndexRef.current) {
+      activeIndexRef.current = realIdx;
+      onActiveIndexChange?.(realIdx);
+    }
+  }, [items.length, onActiveIndexChange]);
+
+  useEffect(() => {
+    // Poll for active card position
+    const interval = setInterval(trackActiveCard, 800);
+    return () => clearInterval(interval);
+  }, [trackActiveCard]);
+
+  // ─── Expose goToIndex method to parent ───
+  useImperativeHandle(ref, () => ({
+    goToIndex: (targetIdx) => {
+      if (!containerRef.current || items.length === 0) return;
+      const cardEl = cardRefs.current[targetIdx];
+      if (!cardEl) return;
+
+      // Pause the animation
+      setIsPaused(true);
+
+      // Center the target card
+      centerCard(cardEl, containerRef.current, hoverX);
+
+      // Update active index
+      activeIndexRef.current = targetIdx;
+      onActiveIndexChange?.(targetIdx);
+    },
+  }), [items.length, onActiveIndexChange, hoverX]);
 
   useEffect(() => {
     setDirectionVar();
@@ -245,6 +302,8 @@ const InfiniteMovingCards = ({
       <TestimonialModal item={activeItem} onClose={closeModal} />
     </>
   );
-};
+});
+
+InfiniteMovingCards.displayName = "InfiniteMovingCards";
 
 export default InfiniteMovingCards;
