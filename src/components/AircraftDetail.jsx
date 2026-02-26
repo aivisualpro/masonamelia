@@ -61,6 +61,11 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
   // ─── Transition state for Next button animation ───
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // ─── Map zoom level ───
+  const [mapZoom, setMapZoom] = useState(12);
+  const handleZoomIn = () => setMapZoom((z) => Math.min(z + 1, 20));
+  const handleZoomOut = () => setMapZoom((z) => Math.max(z - 1, 3));
+
   // ─── Navigate back to showroom preserving filters ───
   const handleBack = useCallback(() => {
     // Save the current aircraft id so the listing can highlight it
@@ -340,8 +345,8 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                       <button
                         onClick={() => setShowVideo(true)}
                         className={`w-full md:mb-0 mb-4 transition-all duration-300 flex items-center justify-center gap-2 text-white py-3 px-4 rounded-[30px] text-sm md:text-lg font-semibold ${showVideo
-                            ? "bg-[#1777cb] hover:bg-[#1777cb]/80"
-                            : "bg-[#22242e] hover:bg-[#22242e]/80"
+                          ? "bg-[#1777cb] hover:bg-[#1777cb]/80"
+                          : "bg-[#22242e] hover:bg-[#22242e]/80"
                           }`}
                       >
                         <FaRegCirclePlay size={media ? 18 : 22} />
@@ -449,12 +454,19 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   </div>
                 </div>
 
-                <div className="rounded-lg overflow-hidden">
+                <div className="rounded-lg overflow-hidden relative">
                   <iframe
-                    src={`https://maps.google.com/maps?q=${encodeURIComponent(aircraft?.location || 'San Antonio, TX, USA')}&z=12&output=embed`}
+                    src={`https://maps.google.com/maps?q=${encodeURIComponent(aircraft?.location || 'San Antonio, TX, USA')}&z=${mapZoom}&output=embed`}
                     className="w-full h-[180px] rounded"
                     style={{ filter: "invert(1) hue-rotate(180deg) brightness(0.95) contrast(1.2) saturate(0.3)" }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
                   />
+                  <div className="absolute bottom-3 right-3 flex flex-col gap-1 z-10">
+                    <button onClick={handleZoomIn} className="w-7 h-7 bg-[#22242e] hover:bg-[#2a2d38] text-white rounded flex items-center justify-center text-lg font-bold shadow-lg transition-colors duration-200 border border-white/10">+</button>
+                    <button onClick={handleZoomOut} className="w-7 h-7 bg-[#22242e] hover:bg-[#2a2d38] text-white rounded flex items-center justify-center text-lg font-bold shadow-lg transition-colors duration-200 border border-white/10">−</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -588,8 +600,8 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                         <button
                           onClick={() => setShowVideo(true)}
                           className={`w-full md:mb-0 mb-4 transition-all duration-300 flex items-center justify-center gap-2 text-white py-3 px-4 rounded-[30px] text-sm md:text-lg font-semibold ${showVideo
-                              ? "bg-[#1777cb] hover:bg-[#1777cb]/80"
-                              : "bg-[#22242e] hover:bg-[#22242e]/80"
+                            ? "bg-[#1777cb] hover:bg-[#1777cb]/80"
+                            : "bg-[#22242e] hover:bg-[#22242e]/80"
                             }`}
                         >
                           <FaRegCirclePlay size={media ? 18 : 22} />
@@ -700,12 +712,19 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   </div>
 
                   {/* 3D Map Container */}
-                  <div className="p-1 rounded-2xl bg-gradient-to-br from-[#1b1d25] to-[#111218] border border-white/5 shadow-[5px_5px_15px_rgba(0,0,0,0.5),-2px_-2px_10px_rgba(255,255,255,0.02)] overflow-hidden">
+                  <div className="p-1 rounded-2xl bg-gradient-to-br from-[#1b1d25] to-[#111218] border border-white/5 shadow-[5px_5px_15px_rgba(0,0,0,0.5),-2px_-2px_10px_rgba(255,255,255,0.02)] overflow-hidden relative">
                     <iframe
-                      src={`https://maps.google.com/maps?q=${encodeURIComponent(aircraft?.location || 'San Antonio, TX, USA')}&z=12&output=embed`}
+                      src={`https://maps.google.com/maps?q=${encodeURIComponent(aircraft?.location || 'San Antonio, TX, USA')}&z=${mapZoom}&output=embed`}
                       className="w-full h-[165px] rounded-xl"
                       style={{ filter: "invert(1) hue-rotate(180deg) brightness(0.95) contrast(1.2) saturate(0.3)" }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
                     />
+                    <div className="absolute bottom-3 right-3 flex flex-col gap-1 z-10">
+                      <button onClick={handleZoomIn} className="w-7 h-7 bg-[#22242e] hover:bg-[#2a2d38] text-white rounded flex items-center justify-center text-lg font-bold shadow-lg transition-colors duration-200 border border-white/10">+</button>
+                      <button onClick={handleZoomOut} className="w-7 h-7 bg-[#22242e] hover:bg-[#2a2d38] text-white rounded flex items-center justify-center text-lg font-bold shadow-lg transition-colors duration-200 border border-white/10">−</button>
+                    </div>
                   </div>
                 </div>
               </div>
