@@ -55,7 +55,7 @@ const Team = ({ teamRef }) => {
   );
 
   // Add Brandi if not present
-  if (!allTeam.find(m => m.name === "Brandi Martinez")) {
+  if (allTeam.length > 0 && !allTeam.find(m => m.name === "Brandi Martinez")) {
     allTeam.push(brandi);
   }
 
