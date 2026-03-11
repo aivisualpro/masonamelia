@@ -458,7 +458,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   <iframe
                     src={`https://maps.google.com/maps?q=${encodeURIComponent(aircraft?.location || 'San Antonio, TX, USA')}&z=${mapZoom}&output=embed`}
                     className="w-full h-[180px] rounded"
-                    style={{ filter: "invert(1) hue-rotate(180deg)" }}
+                    style={{ filter: "grayscale(1) invert(0.92) brightness(1.1) contrast(0.85)" }}
                     allowFullScreen
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
@@ -716,7 +716,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                     <iframe
                       src={`https://maps.google.com/maps?q=${encodeURIComponent(aircraft?.location || 'San Antonio, TX, USA')}&z=${mapZoom}&output=embed`}
                       className="w-full h-[165px] rounded-xl"
-                      style={{ filter: "invert(1) hue-rotate(180deg)" }}
+                      style={{ filter: "grayscale(1) invert(0.92) brightness(1.1) contrast(0.85)" }}
                       allowFullScreen
                       loading="lazy"
                       referrerPolicy="no-referrer-when-downgrade"
