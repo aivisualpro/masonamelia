@@ -109,6 +109,7 @@ const GlassNavbar = () => {
 
                 <li onMouseEnter={() => openDropdown("services")}>
                   <Link
+                    to="/acquisition"
                     className={`${
                       location.pathname === "/acquisition" || location.pathname === "/brokerage"
                         ? "text-tertiary_color"
