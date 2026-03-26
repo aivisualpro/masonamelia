@@ -434,7 +434,11 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                           className="mr-2 bg-tertiary_color p-[6px] rounded-full"
                           size={28}
                         />
-                        {aircraft?.contactAgent?.email || "—"}
+                        {aircraft?.contactAgent?.email ? (
+                          <a href={`mailto:${aircraft.contactAgent.email}?subject=${encodeURIComponent(aircraft?.title || '')}`} className="hover:text-tertiary_color transition-colors">
+                            {aircraft.contactAgent.email}
+                          </a>
+                        ) : "—"}
                       </p>
                       <p className="text-base mb-3 text-white flex items-center">
                         <FaPhone
@@ -688,7 +692,11 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                             className="mr-2 bg-tertiary_color p-[4px] rounded-full"
                             size={22}
                           />
-                          {aircraft?.contactAgent?.email || "—"}
+                          {aircraft?.contactAgent?.email ? (
+                            <a href={`mailto:${aircraft.contactAgent.email}?subject=${encodeURIComponent(aircraft?.title || '')}`} className="hover:text-tertiary_color transition-colors">
+                              {aircraft.contactAgent.email}
+                            </a>
+                          ) : "—"}
                         </p>
                         <p className="text-sm text-white flex items-center">
                           <FaPhone
