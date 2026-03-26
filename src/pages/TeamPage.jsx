@@ -137,9 +137,8 @@ const TeamPage = () => {
           </div>
         </section>
 
-        {/* Team Grid Section */}
         <section className="relative z-[10] -mt-20">
-          <Team teamRef={teamSectionRef} />
+          <Team teamRef={teamSectionRef} hideSocials={true} />
         </section>
 
         <div className="bg-[#0c0d12]">

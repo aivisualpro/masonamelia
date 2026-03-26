@@ -16,7 +16,7 @@ const staticTeam = [
   /* ... same as before ... */
 ];
 
-const Team = ({ teamRef }) => {
+const Team = ({ teamRef, hideSocials = false }) => {
   const navigate = useNavigate();
 
   // make sure we don't shadow the staticTeam
@@ -129,28 +129,30 @@ const Team = ({ teamRef }) => {
                         </h4>
                         <p className="text-sm text-gray-400">{member?.address}</p>
                         <div className="py-4 social-icons flex flex-col items-center gap-2 justify-center">
-                          <div className="flex items-center gap-4 justify-center">
-                            {member?.facebook && (
-                              <a href={member?.facebook} target="_blank">
-                                <FaFacebook className="hover:text-[#0866ff] text-xl transition cursor-pointer" />
-                              </a>
-                            )}
-                            {member?.twitter && (
-                              <a href={member?.twitter} target="_blank">
-                                <FaYoutube className="hover:text-[#ff0000] text-xl transition cursor-pointer" />
-                              </a>
-                            )}
-                            {member?.instagram && (
-                              <a href={member?.instagram} target="_blank">
-                                <FaInstagram className="hover:text-[#c3407b] text-xl transition cursor-pointer" />
-                              </a>
-                            )}
-                            {member?.linkedin && (
-                              <a href={member?.linkedin} target="_blank">
-                                <FaLinkedin className="hover:text-[#0a66c2] text-xl transition cursor-pointer" />
-                              </a>
-                            )}
-                          </div>
+                          {!hideSocials && (
+                            <div className="flex items-center gap-4 justify-center">
+                              {member?.facebook && (
+                                <a href={member?.facebook} target="_blank">
+                                  <FaFacebook className="hover:text-[#0866ff] text-xl transition cursor-pointer" />
+                                </a>
+                              )}
+                              {member?.twitter && (
+                                <a href={member?.twitter} target="_blank">
+                                  <FaYoutube className="hover:text-[#ff0000] text-xl transition cursor-pointer" />
+                                </a>
+                              )}
+                              {member?.instagram && (
+                                <a href={member?.instagram} target="_blank">
+                                  <FaInstagram className="hover:text-[#c3407b] text-xl transition cursor-pointer" />
+                                </a>
+                              )}
+                              {member?.linkedin && (
+                                <a href={member?.linkedin} target="_blank">
+                                  <FaLinkedin className="hover:text-[#0a66c2] text-xl transition cursor-pointer" />
+                                </a>
+                              )}
+                            </div>
+                          )}
                           
                           {/* Reveal on hover */}
                           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center gap-1 mt-2">
