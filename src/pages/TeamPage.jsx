@@ -100,19 +100,15 @@ const TeamPage = () => {
               backgroundImage: `url(${bgPlane})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
-              filter: "brightness(0.5) contrast(1.1)",
+              backgroundRepeat: "no-repeat",
             }}
           />
           
-          {/* Multi-layered Premium Overlay */}
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black/70 via-black/20 to-[#0c0d12] z-[1]"></div>
-          <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.5)_100%)] z-[1]"></div>
-          <div className="absolute inset-0 bg-tertiary_color/5 mix-blend-color z-[1]"></div>
+          {/* Dark Overlay matching Contact Page */}
+          <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-95 z-[1]"></div>
           
-          {/* Scanline Effect */}
-          <div className="absolute inset-0 pointer-events-none z-[1] opacity-[0.03]" 
-               style={{ backgroundImage: 'linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06))', backgroundSize: '100% 2px, 3px 100%' }}>
-          </div>
+          {/* Bottom Fade to blend securely into the page body */}
+          <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#0c0d12] to-transparent z-[2]"></div>
 
           <Navbar />
 
