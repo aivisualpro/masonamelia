@@ -67,6 +67,22 @@ export default function FilterCheckboxList({
   // ▼ Mobile-only dropdown state for Aircraft group
   const [aircraftOpen, setAircraftOpen] = useState(false);
 
+  // Sort aircraftOptions so "Other" is at the bottom
+  const sortedAircrafts = useMemo(() => {
+    if (!aircraftOptions) return [];
+    
+    // Copy options to avoid mutating React Query data
+    return [...aircraftOptions].sort((a, b) => {
+      const aName = (typeof a === 'object' ? (a.name || a.slug || '') : String(a)).toLowerCase();
+      const bName = (typeof b === 'object' ? (b.name || b.slug || '') : String(b)).toLowerCase();
+      
+      if (aName === 'other') return 1;
+      if (bName === 'other') return -1;
+      
+      return aName.localeCompare(bName);
+    });
+  }, [aircraftOptions]);
+
   return (
     <div className="p-6 rounded-2xl border border-[#ffffff48]">
 
@@ -127,7 +143,7 @@ export default function FilterCheckboxList({
               {/* Pass empty title so CheckBoxGroup doesn't render its own header on mobile */}
               <CheckBoxGroup
                 title=""
-                items={aircraftOptions}
+                items={sortedAircrafts}
                 selected={selected}
                 onChange={toggleAircraft}
               />
@@ -140,7 +156,7 @@ export default function FilterCheckboxList({
       <div className="hidden md:block">
         <CheckBoxGroup
           title="Aircraft"
-          items={aircraftOptions}
+          items={sortedAircrafts}
           selected={selected}
           onChange={toggleAircraft}
         />
