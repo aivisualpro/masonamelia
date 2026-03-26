@@ -39,7 +39,7 @@ export default function Listing({ autoScrollEnabled = true, q = "", initialFilte
   const queryClient = useQueryClient();
 
   // ui
-  const [filterOpen, setFilterOpen] = useState(initialFilters?.filterOpen ?? false);
+  const [filterOpen, setFilterOpen] = useState(initialFilters?.filterOpen ?? true);
   const [isOpen, setIsOpen] = useState(false);
 
   // ─── Highlight card when returning from detail page ───
