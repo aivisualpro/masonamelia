@@ -498,36 +498,35 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
             <div className="container px-5">
               {/* Desktop Header Row - Back Ribbon | Title | Next Ribbon | Status Tag */}
-              <div className="hidden md:flex items-center gap-4 mb-6">
+              <div className="hidden md:flex items-center gap-3 mb-6">
                 {/* Back Ribbon Button */}
-                <button onClick={handleBack} className="flex-shrink-0 group/back mr-1">
+                <button onClick={handleBack} className="flex-shrink-0 group/back">
                   <div className="flex items-center">
                     <div
                       className="tag-left-arrow transition-all duration-300"
                       style={{ borderRight: "16px solid #22242e" }}
                     />
-                    <div className="flex items-center gap-2 px-4 py-2 bg-[#22242e] text-white text-sm font-semibold hover:bg-[#2a2d38] transition-all duration-300 rounded-r shadow-[0_4px_10px_rgba(0,0,0,0.15)] group-hover/back:shadow-[0_0_15px_rgba(23,119,203,0.4)]">
-                      <IoIosArrowBack size={18} className="transition-transform duration-300 group-hover/back:-translate-x-0.5 text-[#1777cb]" />
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 bg-[#22242e] text-white text-[13px] font-semibold hover:bg-[#2a2d38] transition-all duration-300 group-hover/back:shadow-[0_0_15px_rgba(23,119,203,0.3)]">
+                      <IoIosArrowBack size={15} className="transition-transform duration-300 group-hover/back:-translate-x-0.5 text-[#1777cb]" />
                       <span>Back</span>
                     </div>
                   </div>
                 </button>
 
                 {/* Unified Previous / Next Controls */}
-                <div className="flex items-center bg-[#22242e] rounded-full p-1 shadow-[0_4px_15px_rgba(0,0,0,0.2)] border border-white/5 mr-2">
-                  <button onClick={handlePrev} disabled={isTransitioning} className="group/prev flex items-center gap-2 px-4 py-1.5 rounded-full text-white text-sm font-semibold hover:bg-[#1777cb] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
-                    <IoIosArrowBack size={18} className="transition-transform duration-300 group-hover/prev:-translate-x-0.5" />
+                <div className="flex items-center flex-shrink-0 bg-[#22242e] rounded shadow-[0_2px_10px_rgba(0,0,0,0.2)] border border-white/5">
+                  <button onClick={handlePrev} disabled={isTransitioning} className="group/prev flex items-center gap-1.5 px-3 py-1.5 text-white/90 text-[13px] font-semibold hover:text-white hover:bg-[#2a2d38] transition-all duration-300 rounded-l disabled:opacity-50 disabled:cursor-not-allowed border-r border-[#3a3d4a]">
+                    <IoIosArrowBack size={15} className="transition-transform duration-300 group-hover/prev:-translate-x-0.5" />
                     <span>Previous</span>
                   </button>
-                  <div className="w-[1px] h-4 bg-white/10 mx-1"></div>
-                  <button onClick={handleNext} disabled={isTransitioning} className="group/next flex items-center gap-2 px-4 py-1.5 rounded-full text-white text-sm font-semibold hover:bg-[#1777cb] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                  <button onClick={handleNext} disabled={isTransitioning} className="group/next flex items-center gap-1.5 px-3 py-1.5 text-white/90 text-[13px] font-semibold hover:text-white hover:bg-[#2a2d38] transition-all duration-300 rounded-r disabled:opacity-50 disabled:cursor-not-allowed">
                     <span>Next</span>
-                    <IoIosArrowForward size={18} className="transition-transform duration-300 group-hover/next:translate-x-0.5" />
+                    <IoIosArrowForward size={15} className="transition-transform duration-300 group-hover/next:translate-x-0.5" />
                   </button>
                 </div>
 
                 {/* Title - Takes remaining space */}
-                <h1 className="flex-1 text-[1.5rem] md:text-[2rem] xl:text-[2.5rem] 2xl:text-[3rem] leading-none font-bold text-white truncate">
+                <h1 className="flex-1 text-[1.4rem] md:text-[1.8rem] xl:text-[2.2rem] 2xl:text-[2.6rem] leading-none font-bold text-white truncate px-2">
                   {aircraft?.title}
                 </h1>
 
