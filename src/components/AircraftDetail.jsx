@@ -96,6 +96,29 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
     } catch { }
   }, [id, navigate, isTransitioning]);
 
+  // ─── Navigate to Previous aircraft in filtered list ───
+  const handlePrev = useCallback(() => {
+    if (isTransitioning) return;
+    try {
+      const stored = sessionStorage.getItem('showroom_aircraft_ids');
+      if (!stored) return;
+      const ids = JSON.parse(stored);
+      if (!Array.isArray(ids) || ids.length === 0) return;
+
+      const currentIdx = ids.indexOf(id);
+      const prevIdx = currentIdx === -1 ? 0 : (currentIdx - 1 + ids.length) % ids.length;
+      const prevId = ids[prevIdx];
+
+      if (prevId && prevId !== id) {
+        setIsTransitioning(true);
+        navigate(`/showroom/${prevId}`);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Reset after animation completes
+        setTimeout(() => setIsTransitioning(false), 600);
+      }
+    } catch { }
+  }, [id, navigate, isTransitioning]);
+
   // ---- Fetch detail ----
   useEffect(() => {
     const ac = new AbortController();
@@ -251,20 +274,22 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
             id="showroom"
             className="pb-20 pt-[98px] md:pb-20 md:pt-[calc(110px+76px)]"
           >
-            <div className="md:hidden flex items-center justify-between bg-[#1777cb] px-2">
-              <button onClick={handleBack} className="flex-shrink-0">
-                <div className="showroom-redirect-icon flex items-center">
-                  <IoIosArrowBack size={16} color="white" />
-                </div>
+            <div className="md:hidden flex items-center justify-between bg-[#1777cb] px-3 py-2 shadow-md">
+              <button onClick={handleBack} className="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-black/10 rounded-full hover:bg-black/20 transition-all">
+                <IoIosArrowBack size={16} color="white" />
               </button>
-              <h1 className="text-base md:text-3xl mx-auto font-bold mt-2 mb-2 lg:mt-0 lg:mb-8 text-white">
+              <h1 className="text-sm font-bold text-white truncate max-w-[180px] text-center mx-2">
                 {aircraft?.title}
               </h1>
-              <button onClick={handleNext} className="flex-shrink-0" disabled={isTransitioning}>
-                <div className="showroom-redirect-icon flex items-center">
+              <div className="flex-shrink-0 flex items-center bg-black/10 rounded-full p-1 gap-1">
+                <button onClick={handlePrev} disabled={isTransitioning} className="p-1 rounded-full hover:bg-black/20 transition-all disabled:opacity-50">
+                  <IoIosArrowBack size={16} color="white" />
+                </button>
+                <div className="w-[1px] h-3 bg-white/20"></div>
+                <button onClick={handleNext} disabled={isTransitioning} className="p-1 rounded-full hover:bg-black/20 transition-all disabled:opacity-50">
                   <IoIosArrowForward size={16} color="white" />
-                </div>
-              </button>
+                </button>
+              </div>
             </div>
 
             <div className="md:hidden flex flex-col gap-4">
@@ -475,32 +500,31 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
               {/* Desktop Header Row - Back Ribbon | Title | Next Ribbon | Status Tag */}
               <div className="hidden md:flex items-center gap-4 mb-6">
                 {/* Back Ribbon Button */}
-                <button onClick={handleBack} className="flex-shrink-0 group/back">
+                <button onClick={handleBack} className="flex-shrink-0 group/back mr-1">
                   <div className="flex items-center">
                     <div
                       className="tag-left-arrow transition-all duration-300"
                       style={{ borderRight: "16px solid #22242e" }}
                     />
-                    <div className="flex items-center gap-2 px-4 py-2 bg-[#22242e] text-white text-sm font-semibold hover:bg-[#2a2d38] transition-all duration-300 group-hover/back:shadow-[0_0_20px_rgba(23,119,203,0.3)]">
-                      <IoIosArrowBack size={18} className="transition-transform duration-300 group-hover/back:-translate-x-0.5" />
+                    <div className="flex items-center gap-2 px-4 py-2 bg-[#22242e] text-white text-sm font-semibold hover:bg-[#2a2d38] transition-all duration-300 rounded-r shadow-[0_4px_10px_rgba(0,0,0,0.15)] group-hover/back:shadow-[0_0_15px_rgba(23,119,203,0.4)]">
+                      <IoIosArrowBack size={18} className="transition-transform duration-300 group-hover/back:-translate-x-0.5 text-[#1777cb]" />
                       <span>Back</span>
                     </div>
                   </div>
                 </button>
 
-                {/* Next Ribbon Button */}
-                <button onClick={handleNext} disabled={isTransitioning} className="flex-shrink-0 group/next">
-                  <div className="flex items-center">
-                    <div className="flex items-center gap-2 px-4 py-2 bg-[#22242e] text-white text-sm font-semibold hover:bg-[#2a2d38] transition-all duration-300 group-hover/next:shadow-[0_0_20px_rgba(23,119,203,0.3)]">
-                      <span>Next</span>
-                      <IoIosArrowForward size={18} className="transition-transform duration-300 group-hover/next:translate-x-0.5" />
-                    </div>
-                    <div
-                      className="tag-right-arrow transition-all duration-300"
-                      style={{ borderLeft: "16px solid #22242e" }}
-                    />
-                  </div>
-                </button>
+                {/* Unified Previous / Next Controls */}
+                <div className="flex items-center bg-[#22242e] rounded-full p-1 shadow-[0_4px_15px_rgba(0,0,0,0.2)] border border-white/5 mr-2">
+                  <button onClick={handlePrev} disabled={isTransitioning} className="group/prev flex items-center gap-2 px-4 py-1.5 rounded-full text-white text-sm font-semibold hover:bg-[#1777cb] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <IoIosArrowBack size={18} className="transition-transform duration-300 group-hover/prev:-translate-x-0.5" />
+                    <span>Previous</span>
+                  </button>
+                  <div className="w-[1px] h-4 bg-white/10 mx-1"></div>
+                  <button onClick={handleNext} disabled={isTransitioning} className="group/next flex items-center gap-2 px-4 py-1.5 rounded-full text-white text-sm font-semibold hover:bg-[#1777cb] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span>Next</span>
+                    <IoIosArrowForward size={18} className="transition-transform duration-300 group-hover/next:translate-x-0.5" />
+                  </button>
+                </div>
 
                 {/* Title - Takes remaining space */}
                 <h1 className="flex-1 text-[1.5rem] md:text-[2rem] xl:text-[2.5rem] 2xl:text-[3rem] leading-none font-bold text-white truncate">
