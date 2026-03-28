@@ -208,19 +208,26 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
   // ---- Tabs from backend sections ----
   const sections = aircraft?.description?.sections || {};
-  const tabs = useMemo(
-    () =>
-      Object.keys(sections).map((k) => ({
+  const tabs = useMemo(() => {
+    // Exclude 'general' (or 'General') from the dynamic list so we don't duplicate it
+    const otherTabs = Object.keys(sections)
+      .filter((k) => k.toLowerCase() !== "general")
+      .map((k) => ({
         name: titleCase(k),
         slug: k,
-      })),
-    [sections]
-  );
+      }));
 
-  const [activeTab, setActiveTab] = useState(tabs?.[0]?.slug || "airframe");
+    // Prepend 'General' so it always safely appears before Airframe and others
+    return [
+      { name: "General", slug: "general" },
+      ...otherTabs,
+    ];
+  }, [sections]);
+
+  const [activeTab, setActiveTab] = useState(tabs?.[0]?.slug || "general");
   useEffect(() => {
     // default to first available section when data changes
-    setActiveTab(tabs?.[0]?.slug || "airframe");
+    setActiveTab(tabs?.[0]?.slug || "general");
   }, [tabs]);
 
   const activeItems = useMemo(() => {
