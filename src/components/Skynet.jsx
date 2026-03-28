@@ -8,15 +8,15 @@ const Skynet = ({ banner }) => {
   const media = useMediaQuery("(max-width: 767px)");
 
   return (
-    <div className="lg:h-[400px] md:h-[100vh]">
+    <div className="lg:h-[400px] md:h-[100vh] min-h-[450px]">
       {/* Background Image Right Side */}
-      <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0">
+      <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0">
         <img src={banner} className="w-full h-full object-cover" alt="" />
       </div>
 
-      <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/60"></div>
+      <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0 bg-black/60"></div>
 
-      <div className="px-8 container pt-[32px] pb-[32px] md:pt-[50px] md:h-screen flex flex-col justify-center h-full ">
+      <div className="px-8 container pt-[132px] pb-[32px] md:pt-[50px] md:h-screen flex flex-col justify-start md:justify-center h-full ">
         <motion.h1
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}

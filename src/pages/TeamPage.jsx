@@ -93,7 +93,7 @@ const TeamPage = () => {
     <>
       <div className="relative z-[10] bg-[#0c0d12]">
         {/* Dynamic Hero Section */}
-        <section className="relative w-full min-h-[70vh] flex flex-col items-center justify-center overflow-hidden">
+        <section className="relative w-full min-h-[70vh] flex flex-col items-center md:justify-center justify-start overflow-hidden">
           {/* Background with subtle parallax/zoom effect */}
           <div 
             className="absolute top-0 left-0 w-full h-full z-0"
@@ -113,13 +113,13 @@ const TeamPage = () => {
 
           <Navbar />
 
-          <div className="container relative z-[10] px-5 text-center mt-20">
+          <div className="container relative z-[10] px-5 text-center pt-[132px] pb-[32px] md:mt-20">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h1 className="text-white text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold tracking-tight mb-6 mt-20" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+              <h1 className="text-white text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold tracking-tight mb-6 md:mt-20" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
                 <span className="text-[#268AE0]">
                   Meet the Team
                 </span>

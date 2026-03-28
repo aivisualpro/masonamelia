@@ -10,8 +10,8 @@ const AboutHeader = () => {
 
   return (
     // Wrap hero in a relative section so overlay sit kare
-    <section className="relative lg:h-[100vh] h-full lg:pt-[50px] md:pt-0 md:h-[700px] pt-[200px]">
-      <div className={`relative z-10 px-5 pb-4 container flex flex-col justify-end lg:justify-center h-full lg:items-start items-center`}>
+    <section className="relative lg:h-[100vh] h-full lg:pt-[50px] md:pt-0 md:h-[700px]">
+      <div className={`relative z-10 px-5 pt-[132px] pb-[32px] lg:pb-4 container flex flex-col justify-start lg:justify-center h-full lg:items-start items-center`}>
         <motion.h1
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}

@@ -7,16 +7,16 @@ const Higher = ({ banner, bannerTwo }) => {
   const media = useMediaQuery("(max-width: 767px)");
 
   return (
-    <div className="flex items-center md:h-screen h-[280px]">
+    <div className="flex items-center md:h-screen min-h-[450px]">
       {/* Overlay card */}
 
-      <div className="absolute md:hidden block w-full  z-[-1] top-0 left-0">
-        <img src={banner} className="w-full h-full object-contain" alt="" />
+      <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0">
+        <img src={banner} className="w-full h-full object-cover" alt="" />
       </div>
 
-      <div className="absolute md:hidden block w-full h-[280px] z-[-1] top-0 left-0 bg-black/60"></div>
+      <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0 bg-black/60"></div>
 
-      <div className="pt-[32px] pb-[32px] md:pb-0 md:pt-[50px] px-2 text-white text-start h-full flex flex-col md:justify-center justify-end">
+      <div className="pt-[132px] pb-[32px] md:pb-0 md:pt-[50px] px-2 text-white text-start h-full flex flex-col md:justify-center justify-start">
         <motion.h2
           initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -109,7 +109,7 @@ const HigherPage = () => {
       {/* HERO / FIRST SECTION */}
       <section
         ref={bannerRef}
-        className="mt-[100px] md:mt-0 md:sticky top-0 w-full bg-cover h-full relative md:h-screen bg-center z-[0] overflow-hidden"
+        className="mt-0 md:sticky top-0 w-full bg-cover h-full relative md:h-screen bg-center z-[0] overflow-hidden"
         style={{
           backgroundImage: media ? "" : `linear-gradient(to right, rgb(21, 22, 28, ${
             media ? ".5" : "1"

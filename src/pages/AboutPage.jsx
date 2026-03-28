@@ -105,7 +105,7 @@ const AboutPage = () => {
       {/* HERO / FIRST SECTION */}
       <section
         ref={bannerRef}
-        className="relative md:max-w-screen lg:h-screen bg-[#10121A] overflow-hidden md:mt-0 mt-[100px]"
+        className="relative md:max-w-screen lg:h-screen bg-[#10121A] overflow-hidden mt-0"
         style={{
           backgroundImage: `url(${media ? bgPlaneTeam : bgPlane})`,
           backgroundSize: media ? "cover" : "cover",
