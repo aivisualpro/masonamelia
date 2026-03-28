@@ -215,9 +215,7 @@ const Contact = () => {
               onSubmit={handleSubmit}
             >
               <div className="md:col-span-2">
-                <label className="text-sm text-white mb-2 inline-block">
-                  Name:
-                </label>
+
                 <input
                   type="text"
                   required
@@ -231,9 +229,7 @@ const Contact = () => {
               </div>
 
               <div className="md:col-span-2">
-                <label className="text-sm text-white mb-2 inline-block">
-                  Phone:
-                </label>
+
                 <input
                   type="tel"
                   className="w-full p-3 text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
@@ -246,9 +242,7 @@ const Contact = () => {
               </div>
 
               <div className="md:col-span-2">
-                <label className="text-sm text-white mb-2 inline-block">
-                  Email:
-                </label>
+
                 <input
                   type="email"
                   required
@@ -262,9 +256,7 @@ const Contact = () => {
               </div>
 
               <div className="md:col-span-2">
-                <label className="text-sm text-white mb-2 inline-block">
-                  Subject:
-                </label>
+
                 <input
                   type="text"
                   className="w-full p-3 text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
@@ -277,9 +269,7 @@ const Contact = () => {
               </div>
 
               <div className="md:col-span-2">
-                <label className="text-sm text-white mb-2 inline-block">
-                  Message:
-                </label>
+
                 <textarea
                   required
                   className="w-full p-3 text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
