@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { useLocation } from "react-router-dom";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Listing from "../components/Listing";
 import Banner from "../components/Banner";
 import CTA from "../components/CTA";
@@ -60,6 +61,7 @@ const ShowroomPage = () => {
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(false);
   const [cancelAuto, setCancelAuto] = useState(isReturning); // skip auto-scroll if returning
   const listingRef = useRef(null);
+  const media = useMediaQuery("(max-width: 767px)");
 
   const isNearTop = () => (window.scrollY || 0) <= 5;
 
@@ -135,9 +137,9 @@ const ShowroomPage = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // arrow at 3s, auto-scroll at 5s (unless cancelled / returning)
+  // arrow at 3s, auto-scroll at 5s (unless cancelled / returning / mobile)
   useEffect(() => {
-    if (isReturning) return; // skip auto-scroll when returning from detail
+    if (isReturning || media) return; // skip auto-scroll when returning from detail or on mobile
 
     let arrowTimer, scrollTimer;
 

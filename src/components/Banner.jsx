@@ -21,7 +21,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
           backgroundPosition: "bottom right",
         }}
       >
-        {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
+        {showArrow && !media && <BlinkingArrow onClick={handleArrowClick} />}
         {/* <div className="overlay bg-black opacity-60 absolute top-0 left-0 w-full h-full z-[-1]"></div> */}
 
         <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0">
@@ -52,7 +52,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
               isTextCenter={media ? true : false}
               speed={5}
               className="custom-class text-sm md:text-xl py-4 md:max-w-md lg:max-w-lg xl:max-w-xl"
-              color="md:text-[#b5b5b5a4] text-white"
+              color="md:text-[#b5b5b5a4] text-white/80"
             />{" "}
             <br />
           </div>
