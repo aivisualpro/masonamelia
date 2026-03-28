@@ -44,7 +44,11 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
               className="max-w-xl text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl leading-none font-bold text-white uppercase md:capitalize"
             />
             <ShinyText
-              text="We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators."
+              text={
+                media
+                  ? "Exclusive Collection of High-Performance Piston and Owner Flown Turbine Aircraft"
+                  : "We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators."
+              }
               disabled={false}
               isTextCenter={media ? true : false}
               speed={5}
