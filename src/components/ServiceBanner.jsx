@@ -38,11 +38,11 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
           backgroundAttachment: `${media ? "" : "fixed"}`,
         }}
       >
-        <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0">
+        <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0">
           <img src={bannerTwo} className="w-full h-full object-cover" alt="" />
         </div>
 
-        <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/60"></div>
+        <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0 bg-black/60"></div>
 
         <div className="px-5 z-[9] container flex flex-col pt-[132px] pb-[32px] md:pt-[50px] md:pb-0 md:justify-center md:h-screen md:items-start items-center">
           {media ? (
