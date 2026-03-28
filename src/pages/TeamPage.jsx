@@ -119,7 +119,7 @@ const TeamPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h1 className="text-white text-6xl md:text-8xl font-bold tracking-tight mb-6 mt-20" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+              <h1 className="text-white text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold tracking-tight mb-6 mt-20" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
                 <span className="text-[#268AE0]">
                   Meet the Team
                 </span>
