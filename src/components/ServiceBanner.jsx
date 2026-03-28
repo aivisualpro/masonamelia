@@ -1,6 +1,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import { useLocation } from "react-router-dom";
+import BlurText from "./ui/BlurText";
 import ShinyText from "./ui/ShinyText";
 import { motion } from "framer-motion";
 import useMediaQuery from "@mui/material/useMediaQuery";
@@ -44,22 +45,33 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
         <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/60"></div>
 
         <div className="px-5 z-[9] container flex flex-col pt-[132px] pb-[32px] md:pt-[50px] md:pb-0 md:justify-center md:h-screen md:items-start items-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ type: "spring", stiffness: 50, duration: 0.5 }}
-            className="md:text-start text-center text-white text-[1.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-[4rem] max-w-lg xl:max-w-2xl pb-4"
-            style={{ lineHeight: "1.1" }}
-          >
-            {location.pathname === "/brokerage"
-              ? "A Strategic, Hands-On Approach"
-              : "The Right Aircraft "}{" "}
-            <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+          {media ? (
+            <BlurText
+              text={location.pathname === "/brokerage" ? "BROKERAGE" : "ACQUISITION"}
+              highlightedText=""
+              delay={150}
+              animateBy="words"
+              direction="top"
+              className="max-w-xl text-[2.5rem] leading-none font-bold uppercase text-[#1777cb] text-center md:capitalize"
+            />
+          ) : (
+            <motion.h1
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 50, duration: 0.5 }}
+              className="md:text-start text-center text-white text-[1.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-[4rem] max-w-lg xl:max-w-2xl pb-4"
+              style={{ lineHeight: "1.1" }}
+            >
               {location.pathname === "/brokerage"
-                ? "to Selling Your Aircraft"
-                : "Changes Everything"}
-            </span>
-          </motion.h1>
+                ? "A Strategic, Hands-On Approach"
+                : "The Right Aircraft "}{" "}
+              <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                {location.pathname === "/brokerage"
+                  ? "to Selling Your Aircraft"
+                  : "Changes Everything"}
+              </span>
+            </motion.h1>
+          )}
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
@@ -74,14 +86,18 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
             <ShinyText
               isTextCenter={media ? true : false}
               text={
-                location.pathname === "/brokerage"
+                media
+                  ? location.pathname === "/brokerage"
+                    ? "A Strategic, Hands-On Approach to Selling Your Aircraft"
+                    : "The Right Aircraft Changes Everything"
+                  : location.pathname === "/brokerage"
                   ? "Your aircraft deserves to stand out. We highlight its strengths and handle every phase with intent, precision, and the relentless pursuit of perfection."
                   : "We take a consultative approach, learning your mission, analyzing the market, and guiding your acquisition from your first call to first flight."
               }
               disabled={false}
               speed={5}
-              className="text-sm md:text-xl"
-              color="md:text-[#b5b5b5a4] text-white"
+              className="text-sm md:text-xl py-4"
+              color="md:text-[#b5b5b5a4] text-white/80"
             />
           </motion.div>
         </div>
