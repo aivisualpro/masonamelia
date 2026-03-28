@@ -35,13 +35,13 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
           <div className="banner-content">
             {/* <h1 className="text-white text-6xl font-bold">Discover the Future of Flight</h1> */}
             <BlurText
-              text="Where Precision "
-              highlightedText=" Meets Passion"
+              text={media ? "SHOWROOM" : "Where Precision "}
+              highlightedText={media ? "" : " Meets Passion"}
               highlightedClassName="text-blue-500" // ya sky-500, etc.
               delay={150}
               animateBy="words"
               direction="top"
-              className="max-w-xl text-[1.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl leading-none font-bold text-white"
+              className="max-w-xl text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl leading-none font-bold text-white uppercase md:capitalize"
             />
             <ShinyText
               text="We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators."

@@ -124,9 +124,13 @@ const TeamPage = () => {
                 </span>
               </h1>
               
-              <div className="max-w-3xl mx-auto">
+              <div className="max-w-3xl mx-auto mt-4 px-4 md:px-0">
                 <ShinyText
-                  text="Meet the aviation experts and passionate professionals behind Mason Amelia. Our mission is to elevate your flight experience through transparency, expertise, and personalized service."
+                  text={
+                    media
+                      ? "Meet the aviation experts and passionate professionals behind Mason Amelia."
+                      : "Meet the aviation experts and passionate professionals behind Mason Amelia. Our mission is to elevate your flight experience through transparency, expertise, and personalized service."
+                  }
                   disabled={false}
                   speed={3}
                   className="text-lg md:text-xl font-light leading-relaxed"
