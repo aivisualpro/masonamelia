@@ -96,7 +96,7 @@ const TeamPage = () => {
         <section className="relative w-full h-auto md:min-h-[70vh] flex flex-col items-center md:justify-center justify-start overflow-hidden">
           {/* Background with subtle parallax/zoom effect */}
           <div 
-            className="absolute top-0 left-0 w-full h-full z-0"
+            className="absolute top-0 left-0 w-full h-[450px] md:h-full z-0"
             style={{
               backgroundImage: `url(${bgPlane})`,
               backgroundPosition: "center",
@@ -105,11 +105,11 @@ const TeamPage = () => {
             }}
           />
           
-          {/* Dark Overlay matching Contact Page */}
-          <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-95 z-[1]"></div>
+          {/* Dark Overlay matching Showroom on Mobile */}
+          <div className="absolute top-0 left-0 w-full h-[450px] md:h-full bg-black/60 md:bg-[#111218] md:opacity-95 z-[1]"></div>
           
           {/* Bottom Fade to blend securely into the page body */}
-          <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#0c0d12] to-transparent z-[2]"></div>
+          <div className="absolute bottom-0 left-0 w-full h-48 md:block hidden bg-gradient-to-t from-[#0c0d12] to-transparent z-[2]"></div>
 
           <Navbar />
 
