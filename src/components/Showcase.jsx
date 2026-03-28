@@ -35,8 +35,7 @@ const Showcase = () => {
           </video>
 
           <motion.h2
-            initial={{ opacity: 0, y: 60 }}
-            viewport={{ amount: 0.2, once: true }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
               type: "spring",
@@ -44,12 +43,11 @@ const Showcase = () => {
               duration: 0.5,
               delay: 0.6,
             }}
-            className={`z-[3] md:hidden block p-4 absolute bottom-10 w-full text-center text-white text-[1.4rem] font-extrabold capitalize leading-[1.2]`}
+            className={`z-[50] md:hidden block p-4 absolute bottom-[15%] w-full text-center text-white text-[1.4rem] font-extrabold capitalize leading-[1.2]`}
           >
             Turbulence-Free Transactions
             <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              viewport={{ amount: 0.2, once: true }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.9 }}
               className="flex justify-center mt-4"
