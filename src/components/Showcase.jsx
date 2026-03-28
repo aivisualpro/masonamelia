@@ -34,35 +34,25 @@ const Showcase = () => {
             <source src="/assets/file.mp4" type="video/mp4" />
           </video>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              type: "spring",
-              stiffness: 100,
-              duration: 0.5,
-              delay: 0.6,
-            }}
-            className={`z-[50] md:hidden block p-4 absolute bottom-[15%] w-full text-center text-white text-[1.4rem] font-extrabold capitalize leading-[1.2]`}
-          >
-            Turbulence-Free Transactions
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.9 }}
-              className="flex justify-center mt-4"
-            >
-              <Button
-                buttonLabel="Visit Showroom"
-                onClick="/showroom"
-                bgColor="fff"
-                arrowColor="#111218"
-                txtColor="text-[#111218]"
-                borderColor="border-gray-600"
-                fillColor="fill-gray-600"
-              />
-            </motion.div>
-          </motion.h2>
+          {/* Mobile Overlay Text & Button */}
+          <div className="absolute top-0 left-0 w-full h-full z-[60] md:hidden flex flex-col justify-end items-center pb-[3rem] pointer-events-none transform-gpu will-change-transform">
+            <div className="w-full text-center px-4 pointer-events-auto shadow-[0_0_1px_rgba(0,0,0,0)] transform-gpu">
+              <h2 className="text-white text-[1.4rem] font-extrabold capitalize leading-[1.2]">
+                Turbulence-Free Transactions
+              </h2>
+              <div className="flex justify-center mt-4">
+                <Button
+                  buttonLabel="Visit Showroom"
+                  onClick="/showroom"
+                  bgColor="fff"
+                  arrowColor="#111218"
+                  txtColor="text-[#111218]"
+                  borderColor="border-gray-600"
+                  fillColor="fill-gray-600"
+                />
+              </div>
+            </div>
+          </div>
 
         </div>
       </div>

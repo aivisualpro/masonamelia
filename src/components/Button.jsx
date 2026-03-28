@@ -6,21 +6,26 @@ export default function Button({
   onClick,
   isContact = false,
   bgColor = "fff",
-  arrowColor = "#fff",
+  arrowColor = "fff",
   txtColor = "text-[#111218]",
   borderColor = "border-gray-800",
   fillColor = "fill-gray-800"
 }) {
+  // Normalize colors for inline styles since dynamic tailwind classes like bg-[#${bgColor}] fail to compile
+  const hexBg = bgColor.startsWith("#") || bgColor === "transparent" ? bgColor : `#${bgColor}`;
+  const hexArrow = arrowColor.startsWith("#") ? arrowColor : `#${arrowColor}`;
+
   return (
-    
-    <Link to={onClick} className="z-[9999]">
+    <Link to={onClick} className="z-[9999] relative block isolate">
       <button
         type="submit"
-        className={`${txtColor} flex gap-2 items-center shadow-xl text-sm md:text-lg bg-[#${bgColor}] backdrop-blur-md lg:font-medium isolation-auto border-gray-50 before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-tertiary_color hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-3 md:px-4 py-1 md:py-2 overflow-hidden border-2 border-[${borderColor}] transition-all duration-700 hover:border-tertiary_color rounded-full group`}
+        className={`${txtColor} ${borderColor} flex gap-2 items-center shadow-xl text-sm md:text-lg lg:font-medium isolation-auto before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-tertiary_color hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-3 md:px-4 py-1 md:py-2 overflow-hidden border-2 transition-all duration-700 hover:border-tertiary_color rounded-full group bg-white/10`}
+        style={{ backgroundColor: hexBg !== '#transparent' ? hexBg : 'transparent' }}
       >
         {buttonLabel}
         <svg
-          className={`w-5 h-5 md:w-8 md:h-8 justify-end group-hover:rotate-90 border-[1px] ${borderColor} group-hover:bg-gray-50 text-${arrowColor} ease-linear duration-300 rounded-full border border-[${borderColor}] group-hover:border-none md:p-2 p-1 rotate-45`}
+          className={`w-5 h-5 md:w-8 md:h-8 justify-end group-hover:rotate-90 border-[1px] ${borderColor} group-hover:bg-gray-50 ease-linear duration-300 rounded-full group-hover:border-none md:p-2 p-1 rotate-45`}
+          style={{ color: hexArrow }}
           viewBox="0 0 16 19"
           xmlns="http://www.w3.org/2000/svg"
         >
