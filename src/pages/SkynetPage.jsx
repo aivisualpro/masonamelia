@@ -46,6 +46,7 @@ const SkynetPage = () => {
   };
 
   useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth <= 767) return;
     const onWheel = () => cancelAutoScroll();
     const onTouch = () => cancelAutoScroll();
     const onKey = () => cancelAutoScroll();
