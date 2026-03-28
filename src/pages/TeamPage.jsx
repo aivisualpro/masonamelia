@@ -93,7 +93,7 @@ const TeamPage = () => {
     <>
       <div className="relative z-[10] bg-[#0c0d12]">
         {/* Dynamic Hero Section */}
-        <section className="relative w-full min-h-[70vh] flex flex-col items-center md:justify-center justify-start overflow-hidden">
+        <section className="relative w-full h-auto md:min-h-[70vh] flex flex-col items-center md:justify-center justify-start overflow-hidden">
           {/* Background with subtle parallax/zoom effect */}
           <div 
             className="absolute top-0 left-0 w-full h-full z-0"
@@ -142,7 +142,7 @@ const TeamPage = () => {
           </div>
         </section>
 
-        <section className="relative z-[10] -mt-20">
+        <section className="relative z-[10] md:-mt-20 mt-0">
           <Team teamRef={teamSectionRef} hideSocials={true} />
         </section>
 
