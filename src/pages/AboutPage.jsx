@@ -113,7 +113,7 @@ const AboutPage = () => {
           backgroundRepeat: "no-repeat",
           backgroundAttachment: media ? "static" : "fixed",
           backgroundColor: "#10121A",
-          height: mobileMedia ? "450px" : media ? "700px" : "100vh",
+          height: mobileMedia ? "350px" : media ? "700px" : "100vh",
         }}
       >
         <div className="lg:hidden block absolute w-full h-full bg-black/60"></div>
