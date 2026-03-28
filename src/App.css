@@ -845,3 +845,13 @@ button:disabled {
   animation: cardHighlightRing 3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   border: 2px solid rgba(23, 119, 203, 0.5);
 }
+
+/* Global Link Styling */
+a {
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+a:not(.btn-main):not(.nav-item):not(.no-hover):hover {
+  color: #1777cb;
+}

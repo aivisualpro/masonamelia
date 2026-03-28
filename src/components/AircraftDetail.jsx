@@ -20,6 +20,7 @@ import DOMPurify from "dompurify";
 import { PuffLoader } from "react-spinners";
 import FullscreenSpinner from "./FullScreenSpinner";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { useTeam } from "../hooks/useTeamQuery";
 
 Modal.setAppElement("#root");
 
@@ -60,6 +61,19 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
   // ─── Transition state for Next button animation ───
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // ─── Fetch Team for Agent Bio Link ───
+  const { data: teamData = [] } = useTeam();
+  const agentId = useMemo(() => {
+    const name = aircraft?.contactAgent?.name;
+    if (!name) return null;
+    if (name === "Brandi Martinez") return "brandi-martinez";
+    const found = teamData.find(m => 
+      m.name === name || 
+      (m.name?.trim().toLowerCase() === "meet donny" && name === "Donny Gabriel")
+    );
+    return found?._id || null;
+  }, [aircraft?.contactAgent?.name, teamData]);
 
   // ─── Map zoom level ───
   const [mapZoom, setMapZoom] = useState(12);
@@ -685,7 +699,13 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                             className="mr-2 bg-tertiary_color p-[4px] rounded-full"
                             size={22}
                           />
-                          {aircraft?.contactAgent?.name || "—"}
+                          {agentId ? (
+                            <Link to={`/team/${agentId}`} className="hover:text-tertiary_color transition-colors">
+                              {aircraft?.contactAgent?.name}
+                            </Link>
+                          ) : (
+                            aircraft?.contactAgent?.name || "—"
+                          )}
                         </p>
                         <p className="text-sm mb-2 text-white flex items-center">
                           <TfiEmail
