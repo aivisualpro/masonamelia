@@ -13,9 +13,8 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
       <div
         className="h-full relative bg-img w-full md:sticky top-0 md:h-screen"
         style={{
-          backgroundImage: media ? "" : `linear-gradient(to right,rgb(21, 22, 28, ${
-            media ? ".8" : "1"
-          }) ${media ? "100%" : "40%"}, rgba(0, 0, 0, 0.01)), url(${url})`,
+          backgroundImage: media ? "" : `linear-gradient(to right,rgb(21, 22, 28, ${media ? ".8" : "1"
+            }) ${media ? "100%" : "40%"}, rgba(0, 0, 0, 0.01)), url(${url})`,
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
           backgroundRepeat: "no-repeat",
@@ -26,7 +25,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
         {/* <div className="overlay bg-black opacity-60 absolute top-0 left-0 w-full h-full z-[-1]"></div> */}
 
         <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0">
-          <img src={banner} className="w-full h-full" alt="" />
+          <img src={banner} className="w-full h-full object-cover" alt="Banner" />
         </div>
 
         <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0 bg-black/60"></div>
@@ -41,7 +40,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
               delay={150}
               animateBy="words"
               direction="top"
-              className="max-w-xl text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl leading-none font-bold text-white uppercase md:capitalize"
+              className={`max-w-xl text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl leading-none font-bold uppercase md:capitalize ${media ? "text-[#1777cb]" : "text-white"}`}
             />
             <ShinyText
               text={
