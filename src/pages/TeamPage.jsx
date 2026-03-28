@@ -106,7 +106,7 @@ const TeamPage = () => {
           />
 
           {/* Dark Overlay matching Contact Page */}
-          <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-95 z-[1]"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-60 md:opacity-95 z-[1]"></div>
 
           {/* Bottom Fade to blend securely into the page body */}
           <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#0c0d12] to-transparent z-[2]"></div>
