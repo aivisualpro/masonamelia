@@ -6,7 +6,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 export const Timeline = ({
   isHeading = false,
   data,
-  topTitle = "Our Story: From",
+  topTitle = "Our Journey: From",
   highlightedTitle = "Vision to Industry",
   bottomTitle = "Leadership",
 }) => {
@@ -65,7 +65,10 @@ export const Timeline = ({
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-white text-base md:text-lg max-w-4xl mx-auto pt-[40px] pb-[80px]"
         >
-          Pivotal moments that shaped Mason Amelia’s evolution, from entrepreneurial roots to becoming the country's fastest-growing aircraft brokerage.
+          Discover the pivotal moments that have defined Mason Amelia’s
+          evolution. From our entrepreneurial roots to becoming one of the
+          fastest-growing aircraft brokerages. Each milestone represents a step
+          forward in our commitment to excellence, innovation, and client trust.
         </motion.p>
       </div>
       <div ref={ref} className="relative max-w-7xl mx-auto">

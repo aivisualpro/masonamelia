@@ -65,7 +65,7 @@ export default function FilterCheckboxList({
   const fmt = (n) => Number(n ?? 0).toLocaleString();
 
   // ▼ Mobile-only dropdown state for Aircraft group
-  const [aircraftOpen, setAircraftOpen] = useState(false);
+  const [aircraftOpen, setAircraftOpen] = useState(true);
 
   // Sort aircraftOptions so "Other" is at the bottom
   const sortedAircrafts = useMemo(() => {

@@ -448,7 +448,13 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                           className="mr-2 bg-tertiary_color p-[6px] rounded-full"
                           size={28}
                         />
-                        {aircraft?.contactAgent?.name || "—"}
+                        {agentId ? (
+                          <Link to={`/team/${agentId}`} className="hover:text-tertiary_color transition-colors">
+                            {aircraft?.contactAgent?.name}
+                          </Link>
+                        ) : (
+                          aircraft?.contactAgent?.name || "—"
+                        )}
                       </p>
                       <p className="text-base mb-3 text-white flex items-center">
                         <TfiEmail
