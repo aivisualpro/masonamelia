@@ -283,7 +283,7 @@ const BrokeragePage = () => {
   ];
 
   return (
-    <>
+    <div className="w-full overflow-x-hidden">
       {/* HERO / FIRST SECTION with arrow & auto-scroll */}
       <div ref={bannerRef} className="relative z-[9] h-auto overflow-hidden">
         <ServiceBanner banner={banner} bannerTwo={bannerTwo} />
@@ -368,7 +368,7 @@ const BrokeragePage = () => {
 
       <Footer />
       <ScrollToTop />
-    </>
+    </div>
   );
 };
 

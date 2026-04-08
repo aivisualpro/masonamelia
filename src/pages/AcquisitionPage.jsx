@@ -229,7 +229,7 @@ const AcquisitionPage = () => {
   ];
 
   return (
-    <>
+    <div className="w-full overflow-x-hidden">
       {/* HERO / FIRST SECTION */}
       <div ref={bannerRef} className="relative z-[9] lg:h-auto overflow-hidden">
         <ServiceBanner banner={banner} bannerTwo={bannerTwo} />
@@ -292,7 +292,7 @@ const AcquisitionPage = () => {
 
       <Footer />
       <ScrollToTop />
-    </>
+    </div>
   );
 };
 

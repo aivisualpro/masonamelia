@@ -38,13 +38,13 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
           backgroundAttachment: `${media ? "" : "fixed"}`,
         }}
       >
-        <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0">
-          <img src={bannerTwo} className="w-full h-full object-cover" alt="" />
+        <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0">
+          <img src={bannerTwo} className="w-full h-full object-cover object-[center_85%]" alt="" />
         </div>
 
-        <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0 bg-black/75"></div>
+        <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/75"></div>
 
-        <div className="px-5 z-[9] container flex flex-col justify-center h-full pt-[132px] pb-[32px] md:pt-[50px] md:pb-0 md:justify-center md:h-screen md:items-start items-center">
+        <div className="px-5 z-[9] container flex flex-col justify-center h-full min-h-[300px] pt-[132px] pb-[32px] md:pt-[50px] md:pb-0 md:justify-center md:h-screen md:items-start items-center">
           {media ? (
             <BlurText
               text={location.pathname === "/brokerage" ? "BROKERAGE" : "ACQUISITION"}
