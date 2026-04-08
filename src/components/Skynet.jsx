@@ -21,13 +21,19 @@ const Skynet = ({ banner }) => {
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 50, duration: 0.5 }}
-          className="text-white md:text-start text-center text-[1.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-6xl md:max-w-md lg:max-w-2xl"
+          className={`md:text-start text-center text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-6xl md:max-w-md lg:max-w-2xl font-bold ${media ? "text-[#1777cb] uppercase" : "text-white"}`}
           style={{ lineHeight: "1.1" }}
         >
-          Mason Amelia Pricing Intelligence -{" "}
-          <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-            Powered by SkyNet
-          </span>
+          {media ? (
+            "SKYNET"
+          ) : (
+            <>
+              Mason Amelia Pricing Intelligence -{" "}
+              <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
+                Powered by SkyNet
+              </span>
+            </>
+          )}
         </motion.h1>
         <motion.div
           initial={{ opacity: 0, y: 100 }}
@@ -45,6 +51,8 @@ const Skynet = ({ banner }) => {
             text={
               location.pathname === "/brokerage"
                 ? "Mason Amelia makes aircraft deals seamless and strategic. We handle the process—so you can focus on results."
+                : media
+                ? "No Guesswork. No Lag. Just Real-Time Market Intelligence That Gives You the Edge"
                 : "No guesswork. No lag. Real-time market intelligence that gives our clients the sharpest edge; Fast, factual, and unbeatable."
             }
             disabled={false}

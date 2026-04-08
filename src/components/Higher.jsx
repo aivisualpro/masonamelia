@@ -43,7 +43,7 @@ const Higher = ({ banner, bannerTwo }) => {
           <ShinyText
             isTextCenter={media ? true : false}
             text={
-              "If your broker isn’t crafting a marketing plan as compelling as the plane itself, they’re not truly selling it."
+              "If Your Broker Isn’t Crafting a Marketing Plan as Compelling as the Aircraft Itself, They’re Not Truly Selling It"
             }
             disabled={false}
             speed={5}

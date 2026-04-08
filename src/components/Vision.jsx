@@ -46,7 +46,7 @@ const GlowingCardSection = () => {
             At Mason Amelia, we’re more than brokers; we’re storytellers. While there are many brokers out there, few live truer to the aviation lifestyle than our founder, Jesse Adams, who started the YouTube channel, <a href="https://www.youtube.com/@LookingforHigher" target="_blank" rel="noopener noreferrer" className="text-tertiary_color font-medium italic underline underline-offset-4 hover:text-white transition-colors">Looking for Higher</a>, which now serves as Mason Amelia's video marketing platform. On the channel, you will find insights on the true experience of aircraft ownership from transitioning into a turbine to the freedom of flying family across the country.
           </p>
           <p className="text-gray-300 text-lg md:text-[20px] font-light leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-            Every video we create tells the unique story of each aircraft we represent, bringing its personality and capabilities to life in ways that resonate with prospective buyers. This storytelling approach is powerful and essential in today’s market, where a listing alone doesn’t cut it. If your broker isn’t crafting a marketing plan as compelling as the plane itself, they’re not truly selling it.
+            Every video we create tells the unique story of each aircraft we represent, bringing its personality and capabilities to life in ways that resonate with prospective buyers. This storytelling approach is powerful and essential in today’s market, where a listing alone doesn’t cut it. If Your Broker Isn’t Crafting a Marketing Plan as Compelling as the Aircraft Itself, They’re Not Truly Selling It
           </p>
         </motion.div>
       </div>
