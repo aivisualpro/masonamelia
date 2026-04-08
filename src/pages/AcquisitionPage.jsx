@@ -231,7 +231,7 @@ const AcquisitionPage = () => {
   return (
     <>
       {/* HERO / FIRST SECTION */}
-      <div ref={bannerRef} className="relative z-[9] lg:h-auto">
+      <div ref={bannerRef} className="relative z-[9] lg:h-auto overflow-hidden">
         <ServiceBanner banner={banner} bannerTwo={bannerTwo} />
 
         {/* Flashing/Bouncing Down Arrow after ~3s */}
