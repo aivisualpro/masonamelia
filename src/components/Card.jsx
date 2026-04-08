@@ -67,11 +67,15 @@ const Card = ({ detail, currentTab, highlighted = false }) => {
         </div>
 
         {/* Image Container */}
-        <div className="relative overflow-hidden w-full aspect-video bg-[#1A1C24] flex items-center justify-center">
+        <div 
+          className="relative overflow-hidden w-full aspect-video bg-[#1A1C24] flex items-center justify-center"
+          style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }} // Another safari border-radius overflow fix
+        >
           <img
             src={imgSrc}
             alt={detail?.title || "aircraft"}
-            className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+            className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 transform-gpu"
+            style={{ WebkitBackfaceVisibility: "hidden", backfaceVisibility: "hidden", WebkitTransform: "translate3d(0, 0, 0)", transform: "translate3d(0, 0, 0)" }}
             loading="lazy"
             decoding="async"
           />
