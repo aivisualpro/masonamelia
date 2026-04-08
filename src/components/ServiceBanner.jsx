@@ -14,32 +14,35 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
   return (
     <>
       <Navbar />
-      <div className="w-full overflow-hidden relative h-[450px] md:h-screen">
-        <section
-          className="w-full h-full md:sticky top-0 relative"
+      <section
+        className="w-full h-full md:h-screen md:sticky top-0 relative"
         style={{
           backgroundImage: media
             ? ""
-            : `linear-gradient(to right, rgb(21, 22, 28, ${media ? ".6" : "1"
-            }) ${media
-              ? "100%"
-              : `${location.pathname === "/brokerage" ? "35%" : "32%"}`
-            }, rgba(21, 22, 28,0.3)), url(${location.pathname === "/brokerage" ? banner : banner
-            })`,
+            : `linear-gradient(to right, rgb(21, 22, 28, ${
+                media ? ".6" : "1"
+              }) ${
+                media
+                  ? "100%"
+                  : `${location.pathname === "/brokerage" ? "35%" : "32%"}`
+              }, rgba(21, 22, 28,0.3)), url(${
+                location.pathname === "/brokerage" ? banner : banner
+              })`,
           backgroundSize: "cover",
-          backgroundPosition: `${location.pathname === "/brokerage"
+          backgroundPosition: `${
+            location.pathname === "/brokerage"
               ? `${media ? "70% 150px" : "70% 50%"}`
               : `${media ? "bottom -150px right 0px" : "bottom right"}`
-            }`,
+          }`,
           backgroundRepeat: "no-repeat",
           backgroundAttachment: `${media ? "" : "fixed"}`,
         }}
       >
-          <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0">
-            <img src={bannerTwo} className="w-full h-full object-cover" alt="" />
-          </div>
+        <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0">
+          <img src={bannerTwo} className="w-full h-full object-cover" alt="" />
+        </div>
 
-          <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/75"></div>
+        <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0 bg-black/75"></div>
 
         <div className="px-5 z-[9] container flex flex-col justify-center h-full pt-[132px] pb-[32px] md:pt-[50px] md:pb-0 md:justify-center md:h-screen md:items-start items-center">
           {media ? (
@@ -88,8 +91,8 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
                     ? "A Strategic, Hands-On Approach to Selling Your Aircraft"
                     : "The Right Aircraft Changes Everything"
                   : location.pathname === "/brokerage"
-                    ? "Your aircraft deserves to stand out. We highlight its strengths and handle every phase with intent, precision, and the relentless pursuit of perfection."
-                    : "We take a consultative approach, learning your mission, analyzing the market, and guiding your acquisition from your first call to first flight."
+                  ? "Your aircraft deserves to stand out. We highlight its strengths and handle every phase with intent, precision, and the relentless pursuit of perfection."
+                  : "We take a consultative approach, learning your mission, analyzing the market, and guiding your acquisition from your first call to first flight."
               }
               disabled={false}
               speed={5}
@@ -98,8 +101,7 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
             />
           </motion.div>
         </div>
-        </section>
-      </div>
+      </section>
     </>
   );
 };
