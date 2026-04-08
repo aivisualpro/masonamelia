@@ -111,20 +111,20 @@ const Team = ({ teamRef, hideSocials = false }) => {
                     <div className="transition-all duration-300 group-hover:h-[100%] absolute top-0 left-0 w-full h-0 bg-black opacity-0 lg:opacity-60 z-[0]"></div>
                   </div>
                 </Link>
-                <div className="absolute -bottom-[30px] md:-bottom-[5px] left-0 right-0 rounded-[100px] h-[170px] lg:h-[115px] group-hover:h-[230px] transition-all duration-500">
+                <div className="absolute -bottom-[30px] md:-bottom-[5px] left-0 right-0 rounded-[100px] h-[150px] lg:h-[95px] group-hover:h-[220px] transition-all duration-500">
                   <div
-                    className="glass-container flex items-center justify-center glass-container--rounded px-4 py-3"
+                    className="glass-container flex items-center justify-center glass-container--rounded px-4 pt-2 pb-3"
                     style={{ borderRadius: "0" }}
                   >
                     <div className="glass-filter"></div>
                     <div className="glass-overlay"></div>
                     <div className="glass-specular"></div>
                     <div className="glass-content glass-content--inline justify-center">
-                      <div className="relative w-full py-2 px-2">
+                      <div className="relative w-full pt-0 pb-1 px-2">
                         <h2 className="block text-lg md:text-xl xl:text-2xl font-semibold text-white">
                           {member?.name}
                         </h2>
-                        <h4 className="block pt-3 pb-2 text-xs font-light text-white">
+                        <h4 className="block pt-1 pb-1 text-xs font-light text-white">
                           {member?.designation || "Owner"}
                         </h4>
                         <p className="text-sm text-gray-400">{member?.address}</p>
