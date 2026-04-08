@@ -90,7 +90,7 @@ export const Timeline = ({
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold text-white"
               >
-                {item.title}
+                {typeof item.title === 'string' ? item.title.split(' | ')[0] : item.title}
               </motion.h3>
             </div>
 

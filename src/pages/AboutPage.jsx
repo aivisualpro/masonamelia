@@ -10,7 +10,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import BlinkingArrow from "../components/BlinkingArrow";
 import CTABanner from "../components/CTABanner";
 import { Timeline } from "../components/ui/timeline";
-import { FaHandshake, FaUsers } from "react-icons/fa";
+import { FaHandshake, FaUsers, FaPlaneDeparture, FaSuitcase, FaChartLine } from "react-icons/fa";
 import { FaJetFighterUp } from "react-icons/fa6";
 import aboutBanner from "/images/about/banner.avif";
 import { HiOutlineCpuChip, HiOutlineRocketLaunch, HiOutlineSparkles } from "react-icons/hi2";
@@ -100,81 +100,109 @@ const AboutPage = () => {
 
   const data = [
     {
-      title: "2005–2015",
-      icon: <FaHandshake size={48} color="#1777cb" />,
+      title: "2004 | Aviation Begins",
+      icon: <FaPlaneDeparture size={48} color="#1777cb" />,
       content: (
         <div>
-          <p className="mb-8 text-lg font-normal text-white">
-            Jesse Adams spends 10 years as a commercial airline pilot. His love
-            for airplanes and flying grows deeper as the years progress.
+          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Aviation Begins</h3>
+          <p className="mb-4 text-lg font-normal text-white">
+            After honorable enlisted military service, Jesse began flight training and quickly progressed through CFI, CFII, and MEI ratings.
           </p>
         </div>
       ),
     },
     {
-      title: "2015",
+      title: "2007–2012 | Airlines and Entrepreneurship",
       icon: <FaJetFighterUp size={48} color="#1777cb" />,
       content: (
         <div>
-          <p className="mb-8 text-lg font-normal text-white">
-            Sagacious Consultants, co-founded by Jesse Adams, is acquired by
-            Accenture, setting the stage for future ventures and entrepreneurial
-            growth.
+          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Airlines and Entrepreneurship</h3>
+          <p className="mb-4 text-lg font-normal text-white">
+            Jesse flew regional jets for Republic Airways while simultaneously pursuing entrepreneurial ventures, building discipline as a pro pilot, alongside business acumen.
           </p>
         </div>
       ),
     },
     {
-      title: "2018–2023",
-      icon: <FaUsers size={48} color="#1777cb" />,
+      title: "2012–2015 | Business Foundation",
+      icon: <FaHandshake size={48} color="#1777cb" />,
       content: (
         <div>
-          <p className="mb-8 text-lg font-normal text-white">
-            Jesse Adams returns to aviation with a renewed sense of purpose,
-            spending nearly five years at Aerista, the world's largest
-            brokerage. He leads over 200 global aircraft transactions, gaining
-            valuable experience across piston and owner-flown turbine markets.
+          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Business Foundation</h3>
+          <p className="mb-4 text-lg font-normal text-white">
+            Jesse joined his brothers at Sagacious Consultants, helping scale the firm to a successful acquisition by Accenture – but never stopped flying.
           </p>
         </div>
       ),
     },
     {
-      title: "2023",
+      title: "2018 | Founded",
       icon: <HiOutlineSparkles size={48} color="#1777cb" />,
       content: (
         <div>
+          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Founded</h3>
           <p className="mb-4 text-lg font-normal text-white">
-            Inspired by family and fueled by passion, Jesse Adams founded Mason
-            Amelia, LLC, naming it after his children. What starts as a solo
-            venture quickly blossoms into a team, with Mason Amelia representing
-            aircraft and clients nationwide.
+            Initially a spin-off of the Adams brothers’ entrepreneurial success, Mason Amelia was created as a professional services firm and business consultancy. As the company began recruiting for aviation sales organizations, a clear opportunity emerged...
           </p>
         </div>
       ),
     },
     {
-      title: "2024",
+      title: "2019–2023 | Brokerage Mastery",
+      icon: <FaUsers size={48} color="#1777cb" />,
+      content: (
+        <div>
+          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Brokerage Mastery</h3>
+          <p className="mb-4 text-lg font-normal text-white">
+            Nearly five years at the world’s largest Cirrus focused brokerage gave Jesse exposure to high volume global transactions across piston and owner flown turbine aircraft, completing more than 200 deals.
+          </p>
+        </div>
+      ),
+    },
+    {
+      title: "2023 | Strategic Refocus",
+      icon: <FaSuitcase size={48} color="#1777cb" />,
+      content: (
+        <div>
+          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Strategic Refocus</h3>
+          <p className="mb-4 text-lg font-normal text-white">
+            Jesse founded Mason Amelia as a modern aircraft brokerage, combining data, elevated marketing, and grit. Within six months, the first team members were hired and remain core to the firm today.
+          </p>
+        </div>
+      ),
+    },
+    {
+      title: "2024 | Rapid Growth",
       icon: <HiOutlineRocketLaunch size={48} color="#1777cb" />,
       content: (
         <div>
+          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Rapid Growth</h3>
           <p className="mb-4 text-lg font-normal text-white">
-            Mason Amelia becomes the fastest-growing aircraft brokerage in the
-            U.S. Their YouTube channel, Looking for Higher, emerges as a leading
-            resource for buyers, sellers, and aviation enthusiasts, raising the
-            bar for aircraft sales marketing across the industry.
+            Mason Amelia became one of the fastest growing aircraft brokerages in the country, reshaping how owner flown aircraft are marketed and sold.
           </p>
         </div>
       ),
     },
     {
-      title: "2025",
+      title: "2025 | SkyNet Launch",
       icon: <HiOutlineCpuChip size={48} color="#1777cb" />,
       content: (
         <div>
+          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">SkyNet Launch</h3>
           <p className="mb-4 text-lg font-normal text-white">
-            Mason Amelia launches SkyNet, its proprietary pricing intelligence
-            tool, further establishing Mason Amelia as the aircraft brokerage of
-            the future.
+            The launch of SkyNet formalized Mason Amelia’s data driven valuation approach, bringing greater clarity and precision to the market.
+          </p>
+        </div>
+      ),
+    },
+    {
+      title: "2026 | Looking Forward",
+      icon: <FaChartLine size={48} color="#1777cb" />,
+      content: (
+        <div>
+          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Looking Forward</h3>
+          <p className="mb-4 text-lg font-normal text-white">
+            Executing at scale. Growing with intent.
           </p>
         </div>
       ),
