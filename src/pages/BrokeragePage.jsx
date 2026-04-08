@@ -350,7 +350,7 @@ const BrokeragePage = () => {
             "Coordinate logistics and support a seamless handoff at delivery.",
           ]}
           outro="From first call to final handshake, we don’t just list aircraft. We own the process, executing with precision, creating demand, and closing with clean and solid results."
-          image="/images/cleared-for-takeoff.jpg" // replace with your asset
+          image="/images/brokerage/cockpit.jpeg" // replace with your asset
           imageAlt="Mason Amelia — Cleared for Takeoff"
           imageOn="right" // set to "left" if you want image on left
         />
