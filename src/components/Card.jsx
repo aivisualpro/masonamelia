@@ -1,7 +1,6 @@
 // export default React.memo(Card);
 
 import React, { useMemo } from "react";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import DOMPurify from "dompurify";
 
@@ -43,16 +42,12 @@ const Card = ({ detail, currentTab, highlighted = false }) => {
 
   return (
     <Link to={`/showroom/${detail?._id}`} id={`card-${detail?._id}`} className="group block h-full">
-      <motion.div
+      <div
         className={`relative h-full flex flex-col bg-[#1A1C24] rounded-2xl border overflow-hidden shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-white/10 hover:-translate-y-1 ${
           highlighted
             ? "card-highlight-glow border-[#1777cb]/60"
             : "border-white/5"
         }`}
-        initial={{ y: 20, opacity: 0 }}
-        whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{ duration: 0.4 }}
       >
         {/* Highlight ring overlay */}
         {highlighted && (
@@ -149,7 +144,7 @@ const Card = ({ detail, currentTab, highlighted = false }) => {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </Link>
   );
 };
