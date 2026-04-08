@@ -15,7 +15,7 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
     <>
       <Navbar />
       <section
-        className="w-full h-full md:h-screen md:sticky top-0 relative"
+        className="w-full h-full overflow-hidden md:overflow-visible md:h-screen md:sticky top-0 relative"
         style={{
           backgroundImage: media
             ? ""
