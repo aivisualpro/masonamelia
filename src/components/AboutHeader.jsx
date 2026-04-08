@@ -46,7 +46,7 @@ const AboutHeader = () => {
           <div className={`rounded-md md:bg-transparent lg:pt-0 lg:pb-0 md:pt-2 md:pb-6`}>
             <ShinyText
               // isTextCenter={}
-              text="Built on trust, performance, and relationships that endure."
+              text="Built on Trust, Performance, and Relationships That Endure."
               disabled={false}
               speed={5}
               className="text-center lg:text-start sm:text-xl [text-shadow:_0_2px_8px_rgba(0,0,0,0.7)]"
