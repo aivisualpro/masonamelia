@@ -19,21 +19,17 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
         style={{
           backgroundImage: media
             ? ""
-            : `linear-gradient(to right, rgb(21, 22, 28, ${
-                media ? ".6" : "1"
-              }) ${
-                media
-                  ? "100%"
-                  : `${location.pathname === "/brokerage" ? "35%" : "32%"}`
-              }, rgba(21, 22, 28,0.3)), url(${
-                location.pathname === "/brokerage" ? banner : banner
-              })`,
+            : `linear-gradient(to right, rgb(21, 22, 28, ${media ? ".6" : "1"
+            }) ${media
+              ? "100%"
+              : `${location.pathname === "/brokerage" ? "35%" : "32%"}`
+            }, rgba(21, 22, 28,0.3)), url(${location.pathname === "/brokerage" ? banner : banner
+            })`,
           backgroundSize: "cover",
-          backgroundPosition: `${
-            location.pathname === "/brokerage"
-              ? `${media ? "70% 150px" : "70% 50%"}`
-              : `${media ? "bottom -150px right 0px" : "bottom right"}`
-          }`,
+          backgroundPosition: `${location.pathname === "/brokerage"
+            ? `${media ? "70% 150px" : "70% 50%"}`
+            : `${media ? "bottom -150px right 0px" : "bottom right"}`
+            }`,
           backgroundRepeat: "no-repeat",
           backgroundAttachment: `${media ? "" : "fixed"}`,
         }}
@@ -63,7 +59,7 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
               style={{ lineHeight: "1.1" }}
             >
               {location.pathname === "/brokerage"
-                ? "A Strategic, Hands-On Approach"
+                ? "A Strategic Hands-On Approach"
                 : "The Right Aircraft "}{" "}
               <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                 {location.pathname === "/brokerage"
@@ -88,11 +84,11 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
               text={
                 media
                   ? location.pathname === "/brokerage"
-                    ? "A Strategic, Hands-On Approach to Selling Your Aircraft"
+                    ? "A Strategic Hands-On Approach to Selling Your Aircraft"
                     : "The Right Aircraft Changes Everything"
                   : location.pathname === "/brokerage"
-                  ? "Your aircraft deserves to stand out. We highlight its strengths and handle every phase with intent, precision, and the relentless pursuit of perfection."
-                  : "We take a consultative approach, learning your mission, analyzing the market, and guiding your acquisition from your first call to first flight."
+                    ? "Your aircraft deserves to stand out. We highlight its strengths and handle every phase with intent, precision, and the relentless pursuit of perfection."
+                    : "We take a consultative approach, learning your mission, analyzing the market, and guiding your acquisition from your first call to first flight."
               }
               disabled={false}
               speed={5}

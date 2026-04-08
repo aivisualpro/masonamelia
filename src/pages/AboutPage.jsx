@@ -154,7 +154,7 @@ const AboutPage = () => {
         <div>
           <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Brokerage Mastery</h3>
           <p className="mb-4 text-lg font-normal text-white">
-            Nearly five years at the world’s largest Cirrus focused brokerage gave Jesse exposure to high volume global transactions across piston and owner flown turbine aircraft, completing more than 200 deals.
+            Nearly five years at the world’s largest Cirrus focused brokerage gave Jesse exposure to high volume global transactions across piston and owner-flown turbine aircraft, completing more than 200 deals.
           </p>
         </div>
       ),
@@ -178,7 +178,7 @@ const AboutPage = () => {
         <div>
           <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Rapid Growth</h3>
           <p className="mb-4 text-lg font-normal text-white">
-            Mason Amelia became one of the fastest growing aircraft brokerages in the country, reshaping how owner flown aircraft are marketed and sold.
+            Mason Amelia became one of the fastest growing aircraft brokerages in the country, reshaping how owner-flown aircraft are marketed and sold.
           </p>
         </div>
       ),

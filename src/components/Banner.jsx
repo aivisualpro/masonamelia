@@ -45,7 +45,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
             <ShinyText
               text={
                 media
-                  ? "Exclusive Collection of High-Performance Piston and Owner Flown Turbine Aircraft"
+                  ? "Exclusive Collection of High-Performance Piston and Owner-Flown Turbine Aircraft"
                   : "We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators."
               }
               disabled={false}

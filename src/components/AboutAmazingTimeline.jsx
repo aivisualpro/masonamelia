@@ -51,7 +51,7 @@ const AboutAmazingTimeline = () => {
     {
       title: "2019–2023 | Brokerage Mastery",
       icon: <HiOutlineRocketLaunch />,
-      content: "Nearly five years at the world’s largest Cirrus focused brokerage gave Jesse exposure to high volume global transactions across piston and owner flown turbine aircraft, completing more than 200 deals.",
+      content: "Nearly five years at the world’s largest Cirrus focused brokerage gave Jesse exposure to high volume global transactions across piston and owner-flown turbine aircraft, completing more than 200 deals.",
       color: "from-rose-500 to-orange-600",
     },
     {
@@ -63,7 +63,7 @@ const AboutAmazingTimeline = () => {
     {
       title: "2024 | Rapid Growth",
       icon: <FaChartLine />,
-      content: "Mason Amelia became one of the fastest growing aircraft brokerages in the country, reshaping how owner flown aircraft are marketed and sold.",
+      content: "Mason Amelia became one of the fastest growing aircraft brokerages in the country, reshaping how owner-flown aircraft are marketed and sold.",
       color: "from-amber-500 to-yellow-600",
     },
     {
