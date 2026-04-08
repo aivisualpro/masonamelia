@@ -12,7 +12,7 @@ import CTABanner from "../components/CTABanner";
 import { Timeline } from "../components/ui/timeline";
 import { FaHandshake, FaUsers, FaPlaneDeparture, FaSuitcase, FaChartLine } from "react-icons/fa";
 import { FaJetFighterUp } from "react-icons/fa6";
-import aboutBanner from "/images/about/banner.avif";
+import aboutBanner from "/images/about/timeline bg.jpeg";
 import { HiOutlineCpuChip, HiOutlineRocketLaunch, HiOutlineSparkles } from "react-icons/hi2";
 
 const AboutPage = () => {
