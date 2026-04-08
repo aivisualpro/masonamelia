@@ -247,7 +247,7 @@ const AboutPage = () => {
           id="timeline"
           style={{
             backgroundImage: media ? "" : `url(${aboutBanner})`,
-            backgroundSize: media ? "" : "cover",
+            backgroundSize: media ? "" : "120%",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
             backgroundAttachment: media ? "scroll" : "fixed",
