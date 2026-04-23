@@ -25,7 +25,7 @@ const InsurancePage = () => {
           <img 
             src="/images/insurance/titan_aerospace_insurance.avif" 
             alt="Titan Aerospace Insurance" 
-            className="w-full max-w-2xl mx-auto rounded-lg mb-8"
+            className="w-full max-w-md mx-auto rounded-lg mb-8"
           />
           <a
             href="mailto:insurance@masonamelia.com"
