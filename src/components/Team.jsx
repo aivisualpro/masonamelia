@@ -91,7 +91,7 @@ const Team = ({ teamRef, hideSocials = false }) => {
         className="text-white pt-20 pb-20 md:pb-20 px-4 md:px-10"
       >
         <div className="container mx-auto" ref={teamRef}>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {team.map((member, idx) => (
               <motion.div
                 key={`rest-${idx}`}
