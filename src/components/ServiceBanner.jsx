@@ -42,9 +42,9 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
 
         <div className="px-5 z-[9] container flex flex-col justify-center h-full min-h-[300px] pt-[132px] pb-[32px] md:pt-[50px] md:pb-0 md:justify-center md:h-screen md:items-start items-center">
           {media ? (
-            <BlurText
-              text={location.pathname === "/brokerage" ? "BROKERAGE" : "ACQUISITION"}
-              highlightedText=""
+              <BlurText
+                text={location.pathname === "/brokerage" ? "BROKERAGE" : location.pathname === "/insurance" ? "INSURANCE" : "ACQUISITION"}
+                highlightedText=""
               delay={150}
               animateBy="words"
               direction="top"
@@ -60,11 +60,15 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
             >
               {location.pathname === "/brokerage"
                 ? "A Strategic Hands-On Approach"
-                : "The Right Aircraft "}{" "}
+                : location.pathname === "/insurance"
+                  ? "Aircraft "
+                  : "The Right Aircraft "}{" "}
               <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                 {location.pathname === "/brokerage"
                   ? "to Selling Your Aircraft"
-                  : "Changes Everything"}
+                  : location.pathname === "/insurance"
+                    ? "Insurance"
+                    : "Changes Everything"}
               </span>
             </motion.h1>
           )}
@@ -85,10 +89,14 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
                 media
                   ? location.pathname === "/brokerage"
                     ? "A Strategic Hands-On Approach to Selling Your Aircraft"
-                    : "The Right Aircraft Changes Everything"
+                    : location.pathname === "/insurance"
+                      ? "Aircraft Insurance"
+                      : "The Right Aircraft Changes Everything"
                   : location.pathname === "/brokerage"
                     ? "Your aircraft deserves to stand out. We highlight its strengths and handle every phase with intent, precision, and the relentless pursuit of perfection."
-                    : "We take a consultative approach, learning your mission, analyzing the market, and guiding your acquisition from your first call to first flight."
+                    : location.pathname === "/insurance"
+                      ? "Our trusted partners at Titan Insurance specialize exclusively in high-end owner-flown piston and turbine aircraft, backed by decades of aviation insurance expertise. Get a tailored quote today."
+                      : "We take a consultative approach, learning your mission, analyzing the market, and guiding your acquisition from your first call to first flight."
               }
               disabled={false}
               speed={5}

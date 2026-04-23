@@ -141,6 +141,16 @@ const MobileNavigation = ({ isOpen, setIsOpen }) => {
                 </Link>
               </motion.div>
 
+              <motion.div variants={itemVariants}>
+                <Link
+                  to="/insurance"
+                  onClick={() => setIsOpen(false)}
+                  className={`${location.pathname === "/insurance" ? "text-tertiary_color" : "text-white"} uppercase text-lg font-medium hover:text-tertiary_color transition duration-200 block py-2`}
+                >
+                  Insurance
+                </Link>
+              </motion.div>
+
               {/* About Accordion */}
               <motion.div variants={itemVariants} className="text-white">
                 <div

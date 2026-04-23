@@ -15,6 +15,7 @@ import {
   AircraftDetailPage,
   BlogPage,
   BlogDetailPage,
+  InsurancePage,
 } from "./pages/index";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -40,7 +41,8 @@ function App() {
         <Route path="/showroom/:id" element={<AircraftDetailPage />} />
         <Route path="/acquisition" element={<AcquisitionPage />} />
         <Route path="/brokerage" element={<BrokeragePage />} />
-        <Route path="/" element={<AncillaryPage />} />
+        <Route path="/ancillary" element={<AncillaryPage />} />
+        <Route path="/insurance" element={<InsurancePage />} />
         <Route path="/skynet" element={<SkynetPage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/testimonial" element={<TestimonialPage />} />

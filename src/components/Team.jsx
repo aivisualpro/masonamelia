@@ -28,7 +28,7 @@ const Team = ({ teamRef, hideSocials = false }) => {
 
   // Define Brandi Martinez
   const brandi = {
-    _id: "brandi-martinez", 
+    _id: "brandi-martinez",
     name: "Brandi Martinez",
     designation: "Sales Support | Operations",
     email: "brandi@masonamelia.com",
@@ -37,20 +37,20 @@ const Team = ({ teamRef, hideSocials = false }) => {
     image: "/images/team/brandi.png",
   };
 
-  // Define desired order
   const desiredOrder = [
     "Jesse Adams",
-    "Melissa Patterson",
     "Donny Gabriel",
-    "Peyton Lindbloom",
-    "Carlos Lopez",
     "Tom Donaldson",
+    "Peyton Lindbloom",
+    "Jake Ruiz",
+    "Melissa Patterson",
+    "Brandi Martinez",
     "Melissa Adams",
-    "Brandi Martinez"
+    "Carlos Lopez"
   ];
 
   // Rename Meet Donny -> Donny Gabriel
-  allTeam = allTeam.map(m => 
+  allTeam = allTeam.map(m =>
     (m.name?.trim().toLowerCase() === "meet donny") ? { ...m, name: "Donny Gabriel" } : m
   );
 
@@ -153,22 +153,22 @@ const Team = ({ teamRef, hideSocials = false }) => {
                               )}
                             </div>
                           )}
-                          
+
                           {/* Reveal on hover */}
                           <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center gap-1 mt-2">
-                             {member?.phone && (
-                               <a href={`tel:${member.phone}`} className="text-xs text-gray-300 hover:text-white transition">
-                                 {member.phone}
-                               </a>
-                             )}
-                             {member?.email && (
-                               <a href={`mailto:${member.email}`} className="text-xs text-gray-300 hover:text-white transition">
-                                 {member.email}
-                               </a>
-                             )}
-                             <Link to={`/team/${member?._id}`} className="text-xs text-tertiary_color hover:text-white transition mt-1 font-semibold underline underline-offset-4">
-                               View Bio
-                             </Link>
+                            {member?.phone && (
+                              <a href={`tel:${member.phone}`} className="text-xs text-gray-300 hover:text-white transition">
+                                {member.phone}
+                              </a>
+                            )}
+                            {member?.email && (
+                              <a href={`mailto:${member.email}`} className="text-xs text-gray-300 hover:text-white transition">
+                                {member.email}
+                              </a>
+                            )}
+                            <Link to={`/team/${member?._id}`} className="text-xs text-tertiary_color hover:text-white transition mt-1 font-semibold underline underline-offset-4">
+                              View Bio
+                            </Link>
                           </div>
                         </div>
                       </div>

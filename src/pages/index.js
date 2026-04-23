@@ -13,6 +13,7 @@ import AircraftDetailPage from "./AircraftDetailPage";
 import BlogPage from "./BlogPage";
 import BlogDetailPage from "./BlogDetailPage";
 import SearchResultsPage from "./SearchResultsPage";
+import InsurancePage from "./InsurancePage";
 
 export {
     HomePage,
@@ -29,5 +30,6 @@ export {
     ContactPage,
     BlogPage,
     BlogDetailPage,
-    SearchResultsPage
+    SearchResultsPage,
+    InsurancePage
 };
