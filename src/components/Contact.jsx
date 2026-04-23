@@ -219,7 +219,7 @@ const Contact = () => {
                 <input
                   type="text"
                   required
-                  className="w-full p-3 text-left md:text-center text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
+                  className="w-full p-3 text-left text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
                   placeholder="Name"
                   value={formData.name}
                   onChange={(e) =>
@@ -232,7 +232,7 @@ const Contact = () => {
 
                 <input
                   type="tel"
-                  className="w-full p-3 text-left md:text-center text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
+                  className="w-full p-3 text-left text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
                   placeholder="Phone Number"
                   value={formData.phone}
                   onChange={(e) =>
@@ -246,7 +246,7 @@ const Contact = () => {
                 <input
                   type="email"
                   required
-                  className="w-full p-3 text-left md:text-center text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
+                  className="w-full p-3 text-left text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
                   placeholder="Email"
                   value={formData.email}
                   onChange={(e) =>
@@ -259,7 +259,7 @@ const Contact = () => {
 
                 <input
                   type="text"
-                  className="w-full p-3 text-left md:text-center text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
+                  className="w-full p-3 text-left text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
                   placeholder="Subject"
                   value={formData.subject}
                   onChange={(e) =>
@@ -272,7 +272,7 @@ const Contact = () => {
 
                 <textarea
                   required
-                  className="w-full p-3 text-left md:text-center text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
+                  className="w-full p-3 text-left text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
                   rows="4"
                   placeholder="Write your message"
                   value={formData.message}

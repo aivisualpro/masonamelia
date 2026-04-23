@@ -83,7 +83,7 @@ const HeroSection = () => {
                   <GlassmorphismCircularCard
                     title="Ancillary"
                     tagline="Legal • Sales Tax • Insurance"
-                    link="/ancillary"
+                    link="/acquisition#acquisition"
                     icon={
                       <FaHandsHelping
                         size={36}
@@ -152,7 +152,7 @@ const HeroSection = () => {
                   <GlassmorphismCircularCard
                     title="Ancillary"
                     tagline="Legal • Sales Tax • Insurance"
-                    link="/ancillary"
+                    link="/acquisition#acquisition"
                     icon={
                       <FaHandsHelping
                         size={36}
