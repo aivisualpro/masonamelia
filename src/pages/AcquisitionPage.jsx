@@ -209,6 +209,7 @@ const AcquisitionPage = () => {
       gradient: "from-emerald-400 to-teal-500",
       points: ["Aviation-specific protection for what matters most."],
       img: "/images/insurance-aircraft.jpg",
+      link: "/insurance",
     },
     {
       title: "Training & Operations",
