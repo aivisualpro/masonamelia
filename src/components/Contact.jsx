@@ -30,6 +30,21 @@ const Contact = () => {
 
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState({ type: "", msg: "" });
+  const [emailError, setEmailError] = useState("");
+
+  // Phone mask helper: formats digits to (XXX) XXX-XXXX
+  const formatPhone = (value) => {
+    const digits = value.replace(/\D/g, "").slice(0, 10);
+    if (digits.length === 0) return "";
+    if (digits.length <= 3) return `(${digits}`;
+    if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
+    return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
+  };
+
+  const handlePhoneChange = (e) => {
+    const formatted = formatPhone(e.target.value);
+    setFormData({ ...formData, phone: formatted });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -235,9 +250,9 @@ const Contact = () => {
                   className="w-full p-3 text-left text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
                   placeholder="Phone Number"
                   value={formData.phone}
-                  onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value })
-                  }
+                  onChange={handlePhoneChange}
+                  pattern="\(\d{3}\) \d{3}-\d{4}"
+                  title="Phone format: (XXX) XXX-XXXX"
                 />
               </div>
 
@@ -246,13 +261,32 @@ const Contact = () => {
                 <input
                   type="email"
                   required
-                  className="w-full p-3 text-left text-white focus:outline-none bg-transparent border border-gray-600 rounded-lg mt-1"
+                  className={`w-full p-3 text-left text-white focus:outline-none bg-transparent border rounded-lg mt-1 transition-colors duration-300 ${
+                    emailError ? "border-red-400/60" : "border-gray-600"
+                  }`}
                   placeholder="Email"
                   value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
+                  onChange={(e) => {
+                    setFormData({ ...formData, email: e.target.value.toLowerCase() });
+                    if (emailError) setEmailError("");
+                  }}
+                  onBlur={() => {
+                    const v = formData.email.trim();
+                    if (v && !/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(v)) {
+                      setEmailError("Please enter a valid email address");
+                    } else {
+                      setEmailError("");
+                    }
+                  }}
                 />
+                {emailError && (
+                  <p
+                    className="text-red-400/80 text-xs mt-1.5 pl-1 animate-pulse"
+                    style={{ animationDuration: "2s", animationIterationCount: 1 }}
+                  >
+                    {emailError}
+                  </p>
+                )}
               </div>
 
               <div className="md:col-span-2">

@@ -279,7 +279,7 @@ export default function Listing({ autoScrollEnabled = true, q = "", initialFilte
   }, []);
 
   const handleClearAll = useCallback(() => {
-    // reset all filters + tabs + pagination to initial
+    // reset all filters + tabs + pagination + search to initial
     setSelectedFilters([]);
     setPriceRange(undefined);
     setAirframeRange(undefined);
@@ -289,6 +289,7 @@ export default function Listing({ autoScrollEnabled = true, q = "", initialFilte
     setAirframeTouched(false);
     setEngineTouched(false);
 
+    setSearchJets("");
     setActiveTab("all");
     setCurrentPage(1);
 

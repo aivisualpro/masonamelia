@@ -66,9 +66,9 @@ const HomePage = () => {
       if (el2) el2.scrollIntoView({ behavior: "smooth", block: "start" });
       if (el3) el3.scrollIntoView({ behavior: "smooth", block: "start" });
       // clean up state/hash to avoid re-scrolling on back/forward
-      navigate("/#testimonial", { replace: true, state: null });
-      navigate("/#contact", { replace: true, state: null });
-      navigate("/#services", { replace: true, state: null });
+      // Use the actual target so the URL reflects where we scrolled
+      const finalHash = targetId3 || targetId2 || targetId || "services";
+      navigate(`/#${finalHash}`, { replace: true, state: null });
     }, 0);
 
     return () => clearTimeout(t);
