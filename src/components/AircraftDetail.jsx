@@ -14,7 +14,7 @@ import { Navigation, Keyboard } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import { motion, AnimatePresence } from "framer-motion";
+
 import useMediaQuery from "@mui/material/useMediaQuery";
 import DOMPurify from "dompurify";
 import { PuffLoader } from "react-spinners";
@@ -59,8 +59,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
   const [showVideo, setShowVideo] = useState(false);
   const [videoModalOpen, setVideoModalOpen] = useState(false);
 
-  // ─── Transition state for Next button animation ───
-  const [isTransitioning, setIsTransitioning] = useState(false);
+
 
   // ─── Fetch Team for Agent Bio Link ───
   const { data: teamData = [] } = useTeam();
@@ -89,7 +88,6 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
   // ─── Navigate to Next aircraft in filtered list ───
   const handleNext = useCallback(() => {
-    if (isTransitioning) return;
     try {
       const stored = sessionStorage.getItem('showroom_aircraft_ids');
       if (!stored) return;
@@ -101,18 +99,14 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       const nextId = ids[nextIdx];
 
       if (nextId && nextId !== id) {
-        setIsTransitioning(true);
         navigate(`/showroom/${nextId}`);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Reset after animation completes
-        setTimeout(() => setIsTransitioning(false), 600);
+        window.scrollTo({ top: 0, behavior: 'instant' });
       }
     } catch { }
-  }, [id, navigate, isTransitioning]);
+  }, [id, navigate]);
 
   // ─── Navigate to Previous aircraft in filtered list ───
   const handlePrev = useCallback(() => {
-    if (isTransitioning) return;
     try {
       const stored = sessionStorage.getItem('showroom_aircraft_ids');
       if (!stored) return;
@@ -124,20 +118,17 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       const prevId = ids[prevIdx];
 
       if (prevId && prevId !== id) {
-        setIsTransitioning(true);
         navigate(`/showroom/${prevId}`);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        // Reset after animation completes
-        setTimeout(() => setIsTransitioning(false), 600);
+        window.scrollTo({ top: 0, behavior: 'instant' });
       }
     } catch { }
-  }, [id, navigate, isTransitioning]);
+  }, [id, navigate]);
 
   // ---- Fetch detail ----
   useEffect(() => {
     const ac = new AbortController();
     (async () => {
-      setLoading(true);
+      if (!aircraft) setLoading(true);
       try {
         setErrMsg("");
         const res = await fetch(
@@ -156,6 +147,42 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       }
     })();
     return () => ac.abort();
+  }, [id]);
+
+  // ─── Prefetch adjacent aircraft data + images ───
+  useEffect(() => {
+    try {
+      const stored = sessionStorage.getItem('showroom_aircraft_ids');
+      if (!stored) return;
+      const ids = JSON.parse(stored);
+      if (!Array.isArray(ids) || ids.length <= 1) return;
+
+      const currentIdx = ids.indexOf(id);
+      if (currentIdx === -1) return;
+
+      const adjacentIds = [
+        ids[(currentIdx + 1) % ids.length],
+        ids[(currentIdx - 1 + ids.length) % ids.length],
+      ].filter(Boolean);
+
+      adjacentIds.forEach(async (adjId) => {
+        try {
+          const res = await fetch(
+            `${import.meta.env.VITE_BASE_URL}/api/aircrafts/${adjId}`
+          );
+          if (!res.ok) return;
+          const json = await res.json();
+          const images = json?.data?.images || [];
+          // Prefetch images into browser cache
+          images.forEach((src) => {
+            if (src) {
+              const img = new Image();
+              img.src = src;
+            }
+          });
+        } catch { }
+      });
+    } catch { }
   }, [id]);
 
   // ---- Fetch related (simple: all except current) ----
@@ -270,7 +297,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
   return (
     <>
       {/* Spinner mounts into <body> via portal */}
-      <FullscreenSpinner show={loading} text="Loading aircraft..." />
+      <FullscreenSpinner show={loading && !aircraft} text="Loading aircraft..." />
 
       {errMsg && (
         <div className="py-10 text-center text-red-400">
@@ -278,19 +305,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
         </div>
       )}
 
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={id}
-          initial={{ opacity: 0, x: 60, scale: 0.98, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, x: 0, scale: 1, filter: 'blur(0px)' }}
-          exit={{ opacity: 0, x: -60, scale: 0.97, filter: 'blur(6px)' }}
-          transition={{
-            duration: 0.5,
-            ease: [0.22, 1, 0.36, 1],
-            opacity: { duration: 0.35 },
-            filter: { duration: 0.4 },
-          }}
-        >
+      <div key={id}>
           <section
             id="showroom"
             className="pb-20 pt-[98px] md:pb-20 md:pt-[calc(110px+76px)]"
@@ -303,11 +318,11 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                 {aircraft?.title}
               </h1>
               <div className="flex-shrink-0 flex items-center bg-black/10 rounded-full p-1 gap-1">
-                <button onClick={handlePrev} disabled={isTransitioning} className="p-1 rounded-full hover:bg-black/20 transition-all disabled:opacity-50">
+                <button onClick={handlePrev} disabled={false} className="p-1 rounded-full hover:bg-black/20 transition-all disabled:opacity-50">
                   <IoIosArrowBack size={16} color="white" />
                 </button>
                 <div className="w-[1px] h-3 bg-white/20"></div>
-                <button onClick={handleNext} disabled={isTransitioning} className="p-1 rounded-full hover:bg-black/20 transition-all disabled:opacity-50">
+                <button onClick={handleNext} disabled={false} className="p-1 rounded-full hover:bg-black/20 transition-all disabled:opacity-50">
                   <IoIosArrowForward size={16} color="white" />
                 </button>
               </div>
@@ -546,11 +561,11 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
                 {/* Unified Previous / Next Controls */}
                 <div className="flex items-center flex-shrink-0 bg-[#22242e] rounded shadow-[0_2px_10px_rgba(0,0,0,0.2)] border border-white/5">
-                  <button onClick={handlePrev} disabled={isTransitioning} className="group/prev flex items-center gap-1.5 px-3 py-1.5 text-white/90 text-[13px] font-semibold hover:text-white hover:bg-[#2a2d38] transition-all duration-300 rounded-l disabled:opacity-50 disabled:cursor-not-allowed border-r border-[#3a3d4a]">
+                  <button onClick={handlePrev} disabled={false} className="group/prev flex items-center gap-1.5 px-3 py-1.5 text-white/90 text-[13px] font-semibold hover:text-white hover:bg-[#2a2d38] transition-all duration-300 rounded-l disabled:opacity-50 disabled:cursor-not-allowed border-r border-[#3a3d4a]">
                     <IoIosArrowBack size={15} className="transition-transform duration-300 group-hover/prev:-translate-x-0.5" />
                     <span>Previous</span>
                   </button>
-                  <button onClick={handleNext} disabled={isTransitioning} className="group/next flex items-center gap-1.5 px-3 py-1.5 text-white/90 text-[13px] font-semibold hover:text-white hover:bg-[#2a2d38] transition-all duration-300 rounded-r disabled:opacity-50 disabled:cursor-not-allowed">
+                  <button onClick={handleNext} disabled={false} className="group/next flex items-center gap-1.5 px-3 py-1.5 text-white/90 text-[13px] font-semibold hover:text-white hover:bg-[#2a2d38] transition-all duration-300 rounded-r disabled:opacity-50 disabled:cursor-not-allowed">
                     <span>Next</span>
                     <IoIosArrowForward size={15} className="transition-transform duration-300 group-hover/next:translate-x-0.5" />
                   </button>
@@ -909,8 +924,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
               </Modal>
             </div>
           </section>
-        </motion.div>
-      </AnimatePresence>
+        </div>
     </>
   );
 };
