@@ -104,6 +104,33 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
               color="md:text-[#b5b5b5a4] text-white/80"
             />
           </motion.div>
+
+          {/* Titan Insurance banner + CTA — insurance page only */}
+          {location.pathname === "/insurance" && (
+            <motion.div
+              initial={{ opacity: 0, y: 60 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 50,
+                duration: 0.5,
+                delay: 0.6,
+              }}
+              className="hidden md:flex flex-col items-start gap-5 mt-6"
+            >
+              <img
+                src="/images/insurance/titan_aerospace_insurance.avif"
+                alt="Titan Aerospace Insurance"
+                className="max-w-[280px] md:max-w-xs rounded-lg"
+              />
+              <a
+                href="mailto:insurance@masonamelia.com"
+                className="text-[#111218] flex gap-2 items-center shadow-xl text-lg bg-[#fff] backdrop-blur-md font-medium isolation-auto before:absolute before:w-full before:transition-all before:duration-700 before:hover:w-full before:-left-full before:hover:left-0 before:rounded-full before:bg-tertiary_color hover:text-gray-50 before:-z-10 before:aspect-square before:hover:scale-150 before:hover:duration-700 relative z-10 px-8 py-3 overflow-hidden border-2 border-[#111218] transition-all duration-700 hover:border-tertiary_color rounded-full group"
+              >
+                Get Quote
+              </a>
+            </motion.div>
+          )}
         </div>
       </section>
     </>

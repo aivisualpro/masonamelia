@@ -82,26 +82,36 @@ const Navbar = () => {
             <img
               src="/logo-white.png"
               alt="logo"
+              width={1577}
+              height={571}
+              loading="eager"
+              decoding="async"
               className="
         block
-        max-w-[150px]
+        max-w-[150px] h-auto
         transition-opacity duration-150 ease-in-out
         opacity-100
         group-hover:opacity-0
       "
+              style={{ imageRendering: '-webkit-optimize-contrast', willChange: 'transform' }}
             />
 
             {/* Hover: COLORED logo */}
             <img
               src="/logo.png"
               alt="logo colored"
+              width={784}
+              height={290}
+              loading="eager"
+              decoding="async"
               className="
         absolute inset-0 mt-[-1px]
-        max-w-[149px]
+        max-w-[149px] h-auto
         transition-opacity duration-150 ease-in-out
         opacity-0
         group-hover:opacity-100
       "
+              style={{ imageRendering: '-webkit-optimize-contrast', willChange: 'transform' }}
             />
           </Link>
         </div>

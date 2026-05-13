@@ -66,8 +66,13 @@ const Footer = () => {
             <Link to={"/"}>
               <img
                 src="/logoIcon.png"
-                className=" object-contain h-16"
-                alt=""
+                width={818}
+                height={571}
+                loading="lazy"
+                decoding="async"
+                className=" object-contain h-16 w-auto"
+                alt="Mason Amelia"
+                style={{ imageRendering: '-webkit-optimize-contrast', willChange: 'transform' }}
               />
             </Link>
           </div>
