@@ -29,9 +29,35 @@ function App() {
 
   useEffect(() => {
     // Skip only for the showroom listing – it handles scroll restoration itself
-    if (pathname === '/showroom') return;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (pathname !== '/showroom') {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }, [pathname]);
+
+  // Record visitor once per session (not per navigation)
+  useEffect(() => {
+    if (sessionStorage.getItem('_visited')) return;
+    sessionStorage.setItem('_visited', '1');
+
+    try {
+      const payload = JSON.stringify({
+        page: window.location.pathname,
+        referrer: document.referrer || '',
+        screenWidth: window.screen.width,
+        screenHeight: window.screen.height,
+      });
+
+      const sent = navigator.sendBeacon?.('/api/visits', new Blob([payload], { type: 'application/json' }));
+      if (!sent) {
+        fetch('/api/visits', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: payload,
+          keepalive: true,
+        }).catch(() => {});
+      }
+    } catch { /* ignore */ }
+  }, []);
 
   return (
     <>

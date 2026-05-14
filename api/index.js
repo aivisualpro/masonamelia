@@ -39,6 +39,7 @@ const Blog = createModel('Blog', 'blogs');
 const Team = createModel('Team', 'teams');
 const User = createModel('User', 'users');
 const AircraftCategory = createModel('AircraftCategory', 'aircraftcategories');
+const WebsiteVisit = createModel('WebsiteVisit', 'websiteVisits');
 
 /* -------------------------------------------------------------------------- */
 /*                                   Routes                                  */
@@ -82,6 +83,35 @@ const getPaginatedData = async (Model, req, query = {}) => {
 
 // Health check
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
+
+// Log website visits
+app.post('/api/visits', async (req, res) => {
+  await connectToDatabase();
+  try {
+    const { page, referrer, screenWidth, screenHeight } = req.body || {};
+    const userAgent = req.headers['user-agent'] || '';
+    const ip = req.headers['x-forwarded-for']?.split(',')[0]?.trim()
+            || req.headers['x-real-ip']
+            || req.connection?.remoteAddress
+            || '';
+
+    await WebsiteVisit.create({
+      page:         page || '/',
+      referrer:     referrer || '',
+      userAgent,
+      ip,
+      screenWidth:  screenWidth || null,
+      screenHeight: screenHeight || null,
+      visitedAt:    new Date(),
+    });
+
+    res.json({ success: true });
+  } catch (err) {
+    console.error('Visit log error:', err);
+    // Non-blocking – don't fail the user's experience
+    res.json({ success: false });
+  }
+});
 
 // Brands
 app.get('/api/brands/lists', async (req, res) => {
