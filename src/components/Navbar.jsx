@@ -80,7 +80,7 @@ const Navbar = () => {
           >
             {/* Default: WHITE logo */}
             <img
-              src="/logo-white.png"
+              src="/logowhite.svg"
               alt="logo"
               width={1577}
               height={571}
@@ -98,7 +98,7 @@ const Navbar = () => {
 
             {/* Hover: COLORED logo */}
             <img
-              src="/logo.png"
+              src="/logo.svg"
               alt="logo colored"
               width={784}
               height={290}
