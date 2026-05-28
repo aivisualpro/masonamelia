@@ -162,8 +162,8 @@ const Contact = () => {
                     <div className="locations">
                       <h6 className="font-medium mb-1">LOCATIONS:</h6>
                       <span className="max-w-sm text-[.9rem]">
-                        Birmingham, AL <br /> Duluth, MN <br /> San Antonio, TX{" "}
-                        <br /> Scottsdale, AZ <br /> Upstate, NY
+                        San Antonio, TX <br /> Fairhope, AL <br /> Duluth, MN{" "}
+                        <br /> Scottsdale, AZ <br /> Telluride, CO
                       </span>
                     </div>
                   </div>
