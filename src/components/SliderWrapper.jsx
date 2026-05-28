@@ -314,7 +314,7 @@ const SliderWrapper = () => {
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ type: "spring", stiffness: 120, damping: 18 }}
                   >
-                    <div className="bg-[#15161cac] relative border border-[#f1f1f192] rounded-[10px] flex flex-col items-center justify-center text-center lg:p-2 2xl:p-4 h-full w-full will-change-transform">
+                    <div className="bg-[#15161cac] relative border border-[#f1f1f192] rounded-[10px] flex flex-col items-center justify-center text-center lg:p-2 2xl:py-4 2xl:px-2 h-full w-full will-change-transform">
                       <div className="mb-4 absolute -top-8 bg-[#15161cac] border border-[#f1f1f192] rounded-full p-3">
                         {card.icon}
                       </div>
@@ -328,7 +328,7 @@ const SliderWrapper = () => {
                         />
                       </h4>
 
-                      <p className="text-[#eee] text-base lg:text-[.7rem] 2xl:text-[.8rem] font-light mb-4 px-2">
+                      <p className="text-[#eee] text-base lg:text-[.85rem] 2xl:text-[.95rem] font-light mb-4 px-2">
                         {card.description}
                       </p>
                     </div>
