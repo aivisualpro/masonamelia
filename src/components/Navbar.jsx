@@ -105,8 +105,8 @@ const Navbar = () => {
               loading="eager"
               decoding="async"
               className="
-        absolute inset-0 mt-[-1px]
-        max-w-[149px] h-auto
+        absolute inset-0 mt-[1px]
+        max-w-[150px] h-auto
         transition-opacity duration-150 ease-in-out
         opacity-0
         group-hover:opacity-100

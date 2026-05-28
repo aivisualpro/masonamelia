@@ -17,30 +17,32 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
       <section
         className="w-full h-full md:h-screen md:sticky top-0 relative"
         style={{
-          backgroundImage: media
-            ? ""
-            : `linear-gradient(to right, rgb(21, 22, 28, ${media ? ".6" : "1"
-            }) ${media
-              ? "100%"
-              : `${location.pathname === "/brokerage" ? "35%" : "32%"}`
-            }, rgba(21, 22, 28,0.3)), url(${location.pathname === "/brokerage" ? banner : banner
-            })`,
+          backgroundImage: media ? "" : `url(${banner})`,
           backgroundSize: "cover",
           backgroundPosition: `${location.pathname === "/brokerage"
             ? `${media ? "70% 150px" : "70% 50%"}`
-            : `${media ? "bottom -150px right 0px" : "bottom right"}`
+            : `${media ? "bottom -150px right 0px" : "60% 50%"}`
             }`,
           backgroundRepeat: "no-repeat",
           backgroundAttachment: `${media ? "" : "fixed"}`,
         }}
       >
+        {/* Hero gradient overlay — sized to element, identical across all pages */}
+        <div
+          className="hidden md:block absolute inset-0 pointer-events-none z-[1]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgb(21, 22, 28) 35%, rgba(21, 22, 28, 0.6) 75%, rgba(21, 22, 28, 0.55))",
+          }}
+        />
+
         <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0">
           <img src={bannerTwo} className="w-full h-full object-cover object-[center_85%]" alt="" />
         </div>
 
         <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/75"></div>
 
-        <div className="px-5 z-[9] container flex flex-col justify-center h-full min-h-[300px] pt-[132px] pb-[32px] md:pt-[50px] md:pb-0 md:justify-center md:h-screen md:items-start items-center">
+        <div className="px-5 relative z-[9] container flex flex-col justify-center h-full min-h-[300px] pt-[132px] pb-[32px] md:pt-[50px] md:pb-0 md:justify-center md:h-screen md:items-start items-center">
           {media ? (
               <BlurText
                 text={location.pathname === "/brokerage" ? "BROKERAGE" : location.pathname === "/insurance" ? "INSURANCE" : "ACQUISITION"}

@@ -13,14 +13,21 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
       <div
         className="h-full relative bg-img w-full md:sticky top-0 md:h-screen"
         style={{
-          backgroundImage: media ? "" : `linear-gradient(to right,rgb(21, 22, 28, ${media ? ".8" : "1"
-            }) ${media ? "100%" : "40%"}, rgba(0, 0, 0, 0.01)), url(${url})`,
+          backgroundImage: media ? "" : `url(${url})`,
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
           backgroundRepeat: "no-repeat",
-          backgroundPosition: "bottom right",
+          backgroundPosition: "60% 50%",
         }}
       >
+        {/* Hero gradient overlay — sized to element, identical across all pages */}
+        <div
+          className="hidden md:block absolute inset-0 pointer-events-none z-[1]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgb(21, 22, 28) 35%, rgba(21, 22, 28, 0.6) 75%, rgba(21, 22, 28, 0.55))",
+          }}
+        />
         {showArrow && !media && <BlinkingArrow onClick={handleArrowClick} />}
         {/* <div className="overlay bg-black opacity-60 absolute top-0 left-0 w-full h-full z-[-1]"></div> */}
 
@@ -30,7 +37,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
 
         <div className="absolute md:hidden block w-full h-[450px] z-[-1] top-0 left-0 bg-black/60"></div>
 
-        <div className="container flex flex-col justify-center h-full pt-[132px] pb-[32px] md:items-start items-center px-5">
+        <div className="container relative z-[2] flex flex-col justify-center h-full pt-[132px] pb-[32px] md:items-start items-center px-5">
           <div className="banner-content">
             {/* <h1 className="text-white text-6xl font-bold">Discover the Future of Flight</h1> */}
             <BlurText

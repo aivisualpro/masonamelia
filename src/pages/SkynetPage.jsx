@@ -108,20 +108,25 @@ const SkynetPage = () => {
         ref={bannerRef}
         className="mt-0 h-full md:h-screen w-full bg-cover bg-center z-[0] relative overflow-hidden"
         style={{
-          backgroundImage: media
-            ? ""
-            : `linear-gradient(
-            to right,
-            rgb(21, 22, 28, ${media ? ".8" : "1"}) ${media ? "100%" : "30%"},
-            rgba(21, 22, 28, 0.3)
-          ), url(${banner})`,
+          backgroundImage: media ? "" : `url(${banner})`,
           backgroundSize: "cover",
           backgroundPosition: "60% 50%",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
         }}
       >
-        <Skynet banner={banner} />
+        {/* Hero gradient overlay — sized to element, identical across all pages */}
+        <div
+          className="hidden md:block absolute inset-0 pointer-events-none z-[1]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgb(21, 22, 28) 35%, rgba(21, 22, 28, 0.6) 75%, rgba(21, 22, 28, 0.55))",
+          }}
+        />
+
+        <div className="relative z-[2] h-full">
+          <Skynet banner={banner} />
+        </div>
 
         {/* Arrow appears ~3s if user hasn't interacted */}
         {showArrow && <BlinkingArrow onClick={handleArrowClick} />}

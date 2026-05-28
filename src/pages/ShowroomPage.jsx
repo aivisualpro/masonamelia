@@ -185,7 +185,7 @@ const ShowroomPage = () => {
 
   return (
     <>
-      <Banner url={banner} banner={bannerTwo} handleArrowClick={handleArrowClick} showArrow={showArrow} />
+      <Banner url={bannerTwo} banner={bannerTwo} handleArrowClick={handleArrowClick} showArrow={showArrow} />
       {/* 👇 target for scroll */}
       <div ref={listingRef}>
         <Listing autoScrollEnabled={autoScrollEnabled} initialFilters={restoredFilters} />

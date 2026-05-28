@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import About from "../components/About";
-import bgPlane from "/images/banner.png";
+import bgPlane from "/images/team.jpg";
 import bgPlaneTeam from "/images/team.webp";
 import ScrollToTop from "../components/ScrollToTop";
 import WhatSetsUsApart from "../components/WhatSetsApart";
@@ -219,19 +219,26 @@ const AboutPage = () => {
       {/* HERO / FIRST SECTION */}
       <section
         ref={bannerRef}
-        className="relative md:max-w-screen lg:h-screen bg-[#10121A] overflow-hidden mt-0"
+        className="relative md:max-w-screen lg:h-screen overflow-hidden mt-0"
         style={{
-          backgroundImage: `url(${media ? bgPlaneTeam : bgPlane})`,
-          backgroundSize: media ? "cover" : "cover",
-          backgroundPosition: media ? "top 0px right 0px" : "100% 45%",
+          backgroundImage: media ? `url(${bgPlaneTeam})` : `url(${bgPlane})`,
+          backgroundSize: "cover",
+          backgroundPosition: media ? "top 0px right 0px" : "60% 50%",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: media ? "static" : "fixed",
-          backgroundColor: "#10121A",
           height: mobileMedia ? "350px" : media ? "700px" : "100vh",
         }}
       >
+        {/* Hero gradient overlay — sized to element, identical across all pages */}
+        <div
+          className="hidden md:block absolute inset-0 pointer-events-none z-[1]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, rgb(21, 22, 28) 35%, rgba(21, 22, 28, 0.6) 75%, rgba(21, 22, 28, 0.55))",
+          }}
+        />
         <div className="lg:hidden block absolute w-full h-full bg-black/60"></div>
-        <div className="container px-5">
+        <div className="container relative z-[2] px-5">
           <About />
         </div>
 
