@@ -1,7 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-const SkynetAdvantage = () => {
+const SkynetAdvantage = ({ titleWhite, titleBlue, description }) => {
+  const white = titleWhite || 'Unlock';
+  const blue = titleBlue || "SkyNet’s Data Advantage";
+  const descShort = "“Hold on, John Connor!” because Mason Amelia’s proprietary aircraft pricing app, SkyNet, employs a proprietary means of collecting, analyzing, and presenting transaction data.";
+  const descFull = description || "“Hold on, John Connor!” because Mason Amelia’s proprietary aircraft pricing app, SkyNet, employs a proprietary means of collecting, analyzing, and presenting transaction data. With no MLS substitute, this private data is the lifeblood that empowers our buyers and sellers. Simply put, SkyNet ensures every decision is powered by data and backed by Mason Amelia’s experience.";
+
   // Animation Settings
   const headingVariants = {
     initial: { opacity: 0, y: 50 },
@@ -27,9 +32,9 @@ const SkynetAdvantage = () => {
               transition={{ duration: 0.5 }}
               className="text-[2rem] leading-none font-bold text-center"
             >
-              Unlock{" "}
+              {white}{" "}
               <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                SkyNet’s Data Advantage
+                {blue}
               </span>
             </motion.h2>
             <motion.p
@@ -39,9 +44,7 @@ const SkynetAdvantage = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-center text-gray-400 py-[20px] text-base"
             >
-              “Hold on, John Connor!” because Mason Amelia’s proprietary
-              aircraft pricing app, SkyNet, employs a proprietary means of
-              collecting, analyzing, and presenting transaction data.
+              {descShort}
             </motion.p>
           </div>
 
@@ -55,9 +58,9 @@ const SkynetAdvantage = () => {
               transition={{ duration: 0.5 }}
               className="md:text-[3rem] xl:text-[3.5rem] leading-none 2xl:text-7xl font-bold text-center"
             >
-              Unlock{" "}
+              {white}{" "}
               <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                SkyNet’s Data Advantage
+                {blue}
               </span>
             </motion.h2>
             <motion.p
@@ -68,13 +71,7 @@ const SkynetAdvantage = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="text-center text-gray-400 py-[40px] md:text-lg"
             >
-              “Hold on, John Connor!” because Mason Amelia’s proprietary
-              aircraft pricing app, SkyNet, employs a proprietary means of
-              collecting, analyzing, and presenting transaction data. With no
-              MLS substitute, this private data is the lifeblood that empowers
-              our buyers and sellers. Simply put, SkyNet ensures every
-              decision is powered by data and backed by Mason Amelia’s
-              experience.
+              {descFull}
             </motion.p>
           </div>
 

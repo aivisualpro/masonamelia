@@ -9,7 +9,9 @@ const BrokerageRappleResearch = ({
   isConsultation = false,
   title,
   description,
+  bgImage,
 }) => {
+  const bgSrc = bgImage || brokerageBanner;
   const isMobile = useMediaQuery("(max-width: 767px)");
 
   const sectionRef = useRef(null);
@@ -44,7 +46,7 @@ const BrokerageRappleResearch = ({
           active ? "opacity-100" : "opacity-0"
         }`}
         style={{
-          backgroundImage: `url(${brokerageBanner})`,
+          backgroundImage: `url(${bgSrc})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

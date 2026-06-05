@@ -3,8 +3,18 @@ import { motion } from "framer-motion";
 import ShinyText from "./ui/ShinyText";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const Higher = ({ banner, bannerTwo }) => {
+const Higher = ({
+  banner,
+  bannerTwo,
+  titleWhite,
+  titleBlue,
+  description,
+}) => {
   const media = useMediaQuery("(max-width: 767px)");
+
+  const white = titleWhite || "We're More Than Brokers —";
+  const blue = titleBlue || "We're Storytellers";
+  const desc = description || "If Your Broker Isn't Crafting a Marketing Plan as Compelling as the Aircraft Itself, They're Not Truly Selling It";
 
   return (
     <div className="flex items-center md:h-screen h-[280px]">
@@ -24,9 +34,9 @@ const Higher = ({ banner, bannerTwo }) => {
           className="text-white md:text-start text-center text-[1.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-6xl md:max-w-md lg:max-w-2xl"
           style={{ lineHeight: "1.1" }}
         >
-          We’re More Than Brokers -{" "} <br className="md:hidden block" />
+          {white}{" "} <br className="md:hidden block" />
           <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-            We’re Storytellers
+            {blue}
           </span>
         </motion.h2>
         <motion.div
@@ -42,9 +52,7 @@ const Higher = ({ banner, bannerTwo }) => {
         >
           <ShinyText
             isTextCenter={media ? true : false}
-            text={
-              "If Your Broker Isn’t Crafting a Marketing Plan as Compelling as the Aircraft Itself, They’re Not Truly Selling It"
-            }
+            text={desc}
             disabled={false}
             speed={5}
             className="text-sm md:text-xl mt-4"

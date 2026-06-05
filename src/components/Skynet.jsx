@@ -4,8 +4,14 @@ import Button from "./Button";
 import ShinyText from "./ui/ShinyText";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const Skynet = ({ banner }) => {
+const Skynet = ({ banner, titleWhite, titleBlue, description }) => {
   const media = useMediaQuery("(max-width: 767px)");
+
+  const white = titleWhite || 'Mason Amelia Pricing Intelligence —';
+  const blue = titleBlue || 'Powered by SkyNet';
+  const desc = description || (media
+    ? "No Guesswork. No Lag. Just Real-Time Market Intelligence That Gives You the Edge"
+    : "No guesswork. No lag. Real-time market intelligence that gives our clients the sharpest edge; Fast, factual, and unbeatable.");
 
   return (
     <div className="lg:h-[400px] md:h-[100vh]">
@@ -28,9 +34,9 @@ const Skynet = ({ banner }) => {
             "SKYNET"
           ) : (
             <>
-              Mason Amelia Pricing Intelligence -{" "}
+              {white}{" "}
               <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                Powered by SkyNet
+                {blue}
               </span>
             </>
           )}
@@ -48,13 +54,7 @@ const Skynet = ({ banner }) => {
         >
           <ShinyText
             isTextCenter={media ? true : false}
-            text={
-              location.pathname === "/brokerage"
-                ? "Mason Amelia makes aircraft deals seamless and strategic. We handle the process—so you can focus on results."
-                : media
-                ? "No Guesswork. No Lag. Just Real-Time Market Intelligence That Gives You the Edge"
-                : "No guesswork. No lag. Real-time market intelligence that gives our clients the sharpest edge; Fast, factual, and unbeatable."
-            }
+            text={desc}
             disabled={false}
             speed={5}
             className="text-sm md:text-xl"

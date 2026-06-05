@@ -6,8 +6,13 @@ import vision from "/images/higher/vision_new.png";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import FlowFieldBackground from "./ui/FlowFieldBackground";
 
-const GlowingCardSection = () => {
+const GlowingCardSection = ({ title, subtitle, body1, body2 }) => {
   const media = useMediaQuery("(max-width: 767px)");
+
+  const vTitle = title || 'Looking for Higher on YouTube';
+  const vSubtitle = subtitle || "When you partner with Mason Amelia, you're not just getting a brokerage—you’re getting a full-service, marketing-driven strategy to maximize visibility and find the right buyer.";
+  const vBody1 = body1 || "At Mason Amelia, we're more than brokers; we're storytellers. While there are many brokers out there, few live truer to the aviation lifestyle than our founder, Jesse Adams, who started the YouTube channel, Looking for Higher, which now serves as Mason Amelia's video marketing platform. On the channel, you will find insights on the true experience of aircraft ownership from transitioning into a turbine to the freedom of flying family across the country.";
+  const vBody2 = body2 || "Every video we create tells the unique story of each aircraft we represent, bringing its personality and capabilities to life in ways that resonate with prospective buyers. This storytelling approach is powerful and essential in today’s market, where a listing alone doesn’t cut it. If Your Broker Isn’t Crafting a Marketing Plan as Compelling as the Aircraft Itself, They’re Not Truly Selling It";
 
   return (
     <section className="py-24 z-[0] relative min-h-screen flex items-center justify-center overflow-hidden">
@@ -36,17 +41,17 @@ const GlowingCardSection = () => {
            className="max-w-5xl mx-auto"
          >
           <h2 className="text-white text-[2rem] md:text-[56px] font-bold mb-4 leading-tight" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-            Looking for <i className="italic">Higher</i> on <span className="text-[#FF0000]">YouTube</span>
+            {vTitle}
           </h2>
           
           <p className="text-tertiary_color text-lg md:text-[20px] font-medium mb-12 max-w-4xl mx-auto leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-            When you partner with Mason Amelia, you're not just getting a brokerage—you’re getting a full-service, marketing-driven strategy to maximize visibility and find the right buyer.
+            {vSubtitle}
           </p>
           <p className="text-gray-300 text-lg md:text-[20px] font-light leading-relaxed mb-6" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-            At Mason Amelia, we’re more than brokers; we’re storytellers. While there are many brokers out there, few live truer to the aviation lifestyle than our founder, Jesse Adams, who started the YouTube channel, <a href="https://www.youtube.com/@LookingforHigher" target="_blank" rel="noopener noreferrer" className="text-tertiary_color font-medium italic underline underline-offset-4 hover:text-white transition-colors">Looking for Higher</a>, which now serves as Mason Amelia's video marketing platform. On the channel, you will find insights on the true experience of aircraft ownership from transitioning into a turbine to the freedom of flying family across the country.
+            {vBody1}
           </p>
           <p className="text-gray-300 text-lg md:text-[20px] font-light leading-relaxed" style={{ fontFamily: "'DM Sans', sans-serif" }}>
-            Every video we create tells the unique story of each aircraft we represent, bringing its personality and capabilities to life in ways that resonate with prospective buyers. This storytelling approach is powerful and essential in today’s market, where a listing alone doesn’t cut it. If Your Broker Isn’t Crafting a Marketing Plan as Compelling as the Aircraft Itself, They’re Not Truly Selling It
+            {vBody2}
           </p>
         </motion.div>
       </div>

@@ -11,9 +11,13 @@ import CTABanner from "../components/CTABanner";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import BlinkingArrow from "../components/BlinkingArrow";
 import Contact from "../components/Contact";
+import { useContact } from "../hooks/useContactQuery";
 
 const HigherPage = () => {
   const media = useMediaQuery("(max-width: 767px)");
+
+  // Dynamic content from DB
+  const { data: contactData } = useContact();
 
   /** ---------- Smooth auto-scroll (same as other pages) ---------- */
   const bannerRef = useRef(null);
@@ -113,12 +117,18 @@ const HigherPage = () => {
         style={{
           backgroundImage: media ? "" : `linear-gradient(to right, rgb(21, 22, 28, ${
             media ? ".5" : "1"
-          }) ${media ? "100%" : "30%"}, rgba(0, 0, 0, 0.05)), url(${bgPlaneTwo})`,
+          }) ${media ? "100%" : "30%"}, rgba(0, 0, 0, 0.05)), url(${contactData?.higher_hero_bg_image || bgPlaneTwo})`,
         }}
       >
         <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-[-1]"></div>
         <div className="container">
-          <Higher banner={bgPlane} bannerTwo={bgPlaneTwo} />
+          <Higher
+            banner={bgPlane}
+            bannerTwo={bgPlaneTwo}
+            titleWhite={contactData?.higher_hero_title_white}
+            titleBlue={contactData?.higher_hero_title_blue}
+            description={contactData?.higher_hero_description}
+          />
         </div>
 
         {/* Arrow appears ~3s if user hasn't interacted */}
@@ -127,7 +137,12 @@ const HigherPage = () => {
 
       {/* TARGET SECTION — auto-scroll lands here */}
       <main id="higher-main" className="relative">
-        <Vision />
+        <Vision
+          title={contactData?.higher_vision_title}
+          subtitle={contactData?.higher_vision_subtitle}
+          body1={contactData?.higher_vision_body1}
+          body2={contactData?.higher_vision_body2}
+        />
         <Gallary />
         <section className="relative bg-[#111218] py-20">
           <div className="container px-5">

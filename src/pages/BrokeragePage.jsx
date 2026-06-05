@@ -18,10 +18,12 @@ import TaxiCardsDarkSection from "../components/TaxiAndSystemCheck";
 import { FaBullhorn, FaDollarSign, FaProjectDiagram, FaClipboardList } from "react-icons/fa";
 import ClearForTakeoff from "../components/ClearForTakeoff";
 import Relationship from "../components/Relationship";
+import { useContact } from "../hooks/useContactQuery";
 
 const BrokeragePage = () => {
   /** ---------- Smooth auto-scroll (same pattern as Acquisition) ---------- */
   const bannerRef = useRef(null);
+  const { data: contactData } = useContact();
   const [showArrow, setShowArrow] = useState(false);
   const [cancelAuto, setCancelAuto] = useState(false);
 
@@ -286,7 +288,14 @@ const BrokeragePage = () => {
     <div className="w-full overflow-x-hidden">
       {/* HERO / FIRST SECTION with arrow & auto-scroll */}
       <div ref={bannerRef} className="relative z-[9] h-auto overflow-hidden">
-        <ServiceBanner banner={banner} bannerTwo={bannerTwo} />
+        <ServiceBanner
+          banner={banner}
+          bannerTwo={bannerTwo}
+          titleWhite={contactData?.brokerage_hero_title_white}
+          titleBlue={contactData?.brokerage_hero_title_blue}
+          heroDescription={contactData?.brokerage_hero_description}
+          bgImage={contactData?.brokerage_hero_bg_image}
+        />
         {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
       </div>
 
@@ -294,68 +303,57 @@ const BrokeragePage = () => {
       <main id="brokerage" className="relative">
         <BrokerageRappleResearch
           data={data}
-          title={"Preflight Planning"}
+          title={contactData?.brokerage_preflight_title || "Preflight Planning"}
           isConsultation={true}
-          description={
+          description={contactData?.brokerage_preflight_description ||
             "Every brokerage is a unique opportunity with its own challenges. By understanding your goals, timing, and long-term vision, we design a clear path forward through brokerage, trade-in, or wholesale that helps you transition smoothly and maximize your results."
           }
+          bgImage={contactData?.brokerage_preflight_bg_image}
         />
-
-        {/* <ServiceHighlights
-          topTitle={"Strategic"}
-          highlightedTitle={"Aircraft Brokerage"}
-          bottomTitle={"for Confident Closures"}
-          description="Every listing tells a story. Discover how Mason Amelia’s trusted brokerage model delivers maximum value, optimal timing, and seamless execution—from initial listing to final handshake."
-          data={brokerageData}
-        /> */}
-
-        {/* <section
-          id="timeline"
-          style={{
-            backgroundImage: `url(${brokerageBanner})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundAttachment: "fixed",
-          }}
-          className="py-20 relative z-[10]"
-        >
-          <div className="absolute top-0 left-0 w-full h-full bg-black opacity-80 z-[-1]"></div>
-          <Timeline data={timeline} isHeading={true} />
-        </section> */}
 
         <TaxiCardsDarkSection
           tagline={
             <>
-              <span>Taxi &amp; Systems Check</span>
+              <span>{contactData?.brokerage_taxi_tagline || "Taxi & Systems Check"}</span>
             </>
           }
-          title={"Bringing to Market"}
-          description={
+          title={contactData?.brokerage_taxi_title || "Bringing to Market"}
+          description={contactData?.brokerage_taxi_description ||
             "Four disciplines. One objective: sell your aircraft efficiently and correctly."
           }
-          cards={cards}
+          cards={contactData?.brokerage_taxi_cards?.length ? contactData.brokerage_taxi_cards.map((c, i) => ({
+            title: c.title,
+            icon: [<FaBullhorn className="h-8 w-8" />, <FaDollarSign className="h-8 w-8" />, <FaProjectDiagram className="h-8 w-8" />, <FaClipboardList className="h-8 w-8" />][i] || <FaBullhorn className="h-8 w-8" />,
+            gradient: ['from-cyan-400 to-blue-500', 'from-emerald-400 to-teal-500', 'from-fuchsia-400 to-purple-500', 'from-amber-400 to-orange-500'][i] || 'from-cyan-400 to-blue-500',
+            points: [c.point],
+          })) : cards}
         />
 
         <ClearForTakeoff
           eyebrow="FRAME 4"
-          title="Cleared for Takeoff"
-          subtitle="Active Marketing, Negotiation & Closing"
-          intro="With your mission set and systems in sync, we execute. Mason Amelia takes your aircraft to market with precision, discipline, and transparency, aggressively marketing, strategically negotiating, and closing efficiently to deliver maximum value in minimal time."
-          bullets={[
-            "Analyze market data and position your aircraft for maximum impact.",
-            "Launch targeted campaigns and direct outreach to qualified buyers.",
-            "Present offers and deliver real-time market feedback.",
-            "Negotiate terms and manage contract execution through closing.",
-            "Coordinate logistics and support a seamless handoff at delivery.",
-          ]}
-          outro="From first call to final handshake, we don’t just list aircraft. We own the process, executing with precision, creating demand, and closing with clean and solid results."
-          image="/images/brokerage/cockpit.jpeg" // replace with your asset
+          title={contactData?.brokerage_cleared_title || "Cleared for Takeoff"}
+          subtitle={contactData?.brokerage_cleared_subtitle || "Active Marketing, Negotiation & Closing"}
+          intro={contactData?.brokerage_cleared_intro || "With your mission set and systems in sync, we execute. Mason Amelia takes your aircraft to market with precision, discipline, and transparency, aggressively marketing, strategically negotiating, and closing efficiently to deliver maximum value in minimal time."}
+          bullets={contactData?.brokerage_cleared_bullets?.length
+            ? contactData.brokerage_cleared_bullets
+            : [
+              "Analyze market data and position your aircraft for maximum impact.",
+              "Launch targeted campaigns and direct outreach to qualified buyers.",
+              "Present offers and deliver real-time market feedback.",
+              "Negotiate terms and manage contract execution through closing.",
+              "Coordinate logistics and support a seamless handoff at delivery.",
+            ]}
+          outro={contactData?.brokerage_cleared_outro || "From first call to final handshake, we don't just list aircraft. We own the process, executing with precision, creating demand, and closing with clean and solid results."}
+          image={contactData?.brokerage_cleared_image || "/images/brokerage/cockpit.jpeg"}
           imageAlt="Mason Amelia — Cleared for Takeoff"
-          imageOn="right" // set to "left" if you want image on left
+          imageOn="right"
         />
 
-        <Relationship />
+        <Relationship
+          title={contactData?.brokerage_relationship_title}
+          subtitle={contactData?.brokerage_relationship_subtitle}
+          image={contactData?.brokerage_relationship_image}
+        />
 
         <section className="bg-[#111218] relative z-[10] py-10">
           <div className="container px-5">

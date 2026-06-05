@@ -5,8 +5,8 @@ import timelineTwo from "/images/skynet/timeline-two.png";
 import timelineFour from "/images/skynet/timeline-four.jpg";
 import timelineFive from "/images/skynet/timeline-five.avif";
 
-const SkynetTimeline = () => {
-  const timelineData = [
+const SkynetTimeline = ({ titleWhite, titleBlue, items }) => {
+  const defaultData = [
     {
       year: "2023",
       title: "Data Access Revolutionized",
@@ -26,7 +26,7 @@ const SkynetTimeline = () => {
       year: "2025",
       title: "Real-Time Market Insight",
       description:
-        "SkyNet is deployed. Secure, fast, and built by aviation experts, it quickly becomes the backbone of our brokers’ pricing, market insight, and decision-making.",
+        "SkyNet is deployed. Secure, fast, and built by aviation experts, it quickly becomes the backbone of our brokers' pricing, market insight, and decision-making.",
       image:
         timelineFour,
     },
@@ -38,6 +38,19 @@ const SkynetTimeline = () => {
       image: timelineTwo,
     },
   ];
+
+  const images = [timelineOne, timelineFive, timelineFour, timelineTwo];
+
+  // Merge DB items with local images — prefer DB image if set, fallback to local
+  const timelineData = items?.length
+    ? items.map((item, idx) => ({
+        ...item,
+        image: item.image || images[idx] || images[images.length - 1],
+      }))
+    : defaultData;
+
+  const tWhite = titleWhite || "The Evolution of SkyNet:";
+  const tBlue = titleBlue || "A Timeline of Innovation";
 
   const lineRef = useRef(null);
   const containerRef = useRef(null);
@@ -84,7 +97,7 @@ const SkynetTimeline = () => {
         >
           The Evolution of SkyNet:{" "}
           <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-            A Timeline of Innovation
+            {tBlue}
           </span>
         </motion.h2>
         <motion.p

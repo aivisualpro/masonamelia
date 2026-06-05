@@ -2,7 +2,11 @@
 import React from "react";
 import relationshipImg from "/images/relationship.png"
 
-const Relationship = () => {
+const Relationship = ({ title, subtitle, image }) => {
+    const relTitle = title || "Relationships for Life";
+    const relSubtitle = subtitle || "This isn't transactional. This is a life-long friendship.";
+    const relImage = image || relationshipImg;
+
     return (
         <section className="pb-20 flex items-center justify-center bg-white">
             <div className="container px-5 relative">
@@ -14,18 +18,18 @@ const Relationship = () => {
 
                         <div className="rounded-3xl py-10">
                             <h1 className="text-[2rem] md:text-[3rem] xl:text-7xl font-semibold text-[#111827] leading-tight">
-                                Relationships for Life
+                                {relTitle}
                             </h1>
 
                             <h3 className="py-4 text-xl xl:text-2xl font-bold text-[#222]">
-                                This isn’t transactional. This is a life-long friendship.
+                                {relSubtitle}
                             </h3>
                         </div>
                     </div>
 
                     {/* Right: Phone Mockup */}
                     <div className="w-full md:w-[40%] flex justify-center">
-                        <img src={relationshipImg} className="w-full scale-[1.2] 2xl:scale-[1.5]" alt="plane" />
+                        <img src={relImage} className="w-full scale-[1.2] 2xl:scale-[1.5]" alt="plane" />
                     </div>
                 </div>
             </div>

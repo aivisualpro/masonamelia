@@ -7,6 +7,7 @@ export default function ClearForTakeoff({
   intro,                  // intro paragraph
   bullets = [],           // array of bullet strings
   outro,                  // closing line
+  image,                  // optional dynamic image URL
   imageAlt = "",
   imageOn = "right",      // "right" | "left"
 }) {
@@ -52,7 +53,7 @@ export default function ClearForTakeoff({
           <div className="relative lg:w-1/2 w-full">
             <div className="absolute -inset-6 -z-10 rounded-3xl bg-sky-500/10 blur-3xl" />
             <img
-              src="/images/clearForTakeoff.webp"
+              src={image || "/images/clearForTakeoff.webp"}
               alt={imageAlt}
               className="w-full rounded-2xl object-cover"
             />

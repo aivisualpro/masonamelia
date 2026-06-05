@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import banner from "/images/acquisition/service-banner.webp";
 
-const ServiceRappleResearch = ({ highlightedTitle, title, description }) => {
+const ServiceRappleResearch = ({ highlightedTitle, title, description, bgImage }) => {
   const sectionRef = useRef(null);
   const [active, setActive] = useState(false);
 
@@ -32,7 +32,7 @@ const ServiceRappleResearch = ({ highlightedTitle, title, description }) => {
           active ? "opacity-100" : "opacity-0"
         }`}
         style={{
-          backgroundImage: `url(${banner})`,
+          backgroundImage: `url(${bgImage || banner})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
