@@ -357,7 +357,13 @@ const BrokeragePage = () => {
 
         <section className="bg-[#111218] relative z-[10] py-10">
           <div className="container px-5">
-            <CTABanner />
+            <CTABanner
+              lines={[
+                { white: contactData?.brokerage_cta_line1_white || 'Data informs', blue: contactData?.brokerage_cta_line1_blue || 'decisions.' },
+                { white: contactData?.brokerage_cta_line2_white || 'Exposure creates', blue: contactData?.brokerage_cta_line2_blue || 'opportunity.' },
+                { white: contactData?.brokerage_cta_line3_white || 'Execution delivers', blue: contactData?.brokerage_cta_line3_blue || 'results.' },
+              ]}
+            />
           </div>
         </section>
 

@@ -300,7 +300,13 @@ const AcquisitionPage = () => {
 
         <section className="bg-[#111218] relative z-[0] py-10">
           <div className="container px-5">
-            <CTABanner />
+            <CTABanner
+              lines={[
+                { white: contactData?.acquisition_cta_line1_white || 'Data informs', blue: contactData?.acquisition_cta_line1_blue || 'decisions.' },
+                { white: contactData?.acquisition_cta_line2_white || 'Relationships create', blue: contactData?.acquisition_cta_line2_blue || 'opportunity.' },
+                { white: contactData?.acquisition_cta_line3_white || 'Execution delivers', blue: contactData?.acquisition_cta_line3_blue || 'results.' },
+              ]}
+            />
           </div>
         </section>
       </main>
