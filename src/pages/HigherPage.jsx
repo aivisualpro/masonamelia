@@ -14,7 +14,7 @@ import Contact from "../components/Contact";
 import { useContact } from "../hooks/useContactQuery";
 
 const HigherPage = () => {
-  const media = useMediaQuery("(max-width: 767px)");
+  const media = useMediaQuery("(max-width: 1023px)");
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   // Dynamic content from DB
@@ -147,7 +147,7 @@ const HigherPage = () => {
       ) : (
         <section
           ref={bannerRef}
-          className="mt-0 md:sticky top-0 w-full bg-cover relative md:h-screen bg-center z-[0] overflow-hidden"
+          className="mt-0 lg:sticky top-0 w-full bg-cover relative lg:h-screen bg-center z-[0] overflow-hidden"
           style={{
             backgroundImage: media ? "" : `linear-gradient(to right, rgb(21, 22, 28, ${
               media ? ".5" : "1"

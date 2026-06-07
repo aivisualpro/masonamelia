@@ -13,7 +13,7 @@ import Contact from "../components/Contact";
 import { useContact } from "../hooks/useContactQuery";
 
 const SkynetPage = () => {
-  const media = useMediaQuery("(max-width: 767px)");
+  const media = useMediaQuery("(max-width: 1023px)");
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const { data: contactData } = useContact();
 
@@ -153,7 +153,7 @@ const SkynetPage = () => {
         >
           {/* Hero gradient overlay — sized to element, identical across all pages */}
           <div
-            className="hidden md:block absolute inset-0 pointer-events-none z-[1]"
+            className="hidden lg:block absolute inset-0 pointer-events-none z-[1]"
             style={{
               backgroundImage:
                 "linear-gradient(to right, rgb(21, 22, 28) 35%, rgba(21, 22, 28, 0.6) 75%, rgba(21, 22, 28, 0.55))",

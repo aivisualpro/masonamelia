@@ -8,7 +8,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 const ServiceBanner = ({ banner, bannerTwo, titleWhite: propTitleWhite, titleBlue: propTitleBlue, heroDescription: propDesc, bgImage }) => {
   const location = useLocation();
-  const media = useMediaQuery("(max-width: 767px)");
+  const media = useMediaQuery("(max-width: 1023px)");
 
   // Resolve title/description — use dynamic props if provided, otherwise hardcoded defaults
   const defaultTitleWhite = location.pathname === "/brokerage"
@@ -126,7 +126,7 @@ const ServiceBanner = ({ banner, bannerTwo, titleWhite: propTitleWhite, titleBlu
         </section>
       ) : (
         <section
-          className="w-full h-[50svh] md:h-screen md:sticky top-0 relative"
+          className="w-full h-[50svh] lg:h-screen lg:sticky top-0 relative"
           style={{
             backgroundImage: media ? "" : `url(${heroImage})`,
             backgroundSize: "cover",
@@ -140,20 +140,20 @@ const ServiceBanner = ({ banner, bannerTwo, titleWhite: propTitleWhite, titleBlu
         >
           {/* Hero gradient overlay */}
           <div
-            className="hidden md:block absolute inset-0 pointer-events-none z-[1]"
+            className="hidden lg:block absolute inset-0 pointer-events-none z-[1]"
             style={{
               backgroundImage:
                 "linear-gradient(to right, rgb(21, 22, 28) 35%, rgba(21, 22, 28, 0.6) 75%, rgba(21, 22, 28, 0.55))",
             }}
           />
 
-          <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-[#111218]">
+          <div className="absolute lg:hidden block w-full h-full z-[-1] top-0 left-0 bg-[#111218]">
             <img src={bannerTwo} className="w-full h-full object-cover" alt="" />
           </div>
 
-          <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/40"></div>
+          <div className="absolute lg:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/40"></div>
 
-          <div className="px-5 relative z-[9] container flex flex-col justify-center h-full min-h-[300px] pt-[132px] pb-[32px] md:pt-[50px] md:pb-0 md:justify-center md:h-screen md:items-start items-center">
+          <div className="px-5 relative z-[9] container flex flex-col justify-center h-full min-h-[300px] pt-[132px] pb-[32px] lg:pt-[50px] lg:pb-0 lg:justify-center lg:h-screen lg:items-start items-center">
             {media ? (
                 <BlurText
                   text={mobileFallbackTitle}
@@ -161,14 +161,14 @@ const ServiceBanner = ({ banner, bannerTwo, titleWhite: propTitleWhite, titleBlu
                 delay={150}
                 animateBy="words"
                 direction="top"
-                className="max-w-xl text-[2.5rem] leading-none font-bold uppercase text-[#1777cb] text-center md:capitalize"
+                className="max-w-xl text-[2.5rem] leading-none font-bold uppercase text-[#1777cb] text-center lg:capitalize"
               />
             ) : (
               <motion.h1
                 initial={{ opacity: 0, y: 100 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ type: "spring", stiffness: 50, duration: 0.5 }}
-                className="md:text-start text-center text-white text-[1.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-[4rem] max-w-lg xl:max-w-2xl pb-4"
+                className="lg:text-start text-center text-white text-[1.5rem] lg:text-[3rem] xl:text-[3.5rem] 2xl:text-[4rem] max-w-lg xl:max-w-2xl pb-4"
                 style={{ lineHeight: "1.1" }}
               >
                 {tw}{" "}
@@ -193,8 +193,8 @@ const ServiceBanner = ({ banner, bannerTwo, titleWhite: propTitleWhite, titleBlu
                 text={desc}
                 disabled={false}
                 speed={5}
-                className="text-sm md:text-xl py-4"
-                color="md:text-[#b5b5b5a4] text-white/80"
+                className="text-sm lg:text-xl py-4"
+                color="lg:text-[#b5b5b5a4] text-white/80"
               />
             </motion.div>
 
@@ -209,12 +209,12 @@ const ServiceBanner = ({ banner, bannerTwo, titleWhite: propTitleWhite, titleBlu
                   duration: 0.5,
                   delay: 0.6,
                 }}
-                className="hidden md:flex flex-col items-start gap-5 mt-6"
+                className="hidden lg:flex flex-col items-start gap-5 mt-6"
               >
                 <img
                   src="/images/insurance/titan_aerospace_insurance.avif"
                   alt="Titan Aerospace Insurance"
-                  className="max-w-[280px] md:max-w-xs rounded-lg"
+                  className="max-w-[280px] lg:max-w-xs rounded-lg"
                 />
                 <a
                   href="mailto:insurance@masonamelia.com"

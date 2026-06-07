@@ -6,7 +6,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import BlinkingArrow from "./BlinkingArrow";
 
 const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
-  const media = useMediaQuery("(max-width: 767px)");
+  const media = useMediaQuery("(max-width: 1023px)");
   const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   return (
@@ -53,7 +53,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
         </div>
       ) : (
         <div
-          className="h-[50svh] relative bg-img w-full md:sticky top-0 md:h-screen"
+          className="h-[50svh] relative bg-img w-full lg:sticky top-0 lg:h-screen"
           style={{
             backgroundImage: media ? "" : `url(${url})`,
             backgroundSize: "cover",
@@ -64,7 +64,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
         >
           {/* Hero gradient overlay — sized to element, identical across all pages */}
           <div
-            className="hidden md:block absolute inset-0 pointer-events-none z-[1]"
+            className="hidden lg:block absolute inset-0 pointer-events-none z-[1]"
             style={{
               backgroundImage:
                 "linear-gradient(to right, rgb(21, 22, 28) 35%, rgba(21, 22, 28, 0.6) 75%, rgba(21, 22, 28, 0.55))",
@@ -73,13 +73,13 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
           {showArrow && !media && <BlinkingArrow onClick={handleArrowClick} />}
           {/* <div className="overlay bg-black opacity-60 absolute top-0 left-0 w-full h-full z-[-1]"></div> */}
 
-          <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-[#111218]">
+          <div className="absolute lg:hidden block w-full h-full z-[-1] top-0 left-0 bg-[#111218]">
             <img src={banner} className="w-full h-full object-cover" alt="Banner" />
           </div>
 
-          <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/40"></div>
+          <div className="absolute lg:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/40"></div>
 
-          <div className="container relative z-[2] flex flex-col justify-center h-full pt-[132px] pb-[32px] md:items-start items-center px-5">
+          <div className="container relative z-[2] flex flex-col justify-center h-full pt-[132px] pb-[32px] lg:items-start items-center px-5">
             <div className="banner-content">
               {/* <h1 className="text-white text-6xl font-bold">Discover the Future of Flight</h1> */}
               <BlurText
@@ -89,7 +89,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
                 delay={150}
                 animateBy="words"
                 direction="top"
-                className={`max-w-xl text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl leading-none font-bold uppercase md:capitalize ${media ? "text-[#1777cb]" : "text-white"}`}
+                className={`max-w-xl text-[2.5rem] lg:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl leading-none font-bold uppercase lg:capitalize ${media ? "text-[#1777cb]" : "text-white"}`}
               />
               <ShinyText
                 text={
@@ -100,8 +100,8 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
                 disabled={false}
                 isTextCenter={media ? true : false}
                 speed={5}
-                className="custom-class text-sm md:text-xl py-4 md:max-w-md lg:max-w-lg xl:max-w-xl"
-                color="md:text-[#b5b5b5a4] text-white/80"
+                className="custom-class text-sm lg:text-xl py-4 lg:max-w-md lg:max-w-lg xl:max-w-xl"
+                color="lg:text-[#b5b5b5a4] text-white/80"
               />{" "}
               <br />
             </div>

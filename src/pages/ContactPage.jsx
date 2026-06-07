@@ -11,14 +11,14 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 const ContactPage = () => {
   const location = useLocation();
-  const media = useMediaQuery("(max-width: 767px)");
+  const media = useMediaQuery("(max-width: 1023px)");
 
   return (
     <>
       <Navbar />
 
       <section
-        className={`md:sticky top-0 relative w-full bg-cover bg-center rounded-[20px] h-screen ${
+        className={`lg:sticky top-0 relative w-full bg-cover bg-center rounded-[20px] h-screen ${
           location.pathname !== "/contact" ? "lg:h-full xl:h-screen" : "h-full "
         }`}
         style={{

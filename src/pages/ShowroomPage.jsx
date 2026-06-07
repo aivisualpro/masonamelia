@@ -61,7 +61,7 @@ const ShowroomPage = () => {
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(false);
   const [cancelAuto, setCancelAuto] = useState(isReturning); // skip auto-scroll if returning
   const listingRef = useRef(null);
-  const media = useMediaQuery("(max-width: 767px)");
+  const media = useMediaQuery("(max-width: 1023px)");
 
   const isNearTop = () => (window.scrollY || 0) <= 5;
 

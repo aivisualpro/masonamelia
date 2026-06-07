@@ -235,17 +235,17 @@ const AboutPage = () => {
           backgroundImage: media ? `url(${contactData?.about_hero_bg_image || bgPlaneTeam})` : "",
           backgroundSize: "cover",
           backgroundColor: "#111218",
-          backgroundPosition: mobileMedia ? "center" : media ? "top 0px right 0px" : "60% 50%",
+          backgroundPosition: media ? "center" : "60% 50%",
           backgroundRepeat: "no-repeat",
-          backgroundAttachment: media ? "static" : "fixed",
-          height: mobileMedia ? "50svh" : media ? "700px" : "100vh",
-        }}
+           backgroundAttachment: media ? "scroll" : "fixed",
+           height: media ? "50svh" : "100vh",
+         }}
       >
         {/* For mobile / tablet gradient overlay */}
         {media && (
           <>
             <div
-              className="hidden md:block absolute inset-0 pointer-events-none z-[1]"
+              className="hidden lg:block absolute inset-0 pointer-events-none z-[1]"
               style={{
                 backgroundImage:
                   "linear-gradient(to right, rgb(21, 22, 28) 35%, rgba(21, 22, 28, 0.6) 75%, rgba(21, 22, 28, 0.55))",

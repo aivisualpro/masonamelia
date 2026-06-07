@@ -4,17 +4,17 @@ import ShinyText from "./ui/ShinyText";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const ContactHeader = () => {
-  const media = useMediaQuery("(max-width: 767px)");
+  const media = useMediaQuery("(max-width: 1023px)");
 
   return (
     <div className="flex items-center h-screen">
       {/* Overlay card */}
-      <div className="md:p-8 py-8 px-2 text-whitetext-start">
+      <div className="lg:p-8 py-8 px-2 text-white text-start">
         <motion.h2
           initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="md:text-start text-center md:max-w-2xl lg:max-w-2xl xl:max-w-3xl text-[2rem] text-white md:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold mb-2"
+          className="lg:text-start text-center lg:max-w-2xl lg:max-w-2xl xl:max-w-3xl text-[2rem] text-white lg:text-[2.5rem] lg:text-[3rem] xl:text-6xl font-bold mb-2"
           style={{ lineHeight: "1.1" }}
         >
           Let’s Build{" "}
@@ -31,7 +31,7 @@ const ContactHeader = () => {
             duration: 0.5,
             delay: 0.3,
           }}
-          className="max-w-2xl flex justify-start text-center md:text-start"
+          className="max-w-2xl flex justify-start text-center lg:text-start"
         >
           <ShinyText
             isTextCenter={media ? true : false}
@@ -40,7 +40,7 @@ const ContactHeader = () => {
             }
             disabled={false}
             speed={5}
-            className="text-base md:text-xl mt-4"
+            className="text-base lg:text-xl mt-4"
           />
         </motion.div>
       </div>

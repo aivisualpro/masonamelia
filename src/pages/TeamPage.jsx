@@ -12,7 +12,7 @@ import ShinyText from "../components/ui/ShinyText";
 import { useContact } from "../hooks/useContactQuery";
 
 const TeamPage = () => {
-  const media = useMediaQuery("(max-width: 767px)");  // Detect if it's a mobile view
+  const media = useMediaQuery("(max-width: 1023px)");  // Detect if it's tablet/mobile view
   const isDesktop = useMediaQuery("(min-width: 1024px)");  // Detect if it's desktop view
   const teamSectionRef = useRef(null);  // Reference to the team section
   const [showArrow, setShowArrow] = useState(false);
@@ -147,7 +147,7 @@ const TeamPage = () => {
             />
           </section>
         ) : (
-          <section className="relative w-full h-auto md:min-h-[70vh] flex flex-col items-center md:justify-center justify-start overflow-hidden">
+          <section className="relative w-full h-auto lg:min-h-[70vh] flex flex-col items-center lg:justify-center justify-start overflow-hidden">
             {/* Background with subtle parallax/zoom effect */}
             <div
               className="absolute top-0 left-0 w-full h-full z-0"
@@ -160,24 +160,24 @@ const TeamPage = () => {
             />
 
             {/* Dark Overlay matching Contact Page */}
-            <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-60 md:opacity-95 z-[1]"></div>
+            <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-60 lg:opacity-95 z-[1]"></div>
 
             {/* Bottom Fade to blend securely into the page body */}
             <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#0c0d12] to-transparent z-[2]"></div>
 
-            <div className="container relative z-[10] px-5 text-center pt-[132px] pb-[32px] md:mt-20">
+            <div className="container relative z-[10] px-5 text-center pt-[132px] pb-[32px] lg:mt-20">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                <h1 className="text-white text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold tracking-tight mb-6 md:mt-20" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+                <h1 className="text-white text-[2.5rem] lg:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold tracking-tight mb-6 lg:mt-20" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
                   <span className="text-[#268AE0]">
                     {heroTitle}
                   </span>
                 </h1>
 
-                <div className="max-w-3xl mx-auto mt-4 px-4 md:px-0">
+                <div className="max-w-3xl mx-auto mt-4 px-4 lg:px-0">
                   <ShinyText
                     text={
                       media
