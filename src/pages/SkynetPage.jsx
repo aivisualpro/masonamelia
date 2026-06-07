@@ -14,6 +14,7 @@ import { useContact } from "../hooks/useContactQuery";
 
 const SkynetPage = () => {
   const media = useMediaQuery("(max-width: 767px)");
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
   const { data: contactData } = useContact();
 
   /** ---------- Smooth auto-scroll (same pattern as Acquisition/Brokerage) ---------- */
@@ -106,38 +107,72 @@ const SkynetPage = () => {
     <>
       <Navbar />
       {/* HERO / FIRST SECTION (sticky) */}
-      <section
-        ref={bannerRef}
-        className="mt-0 h-full md:h-screen w-full bg-cover bg-center z-[0] relative overflow-hidden"
-        style={{
-          backgroundImage: media ? "" : `url(${contactData?.skynet_hero_bg_image || banner})`,
-          backgroundSize: "cover",
-          backgroundPosition: "60% 50%",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
-        }}
-      >
-        {/* Hero gradient overlay — sized to element, identical across all pages */}
-        <div
-          className="hidden md:block absolute inset-0 pointer-events-none z-[1]"
-          style={{
-            backgroundImage:
-              "linear-gradient(to right, rgb(21, 22, 28) 35%, rgba(21, 22, 28, 0.6) 75%, rgba(21, 22, 28, 0.55))",
-          }}
-        />
+      {isDesktop ? (
+        <section
+          ref={bannerRef}
+          className="mt-0 w-full lg:h-screen flex flex-row relative sticky top-0 overflow-hidden z-[10]"
+        >
+          {/* Left Column (40% width) */}
+          <div className="w-[40%] lg:h-screen bg-[#111218] flex flex-col justify-center items-start px-10 xl:px-16 pt-[50px] relative z-[9]">
+            <Skynet
+              banner={banner}
+              titleWhite={contactData?.skynet_hero_title_white}
+              titleBlue={contactData?.skynet_hero_title_blue}
+              description={contactData?.skynet_hero_description}
+              isDesktop={true}
+            />
+          </div>
 
-        <div className="relative z-[2] h-full">
-          <Skynet
-            banner={banner}
-            titleWhite={contactData?.skynet_hero_title_white}
-            titleBlue={contactData?.skynet_hero_title_blue}
-            description={contactData?.skynet_hero_description}
+          {/* Blending overlay between columns */}
+          <div className="absolute left-[40%] w-[10%] h-full bg-gradient-to-r from-[#111218] to-transparent z-[10] pointer-events-none" />
+
+          {/* Right Column (60% width) */}
+          <div
+            className="w-[60%] lg:h-screen bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${contactData?.skynet_hero_bg_image || banner})`,
+              backgroundSize: "cover",
+              backgroundPosition: "60% 50%",
+              backgroundRepeat: "no-repeat",
+            }}
           />
-        </div>
+          {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
+        </section>
+      ) : (
+        <section
+          ref={bannerRef}
+          className="mt-0 w-full bg-cover bg-center z-[0] relative overflow-hidden"
+          style={{
+            backgroundImage: media ? "" : `url(${contactData?.skynet_hero_bg_image || banner})`,
+            backgroundSize: "cover",
+            backgroundPosition: "60% 50%",
+            backgroundRepeat: "no-repeat",
+            backgroundAttachment: "fixed",
+            height: media ? "50svh" : "100vh",
+          }}
+        >
+          {/* Hero gradient overlay — sized to element, identical across all pages */}
+          <div
+            className="hidden md:block absolute inset-0 pointer-events-none z-[1]"
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, rgb(21, 22, 28) 35%, rgba(21, 22, 28, 0.6) 75%, rgba(21, 22, 28, 0.55))",
+            }}
+          />
 
-        {/* Arrow appears ~3s if user hasn't interacted */}
-        {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
-      </section>
+          <div className="relative z-[2] h-full">
+            <Skynet
+              banner={banner}
+              titleWhite={contactData?.skynet_hero_title_white}
+              titleBlue={contactData?.skynet_hero_title_blue}
+              description={contactData?.skynet_hero_description}
+            />
+          </div>
+
+          {/* Arrow appears ~3s if user hasn't interacted */}
+          {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
+        </section>
+      )}
 
       {/* TARGET SECTION — auto-scroll lands here */}
       <main id="skynet-main" className="z-[0]">

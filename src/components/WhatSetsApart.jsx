@@ -10,7 +10,7 @@ import SpotlightCard from "./ui/SpotlightEffect";
 import Button from "./Button";
 import { motion } from "framer-motion";
 
-const features = [
+const defaultFeatures = [
   {
     icon: <FaUserAlt className="text-4xl mb-5 text-tertiary_color" />,
     title: "Integrity",
@@ -49,7 +49,28 @@ const features = [
   },
 ];
 
-export default function WhatSetsUsApart() {
+const cardIcons = [
+  <FaUserAlt className="text-4xl mb-5 text-tertiary_color" />,
+  <FaBriefcase className="text-4xl mb-5 text-tertiary_color" />,
+  <FaPlayCircle className="text-4xl mb-5 text-tertiary_color" />,
+  <FaGlobeAmericas className="text-4xl mb-5 text-tertiary_color" />,
+  <FaShieldAlt className="text-4xl mb-5 text-tertiary_color" />,
+  <FaLightbulb className="text-4xl mb-5 text-tertiary_color" />,
+];
+
+export default function WhatSetsUsApart({ titleWhite, titleBlue, subtitle, cards }) {
+  // Build features from CMS or use defaults
+  const features = cards?.length
+    ? cards.map((c, i) => ({
+        icon: cardIcons[i % cardIcons.length],
+        title: c.title,
+        desc: c.description,
+      }))
+    : defaultFeatures;
+
+  const tw = titleWhite || 'Who is ';
+  const tb = titleBlue || 'Mason Amelia?';
+  const sub = subtitle || "An aircraft brokerage named after our founder Jesse Adams' children, focused on high-performance piston and owner-flown turbine aircraft, built on:";
   return (
     <section className="h-full w-full flex justify-center items-center py-20 relative bg-[#111218]">
       <div className="container px-5">
@@ -64,9 +85,9 @@ export default function WhatSetsUsApart() {
                 className="text-[1.5rem] font-bold text-white"
                 style={{ lineHeight: "1.2" }}
               >
-                Who is{" "}
+                {tw}
                 <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                  Mason Amelia?
+                  {tb}
                 </span>
               </motion.h2>
 
@@ -76,7 +97,7 @@ export default function WhatSetsUsApart() {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="text-xl text-neutral-300 py-[24px]"
               >
-                A trusted purveyor of high-performance piston and owner-flown turbine aircraft, named after founder Jesse Adams’ children, built on:
+                {sub}
               </motion.p>
             </div>
 
@@ -90,9 +111,9 @@ export default function WhatSetsUsApart() {
                 className="md:text-[3.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white md:max-w-3xl"
                 style={{ lineHeight: "1.2" }}
               >
-                Who is{" "}
+                {tw}{" "}
                 <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                  Mason Amelia?
+                  {tb}
                 </span>
               </motion.h2>
 
@@ -103,9 +124,7 @@ export default function WhatSetsUsApart() {
                 transition={{ duration: 0.5, delay: 0.4 }}
                 className="text-xl text-neutral-300 py-[40px] max-w-4xl"
               >
-                An aircraft brokerage named after our founder Jesse Adams’
-                children, focused on high-performance piston and owner-flown
-                turbine aircraft, built on:
+                {sub}
               </motion.p>
             </div>
           </div>

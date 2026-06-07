@@ -15,6 +15,7 @@ import { useContact } from "../hooks/useContactQuery";
 
 const HigherPage = () => {
   const media = useMediaQuery("(max-width: 767px)");
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   // Dynamic content from DB
   const { data: contactData } = useContact();
@@ -111,29 +112,64 @@ const HigherPage = () => {
     <>
       <Navbar />
       {/* HERO / FIRST SECTION */}
-      <section
-        ref={bannerRef}
-        className="mt-0 md:sticky top-0 w-full bg-cover h-full relative md:h-screen bg-center z-[0] overflow-hidden"
-        style={{
-          backgroundImage: media ? "" : `linear-gradient(to right, rgb(21, 22, 28, ${
-            media ? ".5" : "1"
-          }) ${media ? "100%" : "30%"}, rgba(0, 0, 0, 0.05)), url(${contactData?.higher_hero_bg_image || bgPlaneTwo})`,
-        }}
-      >
-        <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-[-1]"></div>
-        <div className="container">
-          <Higher
-            banner={bgPlane}
-            bannerTwo={bgPlaneTwo}
-            titleWhite={contactData?.higher_hero_title_white}
-            titleBlue={contactData?.higher_hero_title_blue}
-            description={contactData?.higher_hero_description}
-          />
-        </div>
+      {isDesktop ? (
+        <section
+          ref={bannerRef}
+          className="mt-0 w-full lg:h-screen flex flex-row relative sticky top-0 overflow-hidden z-[10]"
+        >
+          {/* Left Column (40% width) */}
+          <div className="w-[40%] lg:h-screen bg-[#111218] flex flex-col justify-center items-start px-10 xl:px-16 pt-[50px] relative z-[9]">
+            <Higher
+              banner={bgPlane}
+              bannerTwo={bgPlaneTwo}
+              titleWhite={contactData?.higher_hero_title_white}
+              titleBlue={contactData?.higher_hero_title_blue}
+              description={contactData?.higher_hero_description}
+              isDesktop={true}
+            />
+          </div>
 
-        {/* Arrow appears ~3s if user hasn't interacted */}
-        {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
-      </section>
+          {/* Blending overlay between columns */}
+          <div className="absolute left-[40%] w-[10%] h-full bg-gradient-to-r from-[#111218] to-transparent z-[10] pointer-events-none" />
+
+          {/* Right Column (60% width) */}
+          <div
+            className="w-[60%] lg:h-screen bg-cover bg-center"
+            style={{
+              backgroundImage: `url(${contactData?.higher_hero_bg_image || bgPlaneTwo})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+          />
+          {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
+        </section>
+      ) : (
+        <section
+          ref={bannerRef}
+          className="mt-0 md:sticky top-0 w-full bg-cover relative md:h-screen bg-center z-[0] overflow-hidden"
+          style={{
+            backgroundImage: media ? "" : `linear-gradient(to right, rgb(21, 22, 28, ${
+              media ? ".5" : "1"
+            }) ${media ? "100%" : "30%"}, rgba(0, 0, 0, 0.05)), url(${contactData?.higher_hero_bg_image || bgPlaneTwo})`,
+            height: media ? "50svh" : "100vh",
+          }}
+        >
+          <div className="absolute top-0 left-0 w-full h-full bg-black opacity-50 z-[-1]"></div>
+          <div className="container">
+            <Higher
+              banner={bgPlane}
+              bannerTwo={bgPlaneTwo}
+              titleWhite={contactData?.higher_hero_title_white}
+              titleBlue={contactData?.higher_hero_title_blue}
+              description={contactData?.higher_hero_description}
+            />
+          </div>
+
+          {/* Arrow appears ~3s if user hasn't interacted */}
+          {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
+        </section>
+      )}
 
       {/* TARGET SECTION — auto-scroll lands here */}
       <main id="higher-main" className="relative">

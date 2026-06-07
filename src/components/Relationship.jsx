@@ -27,9 +27,9 @@ const Relationship = ({ title, subtitle, image }) => {
                         </div>
                     </div>
 
-                    {/* Right: Phone Mockup */}
-                    <div className="w-full md:w-[40%] flex justify-center">
-                        <img src={relImage} className="w-full scale-[1.2] 2xl:scale-[1.5]" alt="plane" />
+                    {/* Right: Image */}
+                    <div className="w-full md:w-[40%] flex justify-center items-center">
+                        <img src={relImage} className="w-full object-contain max-h-[400px]" alt="plane" />
                     </div>
                 </div>
             </div>

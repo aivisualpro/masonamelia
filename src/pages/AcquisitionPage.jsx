@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 import ServiceBanner from "../components/ServiceBanner";
-import banner from "/images/acquisition/bannerTwo.webp";
+import banner from "/images/acquisition/banner.webp";
 import bannerTwo from "/images/acquisition/banner.webp";
 import CTABanner from "../components/CTABanner";
 import ServiceRappleResearch from "../components/ServiceRappleResearch";

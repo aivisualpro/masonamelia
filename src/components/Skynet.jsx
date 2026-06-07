@@ -4,7 +4,7 @@ import Button from "./Button";
 import ShinyText from "./ui/ShinyText";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const Skynet = ({ banner, titleWhite, titleBlue, description }) => {
+const Skynet = ({ banner, titleWhite, titleBlue, description, isDesktop }) => {
   const media = useMediaQuery("(max-width: 767px)");
 
   const white = titleWhite || 'Mason Amelia Pricing Intelligence —';
@@ -14,15 +14,19 @@ const Skynet = ({ banner, titleWhite, titleBlue, description }) => {
     : "No guesswork. No lag. Real-time market intelligence that gives our clients the sharpest edge; Fast, factual, and unbeatable.");
 
   return (
-    <div className="lg:h-[400px] md:h-[100vh]">
+    <div className={isDesktop ? "h-full flex flex-col justify-center" : "lg:h-[400px] md:h-[100vh] h-full"}>
       {/* Background Image Right Side */}
-      <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0">
-        <img src={banner} className="w-full h-full object-cover" alt="" />
-      </div>
+      {!isDesktop && (
+        <>
+          <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0">
+            <img src={banner} className="w-full h-full object-cover" alt="" />
+          </div>
 
-      <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/60"></div>
+          <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/60"></div>
+        </>
+      )}
 
-      <div className="px-8 container pt-[132px] pb-[32px] md:pt-[50px] md:h-screen flex flex-col justify-start md:justify-center h-full ">
+      <div className={isDesktop ? "flex flex-col justify-center text-start" : "px-8 container pt-[132px] pb-[32px] md:pt-[50px] md:h-screen flex flex-col justify-start md:justify-center h-full "}>
         <motion.h1
           initial={{ opacity: 0, y: 100 }}
           animate={{ opacity: 1, y: 0 }}

@@ -9,6 +9,7 @@ const Higher = ({
   titleWhite,
   titleBlue,
   description,
+  isDesktop,
 }) => {
   const media = useMediaQuery("(max-width: 767px)");
 
@@ -17,16 +18,19 @@ const Higher = ({
   const desc = description || "If Your Broker Isn't Crafting a Marketing Plan as Compelling as the Aircraft Itself, They're Not Truly Selling It";
 
   return (
-    <div className="flex items-center md:h-screen h-[280px]">
+    <div className={isDesktop ? "flex items-center h-full" : "flex items-center md:h-screen h-full"}>
       {/* Overlay card */}
+      {!isDesktop && (
+        <>
+          <div className="absolute md:hidden block w-full z-[-1] top-0 left-0">
+            <img src={banner} className="w-full h-full object-cover" alt="" />
+          </div>
 
-      <div className="absolute md:hidden block w-full z-[-1] top-0 left-0">
-        <img src={banner} className="w-full h-full object-contain" alt="" />
-      </div>
+          <div className="absolute md:hidden block w-full h-full z-[-1] top-0 left-0 bg-black/60"></div>
+        </>
+      )}
 
-      <div className="absolute md:hidden block w-full h-[280px] z-[-1] top-0 left-0 bg-black/60"></div>
-
-      <div className="pt-[132px] pb-[32px] md:pb-0 md:pt-[50px] px-2 text-white text-start h-full flex flex-col md:justify-center justify-start">
+      <div className={isDesktop ? "flex flex-col justify-center" : "pt-[132px] pb-[32px] md:pb-0 md:pt-[50px] px-2 text-white text-start h-full flex flex-col md:justify-center justify-start"}>
         <motion.h2
           initial={{ opacity: 0, y: 80 }}
           whileInView={{ opacity: 1, y: 0 }}

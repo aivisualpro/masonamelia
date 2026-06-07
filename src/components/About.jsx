@@ -1,10 +1,10 @@
 import React from "react";
 import AboutHeader from "./AboutHeader";
 
-const About = () => {
+const About = (props) => {
   return (
     <>
-      <AboutHeader />
+      <AboutHeader {...props} />
     </>
   );
 };
