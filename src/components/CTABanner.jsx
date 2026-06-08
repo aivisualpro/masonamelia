@@ -34,7 +34,7 @@ const CTABanner = ({ isButton = true, lines }) => {
         {hasCustomLines ? (
           <>
             {/* 3-line CTA layout */}
-            <div className="pt-10 pb-4">
+            <div className="pt-10 pb-4 space-y-3">
               {lines.map((line, i) => (
                 <h2
                   key={i}
