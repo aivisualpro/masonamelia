@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import Footer from "../components/Footer";
 import ScrollToTop from "../components/ScrollToTop";
 import ServiceBanner from "../components/ServiceBanner";
-import banner from "/images/acquisition/banner.webp";
+import banner from "/images/acquisition/bannerTwo.webp";
 import bannerTwo from "/images/acquisition/banner.webp";
 import CTABanner from "../components/CTABanner";
 import ServiceRappleResearch from "../components/ServiceRappleResearch";
@@ -19,12 +19,10 @@ import {
 } from "react-icons/fa";
 import ClearForTakeoff from "../components/ClearForTakeoff";
 import Relationship from "../components/Relationship";
-import { useContact } from "../hooks/useContactQuery";
 
 const AcquisitionPage = () => {
   const bannerRef = useRef(null);
   const location = useLocation();
-  const { data: contactData } = useContact();
 
   // State for arrow visibility and canceling auto-scroll if user interacts
   const [showArrow, setShowArrow] = useState(false);
@@ -235,14 +233,7 @@ const AcquisitionPage = () => {
     <div className="w-full overflow-x-hidden">
       {/* HERO / FIRST SECTION */}
       <div ref={bannerRef} className="relative z-[9] lg:h-auto overflow-hidden">
-        <ServiceBanner
-          banner={banner}
-          bannerTwo={bannerTwo}
-          titleWhite={contactData?.acquisition_hero_title_white}
-          titleBlue={contactData?.acquisition_hero_title_blue}
-          heroDescription={contactData?.acquisition_hero_description}
-          bgImage={contactData?.acquisition_hero_bg_image}
-        />
+        <ServiceBanner banner={banner} bannerTwo={bannerTwo} />
 
         {/* Flashing/Bouncing Down Arrow after ~3s */}
         {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
@@ -252,10 +243,11 @@ const AcquisitionPage = () => {
       <main id="acquisition" className="relative z-[0]">
         <ServiceRappleResearch
           data={data}
-          highlightedTitle={contactData?.acquisition_preflight_title || "Preflight Planning"}
-          title={contactData?.acquisition_preflight_subtitle || "Strategy, not speculation. Your mission defines the search. "}
-          description={contactData?.acquisition_preflight_description || "We define your mission profile: how you'll fly, where you'll go, and establish what ownership means for you. Then we align the right aircraft to your mission, your lifestyle, and your financial strategy."}
-          bgImage={contactData?.acquisition_preflight_bg_image}
+          highlightedTitle={"Preflight Planning"}
+          title={"Strategy, not speculation. Your mission defines the search. "}
+          description={
+            "We define your mission profile: how you’ll fly, where you’ll go, and establish what ownership means for you. Then we align the right aircraft to your mission, your lifestyle, and your financial strategy."
+          }
           boxVariant="dark"
         />
 
@@ -264,49 +256,37 @@ const AcquisitionPage = () => {
         <TaxiCardsDarkSection
           tagline={
             <>
-              <span>{contactData?.acquisition_taxi_tagline || "Taxi & Systems Check"}</span>
+              <span>Taxi &amp; Systems Check</span>
             </>
           }
-          title={contactData?.acquisition_taxi_title || "Expert guidance and trusted partners to clear the path before takeoff"}
-          description={contactData?.acquisition_taxi_description || "Before we roll, we ensure every system is a go. Mason Amelia is aligned with top-tier aviation professionals. We ensure the right expertise is engaged early. This includes financing, tax, legal, insurance, training, maintenance, and operational advisors. This cohesive approach gives you clarity and confidence from the very first turn."}
-          cards={contactData?.acquisition_taxi_cards?.length
-            ? contactData.acquisition_taxi_cards.map((c, i) => ({ ...cards[i], title: c.title, points: [c.point] }))
-            : cards}
+          title={"Expert guidance and trusted partners to clear the path before takeoff"}
+          description={
+            "Before we roll, we ensure every system is a go. Mason Amelia is aligned with top-tier aviation professionals. We ensure the right expertise is engaged early. This includes financing, tax, legal, insurance, training, maintenance, and operational advisors. This cohesive approach gives you clarity and confidence from the very first turn."
+          }
+          cards={cards}
         />
 
         <ClearForTakeoff
           eyebrow="FRAME 4"
-          title={contactData?.acquisition_cleared_title || "Cleared for Takeoff"}
-          subtitle={contactData?.acquisition_cleared_subtitle || "Aircraft Identification & Acquisition"}
-          intro={contactData?.acquisition_cleared_intro || "With a clear mission and strong foundation in place, we advance to the acquisition phase. Mason Amelia actively searches both public and off-market opportunities to locate the ideal aircraft. No stone unturned, no shortcuts taken."}
-          bullets={contactData?.acquisition_cleared_bullets?.length
-            ? contactData.acquisition_cleared_bullets
-            : [
-              "Develop and deploy strategic outreach campaigns to identify off-market aircraft and untapped opportunities.",
-              "Present qualified aircraft and deliver precise price and value analyses powered by SkyNet.",
-              "From LOIs to closing, we negotiate terms and manage due diligence every step of the way.",
-            ]}
-          outro={contactData?.acquisition_cleared_outro || "We don't just find airplanes — we deliver outcomes. Every step is handled with precision and purpose so you can take off with confidence."}
-          image={contactData?.acquisition_cleared_image || "/images/clearForTakeoff.webp"}
+          title="Cleared for Takeoff"
+          subtitle="Aircraft Identification & Acquisition"
+          intro="With a clear mission and strong foundation in place, we advance to the acquisition phase. Mason Amelia actively searches both public and off-market opportunities to locate the ideal aircraft. No stone unturned, no shortcuts taken."
+          bullets={[
+            "Develop and deploy strategic outreach campaigns to identify off-market aircraft and untapped opportunities.",
+            "Present qualified aircraft and deliver precise price and value analyses powered by SkyNet.",
+            "From LOIs to closing, we negotiate terms and manage due diligence every step of the way.",
+          ]}
+          outro="We don’t just find airplanes — we deliver outcomes. Every step is handled with precision and purpose so you can take off with confidence."
+          image="/images/aircraft-identification.jpg"
           imageAlt="Aircraft Identification & Acquisition"
           imageOn="right"
         />
 
-        <Relationship
-          title={contactData?.acquisition_relationship_title}
-          subtitle={contactData?.acquisition_relationship_subtitle}
-          image={contactData?.acquisition_relationship_image}
-        />
+        <Relationship />
 
         <section className="bg-[#111218] relative z-[0] py-10">
           <div className="container px-5">
-            <CTABanner
-              lines={[
-                { white: contactData?.acquisition_cta_line1_white || 'Data informs', blue: contactData?.acquisition_cta_line1_blue || 'decisions.' },
-                { white: contactData?.acquisition_cta_line2_white || 'Relationships create', blue: contactData?.acquisition_cta_line2_blue || 'opportunity.' },
-                { white: contactData?.acquisition_cta_line3_white || 'Execution delivers', blue: contactData?.acquisition_cta_line3_blue || 'results.' },
-              ]}
-            />
+            <CTABanner />
           </div>
         </section>
       </main>

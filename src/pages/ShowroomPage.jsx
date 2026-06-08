@@ -61,7 +61,7 @@ const ShowroomPage = () => {
   const [autoScrollEnabled, setAutoScrollEnabled] = useState(false);
   const [cancelAuto, setCancelAuto] = useState(isReturning); // skip auto-scroll if returning
   const listingRef = useRef(null);
-  const media = useMediaQuery("(max-width: 1023px)");
+  const media = useMediaQuery("(max-width: 767px)");
 
   const isNearTop = () => (window.scrollY || 0) <= 5;
 
@@ -185,7 +185,7 @@ const ShowroomPage = () => {
 
   return (
     <>
-      <Banner url={bannerTwo} banner={bannerTwo} handleArrowClick={handleArrowClick} showArrow={showArrow} />
+      <Banner url={banner} banner={bannerTwo} handleArrowClick={handleArrowClick} showArrow={showArrow} />
       {/* 👇 target for scroll */}
       <div ref={listingRef}>
         <Listing autoScrollEnabled={autoScrollEnabled} initialFilters={restoredFilters} />

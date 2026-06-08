@@ -9,22 +9,12 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import BlinkingArrow from "../components/BlinkingArrow";
 import ScrollToTop from "../components/ScrollToTop";
 import ShinyText from "../components/ui/ShinyText";
-import { useContact } from "../hooks/useContactQuery";
 
 const TeamPage = () => {
-  const media = useMediaQuery("(max-width: 1023px)");  // Detect if it's tablet/mobile view
-  const isDesktop = useMediaQuery("(min-width: 1024px)");  // Detect if it's desktop view
+  const media = useMediaQuery("(max-width: 767px)");  // Detect if it's a mobile view
   const teamSectionRef = useRef(null);  // Reference to the team section
   const [showArrow, setShowArrow] = useState(false);
   const [cancelAuto, setCancelAuto] = useState(false);
-
-  // Dynamic hero content from DB
-  const { data: contactData } = useContact();
-  const heroTitle = contactData?.team_hero_title || 'Meet the Team';
-  const heroDescFull = contactData?.team_hero_description || 'Meet the aviation experts and passionate professionals behind Mason Amelia. Our mission is to elevate your flight experience through transparency, expertise, and personalized service.';
-  const heroDescShort = contactData?.team_hero_description
-    ? contactData.team_hero_description.split('.').slice(0, 1).join('.') + '.'
-    : 'Meet the aviation experts and passionate professionals behind Mason Amelia.';
 
   // Smooth scroll function
   function smoothScrollTo(to, duration = 2500) {
@@ -101,99 +91,56 @@ const TeamPage = () => {
 
   return (
     <>
-      <Navbar />
       <div className="relative z-[10] bg-[#0c0d12]">
         {/* Dynamic Hero Section */}
-        {isDesktop ? (
-          <section className="relative w-full min-h-screen flex flex-row overflow-hidden z-[10]">
-            {/* Left Column (40% width) */}
-            <div className="w-[40%] min-h-screen bg-[#111218] flex flex-col justify-center items-start px-10 xl:px-16 pt-[50px] relative z-[9]">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              >
-                <h1 className="text-white text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold tracking-tight mb-6" style={{ fontFamily: "'Inter Tight', sans-serif", lineHeight: "1.1" }}>
-                  <span className="text-[#268AE0]">
-                    {heroTitle}
-                  </span>
-                </h1>
+        <section className="relative w-full h-auto md:min-h-[70vh] flex flex-col items-center md:justify-center justify-start overflow-hidden">
+          {/* Background with subtle parallax/zoom effect */}
+          <div
+            className="absolute top-0 left-0 w-full h-full z-0"
+            style={{
+              backgroundImage: `url(${bgPlane})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+            }}
+          />
 
-                <div className="max-w-3xl mt-4">
-                  <ShinyText
-                    text={heroDescFull}
-                    disabled={false}
-                    speed={3}
-                    className="text-lg md:text-xl font-light leading-relaxed"
-                    color="text-white/70"
-                    isTextCenter={false}
-                  />
-                </div>
-              </motion.div>
-            </div>
+          {/* Dark Overlay matching Contact Page */}
+          <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-60 md:opacity-95 z-[1]"></div>
 
-            {/* Blending overlay between columns */}
-            <div className="absolute left-[40%] w-[10%] h-full bg-gradient-to-r from-[#111218] to-transparent z-[10] pointer-events-none" />
+          {/* Bottom Fade to blend securely into the page body */}
+          <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#0c0d12] to-transparent z-[2]"></div>
 
-            {/* Right Column (60% width) */}
-            <div
-              className="w-[60%] min-h-screen bg-cover bg-center"
-              style={{
-                backgroundImage: `url(${contactData?.team_hero_bg_image || bgPlane})`,
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-              }}
-            />
-          </section>
-        ) : (
-          <section className="relative w-full h-auto lg:min-h-[70vh] flex flex-col items-center lg:justify-center justify-start overflow-hidden">
-            {/* Background with subtle parallax/zoom effect */}
-            <div
-              className="absolute top-0 left-0 w-full h-full z-0"
-              style={{
-                backgroundImage: `url(${contactData?.team_hero_bg_image || bgPlane})`,
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-              }}
-            />
+          <Navbar />
 
-            {/* Dark Overlay matching Contact Page */}
-            <div className="absolute top-0 left-0 w-full h-full bg-[#111218] opacity-60 lg:opacity-95 z-[1]"></div>
+          <div className="container relative z-[10] px-5 text-center pt-[132px] pb-[32px] md:mt-20">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            >
+              <h1 className="text-white text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold tracking-tight mb-6 md:mt-20" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
+                <span className="text-[#268AE0]">
+                  Meet the Team
+                </span>
+              </h1>
 
-            {/* Bottom Fade to blend securely into the page body */}
-            <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#0c0d12] to-transparent z-[2]"></div>
-
-            <div className="container relative z-[10] px-5 text-center pt-[132px] pb-[32px] lg:mt-20">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              >
-                <h1 className="text-white text-[2.5rem] lg:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold tracking-tight mb-6 lg:mt-20" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
-                  <span className="text-[#268AE0]">
-                    {heroTitle}
-                  </span>
-                </h1>
-
-                <div className="max-w-3xl mx-auto mt-4 px-4 lg:px-0">
-                  <ShinyText
-                    text={
-                      media
-                        ? heroDescShort
-                        : heroDescFull
-                    }
-                    disabled={false}
-                    speed={3}
-                    className="text-lg md:text-xl font-light leading-relaxed"
-                    color="text-white/70"
-                  />
-                </div>
-              </motion.div>
-            </div>
-          </section>
-        )}
+              <div className="max-w-3xl mx-auto mt-4 px-4 md:px-0">
+                <ShinyText
+                  text={
+                    media
+                      ? "Meet the aviation experts and passionate professionals behind Mason Amelia."
+                      : "Meet the aviation experts and passionate professionals behind Mason Amelia. Our mission is to elevate your flight experience through transparency, expertise, and personalized service."
+                  }
+                  disabled={false}
+                  speed={3}
+                  className="text-lg md:text-xl font-light leading-relaxed"
+                  color="text-white/70"
+                />
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
         <section className="relative z-[10] -mt-20">
           <Team teamRef={teamSectionRef} hideSocials={true} />

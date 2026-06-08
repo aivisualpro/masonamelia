@@ -4,23 +4,13 @@ import ScrollToTop from "../components/ScrollToTop";
 import ServiceBanner from "../components/ServiceBanner";
 import banner from "/images/insurance/insurance image.jpg";
 import bannerTwo from "/images/insurance/insurance image.jpg"; // Using same for mobile
-import { useContact } from "../hooks/useContactQuery";
 
 const InsurancePage = () => {
-  const { data: contactData } = useContact();
-
   return (
     <div className="w-full overflow-x-hidden">
       {/* HERO / FIRST SECTION */}
       <div className="relative z-[9] lg:h-auto overflow-hidden">
-        <ServiceBanner
-          banner={banner}
-          bannerTwo={bannerTwo}
-          titleWhite={contactData?.insurance_hero_title_white}
-          titleBlue={contactData?.insurance_hero_title_blue}
-          heroDescription={contactData?.insurance_hero_description}
-          bgImage={contactData?.insurance_hero_bg_image}
-        />
+        <ServiceBanner banner={banner} bannerTwo={bannerTwo} />
       </div>
       {/* Mobile-only: Titan banner below hero */}
       <main className="md:hidden relative z-[0] bg-[#111218] py-16">
