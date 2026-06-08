@@ -43,7 +43,7 @@ const TeamDetail = () => {
                     transition={{ type: "spring", duration: 1 }}
                   >
                     <img
-                      src={m?.team_member_picture}
+                      src={m?.team_member_picture || m?.profile_picture}
                       alt={m?.name}
                       className="object-cover rounded-lg border border-gray-700 w-full h-auto"
                       loading="lazy"

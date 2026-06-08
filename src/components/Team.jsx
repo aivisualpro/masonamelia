@@ -102,11 +102,15 @@ const Team = ({ teamRef, hideSocials = false }) => {
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
               >
                 <Link to={`/team/${member?._id}`}>
-                  <div className="relative w-full">
+                  <div className="relative w-full bg-[#1a1a2e]">
                     <img
                       src={member?.profile_picture || member?.image}
                       alt={member?.name}
-                      className="w-full h-[420px] object-cover object-top"
+                      className={`w-full h-[420px] ${
+                        member?.name === 'Peyton Lindbloom'
+                          ? 'object-contain'
+                          : 'object-cover object-top'
+                      }`}
                     />
                     <div className="transition-all duration-300 group-hover:h-[100%] absolute top-0 left-0 w-full h-0 bg-black opacity-0 lg:opacity-60 z-[0]"></div>
                   </div>
