@@ -19,10 +19,12 @@ import {
 } from "react-icons/fa";
 import ClearForTakeoff from "../components/ClearForTakeoff";
 import Relationship from "../components/Relationship";
+import { useContact } from "../hooks/useContactQuery";
 
 const AcquisitionPage = () => {
   const bannerRef = useRef(null);
   const location = useLocation();
+  const { data: contact } = useContact();
 
   // State for arrow visibility and canceling auto-scroll if user interacts
   const [showArrow, setShowArrow] = useState(false);
@@ -286,7 +288,13 @@ const AcquisitionPage = () => {
 
         <section className="bg-[#111218] relative z-[0] py-10">
           <div className="container px-5">
-            <CTABanner />
+            <CTABanner
+              lines={[
+                { white: contact?.acquisition_cta_line1_white || 'Data informs', blue: contact?.acquisition_cta_line1_blue || 'decisions.' },
+                { white: contact?.acquisition_cta_line2_white || 'Relationships create', blue: contact?.acquisition_cta_line2_blue || 'opportunity.' },
+                { white: contact?.acquisition_cta_line3_white || 'Execution delivers', blue: contact?.acquisition_cta_line3_blue || 'results.' },
+              ]}
+            />
           </div>
         </section>
       </main>

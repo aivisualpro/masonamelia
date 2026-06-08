@@ -18,12 +18,14 @@ import TaxiCardsDarkSection from "../components/TaxiAndSystemCheck";
 import { FaBullhorn, FaDollarSign, FaProjectDiagram, FaClipboardList } from "react-icons/fa";
 import ClearForTakeoff from "../components/ClearForTakeoff";
 import Relationship from "../components/Relationship";
+import { useContact } from "../hooks/useContactQuery";
 
 const BrokeragePage = () => {
   /** ---------- Smooth auto-scroll (same pattern as Acquisition) ---------- */
   const bannerRef = useRef(null);
   const [showArrow, setShowArrow] = useState(false);
   const [cancelAuto, setCancelAuto] = useState(false);
+  const { data: contact } = useContact();
 
   // const AUTO_KEY = "brokerage_auto_scrolled_v1";
   // useEffect(() => { sessionStorage.removeItem(AUTO_KEY); }, []);
@@ -359,7 +361,13 @@ const BrokeragePage = () => {
 
         <section className="bg-[#111218] relative z-[10] py-10">
           <div className="container px-5">
-            <CTABanner />
+            <CTABanner
+              lines={[
+                { white: contact?.brokerage_cta_line1_white || 'Data informs', blue: contact?.brokerage_cta_line1_blue || 'decisions.' },
+                { white: contact?.brokerage_cta_line2_white || 'Exposure creates', blue: contact?.brokerage_cta_line2_blue || 'opportunity.' },
+                { white: contact?.brokerage_cta_line3_white || 'Execution delivers', blue: contact?.brokerage_cta_line3_blue || 'results.' },
+              ]}
+            />
           </div>
         </section>
 
