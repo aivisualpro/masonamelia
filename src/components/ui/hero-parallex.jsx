@@ -258,25 +258,22 @@ export const ProductCard = ({ data, translate, onHover, onLeave }) => {
             className="absolute inset-0 w-full h-full z-[100]"
           ></iframe>
         ) : (
-          <>
+          <div
+            className="absolute inset-0 cursor-pointer"
+            onClick={() => setIsPlaying(true)}
+          >
             <img
               src={data?.src}
               alt={data?.title}
               loading="lazy"
               className="absolute inset-0 w-full h-full object-cover transition-all duration-300 group-hover:object-contain"
             />
-            <div className="group-hover:opacity-100 opacity-0 transition-all duration-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsPlaying(true);
-                }}
-                className="h-[100px] w-[100px] flex items-center justify-center text-white rounded-full"
-              >
-                <IoPlayCircle size={72} className="hover:text-blue-500" />
-              </button>
+            <div className="group-hover:opacity-100 opacity-0 transition-all duration-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+              <div className="h-[100px] w-[100px] flex items-center justify-center text-white rounded-full">
+                <IoPlayCircle size={72} className="group-hover:text-blue-500" />
+              </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </motion.div>
