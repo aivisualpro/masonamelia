@@ -284,7 +284,11 @@ const AcquisitionPage = () => {
           imageOn="right"
         />
 
-        <Relationship />
+        <Relationship
+          title={contact?.acquisition_relationship_title}
+          subtitle={contact?.acquisition_relationship_subtitle}
+          image={contact?.acquisition_relationship_image}
+        />
 
         <section className="bg-[#111218] relative z-[0] py-10">
           <div className="container px-5">
