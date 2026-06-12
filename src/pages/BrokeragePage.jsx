@@ -357,7 +357,11 @@ const BrokeragePage = () => {
           imageOn="right" // set to "left" if you want image on left
         />
 
-        <Relationship />
+        <Relationship
+          title={contact?.brokerage_relationship_title}
+          subtitle={contact?.brokerage_relationship_subtitle}
+          image={contact?.brokerage_relationship_image}
+        />
 
         <section className="bg-[#111218] relative z-[10] py-10">
           <div className="container px-5">
