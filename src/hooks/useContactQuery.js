@@ -13,9 +13,9 @@ export function useContact(opts) {
   return useQuery({
     queryKey: ['contact'],
     queryFn: fetchContact,
-    staleTime: ONE_HOUR,
-    gcTime: ONE_HOUR,
-    refetchOnWindowFocus: false,
+    staleTime: 0,
+    gcTime: 5000,
+    refetchOnWindowFocus: true,
     ...opts,
   });
 }

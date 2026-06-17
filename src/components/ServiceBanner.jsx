@@ -15,23 +15,29 @@ const ServiceBanner = ({ banner, bannerTwo, contact }) => {
   const isBrokerage = location.pathname === "/brokerage";
   const isInsurance = location.pathname === "/insurance";
 
-  // CMS-driven hero text for acquisition
+  // CMS-driven hero text for acquisition & brokerage
   const heroTitleWhite = isAcquisition
     ? (contact?.acquisition_hero_title_white || "The Right Aircraft ")
-    : isBrokerage ? "A Strategic Hands-On Approach" : "Aircraft ";
+    : isBrokerage
+      ? (contact?.brokerage_hero_title_white || "A Strategic Hands-On Approach ")
+      : "Aircraft ";
   const heroTitleBlue = isAcquisition
     ? (contact?.acquisition_hero_title_blue || "Changes Everything")
-    : isBrokerage ? "to Selling Your Aircraft" : "Insurance";
+    : isBrokerage
+      ? (contact?.brokerage_hero_title_blue || "to Selling Your Aircraft")
+      : "Insurance";
   const heroDesc = isAcquisition
     ? (contact?.acquisition_hero_description || "We take a consultative approach, learning your mission, analyzing the market, and guiding your acquisition from your first call to first flight.")
     : isBrokerage
-      ? "Your aircraft deserves to stand out. We highlight its strengths and handle every phase with intent, precision, and the relentless pursuit of perfection."
+      ? (contact?.brokerage_hero_description || "Your aircraft deserves to stand out. We highlight its strengths and handle every phase with intent, precision, and the relentless pursuit of perfection.")
       : "Our trusted partners at Titan Insurance specialize exclusively in high-end owner-flown piston and turbine aircraft, backed by decades of aviation insurance expertise. Get a tailored quote today.";
   const mobileTitle = isAcquisition ? "ACQUISITION" : isBrokerage ? "BROKERAGE" : "INSURANCE";
   const mobileDesc = isAcquisition
     ? (contact?.acquisition_hero_title_white || "The Right Aircraft ") + (contact?.acquisition_hero_title_blue || "Changes Everything")
-    : isBrokerage ? "A Strategic Hands-On Approach to Selling Your Aircraft" : "Aircraft Insurance";
-  const bgImage = (isAcquisition && contact?.acquisition_hero_bg_image) || banner;
+    : isBrokerage
+      ? (contact?.brokerage_hero_title_white || "A Strategic Hands-On Approach ") + (contact?.brokerage_hero_title_blue || "to Selling Your Aircraft")
+      : "Aircraft Insurance";
+  const bgImage = (isAcquisition && contact?.acquisition_hero_bg_image) || (isBrokerage && contact?.brokerage_hero_bg_image) || banner;
 
   return (
     <>

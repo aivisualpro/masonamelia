@@ -83,16 +83,21 @@ const BrokerageRappleResearch = ({
                 {...getAnimationProps(0.2)}
                 className="text-xl xl:text-2xl py-[40px] font-bold text-white max-w-7xl mx-auto"
               >
-                Consultation
+                {highlightedTitle || "Consultation"}
               </motion.h2>
             )}
 
             {/* Description */}
             <motion.p
               {...getAnimationProps(0.4)}
-              className="text-white md:text-xl max-w-[55rem] 2xl:max-w-[60rem] font-light mx-auto"
+              className="text-white md:text-xl max-w-7xl font-light mx-auto"
             >
-              {description}
+              {description?.split?.("\n").map((line, i, arr) => (
+                <React.Fragment key={i}>
+                  {line}
+                  {i < arr.length - 1 && <br />}
+                </React.Fragment>
+              )) || description}
             </motion.p>
           </div>
         </div>

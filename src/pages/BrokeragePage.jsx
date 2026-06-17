@@ -243,52 +243,51 @@ const BrokeragePage = () => {
     },
   ];
 
+  const cmsCards = contact?.brokerage_taxi_cards;
   const cards = [
     {
-      title: "Advertising",
       icon: <FaBullhorn className="h-8 w-8" />,
       gradient: "from-cyan-400 to-blue-500",
-      points: [
-        "This is where we go full throttle. From pro photography and high-impact video to disruptive social campaigns, we turn your aircraft into a must-see listing.",
-      ],
       img: "/images/ads-aircraft.jpg",
       link: "/higher",
     },
     {
-      title: "Pricing Accuracy",
       icon: <FaDollarSign className="h-8 w-8" />,
       gradient: "from-emerald-400 to-teal-500",
-      points: [
-        "Leveraging our decades of experience and backed by SkyNet, our proprietary market valuation platform, we analyze real-time data to set an accurate, competitive price from the very start.",
-      ],
       img: "/images/pricing-aircraft.jpg",
       link: "/skynet",
     },
     {
-      title: "Sales Network",
       icon: <FaProjectDiagram className="h-8 w-8" />,
       gradient: "from-fuchsia-400 to-purple-500",
-      points: [
-        "Your aircraft joins an exclusive network of qualified buyers, elite brokers, and international partners — amplifying visibility and minimizing time on market.",
-      ],
       img: "/images/network-aircraft.jpg",
     },
     {
-      title: "Project Management",
       icon: <FaClipboardList className="h-8 w-8" />,
       gradient: "from-amber-400 to-orange-500",
-      points: [
-        "We’re process-driven and relentless about execution. Every detail is tracked, every timeline met, every update delivered. It’s how we earn your business by keeping the train on the tracks from day one to done.",
-      ],
       img: "/images/pm-aircraft.jpg",
     },
-  ];
+  ].map((style, idx) => {
+    const defaultTitles = ["Advertising", "Pricing Accuracy", "Sales Network", "Project Management"];
+    const defaultPoints = [
+      "This is where we go full throttle. From pro photography and high-impact video to disruptive social campaigns, we turn your aircraft into a must-see listing.",
+      "Leveraging our decades of experience and backed by SkyNet, our proprietary market valuation platform, we analyze real-time data to set an accurate, competitive price from the very start.",
+      "Your aircraft joins an exclusive network of qualified buyers, elite brokers, and international partners — amplifying visibility and minimizing time on market.",
+      "We're process-driven and relentless about execution. Every detail is tracked, every timeline met, every update delivered. It's how we earn your business by keeping the train on the tracks from day one to done.",
+    ];
+    const cms = cmsCards?.[idx];
+    return {
+      ...style,
+      title: cms?.title || defaultTitles[idx],
+      points: [cms?.point || defaultPoints[idx]],
+    };
+  });
 
   return (
     <div className="w-full overflow-x-hidden">
       {/* HERO / FIRST SECTION with arrow & auto-scroll */}
       <div ref={bannerRef} className="relative z-[9] h-auto overflow-hidden">
-        <ServiceBanner banner={banner} bannerTwo={bannerTwo} />
+        <ServiceBanner banner={banner} bannerTwo={bannerTwo} contact={contact} />
         {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
       </div>
 
@@ -296,11 +295,14 @@ const BrokeragePage = () => {
       <main id="brokerage" className="relative">
         <BrokerageRappleResearch
           data={data}
-          title={"Preflight Planning"}
+          title={contact?.brokerage_preflight_title || "Preflight Planning"}
+          highlightedTitle={contact?.brokerage_preflight_subtitle || "Consultation"}
           isConsultation={true}
           description={
+            contact?.brokerage_preflight_description ||
             "Every brokerage is a unique opportunity with its own challenges. By understanding your goals, timing, and long-term vision, we design a clear path forward through brokerage, trade-in, or wholesale that helps you transition smoothly and maximize your results."
           }
+          bgImage={contact?.brokerage_preflight_bg_image}
         />
 
         {/* <ServiceHighlights
@@ -329,11 +331,12 @@ const BrokeragePage = () => {
         <TaxiCardsDarkSection
           tagline={
             <>
-              <span>Taxi &amp; Systems Check</span>
+              <span>{contact?.brokerage_taxi_tagline || "Taxi & Systems Check"}</span>
             </>
           }
-          title={"Bringing to Market"}
+          title={contact?.brokerage_taxi_title || "Bringing to Market"}
           description={
+            contact?.brokerage_taxi_description ||
             "Four disciplines. One objective: sell your aircraft efficiently and correctly."
           }
           cards={cards}
@@ -341,20 +344,20 @@ const BrokeragePage = () => {
 
         <ClearForTakeoff
           eyebrow="FRAME 4"
-          title="Cleared for Takeoff"
-          subtitle="Active Marketing, Negotiation & Closing"
-          intro="With your mission set and systems in sync, we execute. Mason Amelia takes your aircraft to market with precision, discipline, and transparency, aggressively marketing, strategically negotiating, and closing efficiently to deliver maximum value in minimal time."
-          bullets={[
+          title={contact?.brokerage_cleared_title || "Cleared for Takeoff"}
+          subtitle={contact?.brokerage_cleared_subtitle || "Active Marketing, Negotiation & Closing"}
+          intro={contact?.brokerage_cleared_intro || "With your mission set and systems in sync, we execute. Mason Amelia takes your aircraft to market with precision, discipline, and transparency, aggressively marketing, strategically negotiating, and closing efficiently to deliver maximum value in minimal time."}
+          bullets={contact?.brokerage_cleared_bullets?.length ? contact.brokerage_cleared_bullets : [
             "Analyze market data and position your aircraft for maximum impact.",
             "Launch targeted campaigns and direct outreach to qualified buyers.",
             "Present offers and deliver real-time market feedback.",
             "Negotiate terms and manage contract execution through closing.",
             "Coordinate logistics and support a seamless handoff at delivery.",
           ]}
-          outro="From first call to final handshake, we don’t just list aircraft. We own the process, executing with precision, creating demand, and closing with clean and solid results."
-          image="/images/brokerage/cockpit.jpeg" // replace with your asset
+          outro={contact?.brokerage_cleared_outro || "From first call to final handshake, we don't just list aircraft. We own the process, executing with precision, creating demand, and closing with clean and solid results."}
+          image={contact?.brokerage_cleared_image || "/images/brokerage/cockpit.jpeg"}
           imageAlt="Mason Amelia — Cleared for Takeoff"
-          imageOn="right" // set to "left" if you want image on left
+          imageOn="right"
         />
 
         <Relationship
