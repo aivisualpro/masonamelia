@@ -10,9 +10,11 @@ import banner from "/images/skynet/banner.webp";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import BlinkingArrow from "../components/BlinkingArrow";
 import Contact from "../components/Contact";
+import { useContact } from "../hooks/useContactQuery";
 
 const SkynetPage = () => {
   const media = useMediaQuery("(max-width: 767px)");
+  const { data: contact } = useContact();
 
   /** ---------- Smooth auto-scroll (same pattern as Acquisition/Brokerage) ---------- */
   const bannerRef = useRef(null);
@@ -100,6 +102,8 @@ const SkynetPage = () => {
     cancelAutoScroll();
   };
 
+  const heroBg = contact?.skynet_hero_bg_image || banner;
+
   return (
     <>
       <Navbar />
@@ -114,14 +118,19 @@ const SkynetPage = () => {
             to right,
             rgb(21, 22, 28, ${media ? ".8" : "1"}) ${media ? "100%" : "30%"},
             rgba(21, 22, 28, 0.3)
-          ), url(${banner})`,
+          ), url(${heroBg})`,
           backgroundSize: "cover",
           backgroundPosition: "60% 50%",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
         }}
       >
-        <Skynet banner={banner} />
+        <Skynet
+          banner={heroBg}
+          titleWhite={contact?.skynet_hero_title_white}
+          titleBlue={contact?.skynet_hero_title_blue}
+          description={contact?.skynet_hero_description}
+        />
 
         {/* Arrow appears ~3s if user hasn't interacted */}
         {showArrow && <BlinkingArrow onClick={handleArrowClick} />}
@@ -129,8 +138,16 @@ const SkynetPage = () => {
 
       {/* TARGET SECTION — auto-scroll lands here */}
       <main id="skynet-main" className="z-[0]">
-        <SkynetAdvantage />
-        <SkynetTimeline />
+        <SkynetAdvantage
+          titleWhite={contact?.skynet_advantage_title_white}
+          titleBlue={contact?.skynet_advantage_title_blue}
+          description={contact?.skynet_advantage_description}
+        />
+        <SkynetTimeline
+          titleWhite={contact?.skynet_timeline_title_white}
+          titleBlue={contact?.skynet_timeline_title_blue}
+          items={contact?.skynet_timeline_items}
+        />
 
         <section className="relative z-[0] py-20 bg-[#111218]">
           <div className="container px-5">
