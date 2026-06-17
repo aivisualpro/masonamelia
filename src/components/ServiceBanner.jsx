@@ -80,7 +80,8 @@ const ServiceBanner = ({ banner, bannerTwo, contact }) => {
               className="md:text-start text-center text-white text-[1.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-[4rem] max-w-lg xl:max-w-2xl pb-4"
               style={{ lineHeight: "1.1" }}
             >
-              {heroTitleWhite}{" "}
+              {heroTitleWhite}
+              <br />
               <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
                 {heroTitleBlue}
               </span>
