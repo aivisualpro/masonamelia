@@ -22,7 +22,12 @@ const Relationship = ({ title, subtitle, image }) => {
                             </h1>
 
                             <h3 className="py-4 text-xl xl:text-2xl font-bold text-[#222]">
-                                {relSubtitle}
+                                {relSubtitle?.split("\n").map((line, i, arr) => (
+                                    <React.Fragment key={i}>
+                                        {line}
+                                        {i < arr.length - 1 && <br />}
+                                    </React.Fragment>
+                                ))}
                             </h3>
                         </div>
                     </div>

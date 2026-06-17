@@ -18,9 +18,21 @@ export default function TaxiCardsDarkSection({ tagline, title, description, card
           <div className="text-[1.8rem] md:text-[3rem] xl:text-7xl inline-flex items-center gap-2  font-bold text-white">
             {tagline}
           </div>
-          <h2 className="mx-auto font-light text-xl xl:text-2xl max-w-3xl py-8">{title}</h2>
+          <h2 className="mx-auto font-light text-xl xl:text-2xl max-w-3xl py-8">
+            {title?.split("\n").map((line, i, arr) => (
+              <React.Fragment key={i}>
+                {line}
+                {i < arr.length - 1 && <br />}
+              </React.Fragment>
+            ))}
+          </h2>
           <p className="mx-auto max-w-[55rem] 2xl:max-w-[60rem] md:text-lg text-slate-300">
-            {description}
+            {description?.split("\n").map((line, i, arr) => (
+              <React.Fragment key={i}>
+                {line}
+                {i < arr.length - 1 && <br />}
+              </React.Fragment>
+            ))}
           </p>
         </div>
 

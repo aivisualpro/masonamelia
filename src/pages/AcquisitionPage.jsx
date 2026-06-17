@@ -186,50 +186,50 @@ const AcquisitionPage = () => {
     },
   ];
 
+  const cmsCards = contact?.acquisition_taxi_cards;
   const cards = [
     {
-      title: "Financing",
       icon: <FaHandHoldingUsd className="h-8 w-8" />,
       gradient: "from-sky-400 to-blue-500",
-      points: [
-        "Connect with trusted aviation lenders to secure competitive terms.",
-      ],
       img: "/images/financing-aircraft.jpg",
     },
     {
-      title: "Tax & Legal",
       icon: <FaBalanceScale className="h-8 w-8" />,
       gradient: "from-indigo-400 to-violet-500",
-      points: [
-        "Collaborate with top aviation advisors to protect and optimize your position.",
-      ],
       img: "/images/tax-legal-aircraft.jpg",
     },
     {
-      title: "Insurance",
       icon: <FaShieldAlt className="h-8 w-8" />,
       gradient: "from-emerald-400 to-teal-500",
-      points: ["Aviation-specific protection for what matters most."],
       img: "/images/insurance-aircraft.jpg",
       link: "/insurance",
     },
     {
-      title: "Training & Operations",
       icon: <FaChalkboardTeacher className="h-8 w-8" />,
       gradient: "from-amber-400 to-orange-500",
-      points: ["Assess needs and link you with proven providers."],
       img: "/images/training-aircraft.jpg",
     },
     {
-      title: "Project Oversight",
       icon: <FaClipboardCheck className="h-8 w-8" />,
       gradient: "from-fuchsia-400 to-pink-500",
-      points: [
-        "Ensure every detail stays aligned and on schedule across all parties.",
-      ],
       img: "/images/oversight-aircraft.jpg",
     },
-  ];
+  ].map((style, idx) => {
+    const defaultTitles = ["Financing", "Tax & Legal", "Insurance", "Training & Operations", "Project Oversight"];
+    const defaultPoints = [
+      "Connect with trusted aviation lenders to secure competitive terms.",
+      "Collaborate with top aviation advisors to protect and optimize your position.",
+      "Aviation-specific protection for what matters most.",
+      "Assess needs and link you with proven providers.",
+      "Ensure every detail stays aligned and on schedule across all parties.",
+    ];
+    const cms = cmsCards?.[idx];
+    return {
+      ...style,
+      title: cms?.title || defaultTitles[idx],
+      points: [cms?.point || defaultPoints[idx]],
+    };
+  });
 
   return (
     <div className="w-full overflow-x-hidden">

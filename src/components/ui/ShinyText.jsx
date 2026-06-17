@@ -14,7 +14,12 @@ const ShinyText = ({ isTextCenter = true, text, color = "text-[#b5b5b5a4]", disa
         animationDuration: animationDuration,
       }}
     >
-      {text}
+      {typeof text === "string" ? text.split("\n").map((line, i, arr) => (
+        <span key={i}>
+          {line}
+          {i < arr.length - 1 && <br />}
+        </span>
+      )) : text}
     </div>
   );
 };

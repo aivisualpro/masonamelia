@@ -80,7 +80,12 @@ const ServiceRappleResearch = ({ highlightedTitle, title, description, bgImage }
                 transition={{ duration: 0.8, delay: 0.4 }}
                 className="text-white text-lg font-light mx-auto"
               >
-                {description}
+                {description?.split("\n").map((line, i, arr) => (
+                  <React.Fragment key={i}>
+                    {line}
+                    {i < arr.length - 1 && <br />}
+                  </React.Fragment>
+                ))}
               </motion.p>
             </div>
 
@@ -91,9 +96,14 @@ const ServiceRappleResearch = ({ highlightedTitle, title, description, bgImage }
                 viewport={{ once: true }}
                 variants={variants}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-white md:text-xl max-w-[55rem] 2xl:max-w-[60rem] font-light mx-auto"
+                className="text-white md:text-xl max-w-7xl font-light mx-auto"
               >
-                {description}
+                {description?.split("\n").map((line, i, arr) => (
+                  <React.Fragment key={i}>
+                    {line}
+                    {i < arr.length - 1 && <br />}
+                  </React.Fragment>
+                ))}
               </motion.p>
             </div>
           </div>

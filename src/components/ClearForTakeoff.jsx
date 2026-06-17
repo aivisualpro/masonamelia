@@ -33,7 +33,16 @@ export default function ClearForTakeoff({
                 {subtitle}
               </p>
             )}
-            {intro && <p className="text-[#222] md:text-lg">{intro}</p>}
+            {intro && (
+              <p className="text-[#222] md:text-lg">
+                {intro.split("\n").map((line, i, arr) => (
+                  <React.Fragment key={i}>
+                    {line}
+                    {i < arr.length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </p>
+            )}
 
             {bullets.length > 0 && (
               <ul className="mt-6 space-y-3 text-text-[#222]">
@@ -46,7 +55,16 @@ export default function ClearForTakeoff({
               </ul>
             )}
 
-            {outro && <p className="mt-6 text-[#222]">{outro}</p>}
+            {outro && (
+              <p className="mt-6 text-[#222]">
+                {outro.split("\n").map((line, i, arr) => (
+                  <React.Fragment key={i}>
+                    {line}
+                    {i < arr.length - 1 && <br />}
+                  </React.Fragment>
+                ))}
+              </p>
+            )}
           </div>
 
           {/* Image */}
