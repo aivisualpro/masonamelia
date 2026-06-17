@@ -5,7 +5,33 @@ import { FaPlane, FaHandsHelping } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa6";
 import { FiTrendingUp } from "react-icons/fi";
 
+const DEFAULT_CARDS = [
+  { title: "Sell My Plane", tagline: "Aircraft Brokerage Services", link: "/brokerage" },
+  { title: "Help Me Buy", tagline: "Acquisition Services", link: "/acquisition" },
+  { title: "Valuation", tagline: "Real-Time Insights by SkyNet", link: "/skynet" },
+  { title: "Ancillary", tagline: "Legal • Sales Tax • Insurance", link: "/acquisition#acquisition" },
+];
+
+// Icons mapped by card index (desktop & mobile variants)
+const ICONS_DESKTOP = [
+  <FaPlane size={36} color="#111218" className="bg-tertiary_color p-2 rounded-[50%]" />,
+  <FaUsers size={36} color="#111218" className="bg-tertiary_color p-2 rounded-[50%]" />,
+  <FiTrendingUp size={36} color="#111218" className="bg-tertiary_color p-2 rounded-[50%]" />,
+  <FaHandsHelping size={36} color="#111218" className="bg-tertiary_color p-2 rounded-[50%]" />,
+];
+
+const ICONS_MOBILE = [
+  <FaPlane size={36} color="#111218" className="bg-tertiary_color p-2 -mt-[50px] rounded-[50%]" />,
+  <FaUsers size={36} color="#111218" className="bg-tertiary_color p-2 -mt-[50px] rounded-[50%]" />,
+  <FiTrendingUp size={36} color="#111218" className="bg-tertiary_color p-2 -mt-[50px] rounded-[50%]" />,
+  <FaHandsHelping size={36} color="#111218" className="bg-tertiary_color p-2 -mt-[50px] rounded-[50%]" />,
+];
+
 const HeroSection = ({ contact }) => {
+  const cards = contact?.home_hero_service_cards?.length
+    ? contact.home_hero_service_cards
+    : DEFAULT_CARDS;
+
   return (
     <div
       className="
@@ -20,6 +46,8 @@ const HeroSection = ({ contact }) => {
           <div className="md:order-1 order-1">
             <GlassCard contact={contact} />
           </div>
+
+          {/* Desktop Cards */}
           <div className="md:flex hidden sm:order-2 order-2 w-full justify-between md:mb-6 mt-6">
             <div
               className={`glass-container w-full`}
@@ -34,135 +62,39 @@ const HeroSection = ({ contact }) => {
               <div
                 className={`h-full glass-content w-full flex-wrap md:flex-nowrap md:py-4 py-0`}
               >
-                <div className="w-full md:w-[33%] relative">
-                  <GlassmorphismCircularCard
-                    title="Sell My Plane"
-                    tagline="Aircraft Brokerage Services"
-                    link="/brokerage"
-                    icon={
-                      <FaPlane
-                        size={36}
-                        color="#111218"
-                        className="bg-tertiary_color p-2 rounded-[50%]"
-                      />
-                    }
-                    customClasses="w-full"
-                  />
-                </div>
-                <div className="w-full md:w-[33%] relative">
-                  <GlassmorphismCircularCard
-                    title="Help Me Buy"
-                    tagline="Acquisition Services"
-                    link="/acquisition"
-                    icon={
-                      <FaUsers
-                        size={36}
-                        color="#111218"
-                        className="bg-tertiary_color p-2 rounded-[50%]"
-                      />
-                    }
-                    customClasses="w-full"
-                  />
-                </div>
-                <div className="w-full md:w-[33%] relative">
-                  <GlassmorphismCircularCard
-                    title="Valuation"
-                    tagline="Real-Time Insights by SkyNet"
-                    link="/skynet"
-                    icon={
-                      <FiTrendingUp
-                        size={36}
-                        color="#111218"
-                        className="bg-tertiary_color p-2 rounded-[50%]"
-                      />
-                    }
-                    customClasses="w-full"
-                  />
-                </div>
-                <div className="w-full md:w-[33%] relative">
-                  <GlassmorphismCircularCard
-                    title="Ancillary"
-                    tagline="Legal • Sales Tax • Insurance"
-                    link="/acquisition#acquisition"
-                    icon={
-                      <FaHandsHelping
-                        size={36}
-                        color="#111218"
-                        className="bg-tertiary_color p-2 rounded-[50%]"
-                      />
-                    }
-                    customClasses="w-full"
-                  />
-                </div>
+                {cards.map((card, i) => (
+                  <div key={i} className="w-full md:w-[33%] relative">
+                    <GlassmorphismCircularCard
+                      title={card.title}
+                      tagline={card.tagline}
+                      link={card.link}
+                      icon={ICONS_DESKTOP[i] || ICONS_DESKTOP[0]}
+                      customClasses="w-full"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
             {/* 3 Glassmorphism Circular Cards with responsive positions and sizes */}
           </div>
+
+          {/* Mobile Cards */}
           <div className="md:hidden flex sm:order-2 order-2 w-full justify-between md:mb-12 mt-8">
             <div className={`w-full`} style={{ borderRadius: "5px" }}>
               <div
                 className={`h-full w-full flex-wrap md:flex-nowrap md:py-4 py-0`}
               >
-                <div className="w-full md:w-[33%] relative mb-8">
-                  <GlassmorphismCircularCard
-                    title="Sell My Plane"
-                    tagline="Aircraft Brokerage Services"
-                    link="/brokerage"
-                    icon={
-                      <FaPlane
-                        size={36}
-                        color="#111218"
-                        className="bg-tertiary_color p-2 -mt-[50px] rounded-[50%]"
-                      />
-                    }
-                    customClasses="w-full"
-                  />
-                </div>
-                <div className="w-full md:w-[33%] relative mb-8">
-                  <GlassmorphismCircularCard
-                    title="Help Me Buy"
-                    tagline="Acquisition Services"
-                    link="/acquisition"
-                    icon={
-                      <FaUsers
-                        size={36}
-                        color="#111218"
-                        className="bg-tertiary_color p-2 -mt-[50px] rounded-[50%]"
-                      />
-                    }
-                    customClasses="w-full"
-                  />
-                </div>
-                <div className="w-full md:w-[33%] relative mb-8">
-                  <GlassmorphismCircularCard
-                    title="Valuation"
-                    tagline="Real-Time Insights by SkyNet"
-                    link="/skynet"
-                    icon={
-                      <FiTrendingUp
-                        size={36}
-                        color="#111218"
-                        className="bg-tertiary_color p-2 -mt-[50px] rounded-[50%]"
-                      />
-                    }
-                    customClasses="w-full"
-                  />
-                </div>
-                <div className="w-full md:w-[33%] relative mb-8">
-                  <GlassmorphismCircularCard
-                    title="Ancillary"
-                    tagline="Legal • Sales Tax • Insurance"
-                    link="/acquisition#acquisition"
-                    icon={
-                      <FaHandsHelping
-                        size={36}
-                        color="#111218"
-                        className="bg-tertiary_color p-2 -mt-[50px] rounded-[50%]"
-                      />
-                    }
-                    customClasses="w-full"
-                  />
-                </div>
+                {cards.map((card, i) => (
+                  <div key={i} className="w-full md:w-[33%] relative mb-8">
+                    <GlassmorphismCircularCard
+                      title={card.title}
+                      tagline={card.tagline}
+                      link={card.link}
+                      icon={ICONS_MOBILE[i] || ICONS_MOBILE[0]}
+                      customClasses="w-full"
+                    />
+                  </div>
+                ))}
               </div>
             </div>
             {/* 3 Glassmorphism Circular Cards with responsive positions and sizes */}
