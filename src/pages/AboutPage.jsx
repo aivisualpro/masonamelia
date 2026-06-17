@@ -14,8 +14,11 @@ import { FaHandshake, FaUsers, FaPlaneDeparture, FaSuitcase, FaChartLine } from 
 import { FaJetFighterUp } from "react-icons/fa6";
 import aboutBanner from "/images/about/timeline bg.jpeg";
 import { HiOutlineCpuChip, HiOutlineRocketLaunch, HiOutlineSparkles } from "react-icons/hi2";
+import { useContact } from "../hooks/useContactQuery";
 
 const AboutPage = () => {
+  const { data: contact } = useContact();
+
   /** ---------- Smooth auto-scroll ---------- */
   const bannerRef = useRef(null);
   const [showArrow, setShowArrow] = useState(false);
@@ -98,119 +101,56 @@ const AboutPage = () => {
     cancelAutoScroll();
   };
 
-  const data = [
-    {
-      title: "2004 | Aviation Begins",
-      icon: <FaPlaneDeparture size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Aviation Begins</h3>
-          <p className="mb-4 text-lg font-normal text-white">
-            After honorable enlisted military service, Jesse began flight training and quickly progressed through CFI, CFII, and MEI ratings.
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2007–2012 | Airlines and Entrepreneurship",
-      icon: <FaJetFighterUp size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Airlines and Entrepreneurship</h3>
-          <p className="mb-4 text-lg font-normal text-white">
-            Jesse flew regional jets for Republic Airways while simultaneously pursuing entrepreneurial ventures, building discipline as a pro pilot, alongside business acumen.
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2012–2015 | Business Foundation",
-      icon: <FaHandshake size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Business Foundation</h3>
-          <p className="mb-4 text-lg font-normal text-white">
-            Jesse joined his brothers at Sagacious Consultants, helping scale the firm to a successful acquisition by Accenture – but never stopped flying.
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2018 | Founded",
-      icon: <HiOutlineSparkles size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Founded</h3>
-          <p className="mb-4 text-lg font-normal text-white">
-            Initially a spin-off of the Adams brothers’ entrepreneurial success, Mason Amelia was created as a professional services firm and business consultancy. As the company began recruiting for aviation sales organizations, a clear opportunity emerged...
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2019–2023 | Brokerage Mastery",
-      icon: <FaUsers size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Brokerage Mastery</h3>
-          <p className="mb-4 text-lg font-normal text-white">
-            Nearly five years at the world’s largest Cirrus focused brokerage gave Jesse exposure to high volume global transactions across piston and owner-flown turbine aircraft, completing more than 200 deals.
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2023 | Strategic Refocus",
-      icon: <FaSuitcase size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Strategic Refocus</h3>
-          <p className="mb-4 text-lg font-normal text-white">
-            Jesse founded Mason Amelia as a modern aircraft brokerage, combining data, elevated marketing, and grit. Within six months, the first team members were hired and remain core to the firm today.
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2024 | Rapid Growth",
-      icon: <HiOutlineRocketLaunch size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Rapid Growth</h3>
-          <p className="mb-4 text-lg font-normal text-white">
-            Mason Amelia became one of the fastest growing aircraft brokerages in the country, reshaping how owner-flown aircraft are marketed and sold.
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2025 | SkyNet Launch",
-      icon: <HiOutlineCpuChip size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">SkyNet Launch</h3>
-          <p className="mb-4 text-lg font-normal text-white">
-            The launch of SkyNet formalized Mason Amelia’s data driven valuation approach, bringing greater clarity and precision to the market.
-          </p>
-        </div>
-      ),
-    },
-    {
-      title: "2026 | Looking Forward",
-      icon: <FaChartLine size={48} color="#1777cb" />,
-      content: (
-        <div>
-          <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">Looking Forward</h3>
-          <p className="mb-4 text-lg font-normal text-white">
-            Executing at scale. Growing with intent.
-          </p>
-        </div>
-      ),
-    },
+  // ── Icon pool for timeline entries ──
+  const defaultIcons = [
+    <FaPlaneDeparture size={48} color="#1777cb" />,
+    <FaJetFighterUp size={48} color="#1777cb" />,
+    <FaHandshake size={48} color="#1777cb" />,
+    <HiOutlineSparkles size={48} color="#1777cb" />,
+    <FaUsers size={48} color="#1777cb" />,
+    <FaSuitcase size={48} color="#1777cb" />,
+    <HiOutlineRocketLaunch size={48} color="#1777cb" />,
+    <HiOutlineCpuChip size={48} color="#1777cb" />,
+    <FaChartLine size={48} color="#1777cb" />,
   ];
+
+  // ── Default timeline items (same as before) ──
+  const defaultTimeline = [
+    { year: '2004', heading: 'Aviation Begins', description: 'After honorable enlisted military service, Jesse began flight training and quickly progressed through CFI, CFII, and MEI ratings.' },
+    { year: '2007–2012', heading: 'Airlines and Entrepreneurship', description: 'Jesse flew regional jets for Republic Airways while simultaneously pursuing entrepreneurial ventures, building discipline as a pro pilot, alongside business acumen.' },
+    { year: '2012–2015', heading: 'Business Foundation', description: 'Jesse joined his brothers at Sagacious Consultants, helping scale the firm to a successful acquisition by Accenture – but never stopped flying.' },
+    { year: '2018', heading: 'Founded', description: "Initially a spin-off of the Adams brothers' entrepreneurial success, Mason Amelia was created as a professional services firm and business consultancy. As the company began recruiting for aviation sales organizations, a clear opportunity emerged..." },
+    { year: '2019–2023', heading: 'Brokerage Mastery', description: "Nearly five years at the world's largest Cirrus focused brokerage gave Jesse exposure to high volume global transactions across piston and owner-flown turbine aircraft, completing more than 200 deals." },
+    { year: '2023', heading: 'Strategic Refocus', description: 'Jesse founded Mason Amelia as a modern aircraft brokerage, combining data, elevated marketing, and grit. Within six months, the first team members were hired and remain core to the firm today.' },
+    { year: '2024', heading: 'Rapid Growth', description: 'Mason Amelia became one of the fastest growing aircraft brokerages in the country, reshaping how owner-flown aircraft are marketed and sold.' },
+    { year: '2025', heading: 'SkyNet Launch', description: "The launch of SkyNet formalized Mason Amelia's data driven valuation approach, bringing greater clarity and precision to the market." },
+    { year: '2026', heading: 'Looking Forward', description: 'Executing at scale. Growing with intent.' },
+  ];
+
+  // ── Build timeline data from CMS or defaults ──
+  const timelineSource = contact?.about_timeline_items?.length
+    ? contact.about_timeline_items
+    : defaultTimeline;
+
+  const data = timelineSource.map((item, idx) => ({
+    title: `${item.year} | ${item.heading}`,
+    icon: defaultIcons[idx % defaultIcons.length],
+    content: (
+      <div>
+        <h3 className="hidden md:block text-xl md:text-3xl font-bold text-white mb-2">{item.heading}</h3>
+        <p className="mb-4 text-lg font-normal text-white">
+          {item.description}
+        </p>
+      </div>
+    ),
+  }));
 
   const media = useMediaQuery("(max-width: 1023px)");
   const mobileMedia = useMediaQuery("(max-width: 767px)");
+
+  // ── CMS hero bg ──
+  const heroBgDesktop = contact?.about_hero_bg_image || bgPlane;
+  const heroBgMobile = bgPlaneTeam;
 
   return (
     <>
@@ -221,7 +161,7 @@ const AboutPage = () => {
         ref={bannerRef}
         className="relative md:max-w-screen lg:h-screen bg-[#10121A] overflow-hidden mt-0"
         style={{
-          backgroundImage: `url(${media ? bgPlaneTeam : bgPlane})`,
+          backgroundImage: `url(${media ? heroBgMobile : heroBgDesktop})`,
           backgroundSize: media ? "cover" : "cover",
           backgroundPosition: media ? "top 0px right 0px" : "100% 45%",
           backgroundRepeat: "no-repeat",
@@ -231,8 +171,14 @@ const AboutPage = () => {
         }}
       >
         <div className="lg:hidden block absolute w-full h-full bg-black/60"></div>
-        <div className="container px-5">
-          <About />
+        {/* Desktop gradient overlay behind text for readability */}
+        <div className="hidden lg:block absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent"></div>
+        <div className="container px-5 h-full flex flex-col justify-center relative z-10">
+          <About
+            titleWhite={contact?.about_hero_title_white}
+            titleBlue={contact?.about_hero_title_blue}
+            description={contact?.about_hero_description}
+          />
         </div>
 
         {/* Arrow 3s baad appear hoga, 5s pe auto-scroll (agar user ne kuch na kiya) */}
@@ -241,12 +187,17 @@ const AboutPage = () => {
 
       {/* TARGET SECTION — auto-scroll lands here */}
       <main id="about-main">
-        <WhatSetsUsApart />
+        <WhatSetsUsApart
+          titleWhite={contact?.about_wsa_title_white}
+          titleBlue={contact?.about_wsa_title_blue}
+          subtitle={contact?.about_wsa_subtitle}
+          cards={contact?.about_wsa_cards}
+        />
 
         <section
           id="timeline"
           style={{
-            backgroundImage: media ? "" : `url(${aboutBanner})`,
+            backgroundImage: media ? "" : `url(${contact?.about_timeline_bg_image || aboutBanner})`,
             backgroundSize: media ? "" : "120%",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",

@@ -108,7 +108,7 @@ export default function WhatSetsUsApart({ titleWhite, titleBlue, subtitle, cards
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="md:text-[3.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white md:max-w-3xl"
+                className="md:text-[3.5rem] lg:text-[3rem] xl:text-6xl font-bold text-white md:max-w-3xl mx-auto"
                 style={{ lineHeight: "1.2" }}
               >
                 {tw}{" "}
@@ -122,7 +122,7 @@ export default function WhatSetsUsApart({ titleWhite, titleBlue, subtitle, cards
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.4 }}
-                className="text-xl text-neutral-300 py-[40px] max-w-4xl"
+                className="text-xl text-neutral-300 py-[40px] max-w-4xl mx-auto"
               >
                 {sub}
               </motion.p>

@@ -9,12 +9,14 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import BlinkingArrow from "../components/BlinkingArrow";
 import ScrollToTop from "../components/ScrollToTop";
 import ShinyText from "../components/ui/ShinyText";
+import { useContact } from "../hooks/useContactQuery";
 
 const TeamPage = () => {
   const media = useMediaQuery("(max-width: 767px)");  // Detect if it's a mobile view
   const teamSectionRef = useRef(null);  // Reference to the team section
   const [showArrow, setShowArrow] = useState(false);
   const [cancelAuto, setCancelAuto] = useState(false);
+  const { data: contact } = useContact();
 
   // Smooth scroll function
   function smoothScrollTo(to, duration = 2500) {
@@ -89,6 +91,12 @@ const TeamPage = () => {
     cancelAutoScroll();
   };
 
+  // CMS hero values with fallbacks
+  const heroTitle = contact?.team_hero_title || "Meet the Team";
+  const heroDesc = contact?.team_hero_description || "Meet the aviation experts and passionate professionals behind Mason Amelia. Our mission is to elevate your flight experience through transparency, expertise, and personalized service.";
+  const heroDescMobile = contact?.team_hero_description || "Meet the aviation experts and passionate professionals behind Mason Amelia.";
+  const heroBg = contact?.team_hero_bg_image || bgPlane;
+
   return (
     <>
       <div className="relative z-[10] bg-[#0c0d12]">
@@ -98,7 +106,7 @@ const TeamPage = () => {
           <div
             className="absolute top-0 left-0 w-full h-full z-0"
             style={{
-              backgroundImage: `url(${bgPlane})`,
+              backgroundImage: `url(${heroBg})`,
               backgroundPosition: "center",
               backgroundSize: "cover",
               backgroundRepeat: "no-repeat",
@@ -121,17 +129,13 @@ const TeamPage = () => {
             >
               <h1 className="text-white text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold tracking-tight mb-6 md:mt-20" style={{ fontFamily: "'Inter Tight', sans-serif" }}>
                 <span className="text-[#268AE0]">
-                  Meet the Team
+                  {heroTitle}
                 </span>
               </h1>
 
               <div className="max-w-3xl mx-auto mt-4 px-4 md:px-0">
                 <ShinyText
-                  text={
-                    media
-                      ? "Meet the aviation experts and passionate professionals behind Mason Amelia."
-                      : "Meet the aviation experts and passionate professionals behind Mason Amelia. Our mission is to elevate your flight experience through transparency, expertise, and personalized service."
-                  }
+                  text={media ? heroDescMobile : heroDesc}
                   disabled={false}
                   speed={3}
                   className="text-lg md:text-xl font-light leading-relaxed"
