@@ -12,6 +12,7 @@ import bannerTwo from "/images/showroom/bannerTwo.webp";
 
 import Contact from "../components/Contact";
 import CTABanner from "../components/CTABanner";
+import { useContact } from "../hooks/useContactQuery";
 
 /* ----------------- custom slow scroll helper ----------------- */
 const smoothScrollTo = (targetY, { duration = 2200 } = {}) => {
@@ -45,6 +46,7 @@ const smoothScrollTo = (targetY, { duration = 2200 } = {}) => {
 
 const ShowroomPage = () => {
   const location = useLocation();
+  const { data: contact } = useContact();
   // Check if we're coming back from a detail page
   const isReturning = location.state?.fromDetail === true;
 
@@ -185,7 +187,7 @@ const ShowroomPage = () => {
 
   return (
     <>
-      <Banner url={banner} banner={bannerTwo} handleArrowClick={handleArrowClick} showArrow={showArrow} />
+      <Banner url={banner} banner={bannerTwo} handleArrowClick={handleArrowClick} showArrow={showArrow} contact={contact} />
       {/* 👇 target for scroll */}
       <div ref={listingRef}>
         <Listing autoScrollEnabled={autoScrollEnabled} initialFilters={restoredFilters} />

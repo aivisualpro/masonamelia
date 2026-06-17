@@ -5,8 +5,18 @@ import ShinyText from "./ui/ShinyText";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import BlinkingArrow from "./BlinkingArrow";
 
-const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
+const Banner = ({ url, banner, handleArrowClick, showArrow, contact }) => {
   const media = useMediaQuery("(max-width: 767px)");
+
+  // CMS-driven text with fallbacks
+  const titleWhite = contact?.showroom_hero_title_white || "Where Precision ";
+  const titleBlue = contact?.showroom_hero_title_blue || " Meets Passion";
+  const description = contact?.showroom_hero_description ||
+    "We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators.";
+  const mobileDescription = contact?.showroom_hero_description ||
+    "Exclusive Collection of High-Performance Piston and Owner-Flown Turbine Aircraft";
+  const bgImage = contact?.showroom_hero_bg_image || url;
+
   return (
     <>
       <Navbar />
@@ -14,7 +24,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
         className="h-full relative bg-img w-full md:sticky top-0 md:h-screen"
         style={{
           backgroundImage: media ? "" : `linear-gradient(to right,rgb(21, 22, 28, ${media ? ".8" : "1"
-            }) ${media ? "100%" : "40%"}, rgba(0, 0, 0, 0.01)), url(${url})`,
+            }) ${media ? "100%" : "40%"}, rgba(0, 0, 0, 0.01)), url(${bgImage})`,
           backgroundSize: "cover",
           backgroundAttachment: "fixed",
           backgroundRepeat: "no-repeat",
@@ -34,8 +44,8 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
           <div className="banner-content">
             {/* <h1 className="text-white text-6xl font-bold">Discover the Future of Flight</h1> */}
             <BlurText
-              text={media ? "SHOWROOM" : "Where Precision "}
-              highlightedText={media ? "" : " Meets Passion"}
+              text={media ? "SHOWROOM" : titleWhite}
+              highlightedText={media ? "" : titleBlue}
               highlightedClassName="text-blue-500" // ya sky-500, etc.
               delay={150}
               animateBy="words"
@@ -43,11 +53,7 @@ const Banner = ({ url, banner, handleArrowClick, showArrow }) => {
               className={`max-w-xl text-[2.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl leading-none font-bold uppercase md:capitalize ${media ? "text-[#1777cb]" : "text-white"}`}
             />
             <ShinyText
-              text={
-                media
-                  ? "Exclusive Collection of High-Performance Piston and Owner-Flown Turbine Aircraft"
-                  : "We curate an exclusive collection of high-performance piston and owner-flown turbine aircraft, each one selected to satisfy the most discerning aviators."
-              }
+              text={media ? mobileDescription : description}
               disabled={false}
               isTextCenter={media ? true : false}
               speed={5}
