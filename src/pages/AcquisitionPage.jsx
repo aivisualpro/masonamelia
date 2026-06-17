@@ -270,16 +270,16 @@ const AcquisitionPage = () => {
 
         <ClearForTakeoff
           eyebrow="FRAME 4"
-          title="Cleared for Takeoff"
-          subtitle="Aircraft Identification & Acquisition"
-          intro="With a clear mission and strong foundation in place, we advance to the acquisition phase. Mason Amelia actively searches both public and off-market opportunities to locate the ideal aircraft. No stone unturned, no shortcuts taken."
-          bullets={[
+          title={contact?.acquisition_cleared_title || "Cleared for Takeoff"}
+          subtitle={contact?.acquisition_cleared_subtitle || "Aircraft Identification & Acquisition"}
+          intro={contact?.acquisition_cleared_intro || "With a clear mission and strong foundation in place, we advance to the acquisition phase. Mason Amelia actively searches both public and off-market opportunities to locate the ideal aircraft. No stone unturned, no shortcuts taken."}
+          bullets={contact?.acquisition_cleared_bullets?.length ? contact.acquisition_cleared_bullets : [
             "Develop and deploy strategic outreach campaigns to identify off-market aircraft and untapped opportunities.",
             "Present qualified aircraft and deliver precise price and value analyses powered by SkyNet.",
             "From LOIs to closing, we negotiate terms and manage due diligence every step of the way.",
           ]}
-          outro="We don’t just find airplanes — we deliver outcomes. Every step is handled with precision and purpose so you can take off with confidence."
-          image="/images/aircraft-identification.jpg"
+          outro={contact?.acquisition_cleared_outro || "We don't just find airplanes — we deliver outcomes. Every step is handled with precision and purpose so you can take off with confidence."}
+          image={contact?.acquisition_cleared_image || "/images/clearForTakeoff.webp"}
           imageAlt="Aircraft Identification & Acquisition"
           imageOn="right"
         />
