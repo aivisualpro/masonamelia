@@ -3,7 +3,9 @@ import { motion } from "framer-motion";
 import ShinyText from "./ui/ShinyText";
 import Button from "./Button";
 
-export default function GlassCard() {
+export default function GlassCard({ contact }) {
+  const title = contact?.home_hero_title || "Turbulence-Free Transactions";
+  const description = contact?.home_hero_description || "Industry-leading marketing, data, and grit to help you buy or sell.";
   return (
     <>
       <div className="w-full text-white text-center">
@@ -20,7 +22,7 @@ export default function GlassCard() {
           }}
           className={`md:block hidden mx-auto text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-extrabold capitalize`}
         >
-          Turbulence-Free Transactions
+          {title}
         </motion.h2>
         {/* Description */}
         <motion.div
@@ -31,7 +33,7 @@ export default function GlassCard() {
           // className="text-sm md:text-base lg:text-lg py-3 ps-1 text-white/70 opacity-100"
         >
           <ShinyText
-            text="Industry-leading marketing, data, and grit to help you buy or sell."
+            text={description}
             disabled={false}
             speed={5}
             className="custom-class text-lg md:text-xl py-6"

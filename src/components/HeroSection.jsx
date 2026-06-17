@@ -5,7 +5,7 @@ import { FaPlane, FaHandsHelping } from "react-icons/fa";
 import { FaUsers } from "react-icons/fa6";
 import { FiTrendingUp } from "react-icons/fi";
 
-const HeroSection = () => {
+const HeroSection = ({ contact }) => {
   return (
     <div
       className="
@@ -18,7 +18,7 @@ const HeroSection = () => {
       <div className="container z-10 px-6 md:py-0 py-10">
         <div className="hero_section_content_container flex flex-col xl:gap-0 justify-end md:h-[100vh] relative text-white my-auto">
           <div className="md:order-1 order-1">
-            <GlassCard />
+            <GlassCard contact={contact} />
           </div>
           <div className="md:flex hidden sm:order-2 order-2 w-full justify-between md:mb-6 mt-6">
             <div

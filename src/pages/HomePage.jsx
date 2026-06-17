@@ -10,11 +10,13 @@ import ScrollToTop from "../components/ScrollToTop";
 import Reviews from "../components/Reviews";
 import testimonialBg from "/images/contact.avif";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useContact } from "../hooks/useContactQuery";
 
 const HomePage = () => {
   // useGsapScroll();
   const location = useLocation();
   const navigate = useNavigate();
+  const { data: contact } = useContact();
 
   const OFFSET = 150;
 
@@ -80,12 +82,12 @@ const HomePage = () => {
         <Navbar />
       </div> */}
 
-      <Showcase />
+      <Showcase contact={contact} />
       <main id="main">
         <div className="relative z-[10]">
           <Brands />
-          <MeetTheTeam />
-          <SliderWrapper />
+          <MeetTheTeam contact={contact} />
+          <SliderWrapper contact={contact} />
         </div>
 
         {/* 👇 make sure this id matches */}
@@ -104,7 +106,7 @@ const HomePage = () => {
         </div>
 
         <div className="relative z-[10]">
-          <Gallary title={"A Bespoke Approach to Brokerage"} tagline={""} />
+          <Gallary title={contact?.home_gallery_title || "A Bespoke Approach to Brokerage"} tagline={""} />
         </div>
 
         {/* 👇 make sure this id matches */}

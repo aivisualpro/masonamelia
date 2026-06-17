@@ -5,7 +5,11 @@ import Button from "./Button";
 import { FiPhoneCall } from "react-icons/fi";
 import meetTheTeam from "/images/team.jpg";
 
-const MeetTheTeam = () => {
+const MeetTheTeam = ({ contact }) => {
+  const titleWhite = contact?.home_team_title_white || "From San Antonio to Duluth…";
+  const titleBlue = contact?.home_team_title_blue || "Meet the Team";
+  const description = contact?.home_team_description || "We are purveyors of high-end piston and owner-flown turbine aircraft. Our nationwide team brings decades of experience across every corner of aviation. From initial consultation to final aircraft delivery, we handle every transaction with efficiency and an unwavering focus on your satisfaction's bottom line. Putting clients first and building lasting relationships is the foundation of our success and yours.";
+  const teamImg = contact?.home_team_image || meetTheTeam;
   return (
     <section
       className="h-full w-full bg-[#fff] py-20 px-4 overflow-x-hidden"
@@ -30,9 +34,9 @@ const MeetTheTeam = () => {
               className="text-[2rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-primary_theme"
               style={{ lineHeight: "1.1" }}
             >
-              From San Antonio to Duluth…{" "}
+              {titleWhite}{" "}
               <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                Meet the Team
+                {titleBlue}
               </span>{" "}
             </motion.h2>
 
@@ -44,10 +48,7 @@ const MeetTheTeam = () => {
               transition={{ duration: 0.4, delay: 0.4 }}
               className="text-[#222] mt-5 md:text-lg leading-relaxed text-justify"
             >
-              We are purveyors of high-end piston and owner-flown turbine aircraft. Our nationwide team brings decades of experience across
-              every corner of aviation. From initial consultation to final aircraft delivery, we handle every transaction with efficiency and
-              an unwavering focus on your satisfaction’s bottom line. Putting clients first and building lasting relationships is the
-              foundation of our success and yours.
+              {description}
             </motion.p>
 
             {/* Bullet Points */}
@@ -133,12 +134,12 @@ const MeetTheTeam = () => {
               viewport={{ amount: 0.2, once: true }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              src={meetTheTeam}
+              src={teamImg}
               alt="Team Banner"
               className="rounded-3xl w-full z-[20] md:block hidden"
             />
             <img
-              src={meetTheTeam}
+              src={teamImg}
               alt="Team Banner"
               className="rounded-3xl w-full z-[20] md:hidden block"
             />

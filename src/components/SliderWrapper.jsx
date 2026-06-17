@@ -128,50 +128,68 @@ const CountUp = React.memo(
 );
 /* ----------------------------------------------------------------------- */
 
-const SliderWrapper = () => {
+const SliderWrapper = ({ contact }) => {
   // memoize static data to avoid re-creating arrays each render
   const cards = useMemo(
-    () => [
-      {
-        icon: <GrTransaction size={32} className="text-tertiary_color" />,
-        title: "$", // prefix
-        suffix: "M",
-        count: 500,
-        description: "In completed aircraft transactions",
-        onClick: "/contact",
-      },
-      {
-        icon: <GiCommercialAirplane size={32} className="text-tertiary_color" />,
-        title: "+", // suffix
-        count: 300,
-        description: "Aircraft closings successfully managed worldwide",
-        onClick: "/contact",
-      },
-      {
-        icon: (
-          <SiTrustpilot size={32} className="text-tertiary_color" />
-        ),
-        title: "",
-        count: 75,
-        description: "Years of combined experience in aviation industry",
-        onClick: "/contact",
-      },
-      {
-        icon: <HiUserGroup size={32} className="text-tertiary_color" />,
-        title: "",
-        count: 8,
-        description: "Dedicated professionals team serving our valued clients",
-        onClick: "/contact",
-      },
-      {
-        icon: <IoIosGlobe size={32} className="text-tertiary_color" />,
-        title: "",
-        count: 0, // special: will count 10 → 0 in 2s
-        description: "Excuses — delivering trusted results every single time",
-        onClick: "/contact",
-      },
-    ],
-    []
+    () => {
+      const defaultCards = [
+        {
+          icon: <GrTransaction size={32} className="text-tertiary_color" />,
+          prefix: "$",
+          suffix: "M",
+          count: 500,
+          description: "In completed aircraft transactions",
+        },
+        {
+          icon: <GiCommercialAirplane size={32} className="text-tertiary_color" />,
+          prefix: "",
+          suffix: "+",
+          count: 300,
+          description: "Aircraft closings successfully managed worldwide",
+        },
+        {
+          icon: <SiTrustpilot size={32} className="text-tertiary_color" />,
+          prefix: "",
+          suffix: "",
+          count: 75,
+          description: "Years of combined experience in aviation industry",
+        },
+        {
+          icon: <HiUserGroup size={32} className="text-tertiary_color" />,
+          prefix: "",
+          suffix: "",
+          count: 8,
+          description: "Dedicated professionals team serving our valued clients",
+        },
+        {
+          icon: <IoIosGlobe size={32} className="text-tertiary_color" />,
+          prefix: "",
+          suffix: "",
+          count: 0,
+          description: "Excuses — delivering trusted results every single time",
+        },
+      ];
+
+      const icons = [
+        <GrTransaction size={32} className="text-tertiary_color" />,
+        <GiCommercialAirplane size={32} className="text-tertiary_color" />,
+        <SiTrustpilot size={32} className="text-tertiary_color" />,
+        <HiUserGroup size={32} className="text-tertiary_color" />,
+        <IoIosGlobe size={32} className="text-tertiary_color" />,
+      ];
+
+      if (contact?.home_stats_cards?.length) {
+        return contact.home_stats_cards.map((c, i) => ({
+          icon: icons[i] || icons[0],
+          prefix: c.prefix || "",
+          suffix: c.suffix || "",
+          count: c.count ?? 0,
+          description: c.description || "",
+        }));
+      }
+      return defaultCards;
+    },
+    [contact]
   );
 
   const images = useMemo(() => [slideOne, slideTwo, slideThree], []);
@@ -254,7 +272,7 @@ const SliderWrapper = () => {
                 transition={{ duration: 0.5 }}
                 className="text-[2rem] z-[9] px-5 md:text-[3rem] xl:text-[3.5rem] 2xl:text-7xl font-bold text-white text-center"
               >
-                By the Numbers
+                {contact?.home_stats_title || "By the Numbers"}
               </motion.h1>
 
               <motion.p
@@ -264,8 +282,7 @@ const SliderWrapper = () => {
                 transition={{ duration: 0.5, delay: 0.15 }}
                 className="text-[#fff] px-5 md:text-xl z-[9] pt-4 pb-[40px] mx-auto md:max-w-[55rem] 2xl:max-w-[70rem] text-center"
               >
-                The data doesn’t lie. Mason Amelia is your expert wingman with a
-                proven track record and reputation.
+                {contact?.home_stats_description || "The data doesn't lie. Mason Amelia is your expert wingman with a proven track record and reputation."}
               </motion.p>
 
               <div className="xl:hidden block h-[520px] absolute top-[-5rem] left-0 w-full p-0 m-0">
@@ -301,9 +318,8 @@ const SliderWrapper = () => {
 
             <div className="z-[9] mt-[100px] xl:mt-0 px-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
               {cards.map((card, index) => {
-                const prefix = card.title === "$" ? "$" : "";
-                const suffix =
-                  card.title === "+" ? "+" : card.suffix === "M" ? "M" : "";
+                const prefix = card.prefix || "";
+                const suffix = card.suffix || "";
 
                 return (
                   <motion.div

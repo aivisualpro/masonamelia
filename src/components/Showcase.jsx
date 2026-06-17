@@ -6,7 +6,10 @@ import { motion } from "framer-motion";
 import Button from "./Button";
 // import LocomotiveScroll from "locomotive-scroll";
 
-const Showcase = () => {
+const Showcase = ({ contact }) => {
+  const videoUrl = contact?.home_hero_video_url || "/assets/file.mp4";
+  const mobileTitle = contact?.home_hero_mobile_title || "Turbulence-Free Transactions";
+
   return (
     <header className="hero_section_header w-screen md:h-screen z-[10] bg-[#111218] sm:bg-transparent">
       <div
@@ -31,14 +34,14 @@ const Showcase = () => {
             autoPlay
             playsInline
           >
-            <source src="/assets/file.mp4" type="video/mp4" />
+            <source src={videoUrl} type="video/mp4" />
           </video>
 
           {/* Mobile Overlay Text & Button */}
           <div className="absolute top-0 left-0 w-full h-full z-[60] md:hidden flex flex-col justify-end items-center pb-[3rem] pointer-events-none transform-gpu will-change-transform">
             <div className="w-full text-center px-4 pointer-events-auto shadow-[0_0_1px_rgba(0,0,0,0)] transform-gpu">
               <h2 className="text-white text-[1.4rem] font-extrabold capitalize leading-[1.2]">
-                Turbulence-Free Transactions
+                {mobileTitle}
               </h2>
               <div className="flex justify-center mt-4">
                 <Button
@@ -59,7 +62,7 @@ const Showcase = () => {
 
       <Navbar />
 
-      <HeroSection />
+      <HeroSection contact={contact} />
     </header>
   );
 };
