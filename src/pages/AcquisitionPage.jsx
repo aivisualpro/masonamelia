@@ -235,7 +235,7 @@ const AcquisitionPage = () => {
     <div className="w-full overflow-x-hidden">
       {/* HERO / FIRST SECTION */}
       <div ref={bannerRef} className="relative z-[9] lg:h-auto overflow-hidden">
-        <ServiceBanner banner={banner} bannerTwo={bannerTwo} />
+        <ServiceBanner banner={banner} bannerTwo={bannerTwo} contact={contact} />
 
         {/* Flashing/Bouncing Down Arrow after ~3s */}
         {showArrow && <BlinkingArrow onClick={handleArrowClick} />}

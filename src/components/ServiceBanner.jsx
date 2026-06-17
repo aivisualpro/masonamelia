@@ -6,10 +6,32 @@ import ShinyText from "./ui/ShinyText";
 import { motion } from "framer-motion";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-const ServiceBanner = ({ banner, bannerTwo }) => {
+const ServiceBanner = ({ banner, bannerTwo, contact }) => {
   const location = useLocation();
 
   const media = useMediaQuery("(max-width: 767px)");
+
+  const isAcquisition = location.pathname === "/acquisition";
+  const isBrokerage = location.pathname === "/brokerage";
+  const isInsurance = location.pathname === "/insurance";
+
+  // CMS-driven hero text for acquisition
+  const heroTitleWhite = isAcquisition
+    ? (contact?.acquisition_hero_title_white || "The Right Aircraft ")
+    : isBrokerage ? "A Strategic Hands-On Approach" : "Aircraft ";
+  const heroTitleBlue = isAcquisition
+    ? (contact?.acquisition_hero_title_blue || "Changes Everything")
+    : isBrokerage ? "to Selling Your Aircraft" : "Insurance";
+  const heroDesc = isAcquisition
+    ? (contact?.acquisition_hero_description || "We take a consultative approach, learning your mission, analyzing the market, and guiding your acquisition from your first call to first flight.")
+    : isBrokerage
+      ? "Your aircraft deserves to stand out. We highlight its strengths and handle every phase with intent, precision, and the relentless pursuit of perfection."
+      : "Our trusted partners at Titan Insurance specialize exclusively in high-end owner-flown piston and turbine aircraft, backed by decades of aviation insurance expertise. Get a tailored quote today.";
+  const mobileTitle = isAcquisition ? "ACQUISITION" : isBrokerage ? "BROKERAGE" : "INSURANCE";
+  const mobileDesc = isAcquisition
+    ? (contact?.acquisition_hero_title_white || "The Right Aircraft ") + (contact?.acquisition_hero_title_blue || "Changes Everything")
+    : isBrokerage ? "A Strategic Hands-On Approach to Selling Your Aircraft" : "Aircraft Insurance";
+  const bgImage = (isAcquisition && contact?.acquisition_hero_bg_image) || banner;
 
   return (
     <>
@@ -22,11 +44,11 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
             : `linear-gradient(to right, rgb(21, 22, 28, ${media ? ".6" : "1"
             }) ${media
               ? "100%"
-              : `${location.pathname === "/brokerage" ? "35%" : "32%"}`
-            }, rgba(21, 22, 28,0.3)), url(${location.pathname === "/brokerage" ? banner : banner
+              : `${isBrokerage ? "35%" : "32%"}`
+            }, rgba(21, 22, 28,0.3)), url(${bgImage
             })`,
           backgroundSize: "cover",
-          backgroundPosition: `${location.pathname === "/brokerage"
+          backgroundPosition: `${isBrokerage
             ? `${media ? "70% 150px" : "70% 50%"}`
             : `${media ? "bottom -150px right 0px" : "bottom right"}`
             }`,
@@ -43,7 +65,7 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
         <div className="px-5 z-[9] container flex flex-col justify-center h-full min-h-[300px] pt-[132px] pb-[32px] md:pt-[50px] md:pb-0 md:justify-center md:h-screen md:items-start items-center">
           {media ? (
               <BlurText
-                text={location.pathname === "/brokerage" ? "BROKERAGE" : location.pathname === "/insurance" ? "INSURANCE" : "ACQUISITION"}
+                text={mobileTitle}
                 highlightedText=""
               delay={150}
               animateBy="words"
@@ -58,17 +80,9 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
               className="md:text-start text-center text-white text-[1.5rem] md:text-[3rem] xl:text-[3.5rem] 2xl:text-[4rem] max-w-lg xl:max-w-2xl pb-4"
               style={{ lineHeight: "1.1" }}
             >
-              {location.pathname === "/brokerage"
-                ? "A Strategic Hands-On Approach"
-                : location.pathname === "/insurance"
-                  ? "Aircraft "
-                  : "The Right Aircraft "}{" "}
+              {heroTitleWhite}{" "}
               <span className="bg-gradient-to-r from-[#1777cb] to-tertiary_color bg-clip-text text-transparent">
-                {location.pathname === "/brokerage"
-                  ? "to Selling Your Aircraft"
-                  : location.pathname === "/insurance"
-                    ? "Insurance"
-                    : "Changes Everything"}
+                {heroTitleBlue}
               </span>
             </motion.h1>
           )}
@@ -87,16 +101,8 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
               isTextCenter={media ? true : false}
               text={
                 media
-                  ? location.pathname === "/brokerage"
-                    ? "A Strategic Hands-On Approach to Selling Your Aircraft"
-                    : location.pathname === "/insurance"
-                      ? "Aircraft Insurance"
-                      : "The Right Aircraft Changes Everything"
-                  : location.pathname === "/brokerage"
-                    ? "Your aircraft deserves to stand out. We highlight its strengths and handle every phase with intent, precision, and the relentless pursuit of perfection."
-                    : location.pathname === "/insurance"
-                      ? "Our trusted partners at Titan Insurance specialize exclusively in high-end owner-flown piston and turbine aircraft, backed by decades of aviation insurance expertise. Get a tailored quote today."
-                      : "We take a consultative approach, learning your mission, analyzing the market, and guiding your acquisition from your first call to first flight."
+                  ? mobileDesc
+                  : heroDesc
               }
               disabled={false}
               speed={5}
@@ -106,7 +112,7 @@ const ServiceBanner = ({ banner, bannerTwo }) => {
           </motion.div>
 
           {/* Titan Insurance banner + CTA — insurance page only */}
-          {location.pathname === "/insurance" && (
+          {isInsurance && (
             <motion.div
               initial={{ opacity: 0, y: 60 }}
               animate={{ opacity: 1, y: 0 }}
