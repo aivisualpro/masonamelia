@@ -245,9 +245,9 @@ const AcquisitionPage = () => {
       <main id="acquisition" className="relative z-[0]">
         <ServiceRappleResearch
           data={data}
-          highlightedTitle={"Preflight Planning"}
-          title={"Strategy, not speculation. Your mission defines the search. "}
-          description={
+          highlightedTitle={contact?.acquisition_preflight_title || "Preflight Planning"}
+          title={contact?.acquisition_preflight_subtitle || "Strategy, not speculation. Your mission defines the search. "}
+          description={contact?.acquisition_preflight_description ||
             "We define your mission profile: how you’ll fly, where you’ll go, and establish what ownership means for you. Then we align the right aircraft to your mission, your lifestyle, and your financial strategy."
           }
           boxVariant="dark"
@@ -258,11 +258,11 @@ const AcquisitionPage = () => {
         <TaxiCardsDarkSection
           tagline={
             <>
-              <span>Taxi &amp; Systems Check</span>
+              <span>{contact?.acquisition_taxi_tagline || "Taxi & Systems Check"}</span>
             </>
           }
-          title={"Expert guidance and trusted partners to clear the path before takeoff"}
-          description={
+          title={contact?.acquisition_taxi_title || "Expert guidance and trusted partners to clear the path before takeoff"}
+          description={contact?.acquisition_taxi_description ||
             "Before we roll, we ensure every system is a go. Mason Amelia is aligned with top-tier aviation professionals. We ensure the right expertise is engaged early. This includes financing, tax, legal, insurance, training, maintenance, and operational advisors. This cohesive approach gives you clarity and confidence from the very first turn."
           }
           cards={cards}
