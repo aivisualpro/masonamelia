@@ -272,8 +272,28 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
   const getVideoSrc = (url) => {
     if (!url) return "";
-    const separator = url.includes("?") ? "&" : "?";
-    return `${url}${separator}autoplay=1&mute=1`;
+    let embedUrl = url;
+
+    // Convert youtube.com/shorts/VIDEO_ID to embed
+    const shortsMatch = url.match(/youtube\.com\/shorts\/([^?&#]+)/);
+    if (shortsMatch) {
+      embedUrl = `https://www.youtube.com/embed/${shortsMatch[1]}`;
+    }
+
+    // Convert youtube.com/watch?v=VIDEO_ID to embed
+    const watchMatch = url.match(/youtube\.com\/watch\?v=([^&#]+)/);
+    if (watchMatch) {
+      embedUrl = `https://www.youtube.com/embed/${watchMatch[1]}`;
+    }
+
+    // Convert youtu.be/VIDEO_ID to embed
+    const shortMatch = url.match(/youtu\.be\/([^?&#]+)/);
+    if (shortMatch) {
+      embedUrl = `https://www.youtube.com/embed/${shortMatch[1]}`;
+    }
+
+    const separator = embedUrl.includes("?") ? "&" : "?";
+    return `${embedUrl}${separator}autoplay=1&mute=1`;
   };
 
   const openVideoModal = () => setVideoModalOpen(true);
