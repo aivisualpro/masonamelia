@@ -95,7 +95,7 @@ const Team = ({ teamRef, hideSocials = false }) => {
             {team.map((member, idx) => (
               <motion.div
                 key={`rest-${idx}`}
-                className="relative team-card rounded-xl overflow-hidden group"
+                className="relative team-card rounded-xl overflow-hidden group max-w-[480px] mx-auto w-full"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -106,7 +106,7 @@ const Team = ({ teamRef, hideSocials = false }) => {
                     <img
                       src={member?.profile_picture || member?.image}
                       alt={member?.name}
-                      className={`w-full h-[420px] ${
+                      className={`w-full aspect-[3/3.5] ${
                         member?.name === 'Peyton Lindbloom'
                           ? 'object-contain'
                           : 'object-cover object-top'
@@ -115,7 +115,7 @@ const Team = ({ teamRef, hideSocials = false }) => {
                     <div className="transition-all duration-300 group-hover:h-[100%] absolute top-0 left-0 w-full h-0 bg-black opacity-0 lg:opacity-60 z-[0]"></div>
                   </div>
                 </Link>
-                <div className="absolute -bottom-[30px] md:-bottom-[5px] left-0 right-0 rounded-[100px] h-[150px] lg:h-[95px] group-hover:h-[220px] transition-all duration-500">
+                <div className="absolute -bottom-[5px] left-0 right-0 h-[95px] group-hover:h-[220px] transition-all duration-500">
                   <div
                     className="glass-container flex items-center justify-center glass-container--rounded px-4 pt-2 pb-3"
                     style={{ borderRadius: "0" }}
@@ -124,7 +124,7 @@ const Team = ({ teamRef, hideSocials = false }) => {
                     <div className="glass-overlay"></div>
                     <div className="glass-specular"></div>
                     <div className="glass-content glass-content--inline justify-center">
-                      <div className="relative w-full pt-0 pb-1 px-2">
+                      <div className="relative w-full text-center px-2">
                         <h2 className="block text-lg md:text-xl xl:text-2xl font-semibold text-white">
                           {member?.name}
                         </h2>
@@ -132,7 +132,7 @@ const Team = ({ teamRef, hideSocials = false }) => {
                           {member?.designation || "Owner"}
                         </h4>
                         <p className="text-sm text-gray-400">{member?.address}</p>
-                        <div className="pt-2 pb-4 social-icons flex flex-col items-center gap-2 justify-center">
+                        <div className="pt-2 pb-2 social-icons flex flex-col items-center gap-2 justify-center">
                           {!hideSocials && (
                             <div className="flex items-center gap-4 justify-center">
                               {member?.facebook && (
@@ -159,7 +159,7 @@ const Team = ({ teamRef, hideSocials = false }) => {
                           )}
 
                           {/* Reveal on hover */}
-                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center gap-1 mt-2">
+                          <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center gap-1 mt-1">
                             {member?.phone && (
                               <a href={`tel:${member.phone}`} className="text-xs text-gray-300 hover:text-white transition">
                                 {member.phone}
