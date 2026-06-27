@@ -58,13 +58,13 @@ app.get('/api/aircraftCategories/lists', async (req, res) => {
 });
 
 // Helper for pagination
-const getPaginatedData = async (Model, req, query = {}) => {
+const getPaginatedData = async (Model, req, query = {}, sortObj = { createdAt: -1 }) => {
   const page = parseInt(req.query.page) || 1;
   const pageSize = parseInt(req.query.pageSize) || 16;
   const skip = (page - 1) * pageSize;
 
   const [data, totalItems] = await Promise.all([
-    Model.find(query).sort({ createdAt: -1 }).skip(skip).limit(pageSize),
+    Model.find(query).sort(sortObj).skip(skip).limit(pageSize),
     Model.countDocuments(query)
   ]);
 
@@ -216,6 +216,10 @@ async function resolveCategorySlugs(categoryCsv) {
 app.get('/api/aircrafts/lists', async (req, res) => {
   await connectToDatabase();
   try {
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 16;
+    const skip = (page - 1) * pageSize;
+
     const { searchKeyword, status, minPrice, maxPrice, minAirframe, maxAirframe, minEngine, maxEngine, categories } = req.query;
     const query = { isDeleted: { $ne: true } };
 
@@ -228,35 +232,60 @@ app.get('/api/aircrafts/lists', async (req, res) => {
       ];
     }
 
-    // Category filter: resolve slugs to ObjectIds
     const categoryIds = await resolveCategorySlugs(categories);
     if (categoryIds && categoryIds.length) {
       query.category = { $in: categoryIds };
     }
 
-    // Price range
     if (minPrice || maxPrice) {
       query.price = {};
       if (minPrice) query.price.$gte = Number(minPrice);
       if (maxPrice) query.price.$lte = Number(maxPrice);
     }
 
-    // Airframe range
     if (minAirframe || maxAirframe) {
       query.airframe = {};
       if (minAirframe) query.airframe.$gte = Number(minAirframe);
       if (maxAirframe) query.airframe.$lte = Number(maxAirframe);
     }
 
-    // Engine range
     if (minEngine || maxEngine) {
       query.engine = {};
       if (minEngine) query.engine.$gte = Number(minEngine);
       if (maxEngine) query.engine.$lte = Number(maxEngine);
     }
-    
-    const result = await getPaginatedData(Aircraft, req, query);
-    res.json(result);
+
+    const pipeline = [
+      { $match: query },
+      // Coerce null/missing index to large number → nulls sort last
+      { $addFields: { _sortIdx: { $ifNull: ['$index', 999999] } } },
+      { $sort: { _sortIdx: 1, createdAt: -1 } },
+      // Populate category
+      { $lookup: { from: 'aircraftcategories', localField: 'category', foreignField: '_id', as: '_cat' } },
+      { $addFields: { category: { $ifNull: [{ $arrayElemAt: ['$_cat', 0] }, '$category'] } } },
+      { $unset: ['_sortIdx', '_cat'] },
+      {
+        $facet: {
+          data: [{ $skip: skip }, { $limit: pageSize }],
+          totalCount: [{ $count: 'count' }]
+        }
+      }
+    ];
+
+    const result = await Aircraft.aggregate(pipeline);
+    const data = result[0]?.data || [];
+    const totalItems = result[0]?.totalCount[0]?.count || 0;
+
+    res.json({
+      success: true,
+      data,
+      totalItems,
+      page,
+      pageSize,
+      pageCount: Math.ceil(totalItems / pageSize),
+      hasNext: page * pageSize < totalItems,
+      hasPrev: page > 1
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

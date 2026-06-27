@@ -8,12 +8,12 @@ export default function GlassCard({ contact }) {
   const description = contact?.home_hero_description || "Industry-leading marketing, data, and grit to help you buy or sell.";
   return (
     <>
-      <div className="w-full text-white text-center">
+      <div className="relative w-full text-white text-center">
         {/* Animated Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ amount: 0.2, once: true }}
-          animate={{ opacity: 1, y: 0 }}
           transition={{
             type: "spring",
             stiffness: 100,
@@ -27,8 +27,8 @@ export default function GlassCard({ contact }) {
         {/* Description */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ amount: 0.2, once: true }}
-          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.8 }}
           // className="text-sm md:text-base lg:text-lg py-3 ps-1 text-white/70 opacity-100"
         >
@@ -41,8 +41,8 @@ export default function GlassCard({ contact }) {
         </motion.div>
         <motion.div
           initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ amount: 0.2, once: true }}
-          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 1.2 }}
           className="md:flex hidden justify-center"
         >

@@ -23,7 +23,6 @@ const HomePage = () => {
   useEffect(() => {
     // Are we on Home?
     const onHome = location.pathname === "/";
-    console.log(location.pathname);
     const isScrollTo = sessionStorage.getItem("scrollTo");
   
     // No explicit target requested (na state.scrollTo, na hash)
