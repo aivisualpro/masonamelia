@@ -184,7 +184,7 @@ app.get('/api/aircrafts/lists/search', async (req, res) => {
     }
     
     // Limit results for autocomplete
-    const aircrafts = await Aircraft.find(query).limit(20);
+    const aircrafts = await Aircraft.find({ ...query, isDeleted: { $ne: true } }).limit(20);
     res.json({ success: true, data: aircrafts });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -217,7 +217,7 @@ app.get('/api/aircrafts/lists', async (req, res) => {
   await connectToDatabase();
   try {
     const { searchKeyword, status, minPrice, maxPrice, minAirframe, maxAirframe, minEngine, maxEngine, categories } = req.query;
-    const query = {};
+    const query = { isDeleted: { $ne: true } };
 
     query.status = buildStatusFilter(status);
     
@@ -267,7 +267,7 @@ app.get('/api/aircrafts/lists/ranges', async (req, res) => {
   await connectToDatabase();
   try {
     const { status, categories } = req.query;
-    const matchStage = {};
+    const matchStage = { isDeleted: { $ne: true } };
 
     matchStage.status = buildStatusFilter(status);
 
@@ -307,7 +307,7 @@ app.get('/api/aircrafts/relatedAircrafts', async (req, res) => {
     if (category && category !== 'undefined') query.category = category;
     if (status && status !== 'undefined') query.status = { $regex: new RegExp(status, 'i') };
     
-    const aircrafts = await Aircraft.find(query).limit(8).sort({ createdAt: -1 });
+    const aircrafts = await Aircraft.find({ ...query, isDeleted: { $ne: true } }).limit(8).sort({ createdAt: -1 });
     res.json({ success: true, data: aircrafts });
   } catch (err) {
     res.status(500).json({ error: err.message });

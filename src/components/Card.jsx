@@ -66,14 +66,20 @@ const Card = ({ detail, currentTab, highlighted = false }) => {
           className="relative overflow-hidden w-full aspect-video bg-[#1A1C24] flex items-center justify-center"
           style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }} // Another safari border-radius overflow fix
         >
-          <img
-            src={imgSrc}
-            alt={detail?.title || "aircraft"}
-            className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 transform-gpu"
-            style={{ WebkitBackfaceVisibility: "hidden", backfaceVisibility: "hidden", WebkitTransform: "translate3d(0, 0, 0)", transform: "translate3d(0, 0, 0)" }}
-            loading="lazy"
-            decoding="async"
-          />
+          {imgSrc ? (
+            <img
+              src={imgSrc}
+              alt={detail?.title || "aircraft"}
+              className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 transform-gpu"
+              style={{ WebkitBackfaceVisibility: "hidden", backfaceVisibility: "hidden", WebkitTransform: "translate3d(0, 0, 0)", transform: "translate3d(0, 0, 0)" }}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center text-white/20 text-sm">
+              No Image
+            </div>
+          )}
           {/* Subtle Overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#1A1C24] to-transparent opacity-0 group-hover:opacity-40 transition-opacity duration-300"></div>
         </div>
