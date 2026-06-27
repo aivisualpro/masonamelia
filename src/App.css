@@ -15,6 +15,7 @@ body {
 
 .brand_img {
   filter: brightness(0) invert(1);
+  mix-blend-mode: screen;
 }
 /* .brand_img:hover {
   filter: none !important;
