@@ -46,6 +46,17 @@ const extractItems = (html = "") => {
   }
 };
 
+/** Check whether HTML has any meaningful text content beyond just whitespace / empty tags */
+const hasVisibleContent = (html = "") => {
+  try {
+    const div = document.createElement("div");
+    div.innerHTML = html;
+    return (div.textContent || "").trim().length > 0;
+  } catch {
+    return false;
+  }
+};
+
 const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -257,12 +268,21 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
     setActiveTab(tabs?.[0]?.slug || "general");
   }, [tabs]);
 
-  const activeItems = useMemo(() => {
+  const activeContent = useMemo(() => {
     const sec = sections?.[activeTab];
-    if (!sec) return [];
-    if (Array.isArray(sec.items) && sec.items.length) return sec.items;
-    if (sec.html) return extractItems(sec.html);
-    return [];
+    if (!sec) return { items: [], html: '' };
+    // If legacy items array is present, use it
+    if (Array.isArray(sec.items) && sec.items.length) return { items: sec.items, html: '' };
+    // Try to extract bullet items from HTML
+    if (sec.html) {
+      const items = extractItems(sec.html);
+      if (items.length) return { items, html: '' };
+      // Fallback: render as raw HTML (paragraphs, mixed content, etc.)
+      if (hasVisibleContent(sec.html)) return { items: [], html: sec.html };
+    }
+    // Also support plain text field
+    if (sec.text && sec.text.trim()) return { items: [], html: `<p>${sec.text}</p>` };
+    return { items: [], html: '' };
   }, [sections, activeTab]);
 
   const handleThumbnailClick = (i) => {
@@ -872,18 +892,36 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                     {titleCase(activeTab)}
                   </h2>
                 </div>
-                <div className="md:w-[80%] grid grid-cols-1 md:grid-cols-2 gap-x-10">
-                  {activeItems.length === 0 ? (
-                    <p className="text-[1.2rem] xl:text-[1.5rem] text-white/70 py-4">No data available.</p>
-                  ) : (
-                    activeItems.map((item, index) => (
-                      <div key={index} className="text-sm py-3">
-                        <div className="flex items-center text-white/80 text-lg border-b border-dashed border-[#46485D] pb-3 font-medium">
-                          <div className="w-2 h-2 rounded-full bg-[#268AE0] mr-4 shrink-0 shadow-[0_0_8px_rgba(38,138,224,0.4)]" />
-                          {item}
+                <div className="md:w-[80%]">
+                  {activeContent.items.length > 0 ? (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10">
+                      {activeContent.items.map((item, index) => (
+                        <div key={index} className="text-sm py-3">
+                          <div className="flex items-center text-white/80 text-lg border-b border-dashed border-[#46485D] pb-3 font-medium">
+                            <div className="w-2 h-2 rounded-full bg-[#268AE0] mr-4 shrink-0 shadow-[0_0_8px_rgba(38,138,224,0.4)]" />
+                            {item}
+                          </div>
                         </div>
-                      </div>
-                    ))
+                      ))}
+                    </div>
+                  ) : activeContent.html ? (
+                    <div
+                      className="
+                        text-white/80 text-lg py-4
+                        [&_p]:mb-3 [&_p:last-child]:mb-0
+                        [&_strong]:text-white
+                        [&_ul]:list-disc [&_ul]:pl-6
+                        [&_ol]:list-decimal [&_ol]:pl-6
+                        [&_li]:mb-1
+                        [&_a]:underline [&_a]:text-[#7cc3ff]
+                        [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-3
+                        [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-2
+                        [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mb-2
+                      "
+                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(activeContent.html, { USE_PROFILES: { html: true } }) }}
+                    />
+                  ) : (
+                    <p className="text-[1.2rem] xl:text-[1.5rem] text-white/70 py-4">No data available.</p>
                   )}
                 </div>
               </div>
