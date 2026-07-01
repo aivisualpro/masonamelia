@@ -3,6 +3,7 @@
 import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import DOMPurify from "dompurify";
+import { optimizeCloudinaryUrl } from "../utils/cloudinary";
 
 const categoryGradients = {
   acquired: ["from-[#ff0000]", "to-[#fc6262]"],
@@ -38,7 +39,7 @@ const Card = ({ detail, currentTab, highlighted = false }) => {
     .map((w) => String(w).toUpperCase())
     .join(" ");
 
-  const imgSrc = detail?.featuredImage || "";
+  const imgSrc = useMemo(() => optimizeCloudinaryUrl(detail?.featuredImage || '', { width: 600 }), [detail?.featuredImage]);
 
   return (
     <Link to={`/showroom/${detail?._id}`} id={`card-${detail?._id}`} className="group block h-full">

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, useRef, useCallback } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import { optimizeCloudinaryUrl } from "../utils/cloudinary";
 import { IoImageOutline, IoCheckmarkDoneOutline } from "react-icons/io5";
 import { FaRegCirclePlay, FaPhone } from "react-icons/fa6";
 import { TfiEmail } from "react-icons/tfi";
@@ -244,6 +245,16 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
     [aircraft]
   );
 
+  // Optimized image URLs — main hero at 1200px, thumbnails at 150px
+  const optimizedGallery = useMemo(
+    () => gallery.map((url) => optimizeCloudinaryUrl(url, { width: 1200 })),
+    [gallery]
+  );
+  const optimizedThumbs = useMemo(
+    () => gallery.map((url) => optimizeCloudinaryUrl(url, { width: 150 })),
+    [gallery]
+  );
+
   // ---- Tabs from backend sections ----
   const sections = aircraft?.description?.sections || {};
   const tabs = useMemo(() => {
@@ -381,7 +392,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   />
                 ) : (
                   <img
-                    src={gallery?.[activeImgIndex]}
+                    src={optimizedGallery?.[activeImgIndex]}
                     alt="Main Aircraft"
                     className="w-full object-cover lg:rounded-2xl cursor-pointer"
                     onClick={(e) => onOpenModal(activeImgIndex, gallery, e.currentTarget.getBoundingClientRect())}
@@ -407,12 +418,12 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                     {gallery?.map((src, i) => (
                       <SwiperSlide key={i} className="">
                         <img
-                          src={src}
+                          src={optimizedThumbs[i]}
                           alt={`Thumb ${i}`}
                           className={`${activeImgIndex === i && !showVideo
                             ? "border-2 border-[#1777cb] opacity-70"
                             : ""
-                            } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
+                            } cursor-pointer h-[80px] object-cover w-full rounded-xl`}
                           onClick={() => handleThumbnailClick(i)}
                         />
                       </SwiperSlide>
@@ -644,7 +655,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                     />
                   ) : (
                     <img
-                      src={gallery?.[activeImgIndex]}
+                      src={optimizedGallery?.[activeImgIndex]}
                       alt="Main Aircraft"
                       className="w-full h-[400px] object-cover lg:rounded-2xl cursor-pointer"
                       onClick={(e) => onOpenModal(activeImgIndex, gallery, e.currentTarget.getBoundingClientRect())}
@@ -670,12 +681,12 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                       {gallery?.map((src, i) => (
                         <SwiperSlide key={i} className="">
                           <img
-                            src={src}
+                            src={optimizedThumbs[i]}
                             alt={`Thumb ${i}`}
                             className={`${activeImgIndex === i && !showVideo
                               ? "border-2 border-[#1777cb] opacity-70"
                               : ""
-                              } cursor-pointer lg:h-full h-[70px] lg:object-contain object-cover w-full lg:rounded-2xl`}
+                              } cursor-pointer h-[80px] object-cover w-full rounded-xl`}
                             onClick={() => handleThumbnailClick(i)}
                           />
                         </SwiperSlide>
