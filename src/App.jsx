@@ -64,7 +64,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/showroom" element={<ShowroomPage />} />
-        <Route path="/showroom/:id" element={<AircraftDetailPage />} />
+        <Route path="/showroom/:slug" element={<AircraftDetailPage />} />
         <Route path="/acquisition" element={<AcquisitionPage />} />
         <Route path="/brokerage" element={<BrokeragePage />} />
         <Route path="/ancillary" element={<AncillaryPage />} />

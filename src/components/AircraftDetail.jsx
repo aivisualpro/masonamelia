@@ -59,7 +59,7 @@ const hasVisibleContent = (html = "") => {
 };
 
 const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
@@ -93,10 +93,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
   // ─── Navigate back to showroom preserving filters ───
   const handleBack = useCallback(() => {
-    // Save the current aircraft id so the listing can highlight it
-    try { sessionStorage.setItem('showroom_highlight_id', id); } catch { }
+    // Save the current aircraft _id so the listing can highlight it
+    try { if (aircraft?._id) sessionStorage.setItem('showroom_highlight_id', aircraft._id); } catch { }
     navigate('/showroom', { state: { fromDetail: true } });
-  }, [navigate, id]);
+  }, [navigate, aircraft]);
 
   // ─── Navigate to Next aircraft in filtered list ───
   const handleNext = useCallback(() => {
@@ -106,16 +106,16 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       const ids = JSON.parse(stored);
       if (!Array.isArray(ids) || ids.length === 0) return;
 
-      const currentIdx = ids.indexOf(id);
+      const currentIdx = ids.indexOf(slug);
       const nextIdx = currentIdx === -1 ? 0 : (currentIdx + 1) % ids.length;
       const nextId = ids[nextIdx];
 
-      if (nextId && nextId !== id) {
+      if (nextId && nextId !== slug) {
         navigate(`/showroom/${nextId}`);
         window.scrollTo({ top: 0, behavior: 'instant' });
       }
     } catch { }
-  }, [id, navigate]);
+  }, [slug, navigate]);
 
   // ─── Navigate to Previous aircraft in filtered list ───
   const handlePrev = useCallback(() => {
@@ -125,16 +125,16 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       const ids = JSON.parse(stored);
       if (!Array.isArray(ids) || ids.length === 0) return;
 
-      const currentIdx = ids.indexOf(id);
+      const currentIdx = ids.indexOf(slug);
       const prevIdx = currentIdx === -1 ? 0 : (currentIdx - 1 + ids.length) % ids.length;
       const prevId = ids[prevIdx];
 
-      if (prevId && prevId !== id) {
+      if (prevId && prevId !== slug) {
         navigate(`/showroom/${prevId}`);
         window.scrollTo({ top: 0, behavior: 'instant' });
       }
     } catch { }
-  }, [id, navigate]);
+  }, [slug, navigate]);
 
   // ---- Fetch detail ----
   useEffect(() => {
@@ -144,7 +144,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       try {
         setErrMsg("");
         const res = await fetch(
-          `${import.meta.env.VITE_BASE_URL}/api/aircrafts/${id}`,
+          `${import.meta.env.VITE_BASE_URL}/api/aircrafts/${slug}`,
           { signal: ac.signal }
         );
         if (!res.ok) throw new Error(`Detail ${res.status}`);
@@ -159,7 +159,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       }
     })();
     return () => ac.abort();
-  }, [id]);
+  }, [slug]);
 
   // ─── Prefetch adjacent aircraft data + images ───
   useEffect(() => {
@@ -169,7 +169,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       const ids = JSON.parse(stored);
       if (!Array.isArray(ids) || ids.length <= 1) return;
 
-      const currentIdx = ids.indexOf(id);
+      const currentIdx = ids.indexOf(slug);
       if (currentIdx === -1) return;
 
       const adjacentIds = [
@@ -195,7 +195,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
         } catch { }
       });
     } catch { }
-  }, [id]);
+  }, [slug]);
 
   // ---- Fetch related (simple: all except current) ----
   useEffect(() => {
@@ -210,9 +210,10 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
         const json = await res.json();
         const rows = Array.isArray(json?.data) ? json.data : [];
         const mapped = rows
-          .filter((r) => r._id !== id)
+          .filter((r) => r._id !== aircraft?._id)
           .map((r) => ({
             _id: r._id,
+            slug: r.slug,
             title: r.title,
             price: Number(r.price || 0),
             featuredImage: r.featuredImage,
@@ -230,7 +231,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
       }
     })();
     return () => ac.abort();
-  }, [id, aircraft]);
+  }, [slug, aircraft]);
 
 
 
@@ -353,7 +354,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
         </div>
       )}
 
-      <div key={id}>
+      <div key={slug}>
           <section
             id="showroom"
             className="pb-20 pt-[98px] md:pb-20 md:pt-[calc(110px+76px)]"

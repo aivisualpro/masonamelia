@@ -164,7 +164,7 @@ export default function Listing({ autoScrollEnabled = true, q = "", initialFilte
   // ── Persist the filtered aircraft IDs list (for Next button on detail page) ──
   useEffect(() => {
     if (rows.length > 0) {
-      const ids = rows.map((r) => r._id);
+      const ids = rows.map((r) => r.slug || r._id);
       try { sessionStorage.setItem('showroom_aircraft_ids', JSON.stringify(ids)); } catch {}
     }
   }, [rows]);

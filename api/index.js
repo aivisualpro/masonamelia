@@ -343,11 +343,19 @@ app.get('/api/aircrafts/relatedAircrafts', async (req, res) => {
   }
 });
 
-// Single Aircraft
+// Single Aircraft (by slug or ObjectId)
 app.get('/api/aircrafts/:id', async (req, res) => {
   await connectToDatabase();
   try {
-    const aircraft = await Aircraft.findById(req.params.id);
+    const param = req.params.id;
+    // Try slug lookup first, then fallback to ObjectId
+    let aircraft = await Aircraft.findOne({ slug: param });
+    if (!aircraft) {
+      // Check if param looks like a valid MongoDB ObjectId (24 hex chars)
+      if (/^[0-9a-fA-F]{24}$/.test(param)) {
+        aircraft = await Aircraft.findById(param);
+      }
+    }
     if (!aircraft) return res.status(404).json({ error: 'Aircraft not found' });
     res.json({ success: true, data: aircraft });
   } catch (err) {

@@ -45,7 +45,7 @@ const Card = ({ detail, currentTab, highlighted = false }) => {
   const imgSrc = useMemo(() => optimizeCloudinaryUrl(detail?.featuredImage || '', { width: 600 }), [detail?.featuredImage]);
 
   return (
-    <Link to={`/showroom/${detail?._id}`} id={`card-${detail?._id}`} className="group block h-full">
+    <Link to={`/showroom/${detail?.slug || detail?._id}`} id={`card-${detail?._id}`} className="group block h-full">
       <div
         className={`relative h-full flex flex-col bg-[#1A1C24] rounded-2xl border overflow-hidden shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-white/10 hover:-translate-y-1 ${
           highlighted

@@ -227,7 +227,7 @@ const SearchBox = () => {
     } else if (e.key === "Enter") {
       if (highlight >= 0 && results[highlight]) {
         const item = results[highlight];
-        navigate(`/showroom/${item._id}`);
+        navigate(`/showroom/${item.slug || item._id}`);
         setOpen(false);
       } else {
         goSearchResults(query);
@@ -273,7 +273,7 @@ const SearchBox = () => {
               <ResultItem
                 item={item}
                 onMouseDown={() => {
-                  navigate(`/showroom/${item._id}`);
+                  navigate(`/showroom/${item.slug || item._id}`);
                   setOpen(false);
                 }}
               />
@@ -406,7 +406,7 @@ const SearchBox = () => {
                         item={item}
                         onMouseDown={() => {
                           // use onMouseDown to avoid blur closing before click
-                          navigate(`/showroom/${item._id}`);
+                          navigate(`/showroom/${item.slug || item._id}`);
                           setOpen(false);
                         }}
                       />
