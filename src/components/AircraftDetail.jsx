@@ -281,19 +281,16 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
 
   const activeContent = useMemo(() => {
     const sec = sections?.[activeTab];
-    if (!sec) return { items: [], html: '' };
-    // If legacy items array is present, use it
-    if (Array.isArray(sec.items) && sec.items.length) return { items: sec.items, html: '' };
-    // Try to extract bullet items from HTML
-    if (sec.html) {
-      const items = extractItems(sec.html);
-      if (items.length) return { items, html: '' };
-      // Fallback: render as raw HTML (paragraphs, mixed content, etc.)
-      if (hasVisibleContent(sec.html)) return { items: [], html: sec.html };
+    if (!sec) return '';
+    // If legacy items array is present, convert to an unordered list
+    if (Array.isArray(sec.items) && sec.items.length) {
+      return '<ul>' + sec.items.map((t) => `<li>${t}</li>`).join('') + '</ul>';
     }
+    // Use HTML directly — preserves <ol> numbering, <ul> bullets, <p> paragraphs, etc.
+    if (sec.html && hasVisibleContent(sec.html)) return sec.html;
     // Also support plain text field
-    if (sec.text && sec.text.trim()) return { items: [], html: `<p>${sec.text}</p>` };
-    return { items: [], html: '' };
+    if (sec.text && sec.text.trim()) return `<p>${sec.text}</p>`;
+    return '';
   }, [sections, activeTab]);
 
   const handleThumbnailClick = (i) => {
@@ -904,18 +901,7 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                   </h2>
                 </div>
                 <div className="md:w-[80%]">
-                  {activeContent.items.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10">
-                      {activeContent.items.map((item, index) => (
-                        <div key={index} className="text-sm py-3">
-                          <div className="flex items-center text-white/80 text-lg border-b border-dashed border-[#46485D] pb-3 font-medium">
-                            <div className="w-2 h-2 rounded-full bg-[#268AE0] mr-4 shrink-0 shadow-[0_0_8px_rgba(38,138,224,0.4)]" />
-                            {item}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : activeContent.html ? (
+                  {activeContent ? (
                     <div
                       className="
                         text-white/80 text-lg py-4
@@ -923,13 +909,13 @@ const AircraftDetail = ({ onOpenModal, currentIndex, setCurrentIndex }) => {
                         [&_strong]:text-white
                         [&_ul]:list-disc [&_ul]:pl-6
                         [&_ol]:list-decimal [&_ol]:pl-6
-                        [&_li]:mb-1
+                        [&_li]:mb-2 [&_li]:border-b [&_li]:border-dashed [&_li]:border-[#46485D] [&_li]:pb-2
                         [&_a]:underline [&_a]:text-[#7cc3ff]
                         [&_h1]:text-2xl [&_h1]:font-bold [&_h1]:mb-3
                         [&_h2]:text-xl [&_h2]:font-bold [&_h2]:mb-2
                         [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:mb-2
                       "
-                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(activeContent.html, { USE_PROFILES: { html: true } }) }}
+                      dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(activeContent, { USE_PROFILES: { html: true } }) }}
                     />
                   ) : (
                     <p className="text-[1.2rem] xl:text-[1.5rem] text-white/70 py-4">No data available.</p>
