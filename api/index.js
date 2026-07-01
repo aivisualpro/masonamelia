@@ -194,13 +194,13 @@ app.get('/api/aircrafts/lists/search', async (req, res) => {
 // Helper: build a status match filter
 function buildStatusFilter(status) {
   if (status && status !== 'all') {
-    let statusToQuery = status;
-    if (status === 'previous') statusToQuery = 'sold';
-    else if (status === 'off-market') statusToQuery = 'acquired';
-    return { $regex: new RegExp(statusToQuery, 'i') };
+    if (status === 'previous') return { $regex: new RegExp('sold', 'i') };
+    // "Off Market" tab shows both 'off-market' and legacy 'acquired' aircraft
+    if (status === 'off-market') return { $in: ['off-market', 'acquired'] };
+    return { $regex: new RegExp(status, 'i') };
   }
-  // 'all' filter excludes sold and acquired - they only show via their specific tabs
-  return { $nin: ['sold', 'acquired'] };
+  // 'all' filter excludes sold, acquired, and off-market - they only show via their specific tabs
+  return { $nin: ['sold', 'acquired', 'off-market'] };
 }
 
 // Helper: resolve category slugs → ObjectIds

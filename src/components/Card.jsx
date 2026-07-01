@@ -18,6 +18,9 @@ const categoryGradients = {
 const Card = ({ detail, currentTab, highlighted = false }) => {
   let status = (detail?.status || "").toLowerCase();
 
+  // Normalize legacy 'acquired' → 'off-market' so ribbon always says "OFF MARKET"
+  if (status === "acquired") status = "off-market";
+
   // If status is missing but we have a specific tab active, fallback to that tab's slug
   if (!status && currentTab && currentTab !== "all") {
     status = currentTab;
